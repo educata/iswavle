@@ -1,5 +1,12 @@
 
 
+## 1.1.0 (2023-11-12)
+
+
+### Features
+
+* introduction/what-is-javascript/variable ([#1](https://github.com/educata/iswavle/issues/1)) ([848372d](https://github.com/educata/iswavle/commit/848372d5139be23d30b13b015353af1969530caa))
+
 ## [1.0.0](https://github.com/educata/iswavle/compare/0.1.0...1.0.0) (2023-11-12)
 
 
