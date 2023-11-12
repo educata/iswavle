@@ -1,13 +1,20 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import marked from 'marked';
+import * as marked from 'marked';
+import frontMatter from 'front-matter';
+import { ArticleAttributes, FrontMatter } from '../shared/interfaces';
 
 const srcContentDir = './src/content';
 const srcAssetsDir = './src/assets';
 
-function renderMarkdownFile(filePath: string): string {
+function renderMarkdownFile(filePath: string) {
   const markdown = fs.readFileSync(filePath, 'utf8');
-  return marked.parse(markdown);
+  const parsedMarkdown = marked.parse(markdown.replace(/^---$.*^---$/ms, ''));
+  const data = frontMatter<FrontMatter<ArticleAttributes>>(markdown);
+  return {
+    content: parsedMarkdown,
+    frontMatter: data.attributes,
+  };
 }
 
 function createOutputDirectoryStructure(filePath: string) {
@@ -29,15 +36,24 @@ function processMarkdownFiles(directory: string) {
       processMarkdownFiles(filePath);
     } else if (file.endsWith('.md')) {
       const outputPath = createOutputDirectoryStructure(filePath);
-      const renderedHtml = renderMarkdownFile(filePath);
+      const data = renderMarkdownFile(filePath);
+
       fs.writeFileSync(
         outputPath.replace('.md', '.html'),
-        renderedHtml,
-        'utf8'
+        data.content,
+        'utf-8'
+      );
+
+      fs.writeFileSync(
+        outputPath.replace('.md', '.json'),
+        JSON.stringify(data.frontMatter),
+        'utf-8'
       );
     }
   });
 }
+
+console.log();
 
 processMarkdownFiles(srcContentDir);
 console.log(
