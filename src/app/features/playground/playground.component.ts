@@ -6,8 +6,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './playground.component.html',
-  styleUrl: './playground.component.less'
+  styleUrl: './playground.component.less',
 })
-export class PlaygroundComponent {
-
-}
+export default class PlaygroundComponent {}

@@ -1,12 +1,30 @@
 {
   "name": "iswavle",
   "version": "1.1.0",
+  "description": "Learn web development by yourself",
+  "author": "Educata Authors",
   "type": "module",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/educata/everrest/issues"
+  },
+  "contributors": [
+    {
+      "name": "Konstantine Datunishvili",
+      "email": "konstantine@educata.dev",
+      "url": "https://konstantinedatunishvili.com"
+    },
+    {
+      "name": "Pridon Tetradze",
+      "email": "pridon@educata.dev",
+      "url": "https://pridontetradze.com"
+    }
+  ],
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "start": "yarn prerender && ng serve",
+    "build": "yarn prerender && ng build",
+    "watch": "yarn prerender && ng build --watch --configuration development",
     "test": "ng test",
     "prepare": "husky install",
     "prerender": "node --loader ts-node/esm ./prerender/render-content.ts",

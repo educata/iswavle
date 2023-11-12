@@ -1,0 +1,6 @@
+@if(article()) {
+<div [innerHTML]="article()?.content"></div>
+<div>
+  {{ article()?.attributes | json }}
+</div>
+}
