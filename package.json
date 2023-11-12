@@ -83,6 +83,14 @@
             {
               "type": "fix",
               "section": "Bug Fixes"
+            },
+            {
+              "type": "docs",
+              "section": "Documentations"
+            },
+            {
+              "type": "refactor",
+              "section": "Refactors"
             }
           ]
         }
