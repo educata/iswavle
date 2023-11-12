@@ -11,7 +11,10 @@
     "prerender": "node --loader ts-node/esm ./prerender/render-content.ts",
     "lint:md": "markdownlint **/*.md",
     "lint:md:fix": "markdownlint --fix **/*.md",
-    "release": "release-it"
+    "release": "release-it",
+    "release:minor": "release-it minor",
+    "release:patch": "release-it patch",
+    "release:major": "release-it major"
   },
   "private": true,
   "dependencies": {
