@@ -1,5 +1,12 @@
 
 
+## [1.0.0](https://github.com/educata/iswavle/compare/0.1.0...1.0.0) (2023-11-12)
+
+
+### Features
+
+* new scripts ([9269c93](https://github.com/educata/iswavle/commit/9269c933d69bc2b70d26ea1795d8d30f34bdd737))
+
 ## [0.1.1](https://github.com/educata/iswavle/compare/0.1.0...0.1.1) (2023-11-12)
 
 
