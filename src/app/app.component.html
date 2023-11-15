@@ -1,3 +1,29 @@
-<a routerLink="guides/javascript/variable">Variables</a>
-<a routerLink="guides/javascript/index">index</a>
+<ul>
+  @for (section of navigation; track section.title) {
+  <details>
+    <summary>{{ section.title }}</summary>
+    <ul>
+      @for (subject of section.children; track subject.title) {
+      <li>
+        {{ subject.title }}
+        <ul>
+          @for (item of subject.children; track item.title) {
+          <li>
+            <a
+              [ngStyle]="{
+                'text-decoration': item.depricated ? 'line-through' : 'initial'
+              }"
+              [routerLink]="['/', section.path, subject.path, item.path]"
+              >{{ item.title }}</a
+            >
+          </li>
+          }
+        </ul>
+      </li>
+      }
+    </ul>
+  </details>
+  }
+</ul>
+
 <router-outlet></router-outlet>
