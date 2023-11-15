@@ -5,4 +5,5 @@ export interface ArticleAttributes {
   cover?: string;
   slug?: string;
   keywords?: string;
+  depricated?: boolean;
 }

@@ -1,3 +1,25 @@
-<a routerLink="guides/javascript/variable">Variables</a>
-<a routerLink="guides/javascript/index">index</a>
+<ul>
+  @for (section of navigation; track section.title) {
+  <details>
+    <summary>{{ section.title }}</summary>
+    <ul>
+      @for (subject of section.items; track subject.title) {
+      <li>
+        {{ subject.title }}
+        <ul>
+          @for (item of subject.items; track item.title) {
+          <li>
+            <a [routerLink]="['/', section.path, subject.path, item.path]">{{
+              item.title
+            }}</a>
+          </li>
+          }
+        </ul>
+      </li>
+      }
+    </ul>
+  </details>
+  }
+</ul>
+
 <router-outlet></router-outlet>
