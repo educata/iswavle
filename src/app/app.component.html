@@ -1,3 +1,12 @@
-<a routerLink="guides/javascript/variable">Variables</a>
-<a routerLink="guides/javascript/index">index</a>
-<router-outlet></router-outlet>
+<nz-layout>
+  <nz-header>
+    <ul nz-menu nzTheme="light" nzMode="horizontal">
+      <li nz-menu-item>nav 1</li>
+      <li nz-menu-item>nav 2</li>
+      <li nz-menu-item>nav 3</li>
+    </ul>
+  </nz-header>
+  <nz-content>
+    <router-outlet></router-outlet>
+  </nz-content>
+</nz-layout>
