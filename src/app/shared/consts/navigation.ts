@@ -1,19 +1,19 @@
-import { NavigationList } from '../interfaces';
+import { NavigationTreeNode } from '../interfaces';
 
-export const NAVIGATION: NavigationList = [
+export const NAVIGATION: NavigationTreeNode[] = [
   {
     title: 'Guides',
     path: 'guides',
-    items: [
+    children: [
       {
         title: 'HTML&CSS',
         path: 'html-css',
-        items: [{ title: 'შესავალი', path: 'introduction' }],
+        children: [{ title: 'შესავალი', path: 'introduction' }],
       },
       {
         title: 'JavaScript',
         path: 'javascript',
-        items: [
+        children: [
           { title: 'შესავალი', path: 'introduction' },
           { title: 'რა არის JavaScript', path: 'what-is-javascript' },
           { title: 'ცვლადი', path: 'variable' },
@@ -22,7 +22,24 @@ export const NAVIGATION: NavigationList = [
       {
         title: 'Angular',
         path: 'angular',
-        items: [{ title: 'შესავალი', path: 'introduciton' }],
+        children: [{ title: 'შესავალი', path: 'introduciton' }],
+      },
+    ],
+  },
+  {
+    title: 'References',
+    path: 'references',
+    children: [
+      {
+        title: 'HTML',
+        path: 'html',
+        children: [
+          {
+            title: '<center>',
+            path: 'center',
+            depricated: true,
+          },
+        ],
       },
     ],
   },

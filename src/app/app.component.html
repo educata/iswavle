@@ -3,15 +3,19 @@
   <details>
     <summary>{{ section.title }}</summary>
     <ul>
-      @for (subject of section.items; track subject.title) {
+      @for (subject of section.children; track subject.title) {
       <li>
         {{ subject.title }}
         <ul>
-          @for (item of subject.items; track item.title) {
+          @for (item of subject.children; track item.title) {
           <li>
-            <a [routerLink]="['/', section.path, subject.path, item.path]">{{
-              item.title
-            }}</a>
+            <a
+              [ngStyle]="{
+                'text-decoration': item.depricated ? 'line-through' : 'initial'
+              }"
+              [routerLink]="['/', section.path, subject.path, item.path]"
+              >{{ item.title }}</a
+            >
           </li>
           }
         </ul>

@@ -1,2 +1,2 @@
 export * from './doc';
-export * from './navigation-list';
+export * from './navigation-tree-node';
