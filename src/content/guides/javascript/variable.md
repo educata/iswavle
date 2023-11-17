@@ -1,7 +1,7 @@
 ---
-title: "ცვლადები JavaScript-ში"
-description: "let vs var vs const"
-keywords: "js, javascript, ჯავასკრიპტი, var, let, const, global-scope, cvladis saxeli, ცვლადის სახელი, ცვლადის სახელის სტილი, ცვლადი, ცვლადები"
+title: 'ცვლადები JavaScript-ში'
+description: 'let vs var vs const'
+keywords: 'js, javascript, ჯავასკრიპტი, var, let, const, global-scope, cvladis saxeli, ცვლადის სახელი, ცვლადის სახელის სტილი, ცვლადი, ცვლადები'
 headings:
   - var
   - let
@@ -34,9 +34,9 @@ const-ით ინიციალიზება საკმაოდ გა�
 მაგალითები:
 
 ```js
-var projectName = "EverREST"; // Camelcase
-let organization_name = "Educata"; // Snakecase
-const DocumentationProject = "Iswavle"; // Pascalcase
+var projectName = 'EverREST'; // Camelcase
+let organization_name = 'Educata'; // Snakecase
+const DocumentationProject = 'Iswavle'; // Pascalcase
 ```
 
 ## ცვლადის სახელი
