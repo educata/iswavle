@@ -100,3 +100,76 @@ h1 {
 
 თუმცა გაითვალისწინეთ, რომ ინლაინ სტილების ხშირად გამოყენება რეკომენდირებული არ არის.
 ყველაზე პრიორიტეტულია ცალკეული სტილის ფაილების გამოყენება.
+
+## გასტილვა `id`-ითა და `class`-ით
+
+ზემოთ მოცემულ ნიმუშში, ჩვენ სელექტორებად ვიყენებთ უშუალოდ ელემენტების სახელს,
+რაც იმას ნიშნავს, რომ სტილები გავრცელდება აბსოლუტურად _ყველა_ ამ სახელის მქონე ელემენტზე.
+არის შემთხვევები, როცა ჩვენ ერთი და იმავა ელემენტებში ზოგის გასტილვა გვინდა და ზოგის -- არა.
+მაშინ ჩვენ გვჭირდება, რომ სახელის მაგივრად რაიმე სხვა ნიშნით **განვასხვავოთ** ან **დავაჯგუფოთ** ელემენტები.
+
+### `id` ატრიბუტით გასტილვა
+
+[`id`]() არის ატრიბუტი, რომლითაც ჩვენ შეგვიძლია ელემენტებს მივანიჭოთ უნიკალური იდენტიფიკატორები.
+აუცილებელია, რომ ერთი ელემენტის `id` არ ემთხვეოდეს სხვას, თორემ ამ ატრიბუტის გამოყენებას აზრი არ ექნება!
+
+ვთქვათ, დოკუმენტში გვაქვს რამდენიმე პარაგრაფი, მაგრამ მხოლოდ ერთის გასტილვა გვინდა:
+
+```html
+<h1>ისწავლეთ ვებ დეველოპმენტი</h1>
+<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus, quos?</p>
+<p id="special">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus, quos?</p>
+<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus, quos?</p>
+<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus, quos?</p>
+```
+
+CSS-ში ახლა შეგვიძლია `special` აიდის მქონე ელემენტი გავსტილოთ. აიდის სელექტორი იწყება `#` სიმბოლოთო.
+
+```css
+h1 {
+  color: red;
+  font-size: 40px;
+}
+
+#special {
+  color: blue;
+}
+```
+
+### `class` ატრიბუტით გასტილვა
+
+[`class`]() ატრიბუტით შეგვიძლია დავაჯგუფოთ ელემენტები. ვთქვათ ბოლო სამი პარაგრაფი გვინდა, რომ იყოს
+სხვა ფერის. მაშინ ამ ელემენტებს მივანიჭოთ რაიმე კლასი:
+
+```html
+<h1>ისწავლეთ ვებ დეველოპმენტი</h1>
+<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus, quos?</p>
+<p class="colored" id="special">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus, quos?</p>
+<p class="colored">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus, quos?</p>
+<p class="colored">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus, quos?</p>
+```
+
+სტილებში კლასის სელექტორი გამოვიყენოთ, რომელიც `.` სიმბოლოთი იწყება:
+
+```css
+h1 {
+  color: red;
+  font-size: 40px;
+}
+
+#special {
+  color: blue;
+}
+
+.colored {
+  color: purple;
+}
+```
+
+აქ საინტერესო რაღაც მოხდება, თუ შედეგს ვნახავთ ბრაუზერში: ყველა `colored` კლასის მქონე ელემენტი არის იისფერი,
+გარდა იმ ელემენტისა, რომელსაც ასევე აქვს `id` მნიშვნელობით `special`. იგი დარჩა ლურჯი! რატომ?
+
+## სპეციფიკურობა
+
+CSS-ში არსებობს [სპეციფიკურობის კანონი](), რომლის მიხედვითაც კონკრეტულ სელექტორებს უფრო მეტი პრიორიტეტი ენიჭებათ.
+წინა მაგალითში `special` აიდის მქონე ელემენზე კონფლიქტში მოდის `color` თვისება
