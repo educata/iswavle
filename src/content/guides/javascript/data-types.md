@@ -70,7 +70,7 @@ anyValue = null;
 
 ## Number ტიპი
 
-[Number](./references/javascript/number) ტიპი ინახავს რიცხვებს. მას შეუძლია შეინახოს დადებითი რიცხვები 2<sup>-1074</sup> ([`Number.MIN_VALUE`](./references/javascript/number/min_value)) და 2<sup>1024</sup> ([`Number.MAX_VALUE`](./references/javascript/number/max_value)) ინტერვალში, ასევე გვაქვს უარყოფითი რიცხვებისთვისაც ინტერვალი -2<sup>-1024</sup> და -2<sup>1024</sup>, თუმცა უსაფრთხოდ შეიძლება შევინახოთ მთელი რიცხვები შემდგომ ინტერვალში: -(2<sup>53</sup> - 1) ([`Number.MIN_SAFE_INTEGER`](./references/javascript/min_safe_integer)) დან 2<sup>53</sup> - 1 ([`Number.MAX_SAFE_INTEGER`](./references/javascript/max_safe_integer)) მდე. ამ ინტერვალის გარეთ JavaScript არ შეუძლია მთელი რიცხვების უსაფრთხოდ წარმოდგენა, ინტერვალის გარეთ წარმოადგენს, როგორც ათწილად რიცხვებს. თუ გსურთ რიცხვის შემოწმება, არის თუ არა უსაფრთხო ინტერვალში, შეგიძლიათ გამოიყენოთ [`Number.isSafeInteger()`](./references/javascript/number/isSafeInteger) მეთოდი.
+[Number](./references/javascript/number) ტიპი ინახავს რიცხვებს. მას შეუძლია შეინახოს დადებითი რიცხვები 2<sup>-1074</sup> ([`Number.MIN_VALUE`](./references/javascript/number/min_value)) და 2<sup>1024</sup> ([`Number.MAX_VALUE`](./references/javascript/number/max_value)) ინტერვალში, ასევე გვაქვს უარყოფითი რიცხვებისთვისაც ინტერვალი -2<sup>-1024</sup> და -2<sup>1024</sup>, თუმცა უსაფრთხოდ შეიძლება შევინახოთ მთელი რიცხვები შემდგომ ინტერვალში: -(2<sup>53</sup> - 1) ([`Number.MIN_SAFE_INTEGER`](./references/javascript/number/min_safe_integer)) დან 2<sup>53</sup> - 1 ([`Number.MAX_SAFE_INTEGER`](./references/javascript/number/max_safe_integer)) მდე. ამ ინტერვალის გარეთ JavaScript არ შეუძლია მთელი რიცხვების უსაფრთხოდ წარმოდგენა, ინტერვალის გარეთ წარმოადგენს, როგორც ათწილად რიცხვებს. თუ გსურთ რიცხვის შემოწმება, არის თუ არა უსაფრთხო ინტერვალში, შეგიძლიათ გამოიყენოთ [`Number.isSafeInteger()`](./references/javascript/number/isSafeInteger) მეთოდი.
 
 მნიშვნელობები შემდგომ ინტერვალში ±(2<sup>-1074</sup> დან 2<sup>1024</sup> მდე), ავტომატურად გადაკეთდება:
 
@@ -119,5 +119,5 @@ console.log(name.length); // 7
 
 JavaScript-ში [`Object`](./references/javascript/object)-ები წარმოდგენილი არის, როგორც კოლექცია თვისებების. ობიექტის ტიპის იდეა არის, რომ შევინახოთ ერთი ტიპის ცვლადში, სხვადასხვა ტიპის მნიშვნელობები, სადაც თითოეულ მათგანს ექნება უნიკალური იდენტიფიკატორი(`key`). `key` შეიძლება წარმოვადგინოთ, როგორც [`string`](#string)-ით ან [`symbol`](#symbol)-ოთი. `key` საშუალებით შეგვიძლია, ამოვიღოთ შენახული თვისება ან მეთოდი (მეთოდი შესაძლებელია არ იყოს `key`-ზე მიბმული). უფრო დეტალურად ობიექტი განხილული იქნება:
 
-- [ობიექტის თავში](./guides/javascript/object)
+- [ობიექტის თავში](./guides/javascript/object-basics)
 - [ობიექტის ცნობარში](./references/javascript/object)
