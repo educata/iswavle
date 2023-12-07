@@ -1,7 +1,7 @@
 ---
-title: "JavaScript-ის შესავალი"
-description: "JavaScript მცირედი მიმოხილვა"
-keywords: "js, javascript, ჯავასკრიპტი, jit, first-class, node.js, apache couchdb, adobe acrobat, single-threaded, oop, framework, library, ecmascript"
+title: 'JavaScript-ის შესავალი'
+description: 'JavaScript მცირედი მიმოხილვა'
+keywords: 'js, javascript, ჯავასკრიპტი, jit, first-class, node.js, apache couchdb, adobe acrobat, single-threaded, oop, framework, library, ecmascript'
 headings:
   - რა არის JavaScript
   - სად გამოიყენება JavaScript
