@@ -55,7 +55,7 @@ function appendFileToHyperLinkList(data: string) {
   if (hrefs.length >= 1) {
     hrefs.forEach((href) => {
       const section = href.split('/')[1] as srcSectionDirType;
-      if (!hyperLinks[section].includes(href)) {
+      if (hyperLinks[section] && !hyperLinks[section].includes(href)) {
         hyperLinks[section].push(href.slice(3 + section.length));
       }
     });
