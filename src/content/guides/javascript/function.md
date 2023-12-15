@@ -217,6 +217,6 @@ printHere(); // დაილოგება "Here"
 
 ## ასინქრონული ფუნქციები
 
-ასინქრონული ტიპის ფუნქციები საშუალების გვაძლევს [`promise`](./references/javascript/promise)-ებს მოვუსმინოთ [`await`](./references/javascript/promise#await) ქივორდის საშუალებით, რაც გვაძლევს საშუალებით უფრო სუფთა კოდი დავწეროთ და თავი ავარიდოთ პრომისების გრძელ კოდს.
+ასინქრონული ტიპის ფუნქციები საშუალების გვაძლევს [`promise`](./references/javascript/promise)-ებს მოვუსმინოთ [`await`](./references/javascript/promise#await) ქივორდის საშუალებით, შედეგად კი ვღებულობთ უფრო სუფთა კოდს (თავს ვარიდებთ პრომისების გრძელ კოდს).
 
 ასინქრონული პროგრამირების იდეა განხილული იქნება [`promise & async`](./guides/javascript/promise&async) თავში.
