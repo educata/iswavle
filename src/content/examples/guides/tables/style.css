@@ -1,0 +1,23 @@
+table {
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: rgb(55, 89, 161);
+  color: white;
+}
+
+tbody {
+  background-color: rgb(240, 240, 240);
+}
+
+tfoot {
+  text-align: center;
+  background-color: rgb(219, 219, 219);
+}
+
+td,
+th {
+  padding: 8px; /* ცოტა თავისუფალი სივრცე ელემენტის კონტენტსა და ჩარჩოებს შორის*/
+  border: 1px solid black;
+}
