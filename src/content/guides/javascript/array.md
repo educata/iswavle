@@ -185,4 +185,11 @@ console.log(`Our projects ${projects.join('|')}`); // 'iswavle|EverREST|educata'
 
 ## concat
 
-## WIP
+[`concat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat) მეთოდი გამოიყენება მასივების გასაერთიანებლად. მეთოდი პარამეტრად ღებულობს მასივს ან მასივებს. მეთოდი აბრუნებს გაერთიანებულ მასივს.
+
+```js
+const firstArray = [1, 2, 3, 4, 5];
+const secondArray = [6, 7, 8, 9, 10];
+const concatedArray = firstArray.concat(secondArray);
+console.log(concatedArray); // მსგავს ტიპად შეიქმნება ახალი მასივი პირველი მასივის და მეორე მასივის ელემენტებით
+```
