@@ -193,3 +193,13 @@ const secondArray = [6, 7, 8, 9, 10];
 const concatedArray = firstArray.concat(secondArray);
 console.log(concatedArray); // მსგავს ტიპად შეიქმნება ახალი მასივი პირველი მასივის და მეორე მასივის ელემენტებით
 ```
+
+## map
+
+[`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) მეთოდი გამოიყენება მასივის ელემენტების მოდიფიცირებებისათვის. მასივი პარამეტრად ღებულობს [callbackFn](#callbackFn_როგორც_მასივის_პარამეტრი) ფუნქციას. მეთოდი აბრუნებს ახალ მოდიფიცირებულ მასივს.
+
+```js
+const randomNumbers = [1, 2, 3, 4, 5];
+const squareRandomNumbers = randomNumbers.map((number) => number * number);
+console.log(squareRandomNumbers); // [1, 4, 9, 16, 25]
+```
