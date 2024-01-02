@@ -253,3 +253,19 @@ console.log(randomNumbers.flat(Infinity)); // [22, 7, 10, 30, 6, 11, 9]
 ```
 
 მაგალითის კომენტარში სიტყვა `Array` გულისხმობს მასივს, `Infinity` გადაცემის შემთხვევაში მთლიანად ერთ დონეზე გაერთიანდება ელემენტები.
+
+## flatMap
+
+[`flatMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap) მეთოდი საკუთარ თავში აერთიანებს ორ მეთოდს: [`map`](#map) და [`flat`](#flat). მეთოდი აბრუნებს მოდიფიცირებულ მასივს და ამავდროულად ერთ დონეზე დაყავს ელემენტები. თითქმის იდენტურია `map` მეთოდის თუმცა ამ ორი მეთოდის ცალ-ცალკე გამოყენებას ჯობია ერთჯერადად ორივე მეთოდის გამოყენება.
+
+```js
+const nestedArray = [
+  [1, 2],
+  [3, 4],
+  [5, 6],
+];
+const flattenedArray = nestedArray.flatMap((innerArray) => innerArray.map((number) => number * 2));
+console.log(flattenedArray); // [2, 4, 6, 8, 10, 12]
+```
+
+კონკრეტულ შემთხვევაში ყოველი ჩალაგებული მასივის მოდიფიცირება მოვახდინეთ და შემდგომ ერთ დონეზე დავიყვანეთ ყოველი ელემენტი. ამ მაგალითისთვის `flatMap` გარეშე მოგვიწევდა: 2 ჯერ `map` გამოყენება და ცალკე `flat` მეთოდების.
