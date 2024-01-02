@@ -119,6 +119,19 @@ console.log(randomNumbers.shift()); // 2
 console.log(randomNumbers); // [22]
 ```
 
+### includes
+
+[`includes`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes) მეთოდი გამოიყენება იმისათვის, რომ შევამოწმოთ მასივში არსებობს თუ არა კონკრეტული ელემენტი. მეთოდი აბრუნებს `true` ან `false`.
+
+```js
+const randomNumbers = [22, 7, 10, 30, 6, 11, 9];
+console.log(randomNumbers.includes(22)); // true
+console.log(randomNumbers.includes(31)); // false
+const cities = ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Gori', 'Zugdidi', 'Poti', 'Kobuleti'];
+console.log(randomNumbers.includes('Batumi')); // true
+console.log(randomNumbers.includes('Borjomi')); // false
+```
+
 ### indexOf და lastIndexOf
 
 მასივში თუ არ ვიცით კონკრეტული ელემენტის ინდექსი, მისი პოვნისთვის შეგვიძლია შემდგომი მეთოდების გამოყენება: [`indexOf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf) და [`lastIndexOf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf).
