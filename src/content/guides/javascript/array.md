@@ -239,3 +239,17 @@ const cities = ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Gori', 'Zugdidi', 'P
 const filteredCities = cities.filter((city) => city.length > 5);
 console.log(filteredCities); // ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Zugdidi', 'Kobuleti']
 ```
+
+## flat
+
+[`flat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat) მეთოდი აბრუნებს ახალ მასივს სადაც ამოღებული იქნება ჩალაგებული მასივები (nested მასივები, მატრიცის მსგავსი მასივები). მეთოდი პარამეტრად ღებულობს თუ რა დონემდე უნდა მოხდეს მასივების ამოღება, ნაგულისხმევი მნიშვნელობა არის 1 ტოლი.
+
+```js
+const randomNumbers = [22, 7, 10, [30, [6, [11, [9]]]]];
+console.log(randomNumbers.flat()); // [22, 7, 10, 30, Array [6, Array [11, Array [9]]]]
+console.log(randomNumbers.flat(2)); // [22, 7, 10, 30, 6, Array [11, Array [9]]]
+console.log(randomNumbers.flat(3)); // [22, 7, 10, 30, 6, 11, Array [9]]
+console.log(randomNumbers.flat(Infinity)); // [22, 7, 10, 30, 6, 11, 9]
+```
+
+მაგალითის კომენტარში სიტყვა `Array` გულისხმობს მასივს, `Infinity` გადაცემის შემთხვევაში მთლიანად ერთ დონეზე გაერთიანდება ელემენტები.
