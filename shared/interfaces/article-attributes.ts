@@ -6,4 +6,5 @@ export interface ArticleAttributes {
   slug?: string;
   keywords?: string;
   depricated?: boolean;
+  redirectTo?: string;
 }

@@ -17,6 +17,10 @@ export const NAVIGATION: NavigationTreeNode[] = [
           { title: 'შესავალი', path: 'introduction' },
           { title: 'რა არის JavaScript', path: 'what-is-javascript' },
           { title: 'ცვლადი', path: 'variable' },
+          { title: 'მონაცემთა ტიპები', path: 'data-types' },
+          { title: 'ოპერაციები და ოპერატორები', path: 'operations-operators' },
+          { title: 'ლოგიკური გამოსახულებები', path: 'logical-expression' },
+          { title: 'ფუნქცია', path: 'function' },
         ],
       },
       {
