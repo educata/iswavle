@@ -282,3 +282,14 @@ console.log(flattenedArray); // [2, 4, 6, 8, 10, 12]
 ```
 
 კონკრეტულ შემთხვევაში ყოველი ჩალაგებული მასივის მოდიფიცირება მოვახდინეთ და შემდგომ ერთ დონეზე დავიყვანეთ ყოველი ელემენტი. ამ მაგალითისთვის `flatMap` გარეშე მოგვიწევდა: 2 ჯერ `map` გამოყენება და ცალკე `flat` მეთოდების.
+
+## reverse
+
+[`reverse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse) მეთოდი აბრუნებს შებრუნებულ მასივს.
+
+```js
+const randomNumbers = [22, 7, 10, 30, 6, 11, 9];
+console.log(randomNumbers.reverse()); // [9, 11, 6, 30, 10, 7, 22]
+const cities = ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Gori', 'Zugdidi', 'Poti', 'Kobuleti'];
+console.log(cities.reverse()); // ['Kobuleti', 'Poti', 'Zugdidi', 'Gori', 'Rustavi', 'Kutaisi', 'Batumi', 'Tbilisi']
+```
