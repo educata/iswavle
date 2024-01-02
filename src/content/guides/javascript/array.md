@@ -4,6 +4,7 @@ description: 'მასივი და მისი მეთოდები Ja
 keywords: 'array'
 headings:
   - ინდექსები და მათზე წვდომა
+  - სად ინახება მასივის მნიშვნელობები ?
   - ორგანზომილებიანი მასივი
   - მასივის თვისებები და მეთოდები
   - length
@@ -16,11 +17,14 @@ headings:
   - find
   - forEach
   - join
+  - toString
   - concat
   - map
   - filter
   - flat
   - flatMap
+  - slice
+  - splice to toSpliced
   - reverse
   - sort და toSorted
 ---
@@ -46,6 +50,10 @@ console.log(fruits[5]); // undefined
 ```
 
 მასივის ელემენტს, რომ მივწდეთ საჭიროა `[]` ფრჩხილების გამოყენება. სინტაქსი არის შემდგომი: `მასივის_სახელი[ინდექსი]`.
+
+## სად ინახება მასივის მნიშვნელობები ?
+
+<!-- დასამატებელია -->
 
 ## ორგანზომილებიანი მასივი
 
@@ -224,6 +232,17 @@ console.log(`Our projects ${projects.join(' ')}`); // 'iswavle EverREST educata'
 console.log(`Our projects ${projects.join('|')}`); // 'iswavle|EverREST|educata'
 ```
 
+### toString
+
+[`toString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString) მეთოდი აბრუნებს მასივის ელემენტერებს, ერთი ტექსტური ელემენტის სახით. მეთოდი პარამეტრად არაფერს ღებულობს.
+
+```js
+const randomNumbers = [22, 7, 10, 30, 6, 11, 9];
+console.log(randomNumbers.toString()); // '22,7,10,30,6,11,9'
+const cities = ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Gori', 'Zugdidi', 'Poti', 'Kobuleti'];
+console.log(cities.toString()); // 'Tbilisi,Batumi,Kutaisi,Rustavi,Gori,Zugdidi,Poti,Kobuleti'
+```
+
 ### concat
 
 [`concat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat) მეთოდი გამოიყენება მასივების გასაერთიანებლად. მეთოდი პარამეტრად ღებულობს მასივს ან მასივებს. მეთოდი აბრუნებს გაერთიანებულ მასივს.
@@ -288,6 +307,24 @@ console.log(flattenedArray); // [2, 4, 6, 8, 10, 12]
 
 კონკრეტულ შემთხვევაში ყოველი ჩალაგებული მასივის მოდიფიცირება მოვახდინეთ და შემდგომ ერთ დონეზე დავიყვანეთ ყოველი ელემენტი. ამ მაგალითისთვის `flatMap` გარეშე მოგვიწევდა: 2 ჯერ `map` გამოყენება და ცალკე `flat` მეთოდების.
 
+### slice
+
+[`slice`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) მეთოდი ამოჭრის მასივის ელემენტებს და დააბრუნებს ახალ მასივს. მეთოდი ორ პარამეტრს ღებულობს:
+
+- `start` საწყის რიცხვის ინდექს თუ საიდან დაიწყოს ამოჭრა (თუ რიცხვი უარყოფითია მაშინ მასივის სიგრძესთან დაჯამდება, მაგ: -2 + `array.length`, რაც ბოლოდან მე-2 ელემენტი გამოდის).
+- `end` ბოლო რიცხვის ინდექს თუ სად დაამთავროს ამოჭრა. ეს პარამეტრი არ არის სავალდებულო, მისი არ გადაცემის შემთხვევაში იგულისხმება მასივის სიგრძე (`array.length`). თუ რიცხვი უარყოფითია იგივე ნაირად გადაკეთდება, როგორც საწყისი რიცხვის შემთხვევაში.
+
+```js
+const randomNumbers = [22, 7, 10, 30, 6, 11, 9];
+console.log(randomNumbers.slice(2)); // [10, 30, 6, 11, 9]
+console.log(randomNumbers.slice(2, 4)); // [10, 30]
+console.log(randomNumbers.slice(-3, -1)); // [6, 11]
+```
+
+### splice და toSpliced
+
+<!-- დასამატებელია -->
+
 ### reverse
 
 [`reverse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse) მეთოდი აბრუნებს შებრუნებულ მასივს. მეთოდი პარამეტრად არაფერს ღებულობს.
@@ -342,14 +379,3 @@ console.log(randomNumbers.toSorted((a, b) => b - a)); // [30, 22, 11, 10, 9, 7, 
 - `a` როგორც `22` და `b` როგორც `30` შემთხვევაში: `a - b` გვაძლევს -8, რადგანაც შედეგი ნაკლებია 0-ზე მასივში ელემნეტები ერთმანეთს ადგილს გაუცვლის, მასივი განიცდის მოდიფიცრებას და უკვე ჩაიწერება, როგორც: `[7, 10, 22, 30, 6, 11, 9]`. (ტექნიკურად იგივენაირად დარჩა დალაგებული მაგრამ რადგანაც უარყოფითი რიცხვი გვაქვს მაინც ხდება შეცვლის პროცესი).
 
 იგივე მოქმედებები გამეორდება ყოველი ელემენტისათვის, პირველივე იტერაციისთვის ყოველთვის არ იქნება მასივი დალაგებული ამიტომაც ხშირ შემთხვევაში დალაგება იწყება თავიდან, ბოლო ელემენტის გამოკლებით (რადგან უკვე ვიცით, რომ ერთი ელემენტი სწორ ადგილას არის მოთავსებული). მეტწილადად გვაქვს სხვადასხვა იტერაციების რაოდენობა, რადგან სხვადასხვა მაგალითებს სჭირდება სხვადასხვა ალგორითმები. უფრო დეტალურად თუ რამდენ და როგორ იტერაციებს გადის მასივის დალაგების ალგორითმები განხილული იქნება [`მასივის ალგორითმები`](./guides/javascript/array-algorithms)-ს თავში.
-
-### toString
-
-[`toString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString) მეთოდი აბრუნებს მასივის ელემენტერებს, ერთი ტექსტური ელემენტის სახით. მეთოდი პარამეტრად არაფერს ღებულობს.
-
-```js
-const randomNumbers = [22, 7, 10, 30, 6, 11, 9];
-console.log(randomNumbers.toString()); // '22,7,10,30,6,11,9'
-const cities = ['Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Gori', 'Zugdidi', 'Poti', 'Kobuleti'];
-console.log(cities.toString()); // 'Tbilisi,Batumi,Kutaisi,Rustavi,Gori,Zugdidi,Poti,Kobuleti'
-```
