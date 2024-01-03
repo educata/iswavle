@@ -21,6 +21,8 @@ export const NAVIGATION: NavigationTreeNode[] = [
           { title: 'ოპერაციები და ოპერატორები', path: 'operations-operators' },
           { title: 'ლოგიკური გამოსახულებები', path: 'logical-expression' },
           { title: 'ფუნქცია', path: 'function' },
+          { title: 'ობიექტები JavaScript-ში ნაწილი #1', path: 'object-basics' },
+          { title: 'მასივები JavaScript-ში', path: 'array' },
         ],
       },
       {
