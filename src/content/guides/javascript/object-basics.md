@@ -9,6 +9,8 @@ headings:
   - Bracket notation
   - რა არის This ?
   - ობიეტქის მეთოდები
+  - სად ინახება ობიექტები ?
+  - ობიექტის კოპირება
   - შეჯამება
 ---
 
@@ -126,9 +128,63 @@ const project = {
 - `logNameWithArrowFn` თვისებას მივანიჭეთ ანონიმური `arrow` ფუნქცია, რომელშიც ვლოგავთ ამავე ობიექტის `name`-ს.
 - `logNameMethod` მეთოდში ვლოგავთ ამავე ობიექტის `name`-ს.
 
+## სად ინახება ობიექტები ?
+
+პრიმიტიული ცვლადები (`string`, `number`, `bigint`, `boolean`, `undefined`, `symbol`, `null`) მარტივად ინახება მეხსიერების უბანზე. თითოეულ მნიშვნელობას გააჩნია თავიანთი ზომა და მისამართი. პრიმიტიული ცვალდებისთვის 1 ცვლადს გააჩნია 1 მისამართი, თუმცა გვაქვს ასევე შედარებით კომპლექსური ცვლადის ტიპები, რომლებიც მიუთითებს კონკრეტულად მისამართს და არა ცვლადის მნიშვნელობას. მაგალითისთვის შევადაროთ მნიშვნელობები:
+
+```js
+let age = 21;
+let age2 = age;
+console.log(age === age); // true
+
+const project = {
+  name: 'educata',
+};
+const project1 = project;
+console.log(project === project1); // true
+```
+
+ამ შემთხვევაში როცა ობიექტებს ვადარებთ, უშუალოდ არა მათ მნიშვნელობებს ვადარებთ არამედ მათ მისამართებს, ამიტომაც `project` `project1`-თან შედარების დროს დაგვიბრუნა `true`, რადგან 1 მისამართი არის. თუ შევცვლით `project1` მნიშვნელობას `project` მნიშვნელობაც შეიცვლება, რადგან საერთო მისამართ გააჩნიათ.
+
+```js
+const project = {
+  name: 'educata',
+};
+const project1 = project;
+console.log(project); // { name: 'educata' }
+console.log(project1); // { name: 'educata' }
+project1.name = 'iswavle';
+console.log(project); // { name: 'iswavle' }
+console.log(project1); // { name: 'iswavle' }
+```
+
 ## ობიექტის კოპირება
 
-<!-- დასამატებელია -->
+როგორ მოვიქცეთ თუ ახალი ობიექტის შექმნა გვსურს, რომელსაც განსხვავებული მისამართი ექნება მაგრამ იგივე მნიშვნელობები. ასეთ დროს გვჭირდება შემდგომი მიდგომების გამოყენება:
+
+- [`Object.assign()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) მეთოდის გამოყენებით.
+- `...` (spread) ოპერატორის გამოყენებით. სპრედ ოპერატორი გამოიყენება იმისათვის, რომ მნიშვნელობები ნელ-ნელა ამოვიღოთ ობიექტებიდან ([მასივებიდანაც](./guides/javascript/array)).
+- `JSON` გამოყენებით. [`JSON`](./guides/javascript/json)-ს სტატია.
+
+```js
+const project = {
+  name: 'educata',
+};
+const assignWay = Object.assign({}, project);
+assignWay.name = 'iswavle';
+console.log(project); // { name: 'educata' }
+console.log(assignWay); // { name: 'iswavle' }
+const spreadWay = { ...project };
+spreadWay.name = 'EverREST';
+console.log(project); // { name: 'educata' }
+console.log(spreadWay); // { name: 'EverREST' }
+const jsonWay = JSON.parse(JSON.stringify(project));
+jsonWay.name = 'Educata tutorials';
+console.log(project); // { name: 'educata' }
+console.log(jsonWay); // { name: 'Educata tutorials' }
+```
+
+მსგავსი მიდგომების გამოყენებით შესაძლებელია იგივე ობიექტის **მნიშვნელობის** მინიჭება განსხვავებული **მისამართით**.
 
 ## შეჯამება
 

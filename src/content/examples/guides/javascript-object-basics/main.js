@@ -24,3 +24,27 @@ const math = {
 
 console.log(math.fibonacci(7)); // დააბრუნებს ფიბონაჩის მიმდევრობინად 7 სერიას
 console.log(math.root(27, 3)); // დააბრუნებს 27-ს კუბურ ფესვს
+
+// მნიშვნელობები კოპირება განსხვავებული მისამართით
+
+const project = {
+  name: 'educata',
+};
+
+const assignWay = Object.assign({}, project);
+assignWay.name = 'iswavle';
+
+console.log(project); // { name: 'educata' }
+console.log(assignWay); // { name: 'iswavle' }
+
+const spreadWay = { ...project };
+spreadWay.name = 'EverREST';
+
+console.log(project); // { name: 'educata' }
+console.log(spreadWay); // { name: 'EverREST' }
+
+const jsonWay = JSON.parse(JSON.stringify(project));
+jsonWay.name = 'Educata tutorials';
+
+console.log(project); // { name: 'educata' }
+console.log(jsonWay); // { name: 'Educata tutorials' }
