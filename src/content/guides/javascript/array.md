@@ -1,5 +1,5 @@
 ---
-title: 'მასივები JavaScript-ში'
+title: 'მასივი'
 description: 'მასივი და მისი მეთოდები JavaScript-ში'
 keywords: 'array, fill later'
 headings:

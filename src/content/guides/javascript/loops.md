@@ -1,5 +1,5 @@
 ---
-title: 'ციკლები JavaScript-ში'
+title: 'ციკლები'
 description: 'ციკლების გამოყენება JavaScript-ში'
 keywords: 'while, do while, for, for in, for of, loop, loops, continue, break, ციკლი, ბიჯი, იტერაცია'
 headings:

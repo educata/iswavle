@@ -1,5 +1,5 @@
 ---
-title: 'ცვლადები JavaScript-ში'
+title: 'ცვლადი'
 description: 'let vs var vs const'
 keywords: 'js, javascript, ჯავასკრიპტი, var, let, const, global-scope, cvladis saxeli, ცვლადის სახელი, ცვლადის სახელის სტილი, ცვლადი, ცვლადები'
 headings:

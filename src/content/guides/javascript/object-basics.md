@@ -1,5 +1,5 @@
 ---
-title: 'ობიექტები JavaScript-ში ნაწილი #1'
+title: 'ობიექტები ნაწილი #1'
 description: 'ობიექტების მცირედად ახსნა JavaScript-ში'
 keywords: 'object, ობიექტის აღწერა, მნიშვნელობების წაკითხვა/ჩაწერა, method, read/write, this, Dot notation, Bracket notation, ობიეტქის მეთოდები, რა არის This'
 headings:
