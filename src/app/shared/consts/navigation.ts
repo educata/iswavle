@@ -23,6 +23,7 @@ export const NAVIGATION: NavigationTreeNode[] = [
           { title: 'ფუნქცია', path: 'function' },
           { title: 'ობიექტები JavaScript-ში ნაწილი #1', path: 'object-basics' },
           { title: 'მასივები JavaScript-ში', path: 'array' },
+          { title: 'ციკლები JavaScript-ში', path: 'loops' },
         ],
       },
       {
