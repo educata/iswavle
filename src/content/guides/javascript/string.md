@@ -21,6 +21,8 @@ headings:
   - repeat
   - replace
   - replaceAll
+  - indexOf
+  - lastIndexOf
   - search
   - split
   - slice
@@ -39,7 +41,7 @@ headings:
 სტრინგი შესაძლებელია შეიქმნას პრიმიტიულად შემდგომი სიმბოლოების გამოყენებით: `""`, `''`, <code>``</code>. ასევე შესაძლებელია შეიქმნას სტრინგის ობიექტის კონსტრუქტორის გამოყნებით.
 
 ```js
-let string1 = "პრიმიტიული სტრინგი 1";
+let string1 = 'პრიმიტიული სტრინგი 1';
 let string2 = 'პრიმიტიული სტრინგი 2';
 let string3 = `პრიმიტიული სტრინგი 3`;
 let string4 = String('ობიექტის კონსტრუქტორიდან შექმნილი სტრინგი, new გარეშე');
@@ -271,6 +273,29 @@ console.log(secondText.replace(/[xy]/g, (char) => (char === 'x' ? 500 : 1000)));
 let text = 'ორშაბათი სამშაბათი ოთხშაბათი ხუთშაბათი';
 console.log(text.replaceAll('შაბათი', '')); // 'ორ სამ ოთხ ხუთ'
 console.log(text.replaceAll(/შაბათი/g, '')); // 'ორ სამ ოთხ ხუთ'
+```
+
+### indexOf
+
+[`indexOf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf) მეთოდი ეძებს პარამეტრად გადაცემულ სიმბოლოს ან სიტყვას და აბრუნბს მისი პოვნის შედეგად მიღებულ ინდექს. თუ გადაცემული მნიშვნელობა ვერ იპოვა მაშინ დააბრუნბს -1. შესაძლებელია მეორე პარამეტრიც გადავცეთ თუ რომელი ინდექსიდან დაიწყოს მოძებნა.
+
+```js
+let text = 'hello world';
+console.log(text.indexOf('hello')); // 0
+console.log(text.indexOf('world')); // 6
+console.log(text.indexOf('o')); // 4
+console.log(text.indexOf('o', 5)); // 7
+```
+
+### lastIndexOf
+
+[`lastIndexOf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/lastIndexOf) მეთდი მუშაობს ანალოგიურად, როგორც `indexOf` განსხვავება არის ის, რომ `lastIndexOf` დააბრუნებს ინდექს იმ სტრინგის, რომელიც გადაცემული პარამეტრების მიხედვით ბოლოს იპოვა.
+
+```js
+let text = 'hello world';
+console.log(text.indexOf('o')); // 4
+console.log(text.indexOf('o', 5)); // 7
+console.log(text.lastIndexOf('o')); // 7
 ```
 
 ### search
