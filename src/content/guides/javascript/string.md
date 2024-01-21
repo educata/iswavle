@@ -88,7 +88,7 @@ console.log(String(BigInt(22))); // '22'
 ```js
 const text = 'iswavle.com არის უფასო სასწავლებელი პლატფორმა';
 
-console.log(text.chartAt(2)); // 'w'
+console.log(text.charAt(2)); // 'w'
 console.log(text[2]); // 'w'
 ```
 
