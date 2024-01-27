@@ -1,9 +1,15 @@
 ---
 title: 'რიცხვი'
 description: 'რიცხვის ობიექტი JavasScript-ში'
-keywords: 'fill later'
+keywords: 'number, nan, NaN, number methods, number properties, რიცხვი, რიცხვის მეთოდები, რიცხვის თვისებები, რიცხვის პროტოტიპის მეთოდები'
 headings:
-  - fill later
+  - რიცხვის გადაკეთება
+  - NaN
+  - თვისებები
+  - მეთოდები
+  - პროტოტიპის მეთოდები
+  - პრაქტიკა
+  - შეჯამება
 ---
 
 თითოეულ ტიპს გააჩნია თავისი ობიექტი, ამ შემთხვევაში [`Number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)-ც არ არის გამონაკლისი. `Number` წარმოადგნეს რიცხვითი ტიპის მნიშვნელობას, როგორიცა `22` ან `-22`.
