@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { NAVIGATION } from './shared/consts/navigation';
+import { NAVIGATION, DEFAULT_LOG_DATA } from './shared/consts';
 
 @Component({
   selector: 'sw-root',
@@ -10,6 +10,18 @@ import { NAVIGATION } from './shared/consts/navigation';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  private defaultDataLog = DEFAULT_LOG_DATA;
+
   navigation = NAVIGATION;
+
+  ngOnInit(): void {
+    this.initDefaultLog();
+  }
+
+  private initDefaultLog() {
+    this.defaultDataLog.forEach((data) => {
+      console.log(data.message, ...data.style);
+    });
+  }
 }
