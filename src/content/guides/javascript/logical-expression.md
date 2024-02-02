@@ -1,5 +1,5 @@
 ---
-title: 'პირობითი ოპერატორები JavaScript-ში'
+title: 'პირობითი ოპერატორები'
 description: 'if, else if, else, switch, ternary JavaScript-ში'
 keywords: 'if, else if, else, ternary operator, ტერნარული ოპერატორი, switch'
 headings:

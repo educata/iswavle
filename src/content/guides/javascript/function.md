@@ -1,5 +1,5 @@
 ---
-title: 'ფუნქცია JavaScript-ში'
+title: 'ფუნქცია'
 description: 'სამომხმარებლო ფუნქციები JavaScript-ში'
 keywords: 'functions, return, default params, void functions, scope, hoisting, hoisted, რეკურსია, recursion, arrow, async, await'
 headings:

@@ -1,5 +1,5 @@
 ---
-title: 'JavaScript-ის შესავალი'
+title: 'შესავალი'
 description: 'JavaScript მცირედი მიმოხილვა'
 keywords: 'js, javascript, ჯავასკრიპტი, jit, first-class, node.js, apache couchdb, adobe acrobat, single-threaded, oop, framework, library, ecmascript'
 headings:

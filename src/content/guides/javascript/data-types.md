@@ -1,5 +1,5 @@
 ---
-title: 'მონაცემთა ტიპები JavaScript-ში'
+title: 'მონაცემთა ტიპები'
 description: 'მონაცემთა ტიპები: symbol, string, number, bigint, boolean, undefined, null, object'
 keywords: 'symbol, string, number, bigint, boolean, undefined, null, object, array'
 headings:
