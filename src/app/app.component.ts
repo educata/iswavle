@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { NAVIGATION, DEFAULT_LOG_DATA } from './shared/consts';
+import { LOG_GREETER } from './shared/providers';
+import { DOC_NAVIGATION } from './shared/providers/doc-navigation';
 
 @Component({
   selector: 'sw-root',
@@ -11,12 +12,11 @@ import { NAVIGATION, DEFAULT_LOG_DATA } from './shared/consts';
   styleUrls: ['./app.component.less'],
 })
 export class AppComponent implements OnInit {
-  private defaultDataLog = DEFAULT_LOG_DATA;
-
-  navigation = NAVIGATION;
+  private defaultDataLog = inject(LOG_GREETER);
+  navigation = inject(DOC_NAVIGATION);
 
   ngOnInit(): void {
-    this.initDefaultLog();
+    // this.initDefaultLog();
   }
 
   private initDefaultLog() {

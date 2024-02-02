@@ -1,6 +1,6 @@
 import { NavigationTreeNode } from '../interfaces';
 
-export const NAVIGATION: NavigationTreeNode[] = [
+export const DEFAULT_DOC_NAVIGATION: NavigationTreeNode[] = [
   {
     title: 'Guides',
     path: 'guides',

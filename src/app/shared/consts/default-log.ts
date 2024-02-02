@@ -1,6 +1,6 @@
-import { DefaultLog } from '../interfaces';
+import { LogGreeter } from '../interfaces';
 
-export const DEFAULT_LOG_DATA: DefaultLog[] = [
+export const DEFAULT_LOG_DATA: LogGreeter[] = [
   {
     message: '%cმოგესალმებით iswavle.com-ზე',
     style: ['color:#3f51b5;font-size:28px;font-weight:bold'],

@@ -12,9 +12,5 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withFetch()),
-    {
-      provide: DOCS_CONTENT_LOADER,
-      useClass: ContentLoaderService,
-    },
   ],
 };

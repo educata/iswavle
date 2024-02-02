@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { ArticleAttributes } from '../../../../shared/interfaces';
 
 export interface DocContent {
