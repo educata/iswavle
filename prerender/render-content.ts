@@ -20,9 +20,9 @@ const hyperLinks: {
   references: [],
 };
 
-export const codeHighlighter = new Renderer();
+const render = new Renderer();
 
-codeHighlighter.code = (code, language) => {
+render.code = (code, language) => {
   const validLang = !!(language && hljs.getLanguage(language));
 
   const highlighted = validLang
@@ -32,7 +32,15 @@ codeHighlighter.code = (code, language) => {
   return `<pre><code class="hljs ${language}">${highlighted}</code></pre>`;
 };
 
-marked.setOptions({ renderer: codeHighlighter });
+render.heading = (text: string, level: number, raw: string) => {
+  return `
+    <h${level} class="${raw.trim().split(' ').join('_')}">
+      ${text}
+    </h${level}>
+  `;
+};
+
+marked.setOptions({ renderer: render });
 
 function renderMarkdownFile(filePath: string) {
   const markdown = fs.readFileSync(filePath, 'utf8');

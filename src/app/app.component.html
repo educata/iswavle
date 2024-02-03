@@ -1,11 +1,15 @@
-<nz-layout>
+<nz-layout class="root">
   <nz-header>
-    <button nz-button nzType="text" nzSize="large">
+    <button
+      nz-button
+      nzType="text"
+      nzSize="large"
+      (click)="isCollapsed = !isCollapsed"
+    >
       <span
         class="trigger"
         nz-icon
         [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-        (click)="isCollapsed = !isCollapsed"
       ></span>
     </button>
     <ul nz-menu nzTheme="light" nzMode="horizontal" class="header-menu">
