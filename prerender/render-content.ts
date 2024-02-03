@@ -65,7 +65,7 @@ function createOutputDirectoryStructure(filePath: string) {
 }
 
 function appendFileToHyperLinkList(data: string) {
-  const hrefRegex = /href="([^"]*)"/g;
+  const hrefRegex = /href="([^"#]*)"/g;
   const hrefs = [];
   let match: any;
 
