@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, map, combineLatest, of, tap, firstValueFrom } from 'rxjs';
+import { map, combineLatest, firstValueFrom } from 'rxjs';
 import { DocContent, DocParams, DocsContentLoader } from '../interfaces';
 import { ArticleAttributes } from '../../../../shared/interfaces';
 

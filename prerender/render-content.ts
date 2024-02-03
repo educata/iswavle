@@ -1,8 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as marked from 'marked';
+import { Renderer, marked } from 'marked';
 import frontMatter from 'front-matter';
 import { ArticleAttributes, FrontMatter } from '../shared/interfaces';
+import hljs from 'highlight.js';
 
 const srcContentDir = './src/content';
 const srcAssetsDir = './src/assets';
@@ -18,6 +19,20 @@ const hyperLinks: {
   guides: [],
   references: [],
 };
+
+export const codeHighlighter = new Renderer();
+
+codeHighlighter.code = (code, language) => {
+  const validLang = !!(language && hljs.getLanguage(language));
+
+  const highlighted = validLang
+    ? hljs.highlight(code, { language }).value
+    : code;
+
+  return `<pre><code class="hljs ${language}">${highlighted}</code></pre>`;
+};
+
+marked.setOptions({ renderer: codeHighlighter });
 
 function renderMarkdownFile(filePath: string) {
   const markdown = fs.readFileSync(filePath, 'utf8');
@@ -118,5 +133,5 @@ function createFileFromConnetion() {
 processMarkdownFiles(srcContentDir);
 createFileFromConnetion();
 console.log(
-  'Markdown files have been prerendered and saved in the /src/assets directory.',
+  `Markdown files have been prerendered and saved in the ${srcAssetsDir} directory.`,
 );

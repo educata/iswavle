@@ -1,0 +1,39 @@
+<ul nz-menu nzMode="inline" class="sidenav">
+  <ng-container
+    *ngTemplateOutlet="menuTpl; context: { $implicit: navItems, level: 1 }"
+  ></ng-container>
+  <ng-template
+    nav-item
+    #menuTpl
+    let-navItems
+    let-currentPath="currentPath"
+    let-level="level"
+  >
+    @for (menu of navItems; track menu.path) {
+      @if (menu.children) {
+        <li nz-submenu [nzOpen]="true" [nzTitle]="menu.title">
+          <ul>
+            <ng-container
+              *ngTemplateOutlet="
+                menuTpl;
+                context: {
+                  $implicit: menu.children,
+                  currentPath: currentPath
+                    ? currentPath + '/' + menu.path
+                    : menu.path,
+                  level: level + 1
+                }
+              "
+            ></ng-container>
+          </ul>
+        </li>
+      } @else {
+        <li nz-menu-item nzMatchRouter [nzPaddingLeft]="24 * level">
+          <a routerLink="guides/{{ currentPath }}/{{ menu.path }}">{{
+            menu.title
+          }}</a>
+        </li>
+      }
+    }
+  </ng-template>
+</ul>

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { contentResolver } from './shared/providers';
+import { contentResolver } from './shared/resolvers';
 
 export const routes: Routes = [
   {

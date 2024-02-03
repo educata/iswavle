@@ -1,0 +1,11 @@
+@if (currentNode(); as currentNode) {
+  <nz-breadcrumb>
+    @for (title of currentNode.breadCrumb; track title) {
+      <nz-breadcrumb-item>
+        <a [routerLink]="currentNode.routerLink[$index]">
+          {{ title }}
+        </a>
+      </nz-breadcrumb-item>
+    }
+  </nz-breadcrumb>
+}

@@ -1,29 +1,35 @@
-<ul>
-  @for (section of navigation; track section.title) {
-  <details>
-    <summary>{{ section.title }}</summary>
-    <ul>
-      @for (subject of section.children; track subject.title) {
-      <li>
-        {{ subject.title }}
-        <ul>
-          @for (item of subject.children; track item.title) {
-          <li>
-            <a
-              [ngStyle]="{
-                'text-decoration': item.depricated ? 'line-through' : 'initial'
-              }"
-              [routerLink]="['/', section.path, subject.path, item.path]"
-              >{{ item.title }}</a
-            >
-          </li>
-          }
-        </ul>
-      </li>
-      }
+<nz-layout>
+  <nz-header>
+    <button nz-button nzType="text" nzSize="large">
+      <span
+        class="trigger"
+        nz-icon
+        [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+        (click)="isCollapsed = !isCollapsed"
+      ></span>
+    </button>
+    <ul nz-menu nzTheme="light" nzMode="horizontal" class="header-menu">
+      <li nz-menu-item nzSelected>nav 1</li>
+      <li nz-menu-item>nav 2</li>
+      <li nz-menu-item>nav 3</li>
     </ul>
-  </details>
-  }
-</ul>
-
-<router-outlet></router-outlet>
+  </nz-header>
+  <nz-layout>
+    <nz-sider
+      nzWidth="300px"
+      nzTheme="light"
+      nzBreakpoint="md"
+      [nzCollapsedWidth]="0"
+      [nzTrigger]="null"
+      [nzCollapsed]="isCollapsed"
+    >
+      <sw-sidenav [navItems]="navigation"></sw-sidenav>
+    </nz-sider>
+    <nz-layout class="inner-layout">
+      <sw-auto-breadcrumbs></sw-auto-breadcrumbs>
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>
