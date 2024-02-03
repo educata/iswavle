@@ -1,4 +1,10 @@
-import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  Input,
+  TemplateRef,
+} from '@angular/core';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
@@ -25,6 +31,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   ],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.less',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidenavComponent {
   @Input() navItems: NavigationTreeNode[] = [];

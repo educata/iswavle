@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -11,6 +11,7 @@ import { DocContent } from '../../shared/interfaces';
   imports: [CommonModule, RouterModule],
   templateUrl: './docs.component.html',
   styleUrl: './docs.component.less',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class DocsComponent {
   private readonly activatedRoute = inject(ActivatedRoute);

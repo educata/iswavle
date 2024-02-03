@@ -1,4 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { DOC_NAVIGATION } from '../../providers/doc-navigation';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
@@ -12,6 +17,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
   imports: [NzBreadCrumbModule, RouterLink],
   templateUrl: './auto-breadcrumbs.component.html',
   styleUrl: './auto-breadcrumbs.component.less',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutoBreadcrumbsComponent {
   private readonly navigation = inject(DOC_NAVIGATION);
