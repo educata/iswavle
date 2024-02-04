@@ -4,11 +4,12 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { DocContent } from '../../shared/interfaces';
+import { DocTocComponent, DocViewerComponent } from './ui';
 
 @Component({
   selector: 'sw-docs',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, DocViewerComponent, DocTocComponent],
   templateUrl: './docs.component.html',
   styleUrl: './docs.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,

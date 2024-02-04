@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Renderer, marked } from 'marked';
 import frontMatter from 'front-matter';
-import { ArticleAttributes, FrontMatter } from '../shared/interfaces';
+import { ArticleAttributes, ArticleToc } from '../shared/interfaces';
 import hljs from 'highlight.js';
 
 const srcContentDir = './src/content';
@@ -34,18 +34,45 @@ render.code = (code, language) => {
 
 render.heading = (text: string, level: number, raw: string) => {
   return `
-    <h${level} class="${raw.trim().split(' ').join('_')}">
-      ${text}
-    </h${level}>
+    <h${level} id="${raw.trim().split(' ').join('_')}">${text}</h${level}>
   `;
 };
 
 marked.setOptions({ renderer: render });
 
+function extractHeaders(htmlString: string): ArticleToc[] {
+  const result: ArticleToc[] = [];
+
+  htmlString
+    .split('\n')
+    .filter((text) => text.trim().startsWith('<h'))
+    .forEach((heading) => {
+      if (heading.includes('1') || heading.includes('2')) {
+        result.push({
+          id: heading.split('id="')[1].split('"')[0],
+          title: heading.split('>')[1].split('<')[0],
+        });
+      } else {
+        if (!result[result.length - 1].sub) {
+          result[result.length - 1].sub = [];
+        }
+        result[result.length - 1].sub?.push({
+          id: heading.split('id="')[1].split('"')[0],
+          title: heading.split('>')[1].split('<')[0],
+        });
+      }
+    });
+
+  return result;
+}
+
 function renderMarkdownFile(filePath: string) {
   const markdown = fs.readFileSync(filePath, 'utf8');
   const parsedMarkdown = marked.parse(markdown.replace(/^---$.*^---$/ms, ''));
-  const data = frontMatter<FrontMatter<ArticleAttributes>>(markdown);
+  const data = frontMatter<ArticleAttributes>(markdown);
+  if (data?.attributes) {
+    data.attributes.toc = extractHeaders(parsedMarkdown);
+  }
   return {
     content: parsedMarkdown,
     frontMatter: data.attributes,

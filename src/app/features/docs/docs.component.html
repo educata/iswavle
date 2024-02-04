@@ -1,6 +1,10 @@
-@if(article(); as article) {
-<article>
-  <h1>{{ article.attributes.title }}</h1>
-  <div [innerHTML]="article.content"></div>
-</article>
-}
+<section>
+  @if (article(); as article) {
+    <sw-doc-viewer [docContent]="article"></sw-doc-viewer>
+    <aside>
+      <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
+    </aside>
+  } @else {
+    <p>კონტენტი არ არის</p>
+  }
+</section>
