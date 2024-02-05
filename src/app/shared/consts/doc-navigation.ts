@@ -2,7 +2,7 @@ import { BaseNavigationTreeNode } from '../interfaces';
 
 export const DEFAULT_DOC_NAVIGATION: BaseNavigationTreeNode[] = [
   {
-    title: 'Guides',
+    title: 'გზამკლევი',
     path: 'guides',
     children: [
       {
@@ -39,7 +39,7 @@ export const DEFAULT_DOC_NAVIGATION: BaseNavigationTreeNode[] = [
     ],
   },
   {
-    title: 'References',
+    title: 'ცნობარი',
     path: 'references',
     children: [
       {

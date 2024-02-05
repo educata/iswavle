@@ -1,39 +1,14 @@
-<nz-layout class="root">
+<nz-layout class="root-layout">
   <nz-header>
-    <button
-      nz-button
-      nzType="text"
-      nzSize="large"
-      (click)="isCollapsed = !isCollapsed"
-    >
-      <span
-        class="trigger"
-        nz-icon
-        [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-      ></span>
-    </button>
     <ul nz-menu nzTheme="light" nzMode="horizontal" class="header-menu">
-      <li nz-menu-item nzSelected>nav 1</li>
-      <li nz-menu-item>nav 2</li>
-      <li nz-menu-item>nav 3</li>
+      @for (nav of headerNavigation; track nav.routerLink) {
+        <li nz-menu-item [nzSelected]="$index === 0">
+          <a [routerLink]="nav.routerLink">{{ nav.title }}</a>
+        </li>
+      }
     </ul>
   </nz-header>
   <nz-layout>
-    <nz-sider
-      nzWidth="300px"
-      nzTheme="light"
-      nzBreakpoint="md"
-      [nzCollapsedWidth]="0"
-      [nzTrigger]="null"
-      [nzCollapsed]="isCollapsed"
-    >
-      <sw-sidenav [navItems]="navigation"></sw-sidenav>
-    </nz-sider>
-    <nz-layout class="inner-layout">
-      <sw-auto-breadcrumbs></sw-auto-breadcrumbs>
-      <nz-content>
-        <router-outlet></router-outlet>
-      </nz-content>
-    </nz-layout>
+    <router-outlet></router-outlet>
   </nz-layout>
 </nz-layout>

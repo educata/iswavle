@@ -16,7 +16,7 @@ export function defaultNavigationFactory(
   const dig = (
     nodes: BaseNavigationTreeNode[],
     parentBreadCrumb: string[] = [],
-    parentRouterLink: string[] = [],
+    parentRouterLink: string[] = ['/doc'],
   ) => {
     const mappedNav: NavigationTreeNode[] = [];
 

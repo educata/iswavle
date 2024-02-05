@@ -18,9 +18,6 @@
                 menuTpl;
                 context: {
                   $implicit: menu.children,
-                  currentPath: currentPath
-                    ? currentPath + '/' + menu.path
-                    : menu.path,
                   level: level + 1
                 }
               "
@@ -29,9 +26,7 @@
         </li>
       } @else {
         <li nz-menu-item nzMatchRouter [nzPaddingLeft]="24 * level">
-          <a routerLink="guides/{{ currentPath }}/{{ menu.path }}">{{
-            menu.title
-          }}</a>
+          <a [routerLink]="menu.routerLink">{{ menu.title }}</a>
         </li>
       }
     }

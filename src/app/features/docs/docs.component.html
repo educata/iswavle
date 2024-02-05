@@ -1,10 +1,25 @@
-<section>
-  @if (article(); as article) {
-    <sw-doc-viewer [docContent]="article"></sw-doc-viewer>
-    <aside>
-      <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
-    </aside>
-  } @else {
-    <p>კონტენტი არ არის</p>
-  }
-</section>
+<nz-layout>
+  <nz-sider
+    nzWidth="300px"
+    nzTheme="light"
+    nzBreakpoint="md"
+    [nzCollapsedWidth]="0"
+  >
+    <sw-sidenav [navItems]="navigation"></sw-sidenav>
+  </nz-sider>
+  <nz-layout class="inner-layout">
+    <sw-auto-breadcrumbs></sw-auto-breadcrumbs>
+    <nz-content>
+      <section>
+        @if (article(); as article) {
+          <sw-doc-viewer [docContent]="article"></sw-doc-viewer>
+          <aside>
+            <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
+          </aside>
+        } @else {
+          <p>კონტენტი არ არის</p>
+        }
+      </section>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

@@ -16,7 +16,8 @@ export class ContentLoaderService implements DocsContentLoader {
     subject,
     topic,
   }: DocParams): Promise<DocContent | null> {
-    const path = `/assets/${section}/${subject}/${topic}`;
+    const paths = [section, subject, topic].filter(Boolean);
+    const path = `/assets/${paths.join('/')}`;
     if (!this.cache.has(path)) {
       try {
         this.cache.set(
