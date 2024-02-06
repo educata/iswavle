@@ -5,11 +5,7 @@ export interface DocContent {
   content: string;
 }
 
-export interface DocParams {
-  section: string;
-  subject: string;
-  topic: string;
-}
+export type DocParams = Record<string, string>;
 
 export interface DocsContentLoader {
   getContent(params: DocParams): Promise<DocContent | null>;

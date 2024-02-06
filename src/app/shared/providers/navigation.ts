@@ -10,13 +10,10 @@ export const NAVIGATION = new InjectionToken<Navigation[]>('NAVIGATION', {
 
 export function headerNavigationFactory(navigation: Navigation[]) {
   const docNavigation = inject(DOC_NAVIGATION);
-
-  navigation.push(
-    ...docNavigation.map((nav) => ({
-      title: nav.title,
-      routerLink: nav.routerLink,
+  return navigation.concat(
+    docNavigation.map(({ title, routerLink }) => ({
+      title,
+      routerLink,
     })),
   );
-
-  return navigation;
 }
