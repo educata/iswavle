@@ -1,7 +1,5 @@
 import { Routes, UrlSegment } from '@angular/router';
 import { contentResolver } from './shared/resolvers';
-import { inject } from '@angular/core';
-import { DOC_NAVIGATION } from './shared/providers/doc-navigation';
 
 export const routes: Routes = [
   {
