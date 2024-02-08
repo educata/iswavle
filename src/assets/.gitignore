@@ -1,6 +1,11 @@
 guides
 references
-examples
+examples/guides
+examples/references
 empty-hyperlinks.json
 README.html
 README.json
+references.html
+references.json
+guides.html
+guides.json

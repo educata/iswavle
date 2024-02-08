@@ -1,5 +1,21 @@
 import { Routes, UrlSegment } from '@angular/router';
 import { contentResolver } from './shared/resolvers';
+import { codeResolver } from './shared/resolvers/code.resolver';
+
+const indeterminateSegments = (url: UrlSegment[]) => {
+  if (url.length) {
+    const segmentMap: { [key: string]: UrlSegment } = {};
+    url.forEach((segment, index) => {
+      segmentMap[index.toString()] = segment;
+    });
+    return {
+      consumed: url,
+      posParams: segmentMap,
+    };
+  } else {
+    return null;
+  }
+};
 
 export const routes: Routes = [
   {
@@ -16,20 +32,7 @@ export const routes: Routes = [
       {
         // Match for indeterminate amount of segments
         // as we don't know how deeply nested the markdown content is.
-        matcher: (url) => {
-          if (url.length) {
-            const segmentMap: { [key: string]: UrlSegment } = {};
-            url.forEach((segment, index) => {
-              segmentMap[index.toString()] = segment;
-            });
-            return {
-              consumed: url,
-              posParams: segmentMap,
-            };
-          } else {
-            return null;
-          }
-        },
+        matcher: indeterminateSegments,
         loadComponent: () => import('./features/docs/docs.component'),
         resolve: { data: contentResolver },
       },
@@ -44,9 +47,10 @@ export const routes: Routes = [
         redirectTo: 'blank',
       },
       {
-        path: ':id',
+        matcher: indeterminateSegments,
         loadComponent: () =>
           import('./features/playground/playground.component'),
+        resolve: { data: codeResolver },
       },
     ],
   },

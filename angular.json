@@ -77,10 +77,18 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "iswavle:build:production"
+              "buildTarget": "iswavle:build:production",
+              "headers": {
+                "Cross-Origin-Embedder-Policy": "require-corp",
+                "Cross-Origin-Opener-Policy": "same-origin"
+              }
             },
             "development": {
-              "buildTarget": "iswavle:build:development"
+              "buildTarget": "iswavle:build:development",
+              "headers": {
+                "Cross-Origin-Embedder-Policy": "require-corp",
+                "Cross-Origin-Opener-Policy": "same-origin"
+              }
             }
           },
           "defaultConfiguration": "development"

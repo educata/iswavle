@@ -1,5 +1,14 @@
-<nz-code-editor
-  class="editor"
-  [(ngModel)]="code"
-  [nzEditorOption]="{ language: 'typescript' }"
-></nz-code-editor>
+@if (isBrowser) {
+  @if (files(); as files) {
+    <section class="editor-container">
+      <aside>
+        <nz-tree
+          [nzData]="files"
+          [nzShowIcon]="true"
+          (nzClick)="selectFile($event)"
+        ></nz-tree>
+      </aside>
+      <nz-code-editor class="editor" [ngModel]="openFile()"></nz-code-editor>
+    </section>
+  }
+}
