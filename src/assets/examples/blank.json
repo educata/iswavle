@@ -1,5 +1,5 @@
 {
-  "name": "ცარიელი ნიმუში",
+  "name": "ცარიელი-ნიმუში",
   "children": [
     {
       "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>ცარიელი ნიმუში</title>\n    <link rel=\"stylesheet\" href=\"./style.css\" />\n  </head>\n  <body>\n    <script src=\"./main.js\"></script>\n  </body>\n</html>\n",

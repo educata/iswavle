@@ -3,9 +3,9 @@ import { CodeContentLoader, CodeParams } from '../interfaces/';
 import { ExampleFile } from '../../../../shared/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { firstValueFrom, catchError, EMPTY, map, tap } from 'rxjs';
+import { firstValueFrom, catchError, EMPTY, map } from 'rxjs';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
-import { CUSTOM_ICONS, ICON_PREFIX } from '../consts';
+import { ICON_PREFIX } from '../consts';
 
 // TODO: implement generic interface for loaders
 @Injectable()
@@ -29,7 +29,7 @@ export class CodeLoaderService implements CodeContentLoader {
               this.router.navigateByUrl('/404');
               return EMPTY;
             }),
-            map((file) => this.map(file)),
+            map((file) => this.map(file, file.name)),
           ),
         ),
       );
@@ -37,18 +37,21 @@ export class CodeLoaderService implements CodeContentLoader {
     return this.cache.get(path)!;
   }
 
-  map(file: ExampleFile): NzTreeNodeOptions {
+  map(file: ExampleFile, path: string): NzTreeNodeOptions {
     return {
       title: file.name,
       key: file.name,
       isLeaf: !file.children,
-      children: file?.children?.map((child) => this.map(child)),
+      children: file?.children?.map((child) =>
+        this.map(child, `${path}/${child.name}`),
+      ),
       icon: file.children?.length
         ? ICON_PREFIX + 'folder'
         : ICON_PREFIX + file.name.split('.').pop() || 'document',
       expanded: true,
       content: file.content,
       language: file.children ? undefined : file.name.split('.').pop(),
+      path,
     };
   }
 }

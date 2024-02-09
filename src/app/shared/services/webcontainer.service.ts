@@ -1,66 +1,89 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Injectable, PLATFORM_ID, inject } from '@angular/core';
-import { WebContainer } from '@webcontainer/api';
+import {
+  DestroyRef,
+  Injectable,
+  OnDestroy,
+  PLATFORM_ID,
+  inject,
+} from '@angular/core';
+import { DirectoryNode, FileNode, WebContainer } from '@webcontainer/api';
 import { FileSystemTree } from '@webcontainer/api';
+import {
+  WebContainerFile,
+  WebContainerInitOpts,
+  WebContainerState,
+} from '../interfaces';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { BehaviorSubject } from 'rxjs';
 
-export const codeFiles: FileSystemTree = {
-  'index.js': {
-    file: {
-      contents: `
-            import express from 'express';
-            const app = express();
-            const port = 3111;
-            
-            app.get('/', (req, res) => {
-              res.send('Welcome to a WebContainers app! 🥳');
-            });
-            
-            app.listen(port, () => {
-              console.log(\`App is live at http://localhost:\${port}\`);
-            }); 
-            `,
-    },
-  },
-  'package.json': {
-    file: {
-      contents: `
-            {
-              "name": "example-app",
-              "type": "module",
-              "dependencies": {
-                "express": "latest",
-                "nodemon": "latest"
-              },
-              "scripts": {
-                "start": "nodemon --watch './' index.js"
-              }
-            } 
-            `,
-    },
-  },
-};
-
-// TODO: implement WebcontainerState interface for injection tokens
-@Injectable({ providedIn: 'root' })
-export class WebContainerService {
+@Injectable()
+export class WebContainerService implements WebContainerState, OnDestroy {
   platform = inject(PLATFORM_ID);
-  webcontainerInstance: WebContainer | undefined;
+  instance: WebContainer | undefined;
 
-  async init() {
-    if (isPlatformBrowser(this.platform)) {
-      const webcontainerInstance = await WebContainer.boot();
-      this.webcontainerInstance = webcontainerInstance;
-      this.webcontainerInstance.mount(codeFiles);
+  #instanceDestroyed$ = new BehaviorSubject<boolean>(false);
+  #instanceLoaded$ = new BehaviorSubject<boolean>(false);
+  #openFile$ = new BehaviorSubject<WebContainerFile | null>(null);
 
-      const packageJSON = await this.webcontainerInstance.fs.readFile(
-        'package.json',
-        'utf-8',
-      );
-      console.log(packageJSON);
+  instanceDestroyed$ = this.#instanceDestroyed$.asObservable();
+  instanceLoaded$ = this.#instanceLoaded$.asObservable();
+  openFile$ = this.#openFile$.asObservable();
+
+  async init({ files, initialFilePath }: WebContainerInitOpts): Promise<void> {
+    if (!isPlatformBrowser(this.platform)) return;
+
+    const webcontainerInstance = await WebContainer.boot();
+    this.instance = webcontainerInstance;
+    await this.instance.mount(files);
+    this.#instanceLoaded$.next(true);
+
+    if (initialFilePath) {
+      this.openFile(initialFilePath);
     }
   }
 
   writeFile(path: string, data: string) {
-    this.webcontainerInstance?.fs.writeFile(path, data);
+    this.instance?.fs.writeFile(path, data);
+  }
+
+  async readFile(path: string) {
+    return this.instance?.fs.readFile(path, 'utf-8');
+  }
+
+  async openFile(path: string) {
+    const contents = await this.readFile(path);
+    this.#openFile$.next({ path, contents: contents || '' });
+  }
+
+  fileTreeMapper(nodes: NzTreeNodeOptions[]): FileSystemTree {
+    const fileSystemTree: FileSystemTree = {};
+
+    nodes.forEach((node) => {
+      const { title, isLeaf, children, content } = node;
+
+      if (isLeaf) {
+        // It's a file node
+        const fileNode: FileNode = {
+          file: {
+            contents: content,
+          },
+        };
+
+        fileSystemTree[title] = fileNode;
+      } else {
+        // It's a directory node
+        const directoryNode: DirectoryNode = {
+          directory: this.fileTreeMapper(children || []),
+        };
+
+        fileSystemTree[title] = directoryNode;
+      }
+    });
+
+    return fileSystemTree;
+  }
+
+  ngOnDestroy(): void {
+    this.instance?.teardown();
   }
 }
