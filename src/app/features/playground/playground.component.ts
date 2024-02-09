@@ -1,7 +1,10 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   PLATFORM_ID,
+  ViewChild,
   inject,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
@@ -31,6 +34,10 @@ import {
 } from '../../shared/providers/';
 import { WebContainerFile } from '../../shared/interfaces';
 import { LanguageExtensionPipe } from './language-extension.pipe';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { DomSanitizer } from '@angular/platform-browser';
+// terminal styles
+import 'xterm/css/xterm.css';
 
 @Component({
   selector: 'sw-playground',
@@ -40,6 +47,7 @@ import { LanguageExtensionPipe } from './language-extension.pipe';
     NzIconModule,
     NzTreeModule,
     NzCodeEditorModule,
+    NzSpinModule,
     FormsModule,
     LanguageExtensionPipe,
   ],
@@ -48,13 +56,15 @@ import { LanguageExtensionPipe } from './language-extension.pipe';
   styleUrl: './playground.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class PlaygroundComponent {
+export default class PlaygroundComponent implements AfterViewInit {
   private readonly platform = inject(PLATFORM_ID);
   private readonly iconService = inject(NzIconService);
   private readonly route = inject(ActivatedRoute);
   private readonly webcontainerState = inject(WEBCONTAINER_STATE);
+  private readonly domSanitizer = inject(DomSanitizer);
 
   readonly isBrowser = isPlatformBrowser(this.platform);
+  @ViewChild('terminal') terminal!: ElementRef<HTMLElement>;
 
   writeFile$ = new BehaviorSubject<WebContainerFile | null>(null);
 
@@ -64,19 +74,24 @@ export default class PlaygroundComponent {
 
   openFile$ = this.webcontainerState.openFile$;
   instanceLoaded$ = this.webcontainerState.instanceLoaded$;
-  instanceDestroyed = this.webcontainerState.instanceDestroyed$;
+  instanceDestroyed$ = this.webcontainerState.instanceDestroyed$;
+  serverUrl$ = this.webcontainerState.serverUrl$.pipe(
+    map((url) => this.domSanitizer.bypassSecurityTrustResourceUrl(url)),
+  );
 
   vm$ = combineLatest([
     this.files$,
     this.openFile$,
     this.instanceLoaded$,
-    this.instanceDestroyed,
+    this.instanceDestroyed$,
+    this.serverUrl$,
   ]).pipe(
-    map(([files, openFile, instanceLoaded, instanceDestroyed]) => ({
+    map(([files, openFile, instanceLoaded, instanceDestroyed, serverUrl]) => ({
       files,
       openFile,
       instanceLoaded,
       instanceDestroyed,
+      serverUrl,
     })),
   );
 
@@ -94,6 +109,9 @@ export default class PlaygroundComponent {
           this.webcontainerState.init({
             files: mappedFiles,
             initialFilePath: files[0]?.children?.[0]?.['index.html'], // TODO: FIX
+            port: '8080',
+            static: true,
+            root: files[0]['path'],
           });
         }
       }),
@@ -107,6 +125,10 @@ export default class PlaygroundComponent {
     merge(initWebContainerInstance$, writeFile$)
       .pipe(takeUntilDestroyed())
       .subscribe();
+  }
+
+  ngAfterViewInit(): void {
+    this.webcontainerState.connectTerminal(this.terminal);
   }
 
   selectFile(event: NzFormatEmitEvent) {

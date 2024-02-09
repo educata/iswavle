@@ -2,6 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 const langMap: Record<string, string> = {
   js: 'javascript',
+  ts: 'typescript',
+  md: 'markdown',
 };
 
 @Pipe({
