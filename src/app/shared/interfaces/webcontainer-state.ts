@@ -24,7 +24,6 @@ export interface WebContainerFile {
 
 export interface WebContainerState {
   instance: WebContainer | undefined;
-  terminal: Terminal | undefined;
   openFile$: Observable<WebContainerFile | null>;
   instanceLoaded$: Observable<boolean>;
   instanceDestroyed$: Observable<boolean>;
@@ -34,5 +33,4 @@ export interface WebContainerState {
   writeFile(path: string, data: string): void;
   readFile(path: string): Promise<string | undefined>;
   openFile(path: string): Promise<void> | void;
-  connectTerminal(ref: ElementRef<any>): void;
 }

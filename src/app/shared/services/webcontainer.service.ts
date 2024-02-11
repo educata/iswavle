@@ -1,17 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
-import {
-  ElementRef,
-  Injectable,
-  OnDestroy,
-  PLATFORM_ID,
-  inject,
-} from '@angular/core';
-import {
-  DirectoryNode,
-  FileNode,
-  WebContainer,
-  WebContainerProcess,
-} from '@webcontainer/api';
+import { Injectable, OnDestroy, PLATFORM_ID, inject } from '@angular/core';
+import { DirectoryNode, FileNode, WebContainer } from '@webcontainer/api';
 import { FileSystemTree } from '@webcontainer/api';
 import {
   WebContainerFile,
@@ -20,13 +9,11 @@ import {
 } from '../interfaces';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { BehaviorSubject } from 'rxjs';
-import { Terminal } from 'xterm';
 
 @Injectable()
 export class WebContainerService implements WebContainerState, OnDestroy {
   platform = inject(PLATFORM_ID);
   instance: WebContainer | undefined;
-  terminal: Terminal | undefined;
 
   #instanceDestroyed$ = new BehaviorSubject<boolean>(false);
   #instanceLoaded$ = new BehaviorSubject<boolean>(false);
@@ -60,7 +47,7 @@ export class WebContainerService implements WebContainerState, OnDestroy {
     }
 
     if (opts.static) {
-      const serveProcess = await this.instance.spawn('npx', [
+      await this.instance.spawn('npx', [
         '-y',
         'servor',
         opts.root || '/',
@@ -68,34 +55,10 @@ export class WebContainerService implements WebContainerState, OnDestroy {
         opts.port || '8080',
         '--reload',
       ]);
-      this.writeToTerminal(serveProcess);
+    } else if (opts.npm) {
+      await this.instance.spawn('npm', ['i']);
+      await this.instance.spawn('npm', ['run', 'start']);
     }
-
-    if (opts.npm) {
-      const installProcess = await this.instance.spawn('npm', ['i']);
-      this.writeToTerminal(installProcess);
-
-      const startProcess = await this.instance.spawn('npm', ['run', 'start']);
-      this.writeToTerminal(startProcess);
-    }
-  }
-
-  async connectTerminal(ref: ElementRef<any>) {
-    if (!isPlatformBrowser(this.platform)) return;
-    const Terminal = await import('xterm').then((m) => m.Terminal);
-    this.terminal = new Terminal({ convertEol: true });
-    this.terminal.open(ref.nativeElement);
-  }
-
-  writeToTerminal(process: WebContainerProcess) {
-    const terminal = this.terminal;
-    process.output.pipeTo(
-      new WritableStream({
-        write(data) {
-          terminal?.write(data);
-        },
-      }),
-    );
   }
 
   writeFile(path: string, data: string) {

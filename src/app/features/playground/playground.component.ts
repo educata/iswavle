@@ -1,10 +1,7 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   PLATFORM_ID,
-  ViewChild,
   inject,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
@@ -36,8 +33,7 @@ import { WebContainerFile } from '../../shared/interfaces';
 import { LanguageExtensionPipe } from './language-extension.pipe';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { DomSanitizer } from '@angular/platform-browser';
-// terminal styles
-import 'xterm/css/xterm.css';
+import { TerminalComponent } from './ui/terminal/terminal.component';
 
 @Component({
   selector: 'sw-playground',
@@ -50,13 +46,14 @@ import 'xterm/css/xterm.css';
     NzSpinModule,
     FormsModule,
     LanguageExtensionPipe,
+    TerminalComponent,
   ],
   providers: [provideWebcontainerState()],
   templateUrl: './playground.component.html',
   styleUrl: './playground.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class PlaygroundComponent implements AfterViewInit {
+export default class PlaygroundComponent {
   private readonly platform = inject(PLATFORM_ID);
   private readonly iconService = inject(NzIconService);
   private readonly route = inject(ActivatedRoute);
@@ -64,7 +61,6 @@ export default class PlaygroundComponent implements AfterViewInit {
   private readonly domSanitizer = inject(DomSanitizer);
 
   readonly isBrowser = isPlatformBrowser(this.platform);
-  @ViewChild('terminal') terminal!: ElementRef<HTMLElement>;
 
   writeFile$ = new BehaviorSubject<WebContainerFile | null>(null);
 
@@ -109,9 +105,10 @@ export default class PlaygroundComponent implements AfterViewInit {
           this.webcontainerState.init({
             files: mappedFiles,
             initialFilePath: files[0]?.children?.[0]?.['index.html'], // TODO: FIX
-            port: '8080',
-            static: true,
-            root: files[0]['path'],
+            // Config below will serve static files in watch mode without terminal output
+            // static: true,
+            // port: '8080',
+            // root: files[0]['path'],
           });
         }
       }),
@@ -125,10 +122,6 @@ export default class PlaygroundComponent implements AfterViewInit {
     merge(initWebContainerInstance$, writeFile$)
       .pipe(takeUntilDestroyed())
       .subscribe();
-  }
-
-  ngAfterViewInit(): void {
-    this.webcontainerState.connectTerminal(this.terminal);
   }
 
   selectFile(event: NzFormatEmitEvent) {
