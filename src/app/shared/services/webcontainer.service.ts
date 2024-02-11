@@ -1,6 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Injectable, OnDestroy, PLATFORM_ID, inject } from '@angular/core';
-import { DirectoryNode, FileNode, WebContainer } from '@webcontainer/api';
+import {
+  DirectoryNode,
+  FileNode,
+  WebContainer,
+  WebContainerProcess,
+} from '@webcontainer/api';
 import { FileSystemTree } from '@webcontainer/api';
 import {
   WebContainerFile,
@@ -19,11 +24,13 @@ export class WebContainerService implements WebContainerState, OnDestroy {
   #instanceLoaded$ = new BehaviorSubject<boolean>(false);
   #openFile$ = new BehaviorSubject<WebContainerFile | null>(null);
   #serverUrl$ = new BehaviorSubject<string>('');
+  #shellProcess = new BehaviorSubject<WebContainerProcess | null>(null);
 
   instanceDestroyed$ = this.#instanceDestroyed$.asObservable();
   instanceLoaded$ = this.#instanceLoaded$.asObservable();
   openFile$ = this.#openFile$.asObservable();
   serverUrl$ = this.#serverUrl$.asObservable();
+  shellProcess$ = this.#shellProcess.asObservable();
 
   async init(opts: WebContainerInitOpts): Promise<void> {
     if (!isPlatformBrowser(this.platform)) return;
@@ -59,6 +66,11 @@ export class WebContainerService implements WebContainerState, OnDestroy {
       await this.instance.spawn('npm', ['i']);
       await this.instance.spawn('npm', ['run', 'start']);
     }
+  }
+
+  async startShellProcess(terminal: { rows: number; cols: number }) {
+    const process = await this.instance?.spawn('jsh', { terminal });
+    process && this.#shellProcess.next(process);
   }
 
   writeFile(path: string, data: string) {
