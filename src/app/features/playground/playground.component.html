@@ -1,14 +1,32 @@
-@if (isBrowser) {
-  @if (files(); as files) {
+@if (vm$ | async; as vm) {
+  <div class="playground-container">
     <section class="editor-container">
       <aside>
         <nz-tree
-          [nzData]="files"
+          [nzData]="vm.files"
           [nzShowIcon]="true"
           (nzClick)="selectFile($event)"
         ></nz-tree>
       </aside>
-      <nz-code-editor class="editor" [ngModel]="openFile()"></nz-code-editor>
+      @if (vm.openFile) {
+        <nz-code-editor
+          class="editor"
+          [ngModel]="vm.openFile.contents"
+          (ngModelChange)="
+            writeFile$.next({ path: vm.openFile.path, contents: $event })
+          "
+          [nzEditorOption]="{
+            language: (vm.openFile.path | languageExtension),
+            minimap: {
+              enabled: false
+            }
+          }"
+        ></nz-code-editor>
+      }
     </section>
-  }
+    <section class="preview">
+      <iframe class="site" [src]="vm.serverUrl"></iframe>
+      <sw-terminal class="terminal"></sw-terminal>
+    </section>
+  </div>
 }

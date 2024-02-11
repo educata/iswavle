@@ -1,66 +1,120 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Injectable, PLATFORM_ID, inject } from '@angular/core';
-import { WebContainer } from '@webcontainer/api';
+import { Injectable, OnDestroy, PLATFORM_ID, inject } from '@angular/core';
+import {
+  DirectoryNode,
+  FileNode,
+  WebContainer,
+  WebContainerProcess,
+} from '@webcontainer/api';
 import { FileSystemTree } from '@webcontainer/api';
+import {
+  WebContainerFile,
+  WebContainerInitOpts,
+  WebContainerState,
+} from '../interfaces';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { BehaviorSubject } from 'rxjs';
 
-export const codeFiles: FileSystemTree = {
-  'index.js': {
-    file: {
-      contents: `
-            import express from 'express';
-            const app = express();
-            const port = 3111;
-            
-            app.get('/', (req, res) => {
-              res.send('Welcome to a WebContainers app! 🥳');
-            });
-            
-            app.listen(port, () => {
-              console.log(\`App is live at http://localhost:\${port}\`);
-            }); 
-            `,
-    },
-  },
-  'package.json': {
-    file: {
-      contents: `
-            {
-              "name": "example-app",
-              "type": "module",
-              "dependencies": {
-                "express": "latest",
-                "nodemon": "latest"
-              },
-              "scripts": {
-                "start": "nodemon --watch './' index.js"
-              }
-            } 
-            `,
-    },
-  },
-};
-
-// TODO: implement WebcontainerState interface for injection tokens
-@Injectable({ providedIn: 'root' })
-export class WebContainerService {
+@Injectable()
+export class WebContainerService implements WebContainerState, OnDestroy {
   platform = inject(PLATFORM_ID);
-  webcontainerInstance: WebContainer | undefined;
+  instance: WebContainer | undefined;
 
-  async init() {
-    if (isPlatformBrowser(this.platform)) {
-      const webcontainerInstance = await WebContainer.boot();
-      this.webcontainerInstance = webcontainerInstance;
-      this.webcontainerInstance.mount(codeFiles);
+  #instanceDestroyed$ = new BehaviorSubject<boolean>(false);
+  #instanceLoaded$ = new BehaviorSubject<boolean>(false);
+  #openFile$ = new BehaviorSubject<WebContainerFile | null>(null);
+  #serverUrl$ = new BehaviorSubject<string>('');
+  #shellProcess = new BehaviorSubject<WebContainerProcess | null>(null);
 
-      const packageJSON = await this.webcontainerInstance.fs.readFile(
-        'package.json',
-        'utf-8',
-      );
-      console.log(packageJSON);
+  instanceDestroyed$ = this.#instanceDestroyed$.asObservable();
+  instanceLoaded$ = this.#instanceLoaded$.asObservable();
+  openFile$ = this.#openFile$.asObservable();
+  serverUrl$ = this.#serverUrl$.asObservable();
+  shellProcess$ = this.#shellProcess.asObservable();
+
+  async init(opts: WebContainerInitOpts): Promise<void> {
+    if (!isPlatformBrowser(this.platform)) return;
+
+    // TODO: maybe boot once throughout whole app and just mount different files
+    const webcontainerInstance = await WebContainer.boot();
+    this.instance = webcontainerInstance;
+    await this.instance.mount(opts.files);
+    this.#instanceLoaded$.next(true);
+
+    if (opts.onServerReady) {
+      this.instance.on('server-ready', opts.onServerReady);
+    } else {
+      this.instance.on('server-ready', (port, url) => {
+        this.#serverUrl$.next(url);
+      });
+    }
+
+    if (opts.initialFilePath) {
+      this.openFile(opts.initialFilePath);
+    }
+
+    if (opts.static) {
+      await this.instance.spawn('npx', [
+        '-y',
+        'servor',
+        opts.root || '/',
+        'index.html',
+        opts.port || '8080',
+        '--reload',
+      ]);
+    } else if (opts.npm) {
+      await this.instance.spawn('npm', ['i']);
+      await this.instance.spawn('npm', ['run', 'start']);
     }
   }
 
+  async startShellProcess(terminal: { rows: number; cols: number }) {
+    const process = await this.instance?.spawn('jsh', { terminal });
+    process && this.#shellProcess.next(process);
+  }
+
   writeFile(path: string, data: string) {
-    this.webcontainerInstance?.fs.writeFile(path, data);
+    this.instance?.fs.writeFile(path, data);
+  }
+
+  async readFile(path: string) {
+    return this.instance?.fs.readFile(path, 'utf-8');
+  }
+
+  async openFile(path: string) {
+    const contents = await this.readFile(path);
+    this.#openFile$.next({ path, contents: contents || '' });
+  }
+
+  fileTreeMapper(nodes: NzTreeNodeOptions[]): FileSystemTree {
+    const fileSystemTree: FileSystemTree = {};
+
+    nodes.forEach((node) => {
+      const { title, isLeaf, children, content } = node;
+
+      if (isLeaf) {
+        // It's a file node
+        const fileNode: FileNode = {
+          file: {
+            contents: content,
+          },
+        };
+
+        fileSystemTree[title] = fileNode;
+      } else {
+        // It's a directory node
+        const directoryNode: DirectoryNode = {
+          directory: this.fileTreeMapper(children || []),
+        };
+
+        fileSystemTree[title] = directoryNode;
+      }
+    });
+
+    return fileSystemTree;
+  }
+
+  ngOnDestroy(): void {
+    this.instance?.teardown();
   }
 }
