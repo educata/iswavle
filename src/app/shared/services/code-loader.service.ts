@@ -1,20 +1,19 @@
 import { Injectable, inject } from '@angular/core';
-import { CodeContentLoader, CodeParams } from '../interfaces/';
-import { ExampleFile } from '../../../../shared/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { firstValueFrom, catchError, EMPTY, map } from 'rxjs';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { Params, ContentLoader } from '../interfaces/';
+import { ExampleFile } from '../../../../shared/interfaces';
 import { ICON_PREFIX } from '../consts';
 
-// TODO: implement generic interface for loaders
 @Injectable()
-export class CodeLoaderService implements CodeContentLoader {
+export class CodeLoaderService implements ContentLoader<NzTreeNodeOptions> {
   private readonly cache = new Map<string, Promise<NzTreeNodeOptions | null>>();
   private readonly httpClient = inject(HttpClient);
   private readonly router = inject(Router);
 
-  getContent(params: CodeParams): Promise<NzTreeNodeOptions | null> {
+  getContent(params: Params): Promise<NzTreeNodeOptions | null> {
     const paths: string[] = [];
     Object.entries(params).forEach(([key, value]) => {
       paths[parseInt(key)] = value;

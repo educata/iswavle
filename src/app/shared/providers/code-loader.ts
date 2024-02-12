@@ -1,9 +1,9 @@
 import { InjectionToken } from '@angular/core';
-
-import { CodeContentLoader } from '../interfaces';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { CodeLoaderService } from '../services';
+import { ContentLoader } from '../interfaces';
 
-export const CODE_LOADER = new InjectionToken<CodeContentLoader>(
+export const CODE_LOADER = new InjectionToken<ContentLoader<NzTreeNodeOptions>>(
   'CODE_LOADER',
   {
     providedIn: 'root',
