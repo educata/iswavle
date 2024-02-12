@@ -81,12 +81,9 @@ export class WebContainerService implements WebContainerState, OnDestroy {
     return this.instance?.fs.readFile(path, 'utf-8');
   }
 
-  async openFile(path: string): Promise<boolean> {
-    return new Promise(async (resolve, reject) => {
-      const contents = await this.readFile(path);
-      this.#openFile$.next({ path, contents: contents || '' });
-      resolve(true);
-    });
+  async openFile(path: string) {
+    const contents = await this.readFile(path);
+    this.#openFile$.next({ path, contents: contents || '' });
   }
 
   fileTreeMapper(nodes: NzTreeNodeOptions[]): FileSystemTree {

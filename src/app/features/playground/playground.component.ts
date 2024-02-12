@@ -40,6 +40,9 @@ import { WebContainerFile } from '@app-shared/interfaces';
 import { CUSTOM_ICONS, ICON_PREFIX } from '@app-shared/consts';
 import { TerminalComponent } from './ui';
 import { LanguageExtensionPipe } from './language-extension.pipe';
+import { Uri } from 'monaco-editor';
+
+declare const monaco: any;
 
 @Component({
   selector: 'sw-playground',
@@ -122,6 +125,7 @@ export default class PlaygroundComponent {
         }
       }),
     );
+
     const writeFile$ = this.writeFile$.pipe(
       filter(Boolean),
       debounceTime(1000),
@@ -137,6 +141,16 @@ export default class PlaygroundComponent {
     await this.webcontainerState.openFile(event.node?.origin['path']);
     this.outletRef.clear();
     this.outletRef.createEmbeddedView(this.contentRef);
+  }
+
+  onEditorInit() {
+    monaco.editor.registerLinkOpener({
+      async open(resource: Uri) {
+        // TODO: handle link opener
+        console.log(resource);
+        return true;
+      },
+    });
   }
 
   private firstChild(node: NzTreeNodeOptions): NzTreeNodeOptions | null {

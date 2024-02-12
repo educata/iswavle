@@ -16,6 +16,7 @@
           <nz-code-editor
             class="editor"
             [ngModel]="vm.openFile.contents"
+            (nzEditorInitialized)="onEditorInit()"
             (ngModelChange)="
               writeFile$.next({ path: vm.openFile.path, contents: $event })
             "

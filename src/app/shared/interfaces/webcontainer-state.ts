@@ -34,6 +34,6 @@ export interface WebContainerState {
   fileTreeMapper(files: any): FileSystemTree;
   writeFile(path: string, data: string): void;
   readFile(path: string): Promise<string | undefined>;
-  openFile(path: string): Promise<boolean> | void;
+  openFile(path: string): Promise<void> | void;
   startShellProcess(opts: { rows: number; cols: number }): void;
 }
