@@ -1,6 +1,6 @@
 // used Material Icon Theme https://github.com/PKief/vscode-material-icon-theme/
 
-import { CustomIcons } from '../interfaces';
+import { CustomIcons } from '@app-shared/interfaces';
 
 export const ICON_PREFIX = 'sw:';
 

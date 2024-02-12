@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { DocContent } from '../../shared/interfaces';
-import { DocTocComponent, DocViewerComponent } from './ui';
-import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { SidenavComponent, AutoBreadcrumbsComponent } from '../../shared/ui';
-import { DOC_NAVIGATION } from '../../shared/providers/doc-navigation';
+import { DocContent } from '@app-shared/interfaces';
+import { SidenavComponent, AutoBreadcrumbsComponent } from '@app-shared/ui';
+import { DOC_NAVIGATION } from '@app-shared/providers';
+import { DocTocComponent, DocViewerComponent } from './ui';
 
 @Component({
   selector: 'sw-docs',

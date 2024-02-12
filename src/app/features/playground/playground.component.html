@@ -9,19 +9,24 @@
         ></nz-tree>
       </aside>
       @if (vm.openFile) {
-        <nz-code-editor
-          class="editor"
-          [ngModel]="vm.openFile.contents"
-          (ngModelChange)="
-            writeFile$.next({ path: vm.openFile.path, contents: $event })
-          "
-          [nzEditorOption]="{
-            language: (vm.openFile.path | languageExtension),
-            minimap: {
-              enabled: false
-            }
-          }"
-        ></nz-code-editor>
+        <aside class="editor-wrap">
+          <ng-container #outlet [ngTemplateOutlet]="content"></ng-container>
+        </aside>
+        <ng-template #content>
+          <nz-code-editor
+            class="editor"
+            [ngModel]="vm.openFile.contents"
+            (ngModelChange)="
+              writeFile$.next({ path: vm.openFile.path, contents: $event })
+            "
+            [nzEditorOption]="{
+              language: (vm.openFile.path | languageExtension),
+              minimap: {
+                enabled: false
+              }
+            }"
+          ></nz-code-editor>
+        </ng-template>
       }
     </section>
     <section class="preview">

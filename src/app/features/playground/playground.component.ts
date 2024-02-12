@@ -2,13 +2,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   PLATFORM_ID,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
   inject,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
-import { CUSTOM_ICONS, ICON_PREFIX } from '../../shared/consts';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DomSanitizer } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import {
   BehaviorSubject,
   combineLatest,
@@ -18,22 +21,25 @@ import {
   merge,
   tap,
 } from 'rxjs';
+import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
 import {
   NzFormatEmitEvent,
   NzTreeModule,
   NzTreeNodeOptions,
 } from 'ng-zorro-antd/tree';
-import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
-import { FormsModule } from '@angular/forms';
+import {
+  NzCodeEditorComponent,
+  NzCodeEditorModule,
+} from 'ng-zorro-antd/code-editor';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 import {
   WEBCONTAINER_STATE,
   provideWebcontainerState,
-} from '../../shared/providers/';
-import { WebContainerFile } from '../../shared/interfaces';
+} from '@app-shared/providers/';
+import { WebContainerFile } from '@app-shared/interfaces';
+import { CUSTOM_ICONS, ICON_PREFIX } from '@app-shared/consts';
+import { TerminalComponent } from './ui';
 import { LanguageExtensionPipe } from './language-extension.pipe';
-import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { DomSanitizer } from '@angular/platform-browser';
-import { TerminalComponent } from './ui/terminal/terminal.component';
 
 @Component({
   selector: 'sw-playground',
@@ -54,6 +60,9 @@ import { TerminalComponent } from './ui/terminal/terminal.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class PlaygroundComponent {
+  @ViewChild('outlet', { read: ViewContainerRef }) outletRef!: ViewContainerRef;
+  @ViewChild('content', { read: TemplateRef })
+  contentRef!: TemplateRef<NzCodeEditorComponent>;
   private readonly platform = inject(PLATFORM_ID);
   private readonly iconService = inject(NzIconService);
   private readonly route = inject(ActivatedRoute);
@@ -92,23 +101,23 @@ export default class PlaygroundComponent {
   );
 
   constructor() {
-    // Register editor icons
-    for (const key in CUSTOM_ICONS) {
-      this.iconService.addIconLiteral(ICON_PREFIX + key, CUSTOM_ICONS[key]);
-    }
+    this.registerIcons();
+    this.initWebContainer();
+  }
 
-    // Effects
+  private initWebContainer() {
     const initWebContainerInstance$ = this.files$.pipe(
       tap((files) => {
         if (files.length >= 0) {
           const mappedFiles = this.webcontainerState.fileTreeMapper(files);
+          const firstChild = this.firstChild(files[0]);
+          const path = firstChild ? firstChild['path'] : '';
           this.webcontainerState.init({
             files: mappedFiles,
-            initialFilePath: files[0]?.children?.[0]?.['index.html'], // TODO: FIX
-            // Config below will serve static files in watch mode without terminal output
-            // static: true,
-            // port: '8080',
-            // root: files[0]['path'],
+            initialFilePath: path,
+            static: true,
+            port: '8080',
+            root: files[0]['path'],
           });
         }
       }),
@@ -124,7 +133,31 @@ export default class PlaygroundComponent {
       .subscribe();
   }
 
-  selectFile(event: NzFormatEmitEvent) {
-    this.webcontainerState.openFile(event.node?.origin['path']);
+  async selectFile(event: NzFormatEmitEvent) {
+    await this.webcontainerState.openFile(event.node?.origin['path']);
+    this.outletRef.clear();
+    this.outletRef.createEmbeddedView(this.contentRef);
+  }
+
+  private firstChild(node: NzTreeNodeOptions): NzTreeNodeOptions | null {
+    if (node.isLeaf) {
+      return node;
+    } else {
+      if (node.children) {
+        for (const child of node.children) {
+          const leafNode = this.firstChild(child);
+          if (leafNode) {
+            return leafNode;
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  private registerIcons() {
+    for (const key in CUSTOM_ICONS) {
+      this.iconService.addIconLiteral(ICON_PREFIX + key, CUSTOM_ICONS[key]);
+    }
   }
 }

@@ -7,7 +7,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { DocContent } from '../../../../shared/interfaces';
+import { DocContent } from '@app-shared/interfaces';
 
 @Component({
   selector: 'sw-doc-viewer',

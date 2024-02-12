@@ -7,13 +7,13 @@ import {
   WebContainerProcess,
 } from '@webcontainer/api';
 import { FileSystemTree } from '@webcontainer/api';
+import { BehaviorSubject } from 'rxjs';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import {
   WebContainerFile,
   WebContainerInitOpts,
   WebContainerState,
-} from '../interfaces';
-import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
-import { BehaviorSubject } from 'rxjs';
+} from '@app-shared/interfaces';
 
 @Injectable()
 export class WebContainerService implements WebContainerState, OnDestroy {
@@ -81,9 +81,12 @@ export class WebContainerService implements WebContainerState, OnDestroy {
     return this.instance?.fs.readFile(path, 'utf-8');
   }
 
-  async openFile(path: string) {
-    const contents = await this.readFile(path);
-    this.#openFile$.next({ path, contents: contents || '' });
+  async openFile(path: string): Promise<boolean> {
+    return new Promise(async (resolve, reject) => {
+      const contents = await this.readFile(path);
+      this.#openFile$.next({ path, contents: contents || '' });
+      resolve(true);
+    });
   }
 
   fileTreeMapper(nodes: NzTreeNodeOptions[]): FileSystemTree {

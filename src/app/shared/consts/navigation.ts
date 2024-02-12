@@ -1,4 +1,4 @@
-import { Navigation } from '../interfaces';
+import { Navigation } from '@app-shared/interfaces';
 
 export const HEADER_NAVIGATION: Navigation[] = [
   {

@@ -1,4 +1,4 @@
-import { BaseNavigationTreeNode } from '../interfaces';
+import { BaseNavigationTreeNode } from '@app-shared/interfaces';
 
 export const DEFAULT_DOC_NAVIGATION: BaseNavigationTreeNode[] = [
   {

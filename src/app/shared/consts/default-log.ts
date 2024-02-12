@@ -1,4 +1,4 @@
-import { LogGreeter } from '../interfaces';
+import { LogGreeter } from '@app-shared/interfaces';
 
 export const DEFAULT_LOG_DATA: LogGreeter[] = [
   {

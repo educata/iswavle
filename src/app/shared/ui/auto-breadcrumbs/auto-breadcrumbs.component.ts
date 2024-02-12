@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { DOC_NAVIGATION } from '../../providers/doc-navigation';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
-import { NavigationTreeNode } from '../../interfaces';
-import { filter, map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map } from 'rxjs';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { DOC_NAVIGATION } from '@app-shared/providers';
+import { NavigationTreeNode } from '@app-shared/interfaces';
 
 @Component({
   selector: 'sw-auto-breadcrumbs',

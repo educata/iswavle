@@ -9,8 +9,9 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { WEBCONTAINER_STATE } from '../../../../shared/providers';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { WebContainerProcess } from '@webcontainer/api';
 import {
   Observable,
   combineLatest,
@@ -21,8 +22,7 @@ import {
   tap,
 } from 'rxjs';
 import { Terminal } from 'xterm';
-import { WebContainerProcess } from '@webcontainer/api';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { WEBCONTAINER_STATE } from '@app-shared/providers';
 import 'xterm/css/xterm.css'; // terminal styles
 
 @Component({

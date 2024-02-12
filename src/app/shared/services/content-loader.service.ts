@@ -2,8 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map, combineLatest, firstValueFrom, catchError, EMPTY } from 'rxjs';
-import { ContentLoader, DocContent, Params } from '../interfaces';
-import { ArticleAttributes } from '../../../../shared/interfaces';
+import { ArticleAttributes } from '@global-shared/interfaces';
+import { ContentLoader, DocContent, Params } from '@app-shared/interfaces';
 
 @Injectable()
 export class ContentLoaderService implements ContentLoader<DocContent> {

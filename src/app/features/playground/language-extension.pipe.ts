@@ -1,10 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
-const langMap: Record<string, string> = {
-  js: 'javascript',
-  ts: 'typescript',
-  md: 'markdown',
-};
+import { LANGUAGE_MAP } from '@app-shared/consts';
 
 @Pipe({
   name: 'languageExtension',
@@ -13,6 +8,6 @@ const langMap: Record<string, string> = {
 export class LanguageExtensionPipe implements PipeTransform {
   transform(path: string): string {
     const extension = path.split('.').pop();
-    return extension ? langMap[extension] || extension : 'txt';
+    return extension ? LANGUAGE_MAP[extension] || extension : 'txt';
   }
 }

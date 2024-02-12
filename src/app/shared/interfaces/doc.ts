@@ -1,4 +1,4 @@
-import { ArticleAttributes } from '../../../../shared/interfaces';
+import { ArticleAttributes } from '@global-shared/interfaces';
 
 export interface DocContent {
   attributes: ArticleAttributes;

@@ -5,15 +5,15 @@ import {
   Input,
   TemplateRef,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
-import { NavigationTreeNode } from '../../interfaces';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { NavigationTreeNode } from '@app-shared/interfaces';
 import { NavItemDirective } from './nav-item.directive';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'sw-sidenav',

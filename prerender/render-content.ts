@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Renderer, marked } from 'marked';
 import frontMatter from 'front-matter';
-import { ArticleAttributes, ArticleToc } from '../shared/interfaces';
+import { ArticleAttributes, ArticleToc } from '@global-shared/interfaces';
 import hljs from 'highlight.js';
 
 const srcContentDir = './src/content';

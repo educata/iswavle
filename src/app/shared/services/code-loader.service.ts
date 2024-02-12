@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { firstValueFrom, catchError, EMPTY, map } from 'rxjs';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
-import { Params, ContentLoader } from '../interfaces/';
-import { ExampleFile } from '../../../../shared/interfaces';
-import { ICON_PREFIX } from '../consts';
+import { ExampleFile } from '@global-shared/interfaces';
+import { Params, ContentLoader } from '@app-shared/interfaces';
+import { ICON_PREFIX } from '@app-shared/consts';
 
 @Injectable()
 export class CodeLoaderService implements ContentLoader<NzTreeNodeOptions> {
