@@ -40,6 +40,7 @@ export class TerminalComponent implements AfterViewInit {
   });
   private readonly destroyRef = inject(DestroyRef);
   private readonly document = inject(DOCUMENT);
+  private readonly TERMINAL_MAX_ROW = 15;
 
   @ViewChild('terminal') terminalRef!: ElementRef<HTMLElement>;
   @Input() interactive = true;
@@ -56,25 +57,33 @@ export class TerminalComponent implements AfterViewInit {
     const Terminal = await import('xterm').then((m) => m.Terminal);
     const FitAddon = await import('xterm-addon-fit').then((m) => m.FitAddon);
 
-    const terminal = new Terminal({ convertEol: true });
+    const terminal = new Terminal({
+      convertEol: true,
+      rows: this.TERMINAL_MAX_ROW,
+    });
     const fitAddon = new FitAddon();
-
     terminal.loadAddon(fitAddon);
+    this.terminalRef.nativeElement.style.maxWidth = `${document.getElementById('result-side')?.clientWidth ?? 100}px`;
     terminal.open(this.terminalRef.nativeElement);
     fitAddon.fit();
 
     if (this.interactive) {
       this.startShell(terminal);
+      this.terminalRef.nativeElement.style.maxWidth = `${document.getElementById('result-side')?.clientWidth ?? 100}px`;
 
       fromEvent(this.document.defaultView!, 'resize')
         .pipe(
           takeUntilDestroyed(this.destroyRef),
           switchMap(() => this.shellProcess$),
           tap((shellProcess) => {
+            this.terminalRef.nativeElement.style.maxWidth = `${document.getElementById('result-side')?.clientWidth ?? 100}px`;
             fitAddon.fit();
             shellProcess.resize({
               cols: terminal.cols,
-              rows: terminal.rows,
+              rows:
+                terminal.rows >= this.TERMINAL_MAX_ROW
+                  ? this.TERMINAL_MAX_ROW
+                  : terminal.rows,
             });
           }),
         )

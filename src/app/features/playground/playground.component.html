@@ -1,38 +1,48 @@
-@if (vm$ | async; as vm) {
-  <div class="playground-container">
-    <section class="editor-container">
-      <aside>
-        <nz-tree
-          [nzData]="vm.files"
-          [nzShowIcon]="true"
-          (nzClick)="selectFile($event)"
-        ></nz-tree>
+<main>
+  @if (vm$ | async; as vm) {
+    <section nz-row class="playground">
+      <aside class="editor" nz-col nzXs="24" nzMd="12" nzLg="12">
+        <div nz-row class="wrapper">
+          <aside nz-col nzSpan="6">
+            <nz-tree
+              [nzData]="vm.files"
+              [nzShowIcon]="true"
+              (nzClick)="selectFile($event)"
+            ></nz-tree>
+          </aside>
+          @if (vm.openFile) {
+            <aside nz-col nzSpan="18">
+              <ng-container #outlet [ngTemplateOutlet]="content"></ng-container>
+            </aside>
+            <ng-template #content>
+              <nz-code-editor
+                class="editor"
+                [ngModel]="vm.openFile.contents"
+                (nzEditorInitialized)="onEditorInit()"
+                (ngModelChange)="
+                  writeFile$.next({ path: vm.openFile.path, contents: $event })
+                "
+                [nzEditorOption]="{
+                  language: (vm.openFile.path | languageExtension),
+                  minimap: {
+                    enabled: false
+                  }
+                }"
+              ></nz-code-editor>
+            </ng-template>
+          }
+        </div>
       </aside>
-      @if (vm.openFile) {
-        <aside class="editor-wrap">
-          <ng-container #outlet [ngTemplateOutlet]="content"></ng-container>
-        </aside>
-        <ng-template #content>
-          <nz-code-editor
-            class="editor"
-            [ngModel]="vm.openFile.contents"
-            (nzEditorInitialized)="onEditorInit()"
-            (ngModelChange)="
-              writeFile$.next({ path: vm.openFile.path, contents: $event })
-            "
-            [nzEditorOption]="{
-              language: (vm.openFile.path | languageExtension),
-              minimap: {
-                enabled: false
-              }
-            }"
-          ></nz-code-editor>
-        </ng-template>
-      }
+      <aside class="preview" nz-col nzXs="24" nzMd="12" nzLg="12">
+        <div class="wrapper" id="result-side">
+          <aside class="result">
+            <iframe class="site" [src]="vm.serverUrl"></iframe>
+          </aside>
+          <aside class="terminal">
+            <sw-terminal></sw-terminal>
+          </aside>
+        </div>
+      </aside>
     </section>
-    <section class="preview">
-      <iframe class="site" [src]="vm.serverUrl"></iframe>
-      <sw-terminal class="terminal"></sw-terminal>
-    </section>
-  </div>
-}
+  }
+</main>

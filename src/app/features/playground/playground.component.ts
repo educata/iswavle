@@ -22,6 +22,7 @@ import {
   tap,
 } from 'rxjs';
 import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 import {
   NzFormatEmitEvent,
   NzTreeModule,
@@ -56,6 +57,7 @@ declare const monaco: any;
     FormsModule,
     LanguageExtensionPipe,
     TerminalComponent,
+    NzGridModule,
   ],
   providers: [provideWebcontainerState()],
   templateUrl: './playground.component.html',
@@ -63,14 +65,15 @@ declare const monaco: any;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class PlaygroundComponent {
-  @ViewChild('outlet', { read: ViewContainerRef }) outletRef!: ViewContainerRef;
-  @ViewChild('content', { read: TemplateRef })
-  contentRef!: TemplateRef<NzCodeEditorComponent>;
   private readonly platform = inject(PLATFORM_ID);
   private readonly iconService = inject(NzIconService);
   private readonly route = inject(ActivatedRoute);
   private readonly webcontainerState = inject(WEBCONTAINER_STATE);
   private readonly domSanitizer = inject(DomSanitizer);
+
+  @ViewChild('outlet', { read: ViewContainerRef }) outletRef!: ViewContainerRef;
+  @ViewChild('content', { read: TemplateRef })
+  contentRef!: TemplateRef<NzCodeEditorComponent>;
 
   readonly isBrowser = isPlatformBrowser(this.platform);
 
@@ -138,6 +141,7 @@ export default class PlaygroundComponent {
   }
 
   async selectFile(event: NzFormatEmitEvent) {
+    if (!event.node?.isLeaf) return;
     await this.webcontainerState.openFile(event.node?.origin['path']);
     this.outletRef.clear();
     this.outletRef.createEmbeddedView(this.contentRef);
