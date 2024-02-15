@@ -1,10 +1,5 @@
-nz-header {
-  background-color: #fff;
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+@menuBreakPoint: 768px;
+@headerSize: 66px;
 
 nz-layout.root-layout {
   min-height: 100vh;
@@ -12,4 +7,71 @@ nz-layout.root-layout {
 
 nz-layout {
   background-color: #fff;
+}
+
+header {
+  height: @headerSize;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  box-sizing: border-box;
+
+  .brand {
+    display: flex;
+    align-items: center;
+    a {
+      padding: 0 8px;
+      font-size: 1.5rem;
+    }
+  }
+
+  .burger {
+    display: none;
+
+    @media (max-width: @menuBreakPoint) {
+      display: block;
+    }
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .ant-menu-horizontal {
+      border-bottom: none;
+    }
+
+    ul {
+      width: 100%;
+
+      li {
+        &.without-border:hover::after,
+        &.without-border::after {
+          border-bottom: none;
+        }
+
+        a {
+          span {
+            font-size: 20px;
+          }
+        }
+      }
+
+      @media (max-width: @menuBreakPoint) {
+        height: 100%;
+        display: block;
+        position: fixed;
+        top: @headerSize;
+        right: -100%;
+        transition: 1s all;
+        z-index: 1000;
+
+        &.is-open {
+          left: 0px;
+        }
+      }
+    }
+  }
 }

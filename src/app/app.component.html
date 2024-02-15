@@ -1,13 +1,28 @@
 <nz-layout class="root-layout">
-  <nz-header>
-    <ul nz-menu nzTheme="light" nzMode="horizontal" class="header-menu">
-      @for (nav of headerNavigation; track nav.routerLink) {
-        <li nz-menu-item [nzSelected]="$index === 0">
-          <a [routerLink]="nav.routerLink">{{ nav.title }}</a>
+  <header>
+    <div class="brand">
+      <a routerLink="/">Iswavle</a>
+    </div>
+    <nav>
+      <ul nz-menu [nzMode]="menuMode" [class.is-open]="isOpen">
+        @for (nav of headerNavigation; track nav.routerLink) {
+          <li nz-menu-item [nzSelected]="$index === 0">
+            <a (click)="isOpen = false" [routerLink]="nav.routerLink">
+              {{ nav.title }}</a
+            >
+          </li>
+        }
+        <li nz-menu-item class="without-border">
+          <a href="https://github.com/educata/iswavle" target="_blank">
+            <span nz-icon nzType="github" nzTheme="outline"></span>
+          </a>
         </li>
-      }
-    </ul>
-  </nz-header>
+      </ul>
+      <button class="burger" nz-button (click)="toggleMenu()">
+        <span nz-icon [nzType]="isOpen ? 'close' : 'menu'"></span>
+      </button>
+    </nav>
+  </header>
   <nz-layout>
     <router-outlet></router-outlet>
   </nz-layout>

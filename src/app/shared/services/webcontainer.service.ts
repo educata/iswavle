@@ -35,6 +35,9 @@ export class WebContainerService implements WebContainerState, OnDestroy {
   async init(opts: WebContainerInitOpts): Promise<void> {
     if (!isPlatformBrowser(this.platform)) return;
 
+    // TODO: if route changed before boot inited there is error which will break playground
+    // ! ERROR Error: Only a single WebContainer instance can be booted
+
     // TODO: maybe boot once throughout whole app and just mount different files
     const webcontainerInstance = await WebContainer.boot();
     this.instance = webcontainerInstance;
