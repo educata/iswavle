@@ -27,7 +27,7 @@ export class AutoBreadcrumbsComponent {
 
         const dig = (nodes: NavigationTreeNode[], matcher: string) => {
           nodes.forEach((node) => {
-            if (node.routerLink.join('/').slice(1) === matcher) {
+            if ('/' + node.routerLink.join('/').slice(1) === matcher) {
               found = node;
               return;
             }
@@ -47,7 +47,7 @@ export class AutoBreadcrumbsComponent {
                 .slice(1)
                 .map(
                   (link, index, self) =>
-                    `/${self.slice(0, index + 1).join('/')}`,
+                    `/doc/${self.slice(0, index + 1).join('/')}`,
                 ),
             }
           : null;

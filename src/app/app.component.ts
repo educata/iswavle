@@ -35,8 +35,8 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:resize', ['$event']) onResize(event: Event) {
     const target = event.target as Window;
-    this.menuMode = target.screen.availWidth >= 768 ? 'horizontal' : 'vertical';
-    if (target.screen.availWidth >= 768) {
+    this.menuMode = target.screen.availWidth >= 767 ? 'horizontal' : 'vertical';
+    if (target.screen.availWidth >= 767) {
       this.isOpen = false;
     }
   }

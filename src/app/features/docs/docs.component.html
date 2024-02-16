@@ -1,20 +1,48 @@
-<nz-layout>
+<nz-layout class="base">
   <nz-sider
-    nzWidth="300px"
     nzTheme="light"
     nzBreakpoint="md"
     [nzCollapsedWidth]="0"
+    [nzWidth]="siderWidth"
   >
     <sw-sidenav [navItems]="navigation"></sw-sidenav>
   </nz-sider>
   <nz-layout class="inner-layout">
-    <sw-auto-breadcrumbs></sw-auto-breadcrumbs>
+    <aside class="navigation">
+      @if (hideToc) {
+        <div>
+          <button nz-button nzType="default" (click)="isDrawerVisible = true">
+            <span nz-icon nzType="menu-unfold" nzTheme="outline"></span>
+          </button>
+        </div>
+      }
+      <sw-auto-breadcrumbs></sw-auto-breadcrumbs>
+    </aside>
+    @if (isBrowser) {
+      <nz-drawer
+        nzPlacement="left"
+        nzTitle="კონტენტი"
+        [nzVisible]="isDrawerVisible"
+        (nzOnClose)="isDrawerVisible = false"
+      >
+        <ng-container *nzDrawerContent>
+          <div class="drawer">
+            @if (article(); as article) {
+              <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
+            }
+            <sw-sidenav [navItems]="navigation"></sw-sidenav>
+          </div>
+        </ng-container>
+      </nz-drawer>
+    }
     <nz-content>
-      <section>
+      <section [class.with-toc]="!hideToc">
         @if (article(); as article) {
           <sw-doc-viewer [docContent]="article"></sw-doc-viewer>
           <aside>
-            <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
+            @if (!hideToc && isXLarge) {
+              <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
+            }
           </aside>
         } @else {
           <p>კონტენტი არ არის</p>

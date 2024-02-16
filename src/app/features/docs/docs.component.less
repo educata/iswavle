@@ -1,20 +1,33 @@
-section {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 64px;
-}
+nz-layout.base {
+  nz-layout.inner-layout {
+    padding: 0 24px 24px;
 
-.sider-menu {
-  height: 100%;
-  border-right: 0;
-}
+    nz-drawer {
+      div.drawer {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+      }
+    }
 
-.inner-layout {
-  padding: 0 24px 24px;
-}
+    .navigation {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
 
-nz-content {
-  background: #fff;
-  padding: 24px;
+    nz-content {
+      background: #fff;
+      padding: 24px;
+      section {
+        width: 100%;
+
+        &.with-toc {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+        }
+      }
+    }
+  }
 }
