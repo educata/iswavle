@@ -52,7 +52,10 @@
     <nz-content>
       <section [class.with-toc]="!hideToc">
         @if (article(); as article) {
-          <sw-doc-viewer [docContent]="article"></sw-doc-viewer>
+          <sw-doc-viewer
+            [class.full-size]="!isXLarge"
+            [docContent]="article"
+          ></sw-doc-viewer>
           <aside>
             @if (!hideToc && isXLarge) {
               <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
