@@ -5,7 +5,18 @@
     [nzCollapsedWidth]="0"
     [nzWidth]="siderWidth"
   >
-    <sw-sidenav [navItems]="navigation"></sw-sidenav>
+    <aside class="sidenav-sticky">
+      @if (article(); as article) {
+        @if (!isXLarge) {
+          <sw-doc-toc
+            class="toc-sticky"
+            [isFixed]="false"
+            [docAttrs]="article.attributes.toc"
+          ></sw-doc-toc>
+        }
+      }
+      <sw-sidenav [navItems]="navigation"></sw-sidenav>
+    </aside>
   </nz-sider>
   <nz-layout class="inner-layout">
     <aside class="navigation">
@@ -28,7 +39,10 @@
         <ng-container *nzDrawerContent>
           <div class="drawer">
             @if (article(); as article) {
-              <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
+              <sw-doc-toc
+                [isFixed]="false"
+                [docAttrs]="article.attributes.toc"
+              ></sw-doc-toc>
             }
             <sw-sidenav [navItems]="navigation"></sw-sidenav>
           </div>

@@ -13,9 +13,30 @@
           </li>
         }
         <li nz-menu-item class="without-border">
-          <a href="https://github.com/educata/iswavle" target="_blank">
-            <span nz-icon nzType="github" nzTheme="outline"></span>
-          </a>
+          <div class="grouped">
+            <a href="https://github.com/educata/iswavle" target="_blank">
+              <span nz-icon nzType="github" nzTheme="outline"></span>
+            </a>
+            <button
+              nz-button
+              nz-dropdown
+              nzType="text"
+              nzPlacement="bottomRight"
+              [nzDropdownMenu]="themeMenu"
+            >
+              <span nz-icon nzType="bg-colors" nzTheme="outline"></span>
+            </button>
+            <nz-dropdown-menu #themeMenu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item (click)="changeTheme(theme.Light)">
+                  {{ theme.Light | titlecase }}
+                </li>
+                <li nz-menu-item (click)="changeTheme(theme.Dark)">
+                  {{ theme.Dark | titlecase }}
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+          </div>
         </li>
       </ul>
       <button class="burger" nz-button (click)="toggleMenu()">

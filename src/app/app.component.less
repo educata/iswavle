@@ -1,4 +1,4 @@
-@menuBreakPoint: 767px;
+@menuBreakPoint: 830px;
 @headerSize: 66px;
 
 nz-layout.root-layout {
@@ -52,10 +52,15 @@ header {
           border-bottom: none;
         }
 
-        a {
-          span {
-            font-size: 20px;
-          }
+        .grouped {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 10px;
+        }
+
+        span {
+          font-size: 20px;
         }
       }
 

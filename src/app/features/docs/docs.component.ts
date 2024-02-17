@@ -6,7 +6,7 @@ import {
   PLATFORM_ID,
   inject,
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
@@ -45,6 +45,7 @@ import { DocTocComponent, DocViewerComponent } from './ui';
 export default class DocsComponent implements OnInit {
   private readonly platform = inject(PLATFORM_ID);
   private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly document = inject(DOCUMENT);
   private readonly article$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as DocContent),
   );
@@ -52,15 +53,15 @@ export default class DocsComponent implements OnInit {
   readonly navigation = inject(DOC_NAVIGATION)[0].children || [];
   readonly article = toSignal(this.article$);
   readonly isBrowser = isPlatformBrowser(this.platform);
-  readonly siderWidth = 250;
+  readonly siderWidth = `250px`;
 
   isDrawerVisible = false;
   isXLarge = false;
   hideToc = false;
 
   @HostListener('window:resize') onResize() {
-    this.hideToc = !(window.screen.availWidth >= 767);
-    this.isXLarge = window.screen.availWidth >= 1200;
+    this.hideToc = !(this.document.body.clientWidth >= 767);
+    this.isXLarge = this.document.body.clientWidth >= 1330;
     console.log(!this.hideToc && this.isXLarge);
   }
 

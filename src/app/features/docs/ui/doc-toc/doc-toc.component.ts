@@ -10,6 +10,8 @@ import { NzAnchorModule } from 'ng-zorro-antd/anchor';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocTocComponent {
+  @Input() isFixed = true;
+
   @Input() docAttrs!: {
     id: string;
     title: string;

@@ -1,4 +1,13 @@
 nz-layout.base {
+  min-height: calc(100vh - 66px);
+
+  .sidenav-sticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+    overflow: hidden auto;
+  }
+
   nz-layout.inner-layout {
     padding: 0 24px 24px;
 
@@ -21,6 +30,10 @@ nz-layout.base {
       padding: 24px;
       section {
         width: 100%;
+
+        sw-doc-viewer {
+          width: 100%;
+        }
 
         &.with-toc {
           display: flex;

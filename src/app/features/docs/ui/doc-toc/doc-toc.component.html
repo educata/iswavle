@@ -1,4 +1,4 @@
-<nz-anchor>
+<nz-anchor [nzAffix]="isFixed">
   @for (attr of docAttrs; track attr.id) {
     @if (attr.sub) {
       <nz-link nzHref="#{{ attr.id }}" [nzTitle]="attr.title">
