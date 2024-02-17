@@ -16,6 +16,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 import { DocContent } from '@app-shared/interfaces';
 import { SidenavComponent, AutoBreadcrumbsComponent } from '@app-shared/ui';
 import { DOC_NAVIGATION } from '@app-shared/providers';
@@ -37,6 +38,7 @@ import { DocTocComponent, DocViewerComponent } from './ui';
     NzDrawerModule,
     NzButtonModule,
     NzIconModule,
+    NzBackTopModule,
   ],
   templateUrl: './docs.component.html',
   styleUrl: './docs.component.less',
@@ -62,7 +64,6 @@ export default class DocsComponent implements OnInit {
   @HostListener('window:resize') onResize() {
     this.hideToc = !(this.document.body.clientWidth >= 767);
     this.isXLarge = this.document.body.clientWidth >= 1330;
-    console.log(!this.hideToc && this.isXLarge);
   }
 
   ngOnInit(): void {
