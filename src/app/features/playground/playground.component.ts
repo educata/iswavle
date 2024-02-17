@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   PLATFORM_ID,
   TemplateRef,
   ViewChild,
@@ -21,6 +22,7 @@ import {
   merge,
   tap,
 } from 'rxjs';
+import { Uri } from 'monaco-editor';
 import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import {
@@ -28,6 +30,8 @@ import {
   NzTreeModule,
   NzTreeNodeOptions,
 } from 'ng-zorro-antd/tree';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 import {
   NzCodeEditorComponent,
   NzCodeEditorModule,
@@ -41,7 +45,6 @@ import { WebContainerFile } from '@app-shared/interfaces';
 import { CUSTOM_ICONS, ICON_PREFIX } from '@app-shared/consts';
 import { TerminalComponent } from './ui';
 import { LanguageExtensionPipe } from './language-extension.pipe';
-import { Uri } from 'monaco-editor';
 
 declare const monaco: any;
 
@@ -58,6 +61,8 @@ declare const monaco: any;
     LanguageExtensionPipe,
     TerminalComponent,
     NzGridModule,
+    NzLayoutModule,
+    NzButtonModule,
   ],
   providers: [provideWebcontainerState()],
   templateUrl: './playground.component.html',
@@ -74,8 +79,13 @@ export default class PlaygroundComponent {
   @ViewChild('outlet', { read: ViewContainerRef }) outletRef!: ViewContainerRef;
   @ViewChild('content', { read: TemplateRef })
   contentRef!: TemplateRef<NzCodeEditorComponent>;
+  @ViewChild('editor', { static: false })
+  editorRef!: NzCodeEditorComponent;
 
   readonly isBrowser = isPlatformBrowser(this.platform);
+
+  isCollapsed = false;
+  isEditorInited = false;
 
   writeFile$ = new BehaviorSubject<WebContainerFile | null>(null);
 
@@ -148,6 +158,7 @@ export default class PlaygroundComponent {
   }
 
   onEditorInit() {
+    this.isEditorInited = true;
     monaco.editor.registerLinkOpener({
       async open(resource: Uri) {
         // TODO: handle link opener
@@ -177,5 +188,16 @@ export default class PlaygroundComponent {
     for (const key in CUSTOM_ICONS) {
       this.iconService.addIconLiteral(ICON_PREFIX + key, CUSTOM_ICONS[key]);
     }
+  }
+
+  collapseSider() {
+    this.isCollapsed = !this.isCollapsed;
+    setTimeout(() => {
+      this.editorRef.layout();
+    }, 500);
+  }
+
+  download() {
+    console.log('Download all files');
   }
 }
