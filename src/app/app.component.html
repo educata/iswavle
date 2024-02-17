@@ -4,10 +4,17 @@
       <a routerLink="/">Iswavle</a>
     </div>
     <nav>
-      <ul nz-menu [nzMode]="menuMode" [class.is-open]="isOpen">
+      <ul
+        nz-menu
+        [nzMode]="(menuMode$ | async) || 'horizontal'"
+        [class.is-open]="isMenuOpen$ | async"
+      >
         @for (nav of headerNavigation; track nav.routerLink) {
           <li nz-menu-item [nzSelected]="$index === 0">
-            <a (click)="isOpen = false" [routerLink]="nav.routerLink">
+            <a
+              (click)="isMenuOpenedByUser$.next(false)"
+              [routerLink]="nav.routerLink"
+            >
               {{ nav.title }}</a
             >
           </li>
@@ -39,8 +46,15 @@
           </div>
         </li>
       </ul>
-      <button class="burger" nz-button (click)="toggleMenu()">
-        <span nz-icon [nzType]="isOpen ? 'close' : 'menu'"></span>
+      <button
+        class="burger"
+        nz-button
+        (click)="this.isMenuOpenedByUser$.next(!this.isMenuOpenedByUser$.value)"
+      >
+        <span
+          nz-icon
+          [nzType]="(isMenuOpen$ | async) ? 'close' : 'menu'"
+        ></span>
       </button>
     </nav>
   </header>

@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DOCUMENT, TitleCasePipe } from '@angular/common';
+import { AsyncPipe, DOCUMENT, TitleCasePipe } from '@angular/common';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModeType, NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
@@ -16,6 +16,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { Theme } from '@app-shared/enums';
 import { ThemeService } from '@app-shared/services';
 import { LOG_GREETER, NAVIGATION } from './shared/providers';
+import { BehaviorSubject, combineLatest, fromEvent, map } from 'rxjs';
 
 @Component({
   selector: 'sw-root',
@@ -28,6 +29,7 @@ import { LOG_GREETER, NAVIGATION } from './shared/providers';
     NzIconModule,
     NzDropDownModule,
     TitleCasePipe,
+    AsyncPipe,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],
@@ -40,16 +42,20 @@ export class AppComponent implements OnInit {
   readonly headerNavigation = inject(NAVIGATION);
   readonly theme = Theme;
 
-  isOpen = false;
-  menuMode: NzMenuModeType = 'horizontal';
+  isMenuOpenedByUser$ = new BehaviorSubject<boolean>(false);
 
-  @HostListener('window:resize', ['$event']) onResize(event: Event) {
-    const target = event.target as Window;
-    this.menuMode = target.innerWidth >= 830 ? 'horizontal' : 'vertical';
-    if (target.innerWidth >= 830) {
-      this.isOpen = false;
-    }
-  }
+  isWideScreen$ = fromEvent(this.document.defaultView as Window, 'resize').pipe(
+    map((event) => (event.target as Window).innerWidth >= 830),
+  );
+
+  isMenuOpen$ = combineLatest([
+    this.isWideScreen$,
+    this.isMenuOpenedByUser$,
+  ]).pipe(map(([isWideScreen, isOpenByUser]) => !isWideScreen && isOpenByUser));
+
+  menuMode$ = this.isWideScreen$.pipe(
+    map((isWide) => (isWide ? 'horizontal' : 'vertical')),
+  );
 
   constructor() {
     this.themeService.init().pipe(takeUntilDestroyed()).subscribe();
@@ -57,11 +63,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // this.initDefaultLog();
-  }
-
-  toggleMenu() {
-    this.isOpen = !this.isOpen;
-    this.menuMode = this.isOpen ? 'vertical' : 'horizontal';
   }
 
   private initDefaultLog() {
