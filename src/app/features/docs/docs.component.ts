@@ -9,6 +9,7 @@ import {
   AsyncPipe,
   CommonModule,
   DOCUMENT,
+  ViewportScroller,
   isPlatformBrowser,
 } from '@angular/common';
 import {
@@ -59,6 +60,7 @@ export default class DocsComponent {
   private readonly platform = inject(PLATFORM_ID);
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly viewport = inject(ViewportScroller);
   private readonly document = inject(DOCUMENT);
   private readonly article$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as DocContent),
@@ -101,4 +103,8 @@ export default class DocsComponent {
   readonly hideToc$ = this.resize$.pipe(
     map(() => !(this.document.body.clientWidth >= LAYOUT_SIZES.hideToc)),
   );
+
+  scrollUp() {
+    this.viewport.scrollToPosition([0, 0]);
+  }
 }

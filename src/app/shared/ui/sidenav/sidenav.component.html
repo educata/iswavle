@@ -1,4 +1,4 @@
-<ul nz-menu nzMode="inline" class="sidenav">
+<ul nz-menu nzMode="inline" class="sidenav" (nzClick)="click($event)">
   <ng-container
     *ngTemplateOutlet="menuTpl; context: { $implicit: navItems, level: 1 }"
   ></ng-container>

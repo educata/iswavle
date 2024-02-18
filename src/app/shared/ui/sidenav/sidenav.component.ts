@@ -2,14 +2,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
+  EventEmitter,
   Input,
+  Output,
   TemplateRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzMenuModule, NzMenuItemComponent } from 'ng-zorro-antd/menu';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NavigationTreeNode } from '@app-shared/interfaces';
@@ -38,4 +40,10 @@ export class SidenavComponent {
 
   @ContentChild('#menuTpl', { read: TemplateRef })
   menuTpl?: TemplateRef<unknown>;
+
+  @Output() onClick = new EventEmitter<NzMenuItemComponent>();
+
+  click(event: NzMenuItemComponent) {
+    this.onClick.emit(event);
+  }
 }

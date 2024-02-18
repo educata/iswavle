@@ -14,7 +14,10 @@
           ></sw-doc-toc>
         }
       }
-      <sw-sidenav [navItems]="navigation() || []"></sw-sidenav>
+      <sw-sidenav
+        (onClick)="scrollUp()"
+        [navItems]="navigation() || []"
+      ></sw-sidenav>
     </aside>
   </nz-sider>
   <nz-layout class="inner-layout">
@@ -43,7 +46,10 @@
                 [docAttrs]="article.attributes.toc"
               ></sw-doc-toc>
             }
-            <sw-sidenav [navItems]="navigation() || []"></sw-sidenav>
+            <sw-sidenav
+              [navItems]="navigation() || []"
+              (onClick)="isDrawerVisible = false"
+            ></sw-sidenav>
           </div>
         </ng-container>
       </nz-drawer>

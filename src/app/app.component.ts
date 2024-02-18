@@ -99,6 +99,6 @@ export class AppComponent implements OnInit {
     if (routerLink && typeof routerLink === 'object') {
       routerLink = routerLink.join('/');
     }
-    return this.activePath === routerLink;
+    return this.activePath.includes(routerLink);
   }
 }
