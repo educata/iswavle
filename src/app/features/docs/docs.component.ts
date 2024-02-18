@@ -20,6 +20,7 @@ import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 import { DocContent } from '@app-shared/interfaces';
 import { SidenavComponent, AutoBreadcrumbsComponent } from '@app-shared/ui';
 import { DOC_NAVIGATION } from '@app-shared/providers';
+import { LAYOUT_SIZES } from '@app-shared/consts';
 import { DocTocComponent, DocViewerComponent } from './ui';
 
 @Component({
@@ -55,15 +56,15 @@ export default class DocsComponent implements OnInit {
   readonly navigation = inject(DOC_NAVIGATION)[0].children || [];
   readonly article = toSignal(this.article$);
   readonly isBrowser = isPlatformBrowser(this.platform);
-  readonly siderWidth = `250px`;
+  readonly siderWidth = LAYOUT_SIZES.docSiderWidth;
 
   isDrawerVisible = false;
   isXLarge = false;
   hideToc = false;
 
   @HostListener('window:resize') onResize() {
-    this.hideToc = !(this.document.body.clientWidth >= 767);
-    this.isXLarge = this.document.body.clientWidth >= 1330;
+    this.hideToc = !(this.document.body.clientWidth >= LAYOUT_SIZES.hideToc);
+    this.isXLarge = this.document.body.clientWidth >= LAYOUT_SIZES.xLargeForDoc;
   }
 
   ngOnInit(): void {

@@ -1,22 +1,29 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  HostListener,
   OnInit,
   inject,
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AsyncPipe, DOCUMENT, TitleCasePipe } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  BehaviorSubject,
+  combineLatest,
+  filter,
+  fromEvent,
+  map,
+  tap,
+} from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzMenuModeType, NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { Theme } from '@app-shared/enums';
 import { ThemeService } from '@app-shared/services';
+import { LAYOUT_SIZES } from '@app-shared/consts';
 import { LOG_GREETER, NAVIGATION } from './shared/providers';
-import { BehaviorSubject, combineLatest, fromEvent, map } from 'rxjs';
 
 @Component({
   selector: 'sw-root',
@@ -38,14 +45,17 @@ import { BehaviorSubject, combineLatest, fromEvent, map } from 'rxjs';
 export class AppComponent implements OnInit {
   private readonly defaultDataLog = inject(LOG_GREETER);
   private readonly document = inject(DOCUMENT);
+  private readonly router = inject(Router);
   private readonly themeService = inject(ThemeService);
   readonly headerNavigation = inject(NAVIGATION);
   readonly theme = Theme;
 
+  private activePath = '/';
+
   isMenuOpenedByUser$ = new BehaviorSubject<boolean>(false);
 
   isWideScreen$ = fromEvent(this.document.defaultView as Window, 'resize').pipe(
-    map((event) => (event.target as Window).innerWidth >= 830),
+    map((event) => (event.target as Window).innerWidth >= LAYOUT_SIZES.header),
   );
 
   isMenuOpen$ = combineLatest([
@@ -59,6 +69,16 @@ export class AppComponent implements OnInit {
 
   constructor() {
     this.themeService.init().pipe(takeUntilDestroyed()).subscribe();
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => this.router.url),
+        tap((url) => {
+          this.activePath = url;
+        }),
+        takeUntilDestroyed(),
+      )
+      .subscribe();
   }
 
   ngOnInit(): void {
@@ -73,5 +93,12 @@ export class AppComponent implements OnInit {
 
   changeTheme(theme: Theme) {
     this.themeService.theme = theme;
+  }
+
+  isActivePath(routerLink: string | string[]) {
+    if (routerLink && typeof routerLink === 'object') {
+      routerLink = routerLink.join('/');
+    }
+    return this.activePath === routerLink;
   }
 }

@@ -10,7 +10,7 @@
         [class.is-open]="isMenuOpen$ | async"
       >
         @for (nav of headerNavigation; track nav.routerLink) {
-          <li nz-menu-item [nzSelected]="$index === 0">
+          <li nz-menu-item [nzSelected]="isActivePath(nav.routerLink)">
             <a
               (click)="isMenuOpenedByUser$.next(false)"
               [routerLink]="nav.routerLink"

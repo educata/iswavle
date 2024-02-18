@@ -23,6 +23,7 @@ import {
 } from 'rxjs';
 import { Terminal } from 'xterm';
 import { WEBCONTAINER_STATE } from '@app-shared/providers';
+import { LAYOUT_SIZES } from '@app-shared/consts';
 import 'xterm/css/xterm.css'; // terminal styles
 
 @Component({
@@ -40,7 +41,6 @@ export class TerminalComponent implements AfterViewInit {
   });
   private readonly destroyRef = inject(DestroyRef);
   private readonly document = inject(DOCUMENT);
-  private readonly TERMINAL_MAX_ROW = 15;
 
   @ViewChild('terminal') terminalRef!: ElementRef<HTMLElement>;
   @Input() interactive = true;
@@ -59,7 +59,7 @@ export class TerminalComponent implements AfterViewInit {
 
     const terminal = new Terminal({
       convertEol: true,
-      rows: this.TERMINAL_MAX_ROW,
+      rows: LAYOUT_SIZES.terminalMaxRow,
     });
     const fitAddon = new FitAddon();
     terminal.loadAddon(fitAddon);
@@ -81,8 +81,8 @@ export class TerminalComponent implements AfterViewInit {
             shellProcess.resize({
               cols: terminal.cols,
               rows:
-                terminal.rows >= this.TERMINAL_MAX_ROW
-                  ? this.TERMINAL_MAX_ROW
+                terminal.rows >= LAYOUT_SIZES.terminalMaxRow
+                  ? LAYOUT_SIZES.terminalMaxRow
                   : terminal.rows,
             });
           }),
