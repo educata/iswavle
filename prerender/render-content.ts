@@ -38,6 +38,10 @@ render.heading = (text: string, level: number, raw: string) => {
   `;
 };
 
+render.table = (header: string, body: string) => {
+  return `<div class="table-wrapper"><table><thead>${header}</thead><tbody>${body}</tbody></table></div>`;
+};
+
 marked.setOptions({ renderer: render });
 
 function extractHeaders(htmlString: string): ArticleToc[] {

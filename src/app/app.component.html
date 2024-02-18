@@ -3,71 +3,75 @@
     <div class="brand">
       <a routerLink="/">Iswavle</a>
     </div>
-    <nav>
-      <ul
-        nz-menu
-        [nzMode]="(menuMode$ | async) || 'horizontal'"
-        [class.is-open]="isMenuOpen$ | async"
-      >
-        @for (nav of headerNavigation; track nav.routerLink) {
-          <li
-            nz-menu-item
-            [nzMatchRouter]="$index === 0"
-            [nzMatchRouterExact]="$index === 0"
-            [nzSelected]="isActivePath(nav.routerLink)"
-          >
-            <a
-              (click)="isMenuOpenedByUser$.next(false)"
-              [routerLink]="nav.routerLink"
+    @if (vm$ | async; as vm) {
+      <nav>
+        <ul
+          nz-menu
+          [nzMode]="vm.menuMode || 'horizontal'"
+          [class.is-open]="vm.isMenuOpen"
+        >
+          @for (nav of vm.headerNavigation; track nav.routerLink) {
+            <li
+              nz-menu-item
+              [nzMatchRouter]="$index === 0"
+              [nzMatchRouterExact]="$index === 0"
+              [nzSelected]="nav.isActive"
             >
-              {{ nav.title }}</a
-            >
+              <a
+                [routerLink]="nav.routerLink"
+                (click)="isMenuOpenedByUser$.next(false)"
+              >
+                {{ nav.title }}</a
+              >
+            </li>
+          }
+          <li nz-menu-item class="without-border">
+            <div class="grouped">
+              <a href="https://github.com/educata/iswavle" target="_blank">
+                <span nz-icon nzType="github" nzTheme="outline"></span>
+              </a>
+              <button
+                nz-button
+                nz-dropdown
+                nzType="text"
+                nzPlacement="bottomRight"
+                aria-label="დიზაინის ფერის შეცვლა"
+                [nzDropdownMenu]="themeMenu"
+              >
+                <span nz-icon nzType="bg-colors" nzTheme="outline"></span>
+              </button>
+              <nz-dropdown-menu #themeMenu="nzDropdownMenu">
+                <ul nz-menu>
+                  <li nz-menu-item (click)="changeTheme(theme.Light)">
+                    {{ theme.Light | titlecase }}
+                  </li>
+                  <li nz-menu-item (click)="changeTheme(theme.Dark)">
+                    {{ theme.Dark | titlecase }}
+                  </li>
+                </ul>
+              </nz-dropdown-menu>
+            </div>
           </li>
-        }
-        <li nz-menu-item class="without-border">
-          <div class="grouped">
-            <a href="https://github.com/educata/iswavle" target="_blank">
-              <span nz-icon nzType="github" nzTheme="outline"></span>
-            </a>
-            <button
-              nz-button
-              nz-dropdown
-              nzType="text"
-              nzPlacement="bottomRight"
-              aria-label="დიზაინის ფერის შეცვლა"
-              [nzDropdownMenu]="themeMenu"
-            >
-              <span nz-icon nzType="bg-colors" nzTheme="outline"></span>
-            </button>
-            <nz-dropdown-menu #themeMenu="nzDropdownMenu">
-              <ul nz-menu>
-                <li nz-menu-item (click)="changeTheme(theme.Light)">
-                  {{ theme.Light | titlecase }}
-                </li>
-                <li nz-menu-item (click)="changeTheme(theme.Dark)">
-                  {{ theme.Dark | titlecase }}
-                </li>
-              </ul>
-            </nz-dropdown-menu>
-          </div>
-        </li>
-      </ul>
-      <button
-        nz-button
-        class="burger"
-        aria-label="გამოაჩინე სანავიგაციო ველი"
-        [attr.aria-expanded]="isMenuOpen$ | async"
-        (click)="this.isMenuOpenedByUser$.next(!this.isMenuOpenedByUser$.value)"
-      >
-        <span
-          nz-icon
-          [nzType]="(isMenuOpen$ | async) ? 'close' : 'menu'"
-          [attr.aria-label]="
-            (isMenuOpen$ | async) ? 'მენიუს გახსნა' : 'მენიუს დახურვა'
+        </ul>
+        <button
+          nz-button
+          class="burger"
+          aria-label="გამოაჩინე სანავიგაციო ველი"
+          [attr.aria-expanded]="vm.isMenuOpen"
+          (click)="
+            this.isMenuOpenedByUser$.next(!this.isMenuOpenedByUser$.value)
           "
-        ></span>
-      </button>
-    </nav>
+        >
+          <span
+            nz-icon
+            [nzType]="vm.isMenuOpen ? 'close' : 'menu'"
+            [attr.aria-label]="
+              vm.isMenuOpen ? 'მენიუს გახსნა' : 'მენიუს დახურვა'
+            "
+          ></span>
+        </button>
+      </nav>
+    }
   </header>
   <nz-layout>
     <router-outlet></router-outlet>

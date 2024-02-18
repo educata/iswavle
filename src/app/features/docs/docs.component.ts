@@ -19,7 +19,7 @@ import {
   RouterModule,
 } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, fromEvent, map, merge, of } from 'rxjs';
+import { filter, fromEvent, map, merge, of, startWith } from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -91,16 +91,16 @@ export default class DocsComponent {
     ),
   );
 
-  private readonly resize$ = merge(
-    of(false),
-    fromEvent(this.document.defaultView as Window, 'resize'),
-  );
+  private readonly windowResize$ = fromEvent(
+    this.document.defaultView as Window,
+    'resize',
+  ).pipe(startWith(this.document.body.clientWidth));
 
-  readonly isXLarge$ = this.resize$.pipe(
+  readonly isXLarge$ = this.windowResize$.pipe(
     map(() => this.document.body.clientWidth >= LAYOUT_SIZES.xLargeForDoc),
   );
 
-  readonly hideToc$ = this.resize$.pipe(
+  readonly hideToc$ = this.windowResize$.pipe(
     map(() => !(this.document.body.clientWidth >= LAYOUT_SIZES.hideToc)),
   );
 

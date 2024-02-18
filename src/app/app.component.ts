@@ -9,14 +9,15 @@ import { AsyncPipe, DOCUMENT, TitleCasePipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   BehaviorSubject,
+  Observable,
   combineLatest,
   filter,
   fromEvent,
   map,
-  tap,
+  startWith,
 } from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzMenuModeType, NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -50,35 +51,56 @@ export class AppComponent implements OnInit {
   readonly headerNavigation = inject(NAVIGATION);
   readonly theme = Theme;
 
-  private activePath = '/';
+  readonly isMenuOpenedByUser$ = new BehaviorSubject<boolean>(false);
 
-  isMenuOpenedByUser$ = new BehaviorSubject<boolean>(false);
-
-  isWideScreen$ = fromEvent(this.document.defaultView as Window, 'resize').pipe(
-    map((event) => (event.target as Window).innerWidth >= LAYOUT_SIZES.header),
+  readonly isWideScreen$ = fromEvent(
+    this.document.defaultView as Window,
+    'resize',
+  ).pipe(
+    map((event) => (event.target as Window).innerWidth),
+    startWith(this.document.body.clientWidth),
+    map((width) => width >= LAYOUT_SIZES.header),
   );
 
-  isMenuOpen$ = combineLatest([
+  readonly isMenuOpen$ = combineLatest([
     this.isWideScreen$,
     this.isMenuOpenedByUser$,
   ]).pipe(map(([isWideScreen, isOpenByUser]) => !isWideScreen && isOpenByUser));
 
-  menuMode$ = this.isWideScreen$.pipe(
+  readonly menuMode$: Observable<NzMenuModeType> = this.isWideScreen$.pipe(
     map((isWide) => (isWide ? 'horizontal' : 'vertical')),
+  );
+
+  readonly activePath$ = this.router.events.pipe(
+    filter((event) => event instanceof NavigationEnd),
+    map(() => this.router.url),
+  );
+
+  readonly headerNavigation$ = this.activePath$.pipe(
+    map((path) =>
+      this.headerNavigation.map((nav) => ({
+        ...nav,
+        isActive: this.isActivePath(path, nav.routerLink),
+      })),
+    ),
+  );
+
+  readonly vm$ = combineLatest([
+    this.isMenuOpen$,
+    this.menuMode$,
+    this.activePath$,
+    this.headerNavigation$,
+  ]).pipe(
+    map(([isMenuOpen, menuMode, activePath, headerNavigation]) => ({
+      isMenuOpen,
+      menuMode,
+      activePath,
+      headerNavigation,
+    })),
   );
 
   constructor() {
     this.themeService.init().pipe(takeUntilDestroyed()).subscribe();
-    this.router.events
-      .pipe(
-        filter((event) => event instanceof NavigationEnd),
-        map(() => this.router.url),
-        tap((url) => {
-          this.activePath = url;
-        }),
-        takeUntilDestroyed(),
-      )
-      .subscribe();
   }
 
   ngOnInit(): void {
@@ -95,10 +117,10 @@ export class AppComponent implements OnInit {
     this.themeService.theme = theme;
   }
 
-  isActivePath(routerLink: string | string[]) {
+  isActivePath(currentPath: string | null, routerLink: string | string[]) {
     if (routerLink && typeof routerLink === 'object') {
       routerLink = routerLink.join('/');
     }
-    return this.activePath.includes(routerLink);
+    return currentPath ? currentPath.includes(routerLink) : false;
   }
 }
