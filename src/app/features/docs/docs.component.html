@@ -9,7 +9,6 @@
       @if (article(); as article) {
         @if (!isXLarge) {
           <sw-doc-toc
-            class="toc-sticky"
             [isFixed]="false"
             [docAttrs]="article.attributes.toc"
           ></sw-doc-toc>
