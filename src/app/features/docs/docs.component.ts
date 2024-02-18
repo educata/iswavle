@@ -1,15 +1,24 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  HostListener,
   OnInit,
   PLATFORM_ID,
   inject,
 } from '@angular/core';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import {
+  AsyncPipe,
+  CommonModule,
+  DOCUMENT,
+  isPlatformBrowser,
+} from '@angular/common';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
+import { filter, fromEvent, map } from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -40,6 +49,7 @@ import { DocTocComponent, DocViewerComponent } from './ui';
     NzButtonModule,
     NzIconModule,
     NzBackTopModule,
+    AsyncPipe,
   ],
   templateUrl: './docs.component.html',
   styleUrl: './docs.component.less',
@@ -47,29 +57,54 @@ import { DocTocComponent, DocViewerComponent } from './ui';
 })
 export default class DocsComponent implements OnInit {
   private readonly platform = inject(PLATFORM_ID);
+  private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly document = inject(DOCUMENT);
   private readonly article$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as DocContent),
   );
-  // TODO: refactor inject for navigation
-  readonly navigation = inject(DOC_NAVIGATION)[0].children || [];
+
+  readonly docNavigation = inject(DOC_NAVIGATION);
   readonly article = toSignal(this.article$);
   readonly isBrowser = isPlatformBrowser(this.platform);
   readonly siderWidth = LAYOUT_SIZES.docSiderWidth;
 
   isDrawerVisible = false;
-  isXLarge = false;
-  hideToc = false;
+  activeContentTitle = 'კონტენტი';
 
-  @HostListener('window:resize') onResize() {
-    this.hideToc = !(this.document.body.clientWidth >= LAYOUT_SIZES.hideToc);
-    this.isXLarge = this.document.body.clientWidth >= LAYOUT_SIZES.xLargeForDoc;
-  }
+  readonly navigation = toSignal(
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map(() => this.router.url),
+      map((url) => {
+        /*
+          Since the URL starts with a "/", we need to slice it after that,
+          split it by "/", then only take the second value as a reference or guide.
+        */
+        const path = url.slice(1).split('/')[1];
+        const navigation = this.docNavigation.find((nav) => nav.path === path);
+        this.activeContentTitle = navigation?.title || 'კონტენტი';
+        return navigation?.children || [];
+      }),
+    ),
+  );
+
+  private readonly resize$ = fromEvent(
+    this.document.defaultView as Window,
+    'resize',
+  );
+
+  readonly isXLarge$ = this.resize$.pipe(
+    map(() => this.document.body.clientWidth >= LAYOUT_SIZES.xLargeForDoc),
+  );
+
+  readonly hideToc$ = this.resize$.pipe(
+    map(() => !(this.document.body.clientWidth >= LAYOUT_SIZES.hideToc)),
+  );
 
   ngOnInit(): void {
     if (this.isBrowser) {
-      this.onResize();
+      //somehow call once isXLarge and hideToc
     }
   }
 }

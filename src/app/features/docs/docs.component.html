@@ -7,19 +7,19 @@
   >
     <aside class="sidenav-sticky">
       @if (article(); as article) {
-        @if (!isXLarge) {
+        @if (!(isXLarge$ | async)) {
           <sw-doc-toc
             [isFixed]="false"
             [docAttrs]="article.attributes.toc"
           ></sw-doc-toc>
         }
       }
-      <sw-sidenav [navItems]="navigation"></sw-sidenav>
+      <sw-sidenav [navItems]="navigation() || []"></sw-sidenav>
     </aside>
   </nz-sider>
   <nz-layout class="inner-layout">
     <aside class="navigation">
-      @if (hideToc) {
+      @if (hideToc$ | async) {
         <div>
           <button nz-button nzType="default" (click)="isDrawerVisible = true">
             <span nz-icon nzType="menu-unfold" nzTheme="outline"></span>
@@ -31,7 +31,7 @@
     @if (isBrowser) {
       <nz-drawer
         nzPlacement="left"
-        nzTitle="კონტენტი"
+        [nzTitle]="activeContentTitle"
         [nzVisible]="isDrawerVisible"
         (nzOnClose)="isDrawerVisible = false"
       >
@@ -43,20 +43,20 @@
                 [docAttrs]="article.attributes.toc"
               ></sw-doc-toc>
             }
-            <sw-sidenav [navItems]="navigation"></sw-sidenav>
+            <sw-sidenav [navItems]="navigation() || []"></sw-sidenav>
           </div>
         </ng-container>
       </nz-drawer>
     }
     <nz-content>
-      <section [class.with-toc]="!hideToc">
+      <section [class.with-toc]="!(hideToc$ | async)">
         @if (article(); as article) {
           <sw-doc-viewer
-            [class.full-size]="!isXLarge"
+            [class.full-size]="!(isXLarge$ | async)"
             [docContent]="article"
           ></sw-doc-viewer>
           <aside>
-            @if (!hideToc && isXLarge) {
+            @if (!(hideToc$ | async) && (isXLarge$ | async)) {
               <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
             }
           </aside>
