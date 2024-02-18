@@ -34,6 +34,7 @@
               nz-dropdown
               nzType="text"
               nzPlacement="bottomRight"
+              aria-label="დიზაინის ფერის შეცვლა"
               [nzDropdownMenu]="themeMenu"
             >
               <span nz-icon nzType="bg-colors" nzTheme="outline"></span>
@@ -52,13 +53,18 @@
         </li>
       </ul>
       <button
-        class="burger"
         nz-button
+        class="burger"
+        aria-label="გამოაჩინე სანავიგაციო ველი"
+        [attr.aria-expanded]="isMenuOpen$ | async"
         (click)="this.isMenuOpenedByUser$.next(!this.isMenuOpenedByUser$.value)"
       >
         <span
           nz-icon
           [nzType]="(isMenuOpen$ | async) ? 'close' : 'menu'"
+          [attr.aria-label]="
+            (isMenuOpen$ | async) ? 'მენიუს გახსნა' : 'მენიუს დახურვა'
+          "
         ></span>
       </button>
     </nav>

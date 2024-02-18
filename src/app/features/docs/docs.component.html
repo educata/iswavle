@@ -24,7 +24,13 @@
     <aside class="navigation">
       @if (hideToc$ | async) {
         <div>
-          <button nz-button nzType="default" (click)="isDrawerVisible = true">
+          <button
+            nz-button
+            nzType="default"
+            aria-label="კონტენტის სათაურების ჩვენება"
+            [attr.aria-expanded]="isDrawerVisible"
+            (click)="isDrawerVisible = true"
+          >
             <span nz-icon nzType="menu-unfold" nzTheme="outline"></span>
           </button>
         </div>
