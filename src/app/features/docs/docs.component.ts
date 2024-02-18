@@ -18,7 +18,7 @@ import {
   RouterModule,
 } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, fromEvent, map } from 'rxjs';
+import { filter, fromEvent, map, merge, of } from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -55,7 +55,7 @@ import { DocTocComponent, DocViewerComponent } from './ui';
   styleUrl: './docs.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class DocsComponent implements OnInit {
+export default class DocsComponent {
   private readonly platform = inject(PLATFORM_ID);
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
@@ -89,9 +89,9 @@ export default class DocsComponent implements OnInit {
     ),
   );
 
-  private readonly resize$ = fromEvent(
-    this.document.defaultView as Window,
-    'resize',
+  private readonly resize$ = merge(
+    of(false),
+    fromEvent(this.document.defaultView as Window, 'resize'),
   );
 
   readonly isXLarge$ = this.resize$.pipe(
@@ -101,10 +101,4 @@ export default class DocsComponent implements OnInit {
   readonly hideToc$ = this.resize$.pipe(
     map(() => !(this.document.body.clientWidth >= LAYOUT_SIZES.hideToc)),
   );
-
-  ngOnInit(): void {
-    if (this.isBrowser) {
-      //somehow call once isXLarge and hideToc
-    }
-  }
 }
