@@ -19,6 +19,25 @@
                 [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
               ></span>
             </button>
+            @if (isBrowser) {
+              <button
+                nz-button
+                nz-dropdown
+                nzPlacement="bottomLeft"
+                [nzDropdownMenu]="theme"
+              >
+                <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
+              </button>
+              <nz-dropdown-menu #theme="nzDropdownMenu">
+                <ul nz-menu>
+                  @for (theme of editorThemes; track theme) {
+                    <li nz-menu-item (click)="changeTheme(theme)">
+                      {{ theme }}
+                    </li>
+                  }
+                </ul>
+              </nz-dropdown-menu>
+            }
             <button nz-button (click)="download()" aria-label="კოდის გადმოწერა">
               <span nz-icon nzType="download" nzTheme="outline"></span>
             </button>
@@ -28,7 +47,7 @@
           <nz-sider
             nzCollapsible
             aria-label="ფაილების ჩამონათვალი"
-            [nzTheme]="vm.theme"
+            [nzTheme]="vm.globalTheme"
             [nzCollapsedWidth]="0"
             [nzTrigger]="null"
             [(nzCollapsed)]="isCollapsed"
@@ -61,6 +80,7 @@
                     "
                     [nzEditorOption]="{
                       language: (vm.openFile.path | languageExtension),
+                      theme: vm.editorTheme,
                       minimap: {
                         enabled: false
                       }

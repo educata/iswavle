@@ -31,6 +31,7 @@ import {
   NzTreeNodeOptions,
 } from 'ng-zorro-antd/tree';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import {
   NzCodeEditorComponent,
@@ -42,10 +43,11 @@ import {
   provideWebcontainerState,
 } from '@app-shared/providers/';
 import { WebContainerFile } from '@app-shared/interfaces';
-import { CUSTOM_ICONS, ICON_PREFIX } from '@app-shared/consts';
+import { CUSTOM_ICONS, EDITOR_THEMES, ICON_PREFIX } from '@app-shared/consts';
 import { TerminalComponent } from './ui';
 import { LanguageExtensionPipe } from './language-extension.pipe';
 import { ThemeService } from '@app-shared/services';
+import { LocalStorageKeys, Theme } from '@app-shared/enums';
 
 declare const monaco: any;
 
@@ -64,6 +66,7 @@ declare const monaco: any;
     NzGridModule,
     NzLayoutModule,
     NzButtonModule,
+    NzDropDownModule,
   ],
   providers: [provideWebcontainerState()],
   templateUrl: './playground.component.html',
@@ -85,11 +88,13 @@ export default class PlaygroundComponent {
   editorRef!: NzCodeEditorComponent;
 
   readonly isBrowser = isPlatformBrowser(this.platform);
+  readonly editorThemes = EDITOR_THEMES;
 
   isCollapsed = false;
   isEditorInited = false;
 
   readonly writeFile$ = new BehaviorSubject<WebContainerFile | null>(null);
+  readonly currentEditorTheme$ = new BehaviorSubject<string>(EDITOR_THEMES[0]);
 
   readonly files$ = this.route.data.pipe(
     map((res) => [res['data']] as NzTreeNodeOptions[]),
@@ -102,6 +107,29 @@ export default class PlaygroundComponent {
     map((url) => this.domSanitizer.bypassSecurityTrustResourceUrl(url)),
   );
 
+  readonly editorTheme$ = combineLatest([
+    this.currentEditorTheme$,
+    this.themeService.theme$,
+  ]).pipe(
+    map(([editorTheme, globalTheme]) => {
+      const userPrefrableTheme = localStorage.getItem(
+        LocalStorageKeys.CodeEditorTheme,
+      );
+      return userPrefrableTheme
+        ? editorTheme
+        : this.convertGlobalTheme(globalTheme);
+    }),
+    tap(() => {
+      if (
+        this.contentRef &&
+        this.editorRef &&
+        !localStorage.getItem(LocalStorageKeys.CodeEditorTheme)
+      ) {
+        this.reRenderEditor();
+      }
+    }),
+  );
+
   readonly vm$ = combineLatest([
     this.files$,
     this.openFile$,
@@ -109,6 +137,7 @@ export default class PlaygroundComponent {
     this.instanceDestroyed$,
     this.serverUrl$,
     this.themeService.theme$,
+    this.editorTheme$,
   ]).pipe(
     map(
       ([
@@ -117,14 +146,16 @@ export default class PlaygroundComponent {
         instanceLoaded,
         instanceDestroyed,
         serverUrl,
-        theme,
+        globalTheme,
+        editorTheme,
       ]) => ({
         files,
         openFile,
         instanceLoaded,
         instanceDestroyed,
         serverUrl,
-        theme,
+        globalTheme,
+        editorTheme,
       }),
     ),
   );
@@ -166,12 +197,21 @@ export default class PlaygroundComponent {
   async selectFile(event: NzFormatEmitEvent) {
     if (!event.node?.isLeaf) return;
     await this.webcontainerState.openFile(event.node?.origin['path']);
+    this.reRenderEditor();
+  }
+
+  private reRenderEditor() {
     this.outletRef.clear();
     this.outletRef.createEmbeddedView(this.contentRef);
   }
 
+  private convertGlobalTheme(theme: Theme) {
+    return theme === Theme.Light ? 'vs' : 'vs-dark';
+  }
+
   onEditorInit() {
     this.isEditorInited = true;
+    this.initChoosedTheme();
     monaco.editor.registerLinkOpener({
       async open(resource: Uri) {
         // TODO: handle link opener
@@ -179,6 +219,13 @@ export default class PlaygroundComponent {
         return true;
       },
     });
+  }
+
+  private initChoosedTheme() {
+    const prevTheme = localStorage.getItem(LocalStorageKeys.CodeEditorTheme);
+    if (prevTheme) {
+      this.currentEditorTheme$.next(prevTheme);
+    }
   }
 
   private firstChild(node: NzTreeNodeOptions): NzTreeNodeOptions | null {
@@ -212,5 +259,10 @@ export default class PlaygroundComponent {
 
   download() {
     console.log('Download all files');
+  }
+
+  changeTheme(theme: string) {
+    this.currentEditorTheme$.next(theme);
+    localStorage.setItem(LocalStorageKeys.CodeEditorTheme, theme);
   }
 }
