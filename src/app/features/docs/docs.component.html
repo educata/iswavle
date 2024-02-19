@@ -1,7 +1,7 @@
 <nz-layout class="base">
   <nz-sider
-    nzTheme="light"
     nzBreakpoint="md"
+    [nzTheme]="(themeService.theme$ | async) || 'light'"
     [nzCollapsedWidth]="0"
     [nzWidth]="siderWidth"
   >

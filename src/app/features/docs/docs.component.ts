@@ -1,7 +1,7 @@
+import { ThemeService } from '@app-shared/services';
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
   PLATFORM_ID,
   inject,
 } from '@angular/core';
@@ -19,7 +19,7 @@ import {
   RouterModule,
 } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, fromEvent, map, merge, of, startWith } from 'rxjs';
+import { filter, fromEvent, map, startWith } from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -66,6 +66,7 @@ export default class DocsComponent {
     map((response) => response['data'] as DocContent),
   );
 
+  readonly themeService = inject(ThemeService);
   readonly docNavigation = inject(DOC_NAVIGATION);
   readonly article = toSignal(this.article$);
   readonly isBrowser = isPlatformBrowser(this.platform);

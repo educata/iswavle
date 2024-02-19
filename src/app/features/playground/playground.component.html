@@ -27,8 +27,8 @@
         <nz-layout>
           <nz-sider
             nzCollapsible
-            nzTheme="light"
             aria-label="ფაილების ჩამონათვალი"
+            [nzTheme]="vm.theme"
             [nzCollapsedWidth]="0"
             [nzTrigger]="null"
             [(nzCollapsed)]="isCollapsed"

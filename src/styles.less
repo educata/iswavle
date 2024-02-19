@@ -1,16 +1,18 @@
-// Custom Theming for NG-ZORRO
-// For more information: https://ng.ant.design/docs/customize-theme/en
 @import '../node_modules/ng-zorro-antd/ng-zorro-antd.less';
 @import './styles/highlight-theme.less';
 @import './styles/variables.less';
 
-// Override less variables to here
-// View all variables: https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/components/style/themes/default.less
-
-// @primary-color: #1890ff;
+@gray: #e1e9ec;
+@gray-lifted: rgb(168, 168, 182);
+@scrllbar-thicc: 8px;
 
 html {
   scroll-behavior: smooth;
+}
+
+html.dark {
+  @import './node_modules/ng-zorro-antd/ng-zorro-antd.dark.less';
+  @import './styles/dark-variables.less';
 }
 
 img {
@@ -39,7 +41,7 @@ kbd {
 
 .ant-drawer-body {
   .ant-menu-sub.ant-menu-inline {
-    background-color: #fff;
+    background-color: transparent;
   }
 }
 
@@ -57,6 +59,10 @@ nz-anchor {
   }
 }
 
+nz-layout {
+  background: transparent !important;
+}
+
 ::-webkit-scrollbar {
   width: @scrllbar-thicc;
   height: @scrllbar-thicc;
@@ -67,10 +73,10 @@ nz-anchor {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: @gray-light;
+  background-color: @gray;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: @gray-light-lifted;
+  background-color: @gray-lifted;
 }

@@ -1,4 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { LocalStorageKeys, Theme } from '@app-shared/enums';
 import { BehaviorSubject, tap } from 'rxjs';
@@ -9,6 +9,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 export class ThemeService {
   private readonly platform = inject(PLATFORM_ID);
   private readonly isBrowser = isPlatformBrowser(this.platform);
+  private readonly document = inject(DOCUMENT);
   readonly #theme$ = new BehaviorSubject<Theme>(Theme.Light);
   readonly theme$ = this.#theme$.asObservable();
 
@@ -38,9 +39,15 @@ export class ThemeService {
 
   changeTheme(theme: Theme) {
     if (this.isBrowser) {
+      const documentClassList = this.document.documentElement.classList;
+      if (theme === Theme.Dark) {
+        documentClassList.add(Theme.Dark);
+        documentClassList.remove(Theme.Light);
+      } else {
+        documentClassList.add(Theme.Light);
+        documentClassList.remove(Theme.Dark);
+      }
       localStorage.setItem(LocalStorageKeys.Theme, theme);
-      // TODO: handle theme change
-      console.log(theme);
     }
   }
 }

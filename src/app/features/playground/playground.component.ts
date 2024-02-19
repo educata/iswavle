@@ -45,6 +45,7 @@ import { WebContainerFile } from '@app-shared/interfaces';
 import { CUSTOM_ICONS, ICON_PREFIX } from '@app-shared/consts';
 import { TerminalComponent } from './ui';
 import { LanguageExtensionPipe } from './language-extension.pipe';
+import { ThemeService } from '@app-shared/services';
 
 declare const monaco: any;
 
@@ -75,6 +76,7 @@ export default class PlaygroundComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly webcontainerState = inject(WEBCONTAINER_STATE);
   private readonly domSanitizer = inject(DomSanitizer);
+  private readonly themeService = inject(ThemeService);
 
   @ViewChild('outlet', { read: ViewContainerRef }) outletRef!: ViewContainerRef;
   @ViewChild('content', { read: TemplateRef })
@@ -87,33 +89,44 @@ export default class PlaygroundComponent {
   isCollapsed = false;
   isEditorInited = false;
 
-  writeFile$ = new BehaviorSubject<WebContainerFile | null>(null);
+  readonly writeFile$ = new BehaviorSubject<WebContainerFile | null>(null);
 
-  files$ = this.route.data.pipe(
+  readonly files$ = this.route.data.pipe(
     map((res) => [res['data']] as NzTreeNodeOptions[]),
   );
 
-  openFile$ = this.webcontainerState.openFile$;
-  instanceLoaded$ = this.webcontainerState.instanceLoaded$;
-  instanceDestroyed$ = this.webcontainerState.instanceDestroyed$;
-  serverUrl$ = this.webcontainerState.serverUrl$.pipe(
+  readonly openFile$ = this.webcontainerState.openFile$;
+  readonly instanceLoaded$ = this.webcontainerState.instanceLoaded$;
+  readonly instanceDestroyed$ = this.webcontainerState.instanceDestroyed$;
+  readonly serverUrl$ = this.webcontainerState.serverUrl$.pipe(
     map((url) => this.domSanitizer.bypassSecurityTrustResourceUrl(url)),
   );
 
-  vm$ = combineLatest([
+  readonly vm$ = combineLatest([
     this.files$,
     this.openFile$,
     this.instanceLoaded$,
     this.instanceDestroyed$,
     this.serverUrl$,
+    this.themeService.theme$,
   ]).pipe(
-    map(([files, openFile, instanceLoaded, instanceDestroyed, serverUrl]) => ({
-      files,
-      openFile,
-      instanceLoaded,
-      instanceDestroyed,
-      serverUrl,
-    })),
+    map(
+      ([
+        files,
+        openFile,
+        instanceLoaded,
+        instanceDestroyed,
+        serverUrl,
+        theme,
+      ]) => ({
+        files,
+        openFile,
+        instanceLoaded,
+        instanceDestroyed,
+        serverUrl,
+        theme,
+      }),
+    ),
   );
 
   constructor() {
