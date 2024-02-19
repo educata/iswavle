@@ -265,4 +265,11 @@ export default class PlaygroundComponent {
     this.currentEditorTheme$.next(theme);
     localStorage.setItem(LocalStorageKeys.CodeEditorTheme, theme);
   }
+
+  defaultTheme() {
+    this.currentEditorTheme$.next(
+      this.convertGlobalTheme(this.themeService.theme),
+    );
+    localStorage.removeItem(LocalStorageKeys.CodeEditorTheme);
+  }
 }
