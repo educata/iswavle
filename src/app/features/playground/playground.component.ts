@@ -31,6 +31,7 @@ import {
   NzTreeNodeOptions,
 } from 'ng-zorro-antd/tree';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import {
   NzCodeEditorComponent,
@@ -42,9 +43,11 @@ import {
   provideWebcontainerState,
 } from '@app-shared/providers/';
 import { WebContainerFile } from '@app-shared/interfaces';
-import { CUSTOM_ICONS, ICON_PREFIX } from '@app-shared/consts';
+import { CUSTOM_ICONS, EDITOR_THEMES, ICON_PREFIX } from '@app-shared/consts';
 import { TerminalComponent } from './ui';
 import { LanguageExtensionPipe } from './language-extension.pipe';
+import { ThemeService } from '@app-shared/services';
+import { LocalStorageKeys, Theme } from '@app-shared/enums';
 
 declare const monaco: any;
 
@@ -63,6 +66,7 @@ declare const monaco: any;
     NzGridModule,
     NzLayoutModule,
     NzButtonModule,
+    NzDropDownModule,
   ],
   providers: [provideWebcontainerState()],
   templateUrl: './playground.component.html',
@@ -75,6 +79,7 @@ export default class PlaygroundComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly webcontainerState = inject(WEBCONTAINER_STATE);
   private readonly domSanitizer = inject(DomSanitizer);
+  private readonly themeService = inject(ThemeService);
 
   @ViewChild('outlet', { read: ViewContainerRef }) outletRef!: ViewContainerRef;
   @ViewChild('content', { read: TemplateRef })
@@ -83,37 +88,76 @@ export default class PlaygroundComponent {
   editorRef!: NzCodeEditorComponent;
 
   readonly isBrowser = isPlatformBrowser(this.platform);
+  readonly editorThemes = EDITOR_THEMES;
 
   isCollapsed = false;
   isEditorInited = false;
 
-  writeFile$ = new BehaviorSubject<WebContainerFile | null>(null);
+  readonly writeFile$ = new BehaviorSubject<WebContainerFile | null>(null);
+  readonly currentEditorTheme$ = new BehaviorSubject<string>(EDITOR_THEMES[0]);
 
-  files$ = this.route.data.pipe(
+  readonly files$ = this.route.data.pipe(
     map((res) => [res['data']] as NzTreeNodeOptions[]),
   );
 
-  openFile$ = this.webcontainerState.openFile$;
-  instanceLoaded$ = this.webcontainerState.instanceLoaded$;
-  instanceDestroyed$ = this.webcontainerState.instanceDestroyed$;
-  serverUrl$ = this.webcontainerState.serverUrl$.pipe(
+  readonly openFile$ = this.webcontainerState.openFile$;
+  readonly instanceLoaded$ = this.webcontainerState.instanceLoaded$;
+  readonly instanceDestroyed$ = this.webcontainerState.instanceDestroyed$;
+  readonly serverUrl$ = this.webcontainerState.serverUrl$.pipe(
     map((url) => this.domSanitizer.bypassSecurityTrustResourceUrl(url)),
   );
 
-  vm$ = combineLatest([
+  readonly editorTheme$ = combineLatest([
+    this.currentEditorTheme$,
+    this.themeService.theme$,
+  ]).pipe(
+    map(([editorTheme, globalTheme]) => {
+      const userPrefrableTheme = localStorage.getItem(
+        LocalStorageKeys.CodeEditorTheme,
+      );
+      return userPrefrableTheme
+        ? editorTheme
+        : this.convertGlobalTheme(globalTheme);
+    }),
+    tap(() => {
+      if (
+        this.contentRef &&
+        this.editorRef &&
+        !localStorage.getItem(LocalStorageKeys.CodeEditorTheme)
+      ) {
+        this.reRenderEditor();
+      }
+    }),
+  );
+
+  readonly vm$ = combineLatest([
     this.files$,
     this.openFile$,
     this.instanceLoaded$,
     this.instanceDestroyed$,
     this.serverUrl$,
+    this.themeService.theme$,
+    this.editorTheme$,
   ]).pipe(
-    map(([files, openFile, instanceLoaded, instanceDestroyed, serverUrl]) => ({
-      files,
-      openFile,
-      instanceLoaded,
-      instanceDestroyed,
-      serverUrl,
-    })),
+    map(
+      ([
+        files,
+        openFile,
+        instanceLoaded,
+        instanceDestroyed,
+        serverUrl,
+        globalTheme,
+        editorTheme,
+      ]) => ({
+        files,
+        openFile,
+        instanceLoaded,
+        instanceDestroyed,
+        serverUrl,
+        globalTheme,
+        editorTheme,
+      }),
+    ),
   );
 
   constructor() {
@@ -153,12 +197,21 @@ export default class PlaygroundComponent {
   async selectFile(event: NzFormatEmitEvent) {
     if (!event.node?.isLeaf) return;
     await this.webcontainerState.openFile(event.node?.origin['path']);
+    this.reRenderEditor();
+  }
+
+  private reRenderEditor() {
     this.outletRef.clear();
     this.outletRef.createEmbeddedView(this.contentRef);
   }
 
+  private convertGlobalTheme(theme: Theme) {
+    return theme === Theme.Light ? 'vs' : 'vs-dark';
+  }
+
   onEditorInit() {
     this.isEditorInited = true;
+    this.initChoosedTheme();
     monaco.editor.registerLinkOpener({
       async open(resource: Uri) {
         // TODO: handle link opener
@@ -166,6 +219,13 @@ export default class PlaygroundComponent {
         return true;
       },
     });
+  }
+
+  private initChoosedTheme() {
+    const prevTheme = localStorage.getItem(LocalStorageKeys.CodeEditorTheme);
+    if (prevTheme) {
+      this.currentEditorTheme$.next(prevTheme);
+    }
   }
 
   private firstChild(node: NzTreeNodeOptions): NzTreeNodeOptions | null {
@@ -199,5 +259,17 @@ export default class PlaygroundComponent {
 
   download() {
     console.log('Download all files');
+  }
+
+  changeTheme(theme: string) {
+    this.currentEditorTheme$.next(theme);
+    localStorage.setItem(LocalStorageKeys.CodeEditorTheme, theme);
+  }
+
+  defaultTheme() {
+    this.currentEditorTheme$.next(
+      this.convertGlobalTheme(this.themeService.theme),
+    );
+    localStorage.removeItem(LocalStorageKeys.CodeEditorTheme);
   }
 }

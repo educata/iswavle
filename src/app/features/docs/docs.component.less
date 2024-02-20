@@ -1,6 +1,10 @@
 nz-layout.base {
   min-height: calc(100vh - 66px);
 
+  &.ant-layout.ant-layout-has-sider {
+    flex-direction: row;
+  }
+
   .sidenav-sticky {
     max-height: calc(100vh - 66px);
     position: sticky;
@@ -10,6 +14,7 @@ nz-layout.base {
   }
 
   nz-layout.inner-layout {
+    width: 100%;
     padding: 0 24px 24px;
 
     nz-drawer {
@@ -27,7 +32,6 @@ nz-layout.base {
     }
 
     nz-content {
-      background: #fff;
       padding: 24px;
       section {
         width: 100%;
