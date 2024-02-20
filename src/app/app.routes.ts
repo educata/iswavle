@@ -21,13 +21,16 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./features/home/home.component'),
+    title: 'მთავარი',
   },
   {
     path: 'exercieses',
     loadComponent: () => import('./features/exercieses/exercieses.component'),
+    title: 'სავარჯიშოები',
   },
   {
     path: 'doc',
+    title: 'დოკუმენტაცია',
     loadChildren: () => [
       {
         // Match for indeterminate amount of segments
@@ -40,6 +43,7 @@ export const routes: Routes = [
   },
   {
     path: 'playground',
+    title: 'ედიტორი',
     loadChildren: () => [
       {
         path: '',
@@ -57,6 +61,7 @@ export const routes: Routes = [
   {
     path: '404',
     loadComponent: () => import('./features/not-found/not-found.component'),
+    title: 'გვერდი ვერ მოიძებნა',
   },
   {
     path: '**',

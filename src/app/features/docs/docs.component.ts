@@ -1,4 +1,4 @@
-import { ThemeService } from '@app-shared/services';
+import { MetaService, ThemeService } from '@app-shared/services';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -19,7 +19,7 @@ import {
   RouterModule,
 } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, fromEvent, map, startWith } from 'rxjs';
+import { filter, fromEvent, map, startWith, tap } from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -31,6 +31,7 @@ import { DocContent } from '@app-shared/interfaces';
 import { SidenavComponent, AutoBreadcrumbsComponent } from '@app-shared/ui';
 import { DOC_NAVIGATION } from '@app-shared/providers';
 import { LAYOUT_SIZES } from '@app-shared/consts';
+import { MetaTags } from '@app-shared/enums';
 import { DocTocComponent, DocViewerComponent } from './ui';
 
 @Component({
@@ -62,8 +63,25 @@ export default class DocsComponent {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly viewport = inject(ViewportScroller);
   private readonly document = inject(DOCUMENT);
+  private readonly metaService = inject(MetaService);
   private readonly article$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as DocContent),
+    tap((content) => {
+      // TODO: Fix render for ssr
+      const attributes = content.attributes;
+      if (attributes.description) {
+        this.metaService.updateMediaMetaTags(
+          MetaTags.Description,
+          attributes.description,
+        );
+      }
+      if (attributes.headings) {
+        this.metaService.updateMetaTagName(
+          MetaTags.Keywords,
+          attributes.headings.join(', '),
+        );
+      }
+    }),
   );
 
   readonly themeService = inject(ThemeService);
