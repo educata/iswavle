@@ -5,12 +5,19 @@ import {
   RouterStateSnapshot,
   TitleStrategy,
 } from '@angular/router';
-import { TITLE_PREFIX, TITLE_SEPARATOR } from '@app-shared/consts';
+import {
+  TITLE_SUFFIX,
+  TITLE_SEPARATOR,
+  TITLE_SUFFIX_SEPARATOR,
+} from '@app-shared/consts';
 import { DocContent } from '@app-shared/interfaces';
+import { MetaTags } from '@app-shared/enums';
+import { MetaService } from './meta.service';
 
 @Injectable()
 export class SwTitleStrategy extends TitleStrategy {
-  readonly title = inject(Title);
+  private readonly title = inject(Title);
+  private readonly metaService = inject(MetaService);
 
   constructor() {
     super();
@@ -29,7 +36,9 @@ export class SwTitleStrategy extends TitleStrategy {
     }
 
     const routeTitle = this.buildDocTitle(route);
-    return `${TITLE_PREFIX} ${TITLE_SEPARATOR} ${routeTitle}`;
+    const title = `${routeTitle} ${TITLE_SUFFIX_SEPARATOR} ${TITLE_SUFFIX}`;
+    this.metaService.updateMediaMetaTags(MetaTags.Title, title);
+    return title;
   }
 
   buildDocTitle(route: ActivatedRouteSnapshot) {
@@ -50,10 +59,12 @@ export class SwTitleStrategy extends TitleStrategy {
       params.push(route.params[param]);
     }
     if (content.attributes.title) {
-      params.splice(2, 1, content.attributes.title);
+      params.shift();
+      params.splice(1, 1, content.attributes.title);
     }
     const title =
-      params.join(` ${TITLE_SEPARATOR} `) || content.attributes.toc[0].title;
+      params.reverse().join(` ${TITLE_SEPARATOR} `) ||
+      content.attributes.toc[0].title;
 
     return title
       .split(' ')

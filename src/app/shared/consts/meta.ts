@@ -1,7 +1,8 @@
 import { MetaKeywords } from '@app-shared/interfaces';
 
-export const TITLE_PREFIX = 'Iswavle';
+export const TITLE_SUFFIX = 'Iswavle';
 export const TITLE_SEPARATOR = '•';
+export const TITLE_SUFFIX_SEPARATOR = '|';
 
 // TODO: Fill
 
