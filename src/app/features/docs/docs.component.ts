@@ -30,7 +30,11 @@ import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 import { DocContent } from '@app-shared/interfaces';
 import { SidenavComponent, AutoBreadcrumbsComponent } from '@app-shared/ui';
 import { DOC_NAVIGATION } from '@app-shared/providers';
-import { DEFAULT_META_KEWYORDS, LAYOUT_SIZES } from '@app-shared/consts';
+import {
+  DEFAULT_KEYWORDS,
+  DEFAULT_META_KEWYORDS,
+  LAYOUT_SIZES,
+} from '@app-shared/consts';
 import { MetaTags } from '@app-shared/enums';
 import { DocTocComponent, DocViewerComponent } from './ui';
 
@@ -75,6 +79,7 @@ export default class DocsComponent {
         );
       }
       const keywords = [
+        ...DEFAULT_KEYWORDS,
         ...(DEFAULT_META_KEWYORDS.find(
           (meta) => meta.name === this.activatedRoute.snapshot.params[1],
         )?.keywords || []),

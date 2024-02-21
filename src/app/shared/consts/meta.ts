@@ -6,6 +6,8 @@ export const TITLE_SUFFIX_SEPARATOR = '|';
 
 // TODO: Fill
 
+export const DEFAULT_KEYWORDS = ['test'];
+
 export const DEFAULT_META_KEWYORDS: MetaKeywords[] = [
   {
     name: 'html-css',
