@@ -30,7 +30,7 @@ import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 import { DocContent } from '@app-shared/interfaces';
 import { SidenavComponent, AutoBreadcrumbsComponent } from '@app-shared/ui';
 import { DOC_NAVIGATION } from '@app-shared/providers';
-import { LAYOUT_SIZES } from '@app-shared/consts';
+import { DEFAULT_META_KEWYORDS, LAYOUT_SIZES } from '@app-shared/consts';
 import { MetaTags } from '@app-shared/enums';
 import { DocTocComponent, DocViewerComponent } from './ui';
 
@@ -67,7 +67,6 @@ export default class DocsComponent {
   private readonly article$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as DocContent),
     tap((content) => {
-      // TODO: Fix render for ssr
       const attributes = content.attributes;
       if (attributes.description) {
         this.metaService.updateMediaMetaTags(
@@ -75,10 +74,22 @@ export default class DocsComponent {
           attributes.description,
         );
       }
+      const keywords = [
+        ...(DEFAULT_META_KEWYORDS.find(
+          (meta) => meta.name === this.activatedRoute.snapshot.params[1],
+        )?.keywords || []),
+      ];
       if (attributes.headings) {
+        keywords.push(...attributes.headings);
+      }
+      if (attributes.keywords) {
+        keywords.push(...attributes.keywords.split(', '));
+      }
+      if (keywords.length > 0) {
+        const uniqueKeywords = [...new Set(keywords)];
         this.metaService.updateMetaTagName(
           MetaTags.Keywords,
-          attributes.headings.join(', '),
+          uniqueKeywords.join(', '),
         );
       }
     }),
