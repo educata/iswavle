@@ -1,8 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as marked from 'marked';
+import { Renderer, marked } from 'marked';
 import frontMatter from 'front-matter';
-import { ArticleAttributes, FrontMatter } from '../shared/interfaces';
+import { ArticleAttributes, ArticleToc } from '@global-shared/interfaces';
+import hljs from 'highlight.js';
 
 const srcContentDir = './src/content';
 const srcAssetsDir = './src/assets';
@@ -19,10 +20,63 @@ const hyperLinks: {
   references: [],
 };
 
+const render = new Renderer();
+
+render.code = (code, language) => {
+  const validLang = !!(language && hljs.getLanguage(language));
+
+  const highlighted = validLang
+    ? hljs.highlight(code, { language }).value
+    : code;
+
+  return `<pre><code class="hljs ${language}">${highlighted}</code></pre>`;
+};
+
+render.heading = (text: string, level: number, raw: string) => {
+  return `
+    <h${level} id="${raw.trim().split(' ').join('_')}">${text}</h${level}>
+  `;
+};
+
+render.table = (header: string, body: string) => {
+  return `<div class="table-wrapper"><table><thead>${header}</thead><tbody>${body}</tbody></table></div>`;
+};
+
+marked.setOptions({ renderer: render });
+
+function extractHeaders(htmlString: string): ArticleToc[] {
+  const result: ArticleToc[] = [];
+
+  htmlString
+    .split('\n')
+    .filter((text) => text.trim().startsWith('<h'))
+    .forEach((heading) => {
+      if (heading.includes('1') || heading.includes('2')) {
+        result.push({
+          id: heading.split('id="')[1].split('"')[0],
+          title: heading.split('>')[1].split('<')[0],
+        });
+      } else {
+        if (!result[result.length - 1].sub) {
+          result[result.length - 1].sub = [];
+        }
+        result[result.length - 1].sub?.push({
+          id: heading.split('id="')[1].split('"')[0],
+          title: heading.split('>')[1].split('<')[0],
+        });
+      }
+    });
+
+  return result;
+}
+
 function renderMarkdownFile(filePath: string) {
   const markdown = fs.readFileSync(filePath, 'utf8');
   const parsedMarkdown = marked.parse(markdown.replace(/^---$.*^---$/ms, ''));
-  const data = frontMatter<FrontMatter<ArticleAttributes>>(markdown);
+  const data = frontMatter<ArticleAttributes>(markdown);
+  if (data?.attributes) {
+    data.attributes.toc = extractHeaders(parsedMarkdown);
+  }
   return {
     content: parsedMarkdown,
     frontMatter: data.attributes,
@@ -42,7 +96,7 @@ function createOutputDirectoryStructure(filePath: string) {
 }
 
 function appendFileToHyperLinkList(data: string) {
-  const hrefRegex = /href="([^"]*)"/g;
+  const hrefRegex = /href="([^"#]*)"/g;
   const hrefs = [];
   let match: any;
 
@@ -118,5 +172,5 @@ function createFileFromConnetion() {
 processMarkdownFiles(srcContentDir);
 createFileFromConnetion();
 console.log(
-  'Markdown files have been prerendered and saved in the /src/assets directory.',
+  `Markdown files have been prerendered and saved in the ${srcAssetsDir} directory.`,
 );

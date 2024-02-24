@@ -1,4 +1,4 @@
-import { ExampleFile } from '../shared/interfaces';
+import { ExampleFile } from '@global-shared/interfaces';
 import * as fs from 'fs';
 import * as path from 'path';
 

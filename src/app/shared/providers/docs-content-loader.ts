@@ -1,14 +1,11 @@
-import { InjectionToken, inject } from '@angular/core';
-import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
+import { InjectionToken } from '@angular/core';
 
-import { DocsContentLoader, DocContent, DocParams } from '../interfaces';
+import { ContentLoader, DocContent } from '@app-shared/interfaces';
+import { ContentLoaderService } from '@app-shared/services';
 
-export const DOCS_CONTENT_LOADER = new InjectionToken<DocsContentLoader>(
-  'DOCS_CONTENT_LOADER',
-);
-
-export const contentResolver: ResolveFn<DocContent | null> = (
-  route: ActivatedRouteSnapshot,
-) => {
-  return inject(DOCS_CONTENT_LOADER).getContent(route.params as DocParams);
-};
+export const DOCS_CONTENT_LOADER = new InjectionToken<
+  ContentLoader<DocContent>
+>('DOCS_CONTENT_LOADER', {
+  providedIn: 'root',
+  factory: () => new ContentLoaderService(),
+});

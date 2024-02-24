@@ -1,0 +1,16 @@
+<nz-anchor [nzAffix]="isFixed">
+  @for (attr of docAttrs; track attr.id) {
+    @if (attr.sub) {
+      <nz-link nzHref="#{{ attr.id }}" [nzTitle]="attr.title">
+        @for (childAttr of attr.sub; track childAttr.id) {
+          <nz-link
+            nzHref="#{{ childAttr.id }}"
+            [nzTitle]="childAttr.title"
+          ></nz-link>
+        }
+      </nz-link>
+    } @else {
+      <nz-link nzHref="#{{ attr.id }}" [nzTitle]="attr.title"></nz-link>
+    }
+  }
+</nz-anchor>

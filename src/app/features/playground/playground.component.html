@@ -1,1 +1,112 @@
-<p>playground works!</p>
+<main>
+  @if (vm$ | async; as vm) {
+    <section nz-row class="playground">
+      <aside class="editor" nz-col nzXs="24" nzMd="12" nzLg="12">
+        <section class="actions">
+          <nz-button-group>
+            <button
+              nz-button
+              [disabled]="!isEditorInited"
+              [attr.aria-expanded]="!isCollapsed"
+              [attr.aria-label]="
+                isCollapsed ? 'ფაილების ჩვენება' : 'ფაილების დამალვა'
+              "
+              (click)="collapseSider()"
+            >
+              <span
+                nz-icon
+                nzTheme="outline"
+                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+              ></span>
+            </button>
+            @if (isBrowser) {
+              <button
+                nz-button
+                nz-dropdown
+                nzPlacement="bottomLeft"
+                [nzDropdownMenu]="theme"
+              >
+                <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
+              </button>
+              <nz-dropdown-menu #theme="nzDropdownMenu">
+                <ul nz-menu>
+                  <li nz-menu-item (click)="defaultTheme()">ნაგულისხმევი</li>
+                  @for (theme of editorThemes; track theme) {
+                    <li nz-menu-item (click)="changeTheme(theme)">
+                      {{ theme }}
+                    </li>
+                  }
+                </ul>
+              </nz-dropdown-menu>
+            }
+            <button nz-button (click)="download()" aria-label="კოდის გადმოწერა">
+              <span nz-icon nzType="download" nzTheme="outline"></span>
+            </button>
+          </nz-button-group>
+        </section>
+        <nz-layout>
+          <nz-sider
+            nzCollapsible
+            aria-label="ფაილების ჩამონათვალი"
+            [nzTheme]="vm.globalTheme"
+            [nzCollapsedWidth]="0"
+            [nzTrigger]="null"
+            [(nzCollapsed)]="isCollapsed"
+          >
+            <nz-tree
+              [nzData]="vm.files"
+              [nzShowIcon]="true"
+              (nzClick)="selectFile($event)"
+            ></nz-tree>
+          </nz-sider>
+          @if (vm.openFile) {
+            <nz-layout>
+              <nz-content>
+                <ng-container
+                  #outlet
+                  [ngTemplateOutlet]="content"
+                ></ng-container>
+                <ng-template #content>
+                  <nz-code-editor
+                    #editor
+                    class="editor"
+                    aria-label="კოდის ედიტორი"
+                    [ngModel]="vm.openFile.contents"
+                    (nzEditorInitialized)="onEditorInit()"
+                    (ngModelChange)="
+                      writeFile$.next({
+                        path: vm.openFile.path,
+                        contents: $event
+                      })
+                    "
+                    [nzEditorOption]="{
+                      language: (vm.openFile.path | languageExtension),
+                      theme: vm.editorTheme,
+                      minimap: {
+                        enabled: false
+                      }
+                    }"
+                  ></nz-code-editor>
+                </ng-template>
+              </nz-content>
+            </nz-layout>
+          }
+        </nz-layout>
+      </aside>
+      <aside class="preview" nz-col nzXs="24" nzMd="12" nzLg="12">
+        <div class="wrapper" id="result-side">
+          <aside class="result">
+            <iframe
+              class="site"
+              aria-label="კოდიდან დაგენერირებული ვებგვერდი"
+              [src]="vm.serverUrl"
+            ></iframe>
+          </aside>
+          <aside class="terminal">
+            <sw-terminal aria-label="ტერმინალი"></sw-terminal>
+          </aside>
+        </div>
+      </aside>
+    </section>
+  }
+</main>

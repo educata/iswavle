@@ -1,0 +1,51 @@
+nz-layout.base {
+  min-height: calc(100vh - 66px);
+
+  &.ant-layout.ant-layout-has-sider {
+    flex-direction: row;
+  }
+
+  .sidenav-sticky {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    left: 0;
+    overflow: hidden auto;
+  }
+
+  nz-layout.inner-layout {
+    width: 100%;
+    padding: 0 24px 24px;
+
+    nz-drawer {
+      div.drawer {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+      }
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    nz-content {
+      padding: 24px;
+      section {
+        width: 100%;
+
+        sw-doc-viewer.full-size {
+          width: 100%;
+        }
+
+        &.with-toc {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,82 @@
-@if(article(); as article) {
-<article>
-  <h1>{{ article.attributes.title }}</h1>
-  <div [innerHTML]="article.content"></div>
-</article>
-}
+<nz-layout class="base">
+  <nz-sider
+    nzBreakpoint="md"
+    [nzTheme]="(themeService.theme$ | async) || 'light'"
+    [nzCollapsedWidth]="0"
+    [nzWidth]="siderWidth"
+  >
+    <aside class="sidenav-sticky">
+      @if (article(); as article) {
+        @if (!(isXLarge$ | async)) {
+          <sw-doc-toc
+            [isFixed]="false"
+            [docAttrs]="article.attributes.toc"
+          ></sw-doc-toc>
+        }
+      }
+      <sw-sidenav
+        (onClick)="scrollUp()"
+        [navItems]="navigation() || []"
+      ></sw-sidenav>
+    </aside>
+  </nz-sider>
+  <nz-layout class="inner-layout">
+    <aside class="navigation">
+      @if (hideToc$ | async) {
+        <div>
+          <button
+            nz-button
+            nzType="default"
+            aria-label="კონტენტის სათაურების ჩვენება"
+            [attr.aria-expanded]="isDrawerVisible"
+            (click)="isDrawerVisible = true"
+          >
+            <span nz-icon nzType="menu-unfold" nzTheme="outline"></span>
+          </button>
+        </div>
+      }
+      <sw-auto-breadcrumbs></sw-auto-breadcrumbs>
+    </aside>
+    @if (isBrowser) {
+      <nz-drawer
+        nzPlacement="left"
+        [nzTitle]="activeContentTitle"
+        [nzVisible]="isDrawerVisible"
+        (nzOnClose)="isDrawerVisible = false"
+      >
+        <ng-container *nzDrawerContent>
+          <div class="drawer">
+            @if (article(); as article) {
+              <sw-doc-toc
+                [isFixed]="false"
+                [docAttrs]="article.attributes.toc"
+              ></sw-doc-toc>
+            }
+            <sw-sidenav
+              [navItems]="navigation() || []"
+              (onClick)="isDrawerVisible = false"
+            ></sw-sidenav>
+          </div>
+        </ng-container>
+      </nz-drawer>
+    }
+    <nz-content>
+      <section [class.with-toc]="!(hideToc$ | async)">
+        @if (article(); as article) {
+          <sw-doc-viewer
+            [class.full-size]="!(isXLarge$ | async)"
+            [docContent]="article"
+          ></sw-doc-viewer>
+          <aside>
+            @if (!(hideToc$ | async) && (isXLarge$ | async)) {
+              <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
+            }
+          </aside>
+        } @else {
+          <p>კონტენტი არ არის</p>
+        }
+      </section>
+      <nz-back-top></nz-back-top>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
