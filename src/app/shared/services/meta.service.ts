@@ -1,5 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
+import { DEFAULT_KEYWORDS, DEFAULT_META_KEWYORDS } from '@app-shared/consts';
+import { MetaTags } from '@app-shared/enums';
+import { DocContent } from '@app-shared/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -37,5 +40,27 @@ export class MetaService {
     this.mediaPrefixes.forEach((prefix) => {
       this.updateMetaTagProperty(`${prefix}${meta}`, content);
     });
+  }
+
+  updateContentMetaTags(content: DocContent, section: string) {
+    const attributes = content.attributes;
+    if (attributes.description) {
+      this.updateMediaMetaTags(MetaTags.Description, attributes.description);
+    }
+    const keywords = [
+      ...DEFAULT_KEYWORDS,
+      ...(DEFAULT_META_KEWYORDS.find((meta) => meta.name === section)
+        ?.keywords || []),
+    ];
+    if (attributes.headings) {
+      keywords.push(...attributes.headings);
+    }
+    if (attributes.keywords) {
+      keywords.push(...attributes.keywords.split(', '));
+    }
+    if (keywords.length > 0) {
+      const uniqueKeywords = [...new Set(keywords)];
+      this.updateMetaTagName(MetaTags.Keywords, uniqueKeywords.join(', '));
+    }
   }
 }

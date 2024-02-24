@@ -18,7 +18,7 @@ import {
   Router,
   RouterModule,
 } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { filter, fromEvent, map, startWith, tap } from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
@@ -30,12 +30,7 @@ import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 import { DocContent } from '@app-shared/interfaces';
 import { SidenavComponent, AutoBreadcrumbsComponent } from '@app-shared/ui';
 import { DOC_NAVIGATION } from '@app-shared/providers';
-import {
-  DEFAULT_KEYWORDS,
-  DEFAULT_META_KEWYORDS,
-  LAYOUT_SIZES,
-} from '@app-shared/consts';
-import { MetaTags } from '@app-shared/enums';
+import { LAYOUT_SIZES } from '@app-shared/consts';
 import { DocTocComponent, DocViewerComponent } from './ui';
 
 @Component({
@@ -70,34 +65,6 @@ export default class DocsComponent {
   private readonly metaService = inject(MetaService);
   private readonly article$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as DocContent),
-    tap((content) => {
-      const attributes = content.attributes;
-      if (attributes.description) {
-        this.metaService.updateMediaMetaTags(
-          MetaTags.Description,
-          attributes.description,
-        );
-      }
-      const keywords = [
-        ...DEFAULT_KEYWORDS,
-        ...(DEFAULT_META_KEWYORDS.find(
-          (meta) => meta.name === this.activatedRoute.snapshot.params[1],
-        )?.keywords || []),
-      ];
-      if (attributes.headings) {
-        keywords.push(...attributes.headings);
-      }
-      if (attributes.keywords) {
-        keywords.push(...attributes.keywords.split(', '));
-      }
-      if (keywords.length > 0) {
-        const uniqueKeywords = [...new Set(keywords)];
-        this.metaService.updateMetaTagName(
-          MetaTags.Keywords,
-          uniqueKeywords.join(', '),
-        );
-      }
-    }),
   );
 
   readonly themeService = inject(ThemeService);
@@ -138,6 +105,20 @@ export default class DocsComponent {
   readonly hideToc$ = this.windowResize$.pipe(
     map(() => !(this.document.body.clientWidth >= LAYOUT_SIZES.hideToc)),
   );
+
+  constructor() {
+    this.article$
+      .pipe(
+        takeUntilDestroyed(),
+        tap((content) => {
+          this.metaService.updateContentMetaTags(
+            content,
+            this.activatedRoute.snapshot.params[1],
+          );
+        }),
+      )
+      .subscribe();
+  }
 
   scrollUp() {
     this.viewport.scrollToPosition([0, 0]);

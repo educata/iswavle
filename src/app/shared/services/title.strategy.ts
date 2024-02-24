@@ -35,13 +35,13 @@ export class SwTitleStrategy extends TitleStrategy {
       route = route.firstChild;
     }
 
-    const routeTitle = this.buildDocTitle(route);
+    const routeTitle = this.buildPageTitle(route);
     const title = `${routeTitle} ${TITLE_SUFFIX_SEPARATOR} ${TITLE_SUFFIX}`;
     this.metaService.updateMediaMetaTags(MetaTags.Title, title);
     return title;
   }
 
-  buildDocTitle(route: ActivatedRouteSnapshot) {
+  buildPageTitle(route: ActivatedRouteSnapshot) {
     const isMatcher = typeof route.routeConfig?.matcher === 'function';
     if (!isMatcher) {
       return route.title;
