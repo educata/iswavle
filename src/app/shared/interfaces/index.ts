@@ -5,3 +5,4 @@ export * from './navigation';
 export * from './custom-icon';
 export * from './webcontainer-state';
 export * from './content-loader';
+export * from './meta';

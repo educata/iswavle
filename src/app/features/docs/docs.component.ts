@@ -1,4 +1,4 @@
-import { ThemeService } from '@app-shared/services';
+import { MetaService, ThemeService } from '@app-shared/services';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -18,8 +18,8 @@ import {
   Router,
   RouterModule,
 } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, fromEvent, map, startWith } from 'rxjs';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { filter, fromEvent, map, startWith, tap } from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -62,6 +62,7 @@ export default class DocsComponent {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly viewport = inject(ViewportScroller);
   private readonly document = inject(DOCUMENT);
+  private readonly metaService = inject(MetaService);
   private readonly article$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as DocContent),
   );
@@ -104,6 +105,20 @@ export default class DocsComponent {
   readonly hideToc$ = this.windowResize$.pipe(
     map(() => !(this.document.body.clientWidth >= LAYOUT_SIZES.hideToc)),
   );
+
+  constructor() {
+    this.article$
+      .pipe(
+        takeUntilDestroyed(),
+        tap((content) => {
+          this.metaService.updateContentMetaTags(
+            content,
+            this.activatedRoute.snapshot.params[1],
+          );
+        }),
+      )
+      .subscribe();
+  }
 
   scrollUp() {
     this.viewport.scrollToPosition([0, 0]);

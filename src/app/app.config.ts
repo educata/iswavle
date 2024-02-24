@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { TitleStrategy, provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -9,6 +9,7 @@ import { registerLocaleData } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import ka from '@angular/common/locales/ka';
+import { SwTitleStrategy } from '@app-shared/services';
 
 registerLocaleData(ka);
 
@@ -20,5 +21,9 @@ export const appConfig: ApplicationConfig = {
     provideNzI18n(ka_GE),
     importProvidersFrom(FormsModule),
     provideAnimations(),
+    {
+      provide: TitleStrategy,
+      useClass: SwTitleStrategy,
+    },
   ],
 };

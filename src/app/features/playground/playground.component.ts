@@ -112,9 +112,12 @@ export default class PlaygroundComponent {
     this.themeService.theme$,
   ]).pipe(
     map(([editorTheme, globalTheme]) => {
-      const userPrefrableTheme = localStorage.getItem(
-        LocalStorageKeys.CodeEditorTheme,
-      );
+      let userPrefrableTheme;
+      if (this.isBrowser) {
+        userPrefrableTheme = localStorage.getItem(
+          LocalStorageKeys.CodeEditorTheme,
+        );
+      }
       return userPrefrableTheme
         ? editorTheme
         : this.convertGlobalTheme(globalTheme);

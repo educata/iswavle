@@ -6,6 +6,7 @@ export interface ArticleAttributes {
   slug?: string;
   keywords?: string;
   depricated?: boolean;
+  headings?: string[];
 }
 
 export interface ArticleToc {
