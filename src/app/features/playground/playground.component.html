@@ -6,17 +6,17 @@
           <nz-button-group>
             <button
               nz-button
-              [disabled]="!isEditorInited"
-              [attr.aria-expanded]="!isCollapsed"
+              [disabled]="!vm.isEditorInitialized"
+              [attr.aria-expanded]="!vm.isSiderCollapsed"
               [attr.aria-label]="
-                isCollapsed ? 'ფაილების ჩვენება' : 'ფაილების დამალვა'
+                vm.isSiderCollapsed ? 'ფაილების ჩვენება' : 'ფაილების დამალვა'
               "
-              (click)="collapseSider()"
+              (click)="isSiderCollapsed$.next(!vm.isSiderCollapsed)"
             >
               <span
                 nz-icon
                 nzTheme="outline"
-                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+                [nzType]="vm.isSiderCollapsed ? 'menu-unfold' : 'menu-fold'"
               ></span>
             </button>
             @if (isBrowser) {
@@ -51,7 +51,8 @@
             [nzTheme]="vm.globalTheme"
             [nzCollapsedWidth]="0"
             [nzTrigger]="null"
-            [(nzCollapsed)]="isCollapsed"
+            [nzCollapsed]="vm.isSiderCollapsed"
+            (nzCollapsedChange)="isSiderCollapsed$.next($event)"
           >
             <nz-tree
               [nzData]="vm.files"
@@ -63,16 +64,16 @@
             <nz-layout>
               <nz-content>
                 <ng-container
-                  #outlet
-                  [ngTemplateOutlet]="content"
+                  #editorOutlet
+                  [ngTemplateOutlet]="editorTemplate"
                 ></ng-container>
-                <ng-template #content>
+                <ng-template #editorTemplate>
                   <nz-code-editor
                     #editor
                     class="editor"
                     aria-label="კოდის ედიტორი"
                     [ngModel]="vm.openFile.contents"
-                    (nzEditorInitialized)="onEditorInit()"
+                    (nzEditorInitialized)="isEditorInitialized$.next(true)"
                     (ngModelChange)="
                       writeFile$.next({
                         path: vm.openFile.path,

@@ -20,7 +20,9 @@ import {
   filter,
   map,
   merge,
+  take,
   tap,
+  withLatestFrom,
 } from 'rxjs';
 import { Uri } from 'monaco-editor';
 import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
@@ -81,8 +83,9 @@ export default class PlaygroundComponent {
   private readonly domSanitizer = inject(DomSanitizer);
   private readonly themeService = inject(ThemeService);
 
-  @ViewChild('outlet', { read: ViewContainerRef }) outletRef!: ViewContainerRef;
-  @ViewChild('content', { read: TemplateRef })
+  @ViewChild('editorOutlet', { read: ViewContainerRef })
+  outletRef!: ViewContainerRef;
+  @ViewChild('editorTemplate', { read: TemplateRef })
   contentRef!: TemplateRef<NzCodeEditorComponent>;
   @ViewChild('editor', { static: false })
   editorRef!: NzCodeEditorComponent;
@@ -90,11 +93,14 @@ export default class PlaygroundComponent {
   readonly isBrowser = isPlatformBrowser(this.platform);
   readonly editorThemes = EDITOR_THEMES;
 
-  isCollapsed = false;
-  isEditorInited = false;
-
+  readonly isEditorInitialized$ = new BehaviorSubject<boolean>(false);
+  readonly isSiderCollapsed$ = new BehaviorSubject<boolean>(false);
   readonly writeFile$ = new BehaviorSubject<WebContainerFile | null>(null);
-  readonly currentEditorTheme$ = new BehaviorSubject<string>(EDITOR_THEMES[0]);
+  readonly currentEditorTheme$ = new BehaviorSubject<string>(
+    (this.isBrowser &&
+      localStorage?.getItem(LocalStorageKeys.CodeEditorTheme)) ||
+      EDITOR_THEMES[0],
+  );
 
   readonly files$ = this.route.data.pipe(
     map((res) => [res['data']] as NzTreeNodeOptions[]),
@@ -123,11 +129,7 @@ export default class PlaygroundComponent {
         : this.convertGlobalTheme(globalTheme);
     }),
     tap(() => {
-      if (
-        this.contentRef &&
-        this.editorRef &&
-        !localStorage.getItem(LocalStorageKeys.CodeEditorTheme)
-      ) {
+      if (!localStorage.getItem(LocalStorageKeys.CodeEditorTheme)) {
         this.reRenderEditor();
       }
     }),
@@ -141,6 +143,8 @@ export default class PlaygroundComponent {
     this.serverUrl$,
     this.themeService.theme$,
     this.editorTheme$,
+    this.isSiderCollapsed$,
+    this.isEditorInitialized$,
   ]).pipe(
     map(
       ([
@@ -151,6 +155,8 @@ export default class PlaygroundComponent {
         serverUrl,
         globalTheme,
         editorTheme,
+        isSiderCollapsed,
+        isEditorInitialized,
       ]) => ({
         files,
         openFile,
@@ -159,16 +165,22 @@ export default class PlaygroundComponent {
         serverUrl,
         globalTheme,
         editorTheme,
+        isSiderCollapsed,
+        isEditorInitialized,
       }),
     ),
   );
 
   constructor() {
     this.registerIcons();
-    this.initWebContainer();
+    this.initEditorEnv();
   }
 
-  private initWebContainer() {
+  private initEditorEnv() {
+    /*
+     * TODO: if files change but instance is already loaded,
+     * just unmount old files and mount new ones
+     */
     const initWebContainerInstance$ = this.files$.pipe(
       tap((files) => {
         if (files.length >= 0) {
@@ -178,8 +190,8 @@ export default class PlaygroundComponent {
           this.webcontainerState.init({
             files: mappedFiles,
             initialFilePath: path,
-            static: true,
-            port: '8080',
+            // static: true,
+            // port: '8080',
             root: files[0]['path'],
           });
         }
@@ -192,43 +204,58 @@ export default class PlaygroundComponent {
       tap((file) => this.webcontainerState.writeFile(file.path, file.contents)),
     );
 
-    merge(initWebContainerInstance$, writeFile$)
+    const rerenderEditor$ = this.openFile$.pipe(
+      withLatestFrom(this.isEditorInitialized$),
+      filter(Boolean),
+      tap(() => this.reRenderEditor()),
+    );
+
+    const refreshEditorLayout$ = this.isSiderCollapsed$.pipe(
+      withLatestFrom(this.isEditorInitialized$),
+      filter(([_, isEditorInitialized]) => isEditorInitialized),
+      debounceTime(500),
+      tap(() => this.editorRef.layout()),
+    );
+
+    const registerLinkOpener$ = this.isEditorInitialized$.pipe(
+      filter(Boolean),
+      take(1),
+      tap(() => {
+        monaco.editor.registerLinkOpener({
+          async open(resource: Uri) {
+            // TODO: handle link opener
+            console.log(resource);
+            return true;
+          },
+        });
+      }),
+    );
+
+    merge(
+      initWebContainerInstance$,
+      writeFile$,
+      rerenderEditor$,
+      refreshEditorLayout$,
+      registerLinkOpener$,
+    )
       .pipe(takeUntilDestroyed())
       .subscribe();
   }
 
-  async selectFile(event: NzFormatEmitEvent) {
+  selectFile(event: NzFormatEmitEvent) {
     if (!event.node?.isLeaf) return;
-    await this.webcontainerState.openFile(event.node?.origin['path']);
-    this.reRenderEditor();
+    this.webcontainerState.openFile(event.node?.origin['path']);
   }
 
   private reRenderEditor() {
-    this.outletRef.clear();
-    this.outletRef.createEmbeddedView(this.contentRef);
+    if (this.editorRef && this.contentRef) {
+      this.outletRef.clear();
+      this.outletRef.createEmbeddedView(this.contentRef);
+    }
   }
 
   private convertGlobalTheme(theme: Theme) {
     return theme === Theme.Light ? 'vs' : 'vs-dark';
-  }
-
-  onEditorInit() {
-    this.isEditorInited = true;
-    this.initChoosedTheme();
-    monaco.editor.registerLinkOpener({
-      async open(resource: Uri) {
-        // TODO: handle link opener
-        console.log(resource);
-        return true;
-      },
-    });
-  }
-
-  private initChoosedTheme() {
-    const prevTheme = localStorage.getItem(LocalStorageKeys.CodeEditorTheme);
-    if (prevTheme) {
-      this.currentEditorTheme$.next(prevTheme);
-    }
   }
 
   private firstChild(node: NzTreeNodeOptions): NzTreeNodeOptions | null {
@@ -251,13 +278,6 @@ export default class PlaygroundComponent {
     for (const key in CUSTOM_ICONS) {
       this.iconService.addIconLiteral(ICON_PREFIX + key, CUSTOM_ICONS[key]);
     }
-  }
-
-  collapseSider() {
-    this.isCollapsed = !this.isCollapsed;
-    setTimeout(() => {
-      this.editorRef.layout();
-    }, 500);
   }
 
   download() {
