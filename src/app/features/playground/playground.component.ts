@@ -129,8 +129,10 @@ export default class PlaygroundComponent {
         : this.convertGlobalTheme(globalTheme);
     }),
     tap(() => {
-      if (!localStorage.getItem(LocalStorageKeys.CodeEditorTheme)) {
-        this.reRenderEditor();
+      if (this.isBrowser) {
+        if (!localStorage.getItem(LocalStorageKeys.CodeEditorTheme)) {
+          this.reRenderEditor();
+        }
       }
     }),
   );
