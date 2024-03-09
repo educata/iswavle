@@ -29,10 +29,17 @@ nz-layout.base {
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     nz-content {
       padding: 24px;
+
+      &.no-padding {
+        padding: 0;
+      }
+
       section {
         width: 100%;
 

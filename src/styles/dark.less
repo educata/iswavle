@@ -1,0 +1,22 @@
+@import './node_modules/ng-zorro-antd/ng-zorro-antd.dark.less';
+@import './highlight-dark.less';
+
+@body-background: #1f1f1f;
+@component-background: @body-background;
+@primary-1: color(~`colorPalette('@{body-background}', 1) `);
+@menu-selected-item-bg: red;
+
+& {
+  --gray: #696969;
+  --gray-lifted: #646464;
+
+  .xterm .composition-view,
+  .xterm .xterm-viewport {
+    background-color: @body-background !important;
+  }
+
+  pre,
+  .hljs {
+    background-color: #2a2a2a;
+  }
+}

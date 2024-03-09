@@ -60,7 +60,7 @@
         </ng-container>
       </nz-drawer>
     }
-    <nz-content>
+    <nz-content [class.no-padding]="!(isXLarge$ | async)">
       <section [class.with-toc]="!(hideToc$ | async)">
         @if (article(); as article) {
           <sw-doc-viewer
@@ -76,7 +76,11 @@
           <p>კონტენტი არ არის</p>
         }
       </section>
-      <nz-back-top></nz-back-top>
+      <nz-back-top [nzTemplate]="backToTop">
+        <ng-template #backToTop>
+          <span nz-icon nzType="up" nzTheme="outline"></span>
+        </ng-template>
+      </nz-back-top>
     </nz-content>
   </nz-layout>
 </nz-layout>
