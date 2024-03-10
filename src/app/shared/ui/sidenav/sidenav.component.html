@@ -11,19 +11,38 @@
   >
     @for (menu of navItems; track menu.path) {
       @if (menu.children) {
-        <li nz-submenu [nzOpen]="true" [nzTitle]="menu.title">
-          <ul>
-            <ng-container
-              *ngTemplateOutlet="
-                menuTpl;
-                context: {
-                  $implicit: menu.children,
-                  level: level + 1
-                }
-              "
-            ></ng-container>
-          </ul>
-        </li>
+        @if (level === 1) {
+          <li nz-submenu [nzOpen]="true" [nzTitle]="menu.title">
+            <ul>
+              <ng-container
+                *ngTemplateOutlet="
+                  menuTpl;
+                  context: {
+                    $implicit: menu.children,
+                    level: level + 1
+                  }
+                "
+              ></ng-container>
+            </ul>
+          </li>
+        } @else {
+          <li nz-menu-group [nzTitle]="menuGroupTitle">
+            <ul>
+              <ng-container
+                *ngTemplateOutlet="
+                  menuTpl;
+                  context: {
+                    $implicit: menu.children,
+                    level: level + 1
+                  }
+                "
+              ></ng-container>
+            </ul>
+          </li>
+          <ng-template #menuGroupTitle>
+            <a [routerLink]="menu.routerLink">{{ menu.title }}</a>
+          </ng-template>
+        }
       } @else {
         <li nz-menu-item nzMatchRouter [nzPaddingLeft]="24 * level">
           <a [routerLink]="menu.routerLink">{{ menu.title }}</a>
