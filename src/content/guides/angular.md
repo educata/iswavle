@@ -2,15 +2,13 @@
 title: 'ანგულარის ქართული გზამკვლევი'
 ---
 
-<svg style="width: 200px; display: block; margin: 1rem auto 0 auto;"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 223 236" width="32"><g  clip-path="url(#a)"><path  fill="url(#b)" d="m222.077 39.192-8.019 125.923L137.387 0l84.69 39.192Zm-53.105 162.825-57.933 33.056-57.934-33.056 11.783-28.556h92.301l11.783 28.556ZM111.039 62.675l30.357 73.803H80.681l30.358-73.803ZM7.937 165.115 0 39.192 84.69 0 7.937 165.115Z"></path><path  fill="url(#c)" d="m222.077 39.192-8.019 125.923L137.387 0l84.69 39.192Zm-53.105 162.825-57.933 33.056-57.934-33.056 11.783-28.556h92.301l11.783 28.556ZM111.039 62.675l30.357 73.803H80.681l30.358-73.803ZM7.937 165.115 0 39.192 84.69 0 7.937 165.115Z"></path></g><defs ><linearGradient  id="b" x1="49.009" x2="225.829" y1="213.75" y2="129.722" gradientUnits="userSpaceOnUse"><stop  stop-color="#E40035"></stop><stop  offset=".24" stop-color="#F60A48"></stop><stop  offset=".352" stop-color="#F20755"></stop><stop  offset=".494" stop-color="#DC087D"></stop><stop  offset=".745" stop-color="#9717E7"></stop><stop  offset="1" stop-color="#6C00F5"></stop></linearGradient><linearGradient  id="c" x1="41.025" x2="156.741" y1="28.344" y2="160.344" gradientUnits="userSpaceOnUse"><stop  stop-color="#FF31D9"></stop><stop  offset="1" stop-color="#FF5BE1" stop-opacity="0"></stop></linearGradient><clipPath  id="a"><path  fill="#fff" d="M0 0h223v236H0z"></path></clipPath></defs></svg>
+<img style="width: 200px; margin: 1rem auto; display: block" src="/assets/icons/angular.svg" alt="angular logo">
 
-# ანგულარის გზამკვლევი
+## ანგულარი
 
-ეს წიგნი არის Angular ფრეიმვორქის არაოფიციალური სახელმძღვანელო, სადაც
+ეს სექცია არის Angular ფრეიმვორქის სახელმძღვანელო, სადაც
 შესაძლებელია გაეცნოთ ფრეიმვორქის ძირითად კონცეფციებს, ტექნიკებსა და პრაქტიკის
-საუკეთესო პატერნებს. ეს წიგნი არ არის ტექნიკური დოკუმენტაცია ან ცნობარი, ანუ რეკომენდირებული
-არ არის ამ წიგნის გამოყენება აბსოლუტურად ზუსტი ფაქტობრივი ტექნიკური ინფორმაციის
-მოსაძიებლად. ამ წიგნის დანიშნულებაა, რომ ეტაპობრივად გაგაცნოთ Angular-ს.
+საუკეთესო პატერნებს.
 
 თითოეული თავი გარკვეულწილად გამომდინარეობს წინა თავებიდან, შესაბამისად რეკომენდირებულია
 (თუმცა აუცილებელი არ არის) რომ თემების შესწავლას მიჰყვეთ თანმიმდევრულად. ყოველი თავი
@@ -18,26 +16,29 @@ title: 'ანგულარის ქართული გზამკვლ�
 თითოეული თავისთვის, ამიტომ თუ გსურთ რომ მხოლოდ კონკრეტული თავის თემა შეისწავლოთ,
 წინა თავებში არსებული კოდი არ დაგჭირდებათ.
 
-ეს წიგნი გათვლილია დამწყებ ვებ დეველოპერებზე, რომლებმაც უკვე იციან:
+ეს სახელმძღვანელო გათვლილია დამწყებ ვებ დეველოპერებზე, რომლებმაც უკვე იციან:
 
 - როგორ მუშაობს web-ი
-- HTML/CSS-ის საფუძვლები
+- HTML&CSS-ის საფუძვლები
 - JavaScript-ის საფუძვლები
-- [TypeScript-ის საფუძვლები](./typescript/)
+- TypeScript-ის საფუძვლები
 
-გაითვალისწინეთ, რომ მხოლოდ ამ წიგნიდან მიღებული ცოდნა არ არის საკმარისი იმისთვის,
+გაითვალისწინეთ, რომ მხოლოდ ამ სახელმძღვანელოდან მიღებული ცოდნა არ არის საკმარისი იმისთვის,
 რომ ანგულარს სრულფასოვნად დაეუფლოთ -- ამას სჭირდება დამატებითი რესურსების მოძიება,
 დამოუკიდებლად პროექტების აწყობა და მთლიანობაში კონსისტენტური და ხანგრძლივი შრომა.
-ამ წიგნიდან შეძლებთ აითვისოთ ის საბაზისო ცოდნა, რომლის საფუძველზეც უკვე თავდაჯერებულად
+ამ სახელმძღვანელოდან შეძლებთ აითვისოთ ის საბაზისო ცოდნა, რომლის საფუძველზეც უკვე თავდაჯერებულად
 შეძლებთ პატარა ვებ აპლიკაციების აწყობასა და შედარებით უფრო სერიოზული ტექნიკების ათვისებას.
-
-წიგნი შექმნილია [ფრიდონ თეთრაძის](https://pridontetradze.com) მიერ.
 
 ამ საიტის მასალა ეყრდნობა ანგულარის ოფიციალურ დოკუმენტაციებს:
 
 - [angular.io](https://angular.io)
 - [angular.dev](https://angular.dev)
 
+## ატრიბუცია
+
+- **ავტორი**: [ფრიდონ თეთრაძე](https://pridontetradze.com)
+- **თანაავტორი**: [კონსტანტინე დათუნიშვილი](https://konstantinedatunishvili.com)
+
 <div style="text-align: center; margin-top: 100px;">
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+  This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 </div>
