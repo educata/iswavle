@@ -78,7 +78,7 @@
       </section>
       <section class="contributors">
         @if (isBrowser) {
-          @for (contributor of contributors$ | async; track contributor) {
+          @for (contributor of contributors(); track contributor) {
             <sw-doc-contributors
               [contributor]="contributor"
             ></sw-doc-contributors>
