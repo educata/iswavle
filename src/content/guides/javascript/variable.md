@@ -2,13 +2,6 @@
 title: 'ცვლადი'
 description: 'let vs var vs const'
 keywords: 'js, javascript, ჯავასკრიპტი, var, let, const, global-scope, cvladis saxeli, ცვლადის სახელი, ცვლადის სახელის სტილი, ცვლადი, ცვლადები'
-headings:
-  - var
-  - let
-  - const
-  - ინიციალიზება
-  - ცვლადის სახელი
-  - ცვლადის სახელის სტილი
 ---
 
 ცვლადი გვჭირდება გარკვეული ტიპის ინფორმაციის შესანახად, რომელსაც შემდგომ მივანიჭებთ მნიშვნელობას.
@@ -17,11 +10,11 @@ headings:
 
 ## var
 
-var-ით ინიციალიზების შემთხვევაში შესაძლოა აღიწეროს ცვლადი, რომელიც განსაზღვრული იქნება ფუნქციაში ან გლობალურად ([global-scope](./references/javascript/global-scope)), ცვლადის მნიშვნელობის შეცვლა შესაძლებელია ნებისმიერ დროს. მსგავს ტიპად გამოცხადებული ცვლადი გადის [hoistings](./references/javascript/hoisting).
+var-ით ინიციალიზების შემთხვევაში შესაძლოა აღიწეროს ცვლადი, რომელიც განსაზღვრული იქნება ფუნქციაში ან გლობალურად ([global-scope](https://developer.mozilla.org/en-US/docs/Glossary/Global_scope)), ცვლადის მნიშვნელობის შეცვლა შესაძლებელია ნებისმიერ დროს. მსგავს ტიპად გამოცხადებული ცვლადი გადის [hoistings](https://developer.mozilla.org/en-US/docs/Glossary/Hoisting).
 
 ## let
 
-let-ით ინიციალიზების შემთხვევაში შესაძლოა აღიწეროს ცვლადი, რომელიც განსაზღვრული ინქება ფუნქციაში ან ლოკალურ ბლოკში ([block-scope](./references/javascript/block-scope)), ცვლადის მნიშვნელობის შეცვლა შესაძლებელია ნებისმიერ დროს. მსგავს ტიპად გამოცხადებული ცვლადი არ გადის.
+let-ით ინიციალიზების შემთხვევაში შესაძლოა აღიწეროს ცვლადი, რომელიც განსაზღვრული ინქება ფუნქციაში ან ლოკალურ ბლოკში ([block-scope](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block)), ცვლადის მნიშვნელობის შეცვლა შესაძლებელია ნებისმიერ დროს. მსგავს ტიპად გამოცხადებული ცვლადი არ გადის.
 
 ## const
 
@@ -41,7 +34,7 @@ const DocumentationProject = 'Iswavle'; // Pascalcase
 
 ## ცვლადის სახელი
 
-ცვლადის სახელი უნდა ასახავდეს ცვლადის მნიშვნელობას. პრაქტიკაში უმჯობესია ინგლისური ცვლადის სახელები. ცვლადის სახელი უნდა ასახავდეს ცვლადის მნიშვნელობას. ცვლადის სახელი უმჯობესია შედგებოდეს, რამოდენიმე სიმბოლოსაგან, თუ [ლუპი](./references/javascript/loop) არის მაშინ მისაღებია i, j და ა.შ. [მასივი](./references/javascript/array)-ს სახელი უმჯობესია ჩაიწეროს მრავლობითში, მაგალითად: `students` და არა `student`.
+ცვლადის სახელი უნდა ასახავდეს ცვლადის მნიშვნელობას. პრაქტიკაში უმჯობესია ინგლისური ცვლადის სახელები. ცვლადის სახელი უნდა ასახავდეს ცვლადის მნიშვნელობას. ცვლადის სახელი უმჯობესია შედგებოდეს, რამოდენიმე სიმბოლოსაგან, თუ [ლუპი](./doc/guides/javascript/loops) არის მაშინ მისაღებია i, j და ა.შ. [მასივი](./doc/guides/javascript/array)-ს სახელი უმჯობესია ჩაიწეროს მრავლობითში, მაგალითად: `students` და არა `student`.
 
 ## ცვლადის სახელის სტილი
 
@@ -53,7 +46,7 @@ const DocumentationProject = 'Iswavle'; // Pascalcase
   - მაგალითი: `userName`
 - Camel case with prefixes
   - იგივე Camel case, უბრალოდ პრეფიქსი აქვს, ცვლადის ტიპიდან გამომდინარე, თუ არის ბულეანი მაშინ იწყება `is` თუ რაიმე მნიშვნელობას აბრუნებს ფუნქცია სახელი იწყება `get` და მსგავსად.
-  - კარგია [ფუნქცი](./references/javascript/function)-ის სახელებისათვის
+  - კარგია [ფუნქცი](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions)-ის სახელებისათვის
   - მაგალითი: `isUserAuthed` | `getRandomNumber`
 - Snake case
   - ყოველი სიტყვა არის პატარა ასოებით დაწერილი, სიტყვებს შორის დაშორებისთვის კი გამოიყენება `_`.
@@ -65,7 +58,7 @@ const DocumentationProject = 'Iswavle'; // Pascalcase
   - მაგალითი: `MIN_VALUE`
 - Pascal case
   - ყოველი სიტყვა იწყება დიდი ასოთი.
-  - კარგია [კლასი](./referenes/javascript/class)-ს, [ინტერფეისი](./references/typesript/interface)-ს და [ენამი](./references/typescript/enum)-ს სახელებისათვის.
+  - კარგია [კლასი](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)-ს, [ინტერფეისი](./doc/guides/typescript/types#Interface)-ს და [ენამი](./doc/guides/typescript/types#Enums)-ს სახელებისათვის.
   - მაგალითი: `UserName`
 - Kebab case
   - ყოველი სიტყვა არის პატარა ასოებით დაწერილი, სიტყვებს შორის დაშორებისთვის კი გამოიყენება `-`.

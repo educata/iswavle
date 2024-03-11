@@ -2,15 +2,6 @@
 title: 'რეგულარული გამოსახულებები'
 description: 'Regex JavasScript-ში'
 keywords: 'regex, flag, flags, regular expressions, RegExp, Regex კლასები, ნაკრები, დიაპაზონი, დიაპაზონის გარდა'
-headings:
-  - რეგულარული გამოსახულების შექმნა
-  - დროშები
-  - კლასები
-  - მტკიცებულებები
-  - რაოდენობები
-  - მეთოდები
-  - პრაქტიკა
-  - შეჯამება
 ---
 
 რეგულარული გამოსახულებები (Regular expressions) არის სიმბოლოთა თანმიმდევრობა, რომელიც ახდენს სტრიქონში ამა თუ იმ სიმბოლოს ძებნას ან ჩანაცვლებას კონკრეტული ფორმულირების მიხედვით. JavasScript-ში რეგულარული გამოსახულებები რეალიზირებულია ობიექტ [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
@@ -93,7 +84,7 @@ const regexWithObject = new RegExp('pattern', 'flags');
 
 ## მეთოდები
 
-რეგულარული გამოსახულებებისთვის ხშირ შემთხვევაში გამოიყენება `RegExp`-ს მეთოდები: [`test()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test) და [`exec()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec), ასევე გამოიყენება [სტრინგი](./guides/javascript/string)-ს მეთოდები: `match()`, `matchAll()`, `replace()`, `replaceAll()`, `search()` და `split()`.
+რეგულარული გამოსახულებებისთვის ხშირ შემთხვევაში გამოიყენება `RegExp`-ს მეთოდები: [`test()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test) და [`exec()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec), ასევე გამოიყენება [სტრინგი](./doc/guides/javascript/string)-ს მეთოდები: `match()`, `matchAll()`, `replace()`, `replaceAll()`, `search()` და `split()`.
 
 | მეთოდი                                                                                                               | აღწერა                                                                                                                                                                                                                                                                                       |
 | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

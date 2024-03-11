@@ -2,14 +2,6 @@
 title: 'ფუნქცია'
 description: 'სამომხმარებლო ფუნქციები JavaScript-ში'
 keywords: 'functions, return, default params, void functions, scope, hoisting, hoisted, რეკურსია, recursion, arrow, async, await'
-headings:
-  - ფუნქციის ტიპები
-  - ფუნქციის აღწერა
-  - ფუნქციის პარამეტრები
-  - ფუნქციის ექსპრეშენები
-  - რეკურსია
-  - Arrow ფუნქცია
-  - ასინქრონული ფუნქციები
 ---
 
 ფუნქციები არის ფუნდამენტალური ნაწილი JavaScript-ში. ფუნქციის იდეა მდგომარეობს, რომ შევქმნათ მრავალჯერადად გამოყენებადი კოდის ფრაგმენტი, რომელსაც გამოვიძახებთ სურვილისამებრ ნებისმიერ დროს. ფუნქციას შესაძლოა გადავცეთ სხვადასხვა ტიპის პარამეტრები, რის მიხედვითაც შესაძლოა შევინარჩოთ დინამიურობის პროცესი. დინამიურობის პროცესში იგულისხმება, გადაცემული პარამეტრიდან შესრულებული/დაბრუნებული მოქმედებები.
@@ -23,13 +15,13 @@ headings:
 
 ყოველთვის არ არის სავალდებულო, რომ ფუნქციამ მნიშვნელობა დააბრუნოს, ამიტომაც გვაქვს ვოიდის ტიპის ფუნქციები. მათი დანიშნულება მდგომარეობს, რომ სხვადასხვა ტიპის მნიშვნელობები გაუშვას, მაგალითად: დაიწყოს თამაშის მთავარი ფუნქცია, განახლება გაუკეთოს ვიზუალს და ა.შ.
 
-ფუნქცია, რომელსაც არ უწერია `return` ავტომატურად იგულისხმება, რომ ეს ფუნქცია არის ვოიდის ტიპის, თუ შევეცდებით მისგან მნიშვნელობის წაკითხვას დაბრუნებული შედეგი ყოველთვის იქნება [`undefined`](./references/javascript/undefined).
+ფუნქცია, რომელსაც არ უწერია `return` ავტომატურად იგულისხმება, რომ ეს ფუნქცია არის ვოიდის ტიპის, თუ შევეცდებით მისგან მნიშვნელობის წაკითხვას დაბრუნებული შედეგი ყოველთვის იქნება [`undefined`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined).
 
 ## ფუნქციის აღწერა
 
 ფუნქციის აღსაწერად გამოიყენება `function` ქივორდი (keyword), რომლის შემდგომაც კეთდება შემდომგი ჩანაწერი:
 
-- ფუნქციის სახელი ([Camel case-ს სტილს](./guides/javascript/variable#ცვლადის_სახელის_სტილი))
+- ფუნქციის სახელი ([Camel case-ს სტილს](./doc/guides/javascript/variable#ცვლადის_სახელის_სტილი))
 - პარამეტრების სია, რომელიც ჩაწერილი იქნება `()` ფრჩხილებში, თითოეული პარამეტრის განსაცალკევებლად გამოიყენება `,` (მძიმე).
 - კოდის ფრაგმენტი, რომელიც მოქცეული იქნება `{}` (ფიგურულ) ფრჩხილებში.
 
@@ -88,7 +80,7 @@ console.log(sum(2, 2)); // 4
 ## ფუნქციის ექსპრეშენები
 
 ფუნქციის აღწერა არამხოლოდ იმ გზით არის შესაძლებელი, რაც მანამდე განვიხილეთ, არამედ შესაძლოა შეიქმნას ასევე ფუნქციის ექსფრეშენებით (გამოსახულებები).
-ფუნქცია შესაძლოა იყოს [ანონიმური](./references/javascript/function/anonymous), როცა მას არ გააჩნია სახელი. მაგალითისთვის შესაძლოა ჩვენი ფუნქცია აგვეღწერა შემდგომ ნაირად:
+ფუნქცია შესაძლოა იყოს [ანონიმური](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions), როცა მას არ გააჩნია სახელი. მაგალითისთვის შესაძლოა ჩვენი ფუნქცია აგვეღწერა შემდგომ ნაირად:
 
 ```js
 const square = function (number) {
@@ -96,7 +88,7 @@ const square = function (number) {
 };
 ```
 
-მსგავს ტიპად აღწერილი ფუნქცია არის ანონიმური და მისი გამოძახება შესაძლებელია ცვლადის სახელის გამოყენებით. თუმცა მსგავსად აღწერილი ფუნქცია არ გადის [`hoisting`](./reference/javascript/hoisting)-ს პროცესს ამიტომაც ხშირ შემთხვევაში უმჯობესია `function` ქივორდის გამოყენება. მარტივად, რომ ავხსნათ ჰოისტინგი გულისხმობს ცვლადების/ფუნქციების წვდომას კონკრეტულ ადგილას, პირობითად შესაძლებელია ფუნქცია აღვწეროთ ქვემოთ და გამოვიძახოთ ზემოთ (ჰოისტინგზე დეტალური ინფორმაციისთვის იხილეთ [`hoisting`](./guides/javascript/hoisting)). მაგალითად:
+მსგავს ტიპად აღწერილი ფუნქცია არის ანონიმური და მისი გამოძახება შესაძლებელია ცვლადის სახელის გამოყენებით. თუმცა მსგავსად აღწერილი ფუნქცია არ გადის [`hoisting`](https://developer.mozilla.org/en-US/docs/Glossary/Hoisting)-ს პროცესს ამიტომაც ხშირ შემთხვევაში უმჯობესია `function` ქივორდის გამოყენება. მარტივად, რომ ავხსნათ ჰოისტინგი გულისხმობს ცვლადების/ფუნქციების წვდომას კონკრეტულ ადგილას, პირობითად შესაძლებელია ფუნქცია აღვწეროთ ქვემოთ და გამოვიძახოთ ზემოთ (ჰოისტინგზე დეტალური ინფორმაციისთვის იხილეთ [`hoisting`](./doc/guides/javascript/hoisting)). მაგალითად:
 
 ```js
 console.log(square(5)); // ReferenceError: Cannot access 'square' before initialization
@@ -123,12 +115,12 @@ function square(number) {
 console.log(square(32)); // 1024
 ```
 
-პირველი მაგალითის შემთხვევაში წარმოიქმნა აქსსეს ერორი, რაც მოისაზრებს ცვლადის გამოყენებას მის ინიციალიზებამდე. მესამე მაგალითში იგივე პრობლემას არ ვაწყდებით, რადგან ფუნქცია გადის ჰოისტინგს, რაც შესაძლებლობას გვაძლევს, რომ გამოყენებადი იყოს მთლიან [scope](./guides/javascript/scope)-ში (ან მთლიან აპლიკაციაში, თუ აღწერილი ფუნქცია, არის მთავარ JavaScript ფაილში).
+პირველი მაგალითის შემთხვევაში წარმოიქმნა აქსსეს ერორი, რაც მოისაზრებს ცვლადის გამოყენებას მის ინიციალიზებამდე. მესამე მაგალითში იგივე პრობლემას არ ვაწყდებით, რადგან ფუნქცია გადის ჰოისტინგს, რაც შესაძლებლობას გვაძლევს, რომ გამოყენებადი იყოს მთლიან [scope](./doc/guides/javascript/scope)-ში (ან მთლიან აპლიკაციაში, თუ აღწერილი ფუნქცია, არის მთავარ JavaScript ფაილში).
 
 პ.ს არ არის სავალდებულო კვადრატისთვის, ფუნქციის შემოღება, რადგან გვაქვს ბევრი მიდგომა, რომ კვადრატი მივიღოთ JavaScript-ში:
 
-- [`**`](./guides/javascript/operations-operators#არითმეტიკული_ოპერაციები) ხარისხის ოპერატორის სახით
-- [`Math.pow`](./references/javascript/math#pow) მეთოდის გამოყენებით
+- [`**`](./doc/guides/javascript/operations-operators#არითმეტიკული_ოპერაციები) ხარისხის ოპერატორის სახით
+- [`Math.pow`](./doc/guides/javascript/math#მეთოდები) მეთოდის გამოყენებით
 
 ## რეკურსია
 
@@ -174,11 +166,11 @@ pow ფუნქცია რეკურსიულად იძახებ�
 
 ## Arrow ფუნქცია
 
-`arrow` ფუნქცია არის ალტერნატივა ჩვეულებრივი [ფუნქციის](./references/javascript/function), მცირედი მოდიფიცირებებით. მისი სინტაქსი შემოკლდა და შეიცვალა მცირედადა გამოყენებების სტანდარტები:
+`arrow` ფუნქცია არის ალტერნატივა ჩვეულებრივი [ფუნქციის](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions), მცირედი მოდიფიცირებებით. მისი სინტაქსი შემოკლდა და შეიცვალა მცირედადა გამოყენებების სტანდარტები:
 
-- `arrow` ფუნქციას არ გააჩნია თავიანთი: [`this`](./references/javascript/this) (განხილული არის შემდგომ თავშიც), [`arguments`](./references/javascript/function/arguments), [`super`](./references/javascript/class/super) და არ შეიძლება მათი გამოყენება, როგორც [მეთოდების](./guides/javascript/object-basics#ობიეტქის_მეთოდები) სახით.
-- `arrow` ფუნქციას ვერ გამოვიყენებთ, როგორც [`constructor`](./references/javascript/class/constructors). მათი გამოძახება [`new`](./references/javascript/class/new) თანხლებით გამოიტანს [`TypeError`](./references/javascript/TypeError)-ს.
-- `arrow` ფუნქცია არ შეიძლება იყოს გამოყენებული [`yield`](./references/javascript/generator/yield) შიგნით და არ შეიძლება მათი გამოყენება, როგორც გენერატორი ფუნქცია.
+- `arrow` ფუნქციას არ გააჩნია თავიანთი: [`this`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) (განხილული არის შემდგომ თავშიც), [`arguments`](https://developer.mozilla.org/en-US/docs/Glossary/Argument), [`super`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super) და არ შეიძლება მათი გამოყენება, როგორც [მეთოდების](./doc/guides/javascript/object-basics#ობიეტქის_მეთოდები) სახით.
+- `arrow` ფუნქციას ვერ გამოვიყენებთ, როგორც [`constructor`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor). მათი გამოძახება [`new`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new) თანხლებით გამოიტანს [`TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError)-ს.
+- `arrow` ფუნქცია არ შეიძლება იყოს გამოყენებული [`yield`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield) შიგნით და არ შეიძლება მათი გამოყენება, როგორც გენერატორი ფუნქცია.
 
 მისი სინტაქსი სახელს ამართლებს. მისი სინტაქსი:
 
@@ -217,6 +209,6 @@ printHere(); // დაილოგება "Here"
 
 ## ასინქრონული ფუნქციები
 
-ასინქრონული ტიპის ფუნქციები საშუალების გვაძლევს [`promise`](./references/javascript/promise)-ებს მოვუსმინოთ [`await`](./references/javascript/promise#await) ქივორდის საშუალებით, შედეგად კი ვღებულობთ უფრო სუფთა კოდს (თავს ვარიდებთ პრომისების გრძელ კოდს).
+ასინქრონული ტიპის ფუნქციები საშუალების გვაძლევს [`promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)-ებს მოვუსმინოთ [`await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await) ქივორდის საშუალებით, შედეგად კი ვღებულობთ უფრო სუფთა კოდს (თავს ვარიდებთ პრომისების გრძელ კოდს).
 
-ასინქრონული პროგრამირების იდეა განხილული იქნება [`promise & async`](./guides/javascript/promise&async) თავში.
+ასინქრონული პროგრამირების იდეა განხილული იქნება [`promise & async`](./doc/guides/javascript/promise&async) თავში.
