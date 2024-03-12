@@ -88,13 +88,18 @@
                       [routerLink]="siblings.next.routerLink"
                       (click)="scrollUp()"
                     >
-                      <button nz-button nzType="default">
-                        შემდგომი სტატია
-                      </button>
+                      <button nz-button nzType="default">შემდეგი სტატია</button>
                     </a>
                   }
                 </div>
               }
+              <div class="contributors">
+                @for (contributor of contributors(); track contributor) {
+                  <sw-doc-contributors
+                    [contributor]="contributor"
+                  ></sw-doc-contributors>
+                }
+              </div>
             }
           </div>
           <aside>
@@ -104,15 +109,6 @@
           </aside>
         } @else {
           <p>კონტენტი არ არის</p>
-        }
-      </section>
-      <section class="contributors">
-        @if (isBrowser) {
-          @for (contributor of contributors(); track contributor) {
-            <sw-doc-contributors
-              [contributor]="contributor"
-            ></sw-doc-contributors>
-          }
         }
       </section>
       <nz-back-top [nzTemplate]="backToTop">
