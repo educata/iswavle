@@ -19,7 +19,7 @@ import {
   RouterModule,
 } from '@angular/router';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { filter, fromEvent, map, startWith, tap } from 'rxjs';
+import { filter, fromEvent, map, of, startWith, switchMap, tap } from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -31,7 +31,12 @@ import { DocContent } from '@app-shared/interfaces';
 import { SidenavComponent, AutoBreadcrumbsComponent } from '@app-shared/ui';
 import { DOC_NAVIGATION } from '@app-shared/providers';
 import { LAYOUT_SIZES } from '@app-shared/consts';
-import { DocTocComponent, DocViewerComponent } from './ui';
+import {
+  DocContributorsComponent,
+  DocTocComponent,
+  DocViewerComponent,
+} from './ui';
+import { ContributorsService } from '@app-shared/services/contributors.service';
 
 @Component({
   selector: 'sw-docs',
@@ -51,6 +56,7 @@ import { DocTocComponent, DocViewerComponent } from './ui';
     NzIconModule,
     NzBackTopModule,
     AsyncPipe,
+    DocContributorsComponent,
   ],
   templateUrl: './docs.component.html',
   styleUrl: './docs.component.less',
@@ -63,6 +69,7 @@ export default class DocsComponent {
   private readonly viewport = inject(ViewportScroller);
   private readonly document = inject(DOCUMENT);
   private readonly metaService = inject(MetaService);
+  private readonly contributorsService = inject(ContributorsService);
   private readonly article$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as DocContent),
   );
@@ -89,6 +96,20 @@ export default class DocsComponent {
         const navigation = this.docNavigation.find((nav) => nav.path === path);
         this.activeContentTitle = navigation?.title || 'კონტენტი';
         return navigation?.children || [];
+      }),
+    ),
+  );
+
+  readonly contributors = toSignal(
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map(() => this.router.url),
+      switchMap((url) => {
+        if (url.split('/').slice(2).length === 2) {
+          // Exclude contributors from base articles
+          return of([]);
+        }
+        return this.contributorsService.getContributors(url);
       }),
     ),
   );
