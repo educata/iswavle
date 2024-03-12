@@ -106,6 +106,15 @@
           <p>კონტენტი არ არის</p>
         }
       </section>
+      <section class="contributors">
+        @if (isBrowser) {
+          @for (contributor of contributors(); track contributor) {
+            <sw-doc-contributors
+              [contributor]="contributor"
+            ></sw-doc-contributors>
+          }
+        }
+      </section>
       <nz-back-top [nzTemplate]="backToTop">
         <ng-template #backToTop>
           <span nz-icon nzType="up" nzTheme="outline"></span>
