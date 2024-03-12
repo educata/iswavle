@@ -63,10 +63,40 @@
     <nz-content [class.no-padding]="!(isXLarge$ | async)">
       <section [class.with-toc]="!(hideToc$ | async)">
         @if (article(); as article) {
-          <sw-doc-viewer
-            [class.full-size]="!(isXLarge$ | async)"
-            [docContent]="article"
-          ></sw-doc-viewer>
+          <div class="wrapper">
+            <sw-doc-viewer
+              [class.full-size]="!(isXLarge$ | async)"
+              [docContent]="article"
+            ></sw-doc-viewer>
+            @if (isBrowser) {
+              @if (articleSiblings$ | async; as siblings) {
+                <div class="actions" [class.single-prev]="!siblings.prev">
+                  @if (siblings.prev) {
+                    <a
+                      nz-tooltip
+                      [nzTooltipTitle]="siblings.prev.title"
+                      [routerLink]="siblings.prev.routerLink"
+                      (click)="scrollUp()"
+                    >
+                      <button nz-button nzType="default">წინა სტატია</button>
+                    </a>
+                  }
+                  @if (siblings.next) {
+                    <a
+                      nz-tooltip
+                      [nzTooltipTitle]="siblings.next.title"
+                      [routerLink]="siblings.next.routerLink"
+                      (click)="scrollUp()"
+                    >
+                      <button nz-button nzType="default">
+                        შემდგომი სტატია
+                      </button>
+                    </a>
+                  }
+                </div>
+              }
+            }
+          </div>
           <aside>
             @if (!(hideToc$ | async) && (isXLarge$ | async)) {
               <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
