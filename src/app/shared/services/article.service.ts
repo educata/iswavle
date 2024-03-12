@@ -54,11 +54,13 @@ export class ArticleService {
 
         if (node.routerLink.join('/') === url) {
           found = true;
+
           const prevIndex = parentNode.indexOf(node) - 1;
+
           if (prevIndex >= 0) {
             prev = parentNode[prevIndex];
           }
-          console.log(parentNode);
+
           if (node.children) {
             next = node.children[0];
           } else {
@@ -67,7 +69,6 @@ export class ArticleService {
               next = parentNode[nextIndex];
             }
           }
-          console.log(prev, next);
         }
       },
     );
