@@ -20,6 +20,8 @@ const hyperLinks: {
   references: [],
 };
 
+const dataMap: { [key: string]: { title: string; content: string } } = {};
+
 const render = new Renderer();
 
 render.code = (code, language) => {
@@ -132,6 +134,11 @@ function processMarkdownFiles(directory: string) {
         'utf-8',
       );
 
+      dataMap[normalizePath(outputPath)] = {
+        title: data.frontMatter.title,
+        content: removePreAndHtmlTags(data.content),
+      };
+
       fs.writeFileSync(
         outputPath.replace('.md', '.json'),
         JSON.stringify(data.frontMatter),
@@ -139,6 +146,20 @@ function processMarkdownFiles(directory: string) {
       );
     }
   });
+}
+
+function removePreAndHtmlTags(content: string) {
+  return content
+    .replace(/<pre>.*?<\/pre>/gs, '')
+    .replace(/<\/?[^>]*>/g, '')
+    .replaceAll('\n', ' ');
+}
+
+function normalizePath(path: string): string {
+  return path
+    .replaceAll('\\', '/')
+    .replaceAll('src/assets', 'doc')
+    .replaceAll('.md', '');
 }
 
 function createFileFromConnetion() {
@@ -159,6 +180,11 @@ function createFileFromConnetion() {
   });
 
   fs.writeFileSync('src/assets/empty-hyperlinks.json', data, 'utf-8');
+  fs.writeFileSync(
+    'src/assets/index-map.json',
+    JSON.stringify(dataMap),
+    'utf-8',
+  );
 
   let count = 0;
 

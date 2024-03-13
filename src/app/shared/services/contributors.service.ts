@@ -5,7 +5,7 @@ import {
   GITHUB_API_COMMITS_PREFIX,
 } from '@app-shared/consts';
 import { Contributor, GithubResponse } from '@app-shared/interfaces';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +35,9 @@ export class ContributorsService {
                 self.findIndex((user) => user.name === contributor.name),
             ),
         ),
+        catchError(() => {
+          return of([]);
+        }),
       );
   }
 }

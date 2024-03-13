@@ -4,11 +4,11 @@
 @body-background: #1f1f1f;
 @component-background: @body-background;
 @primary-1: color(~`colorPalette('@{body-background}', 1) `);
-@menu-selected-item-bg: red;
 
 & {
   --gray: #696969;
   --gray-lifted: #646464;
+  --text-color: @text-color;
 
   .xterm .composition-view,
   .xterm .xterm-viewport {

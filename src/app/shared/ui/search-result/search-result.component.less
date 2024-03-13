@@ -1,0 +1,36 @@
+.search-content {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 8px;
+  max-height: 350px;
+  overflow-y: auto;
+  padding-right: 10px;
+
+  a {
+    border: 1px solid var(--gray);
+    padding: 12px;
+    transition: 0.5s ease;
+
+    &:hover,
+    &:focus {
+      border: 1px solid var(--primary-color);
+    }
+
+    p {
+      color: var(--text-color);
+
+      span {
+        &.highlight {
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+
+  p.no-result {
+    span {
+      font-weight: bold;
+    }
+  }
+}

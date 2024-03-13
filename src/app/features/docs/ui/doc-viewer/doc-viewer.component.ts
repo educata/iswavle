@@ -21,6 +21,8 @@ export class DocViewerComponent implements OnChanges {
   @Input() docContent!: DocContent;
   @ViewChild('container', { static: true }) container!: ElementRef<HTMLElement>;
 
+  // TODO: Implement scroll to param value
+
   ngOnChanges(changes: SimpleChanges) {
     if ('docContent' in changes) {
       this.renderPage(this.docContent.content);
