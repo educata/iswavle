@@ -7,7 +7,7 @@
   >
     <aside class="sidenav-sticky">
       @if (article(); as article) {
-        @if (!(isXLarge$ | async)) {
+        @if (!isXLarge()) {
           <sw-doc-toc
             [isFixed]="false"
             [docAttrs]="article.attributes.toc"
@@ -22,7 +22,7 @@
   </nz-sider>
   <nz-layout class="inner-layout">
     <aside class="navigation">
-      @if (hideToc$ | async) {
+      @if (hideToc()) {
         <div>
           <button
             nz-button
@@ -40,7 +40,7 @@
     @if (isBrowser) {
       <nz-drawer
         nzPlacement="left"
-        [nzTitle]="activeContentTitle"
+        [nzTitle]="activeContentTitle()"
         [nzVisible]="isDrawerVisible"
         (nzOnClose)="isDrawerVisible = false"
       >
@@ -53,36 +53,62 @@
               ></sw-doc-toc>
             }
             <sw-sidenav
-              [navItems]="navigation() || []"
+              [navItems]="navigation()"
               (onClick)="isDrawerVisible = false"
             ></sw-sidenav>
           </div>
         </ng-container>
       </nz-drawer>
     }
-    <nz-content [class.no-padding]="!(isXLarge$ | async)">
-      <section [class.with-toc]="!(hideToc$ | async)">
+    <nz-content [class.no-padding]="!isXLarge()">
+      <section [class.with-toc]="!hideToc()">
         @if (article(); as article) {
-          <sw-doc-viewer
-            [class.full-size]="!(isXLarge$ | async)"
-            [docContent]="article"
-          ></sw-doc-viewer>
+          <div class="wrapper">
+            <sw-doc-viewer
+              [class.full-size]="!isXLarge()"
+              [docContent]="article"
+            ></sw-doc-viewer>
+            @if (isBrowser) {
+              @if (articleSiblings(); as siblings) {
+                <div class="actions" [class.single-prev]="!siblings.prev">
+                  @if (siblings.prev) {
+                    <a
+                      nz-tooltip
+                      [nzTooltipTitle]="siblings.prev.title"
+                      [routerLink]="siblings.prev.routerLink"
+                      (click)="scrollUp()"
+                    >
+                      <button nz-button nzType="default">წინა სტატია</button>
+                    </a>
+                  }
+                  @if (siblings.next) {
+                    <a
+                      nz-tooltip
+                      [nzTooltipTitle]="siblings.next.title"
+                      [routerLink]="siblings.next.routerLink"
+                      (click)="scrollUp()"
+                    >
+                      <button nz-button nzType="default">შემდეგი სტატია</button>
+                    </a>
+                  }
+                </div>
+              }
+              <div class="contributors">
+                @for (contributor of contributors(); track contributor) {
+                  <sw-doc-contributors
+                    [contributor]="contributor"
+                  ></sw-doc-contributors>
+                }
+              </div>
+            }
+          </div>
           <aside>
-            @if (!(hideToc$ | async) && (isXLarge$ | async)) {
+            @if (!hideToc() && isXLarge()) {
               <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
             }
           </aside>
         } @else {
           <p>კონტენტი არ არის</p>
-        }
-      </section>
-      <section class="contributors">
-        @if (isBrowser) {
-          @for (contributor of contributors(); track contributor) {
-            <sw-doc-contributors
-              [contributor]="contributor"
-            ></sw-doc-contributors>
-          }
         }
       </section>
       <nz-back-top [nzTemplate]="backToTop">
