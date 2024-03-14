@@ -3,7 +3,11 @@
     @for (searchContent of searchMap; track searchContent) {
       <a class="search-item" (click)="onClick(searchContent)">
         <h3>
-          {{ searchContent.title }}
+          @for (content of searchContent.title; track content) {
+            <span [class.highlight]="content.highlight">{{
+              content.data
+            }}</span>
+          }
         </h3>
         <p>
           @for (content of searchContent.content; track content) {

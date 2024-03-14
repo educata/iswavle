@@ -49,63 +49,48 @@ export class SearchResultComponent implements OnChanges {
       const content = this.indexMap[articlePath].content;
       const searchResult = content.search(this.searchValue);
 
-      if (searchResult === -1) {
+      const title = this.indexMap[articlePath].title || '';
+      const titleResult = title.search(this.searchValue);
+
+      if (searchResult === -1 && titleResult === -1) {
         continue;
       }
 
-      const words = content.split(/\s+/);
-
-      const searchTermIndex = words.findIndex((word) =>
-        word.includes(this.searchValue),
-      );
-
-      const startWordIndex = Math.max(0, searchTermIndex - 10);
-      const endWordIndex = Math.min(words.length - 1, searchTermIndex + 5);
-
-      const slicedWords = words.slice(startWordIndex, endWordIndex + 1);
-
-      const highlightedContent = slicedWords.map((word) => {
-        return {
-          data: ` ${word} `,
-          highlight: word.includes(this.searchValue),
-        };
-      });
-
-      const adjustedContent: IndexMapResultContent[] = [];
-
-      highlightedContent.forEach((item) => {
-        if (item.highlight) {
-          if (item.data === this.searchValue) {
-            adjustedContent.push(item);
-          } else {
-            const splitArray = item.data.split(this.searchValue);
-            const resultArray = [];
-
-            for (let i = 0; i < splitArray.length; i++) {
-              const obj = {
-                data: splitArray[i],
-                highlight: this.searchValue === splitArray[i],
-              };
-              resultArray.push(obj);
-              if (i < splitArray.length - 1) {
-                resultArray.push({ data: this.searchValue, highlight: true });
-              }
-            }
-            adjustedContent.push(...resultArray);
-          }
-        } else {
-          adjustedContent.push(item);
-        }
-      });
+      const highlightedTitle = this.highlightText(title, this.searchValue);
+      const highlightedContent = this.highlightText(content, this.searchValue);
 
       result.push({
-        title: this.indexMap[articlePath].title,
-        content: adjustedContent,
+        title: highlightedTitle,
+        content: highlightedContent,
         routerLink: articlePath,
       });
     }
 
     this.#result$.next(result);
+  }
+
+  highlightText(text: string, searchTerm: string): IndexMapResultContent[] {
+    if (!text || !searchTerm) {
+      return [];
+    }
+
+    const words = text.split(/\s+/);
+
+    const searchTermIndex = words.findIndex((word) =>
+      word.includes(searchTerm),
+    );
+
+    const startWordIndex = Math.max(0, searchTermIndex - 10);
+    const endWordIndex = Math.min(words.length - 1, searchTermIndex + 5);
+
+    const slicedWords = words.slice(startWordIndex, endWordIndex + 1);
+
+    return slicedWords.map((word) => {
+      return {
+        data: ` ${word} `,
+        highlight: word.includes(searchTerm),
+      };
+    });
   }
 
   onClick(content: IndexMapResult) {

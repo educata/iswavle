@@ -8,8 +8,8 @@ export interface IndexMapContent {
 }
 
 export interface IndexMapResult {
-  title: string;
   routerLink: string;
+  title: IndexMapResultContent[];
   content: IndexMapResultContent[];
 }
 
