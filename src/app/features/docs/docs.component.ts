@@ -7,6 +7,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   PLATFORM_ID,
+  computed,
+  effect,
   inject,
 } from '@angular/core';
 import {
@@ -79,6 +81,7 @@ export default class DocsComponent {
   private readonly article$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as DocContent),
   );
+  private readonly baseNavNode = toSignal(this.articleService.navigation$);
 
   readonly themeService = inject(ThemeService);
 
@@ -87,24 +90,13 @@ export default class DocsComponent {
   readonly siderWidth = LAYOUT_SIZES.docSiderWidth;
 
   isDrawerVisible = false;
-  activeContentTitle = 'კონტენტი';
 
-  readonly navigation = toSignal(
-    this.router.events.pipe(
-      filter((event) => event instanceof NavigationEnd),
-      map(() => {
-        const navigation = this.articleService.navigation;
-        this.activeContentTitle = navigation?.title || 'კონტენტი';
-        return navigation?.children || [];
-      }),
-    ),
+  readonly activeContentTitle = computed(
+    () => this.baseNavNode()?.title || 'კონტენტი',
   );
+  readonly navigation = computed(() => this.baseNavNode()?.children || []);
 
-  readonly articleSiblings$ = this.article$.pipe(
-    map(() => {
-      return this.articleService.siblings;
-    }),
-  );
+  readonly articleSiblings = toSignal(this.articleService.siblings$);
 
   readonly contributors = toSignal(
     this.router.events.pipe(
@@ -120,31 +112,30 @@ export default class DocsComponent {
     ),
   );
 
-  private readonly windowResize$ = fromEvent(
-    this.document.defaultView as Window,
-    'resize',
-  ).pipe(startWith(this.document.body.clientWidth));
-
-  readonly isXLarge$ = this.windowResize$.pipe(
-    map(() => this.document.body.clientWidth >= LAYOUT_SIZES.xLargeForDoc),
+  private readonly windowWidth = toSignal(
+    fromEvent(this.document.defaultView as Window, 'resize').pipe(
+      map((event) => (event.target as Window).innerWidth),
+      startWith(this.document.body.clientWidth),
+    ),
   );
 
-  readonly hideToc$ = this.windowResize$.pipe(
-    map(() => !(this.document.body.clientWidth >= LAYOUT_SIZES.hideToc)),
+  readonly isXLarge = computed(
+    () => this.windowWidth()! >= LAYOUT_SIZES.xLargeForDoc,
+  );
+
+  readonly hideToc = computed(
+    () => !(this.windowWidth()! >= LAYOUT_SIZES.hideToc),
   );
 
   constructor() {
-    this.article$
-      .pipe(
-        takeUntilDestroyed(),
-        tap((content) => {
-          this.metaService.updateContentMetaTags(
-            content,
-            this.activatedRoute.snapshot.params[1],
-          );
-        }),
-      )
-      .subscribe();
+    effect(() => {
+      const content = this.article();
+      if (!content) return;
+      this.metaService.updateContentMetaTags(
+        content,
+        this.activatedRoute.snapshot.params[1],
+      );
+    });
   }
 
   scrollUp() {
