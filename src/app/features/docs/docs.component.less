@@ -14,7 +14,6 @@ nz-layout.base {
   }
 
   nz-layout.inner-layout {
-    width: 100%;
     padding: 0 24px 24px;
 
     nz-drawer {
@@ -40,6 +39,26 @@ nz-layout.base {
         padding: 0;
       }
 
+      div.actions {
+        width: 100%;
+        margin: 1rem auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &.single-prev {
+          justify-content: flex-end;
+        }
+      }
+
+      div.contributors {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
       section {
         width: 100%;
 
@@ -51,6 +70,10 @@ nz-layout.base {
           display: flex;
           justify-content: center;
           gap: 20px;
+        }
+
+        div.wrapper {
+          width: 100%;
         }
       }
     }

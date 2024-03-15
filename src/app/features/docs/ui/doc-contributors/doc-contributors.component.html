@@ -1,0 +1,13 @@
+@if (contributor) {
+  <a
+    nz-tooltip
+    target="_blank"
+    [href]="contributor.html_url"
+    nzTooltipTitle="კონტრიბუტორი: {{ contributor.name }}"
+  >
+    <nz-avatar
+      nzAlt="კონტრიბუტორის სურათი"
+      [nzSrc]="contributor.avatar_url"
+    ></nz-avatar>
+  </a>
+}

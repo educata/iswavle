@@ -12,9 +12,10 @@ export const DEFAULT_DOC_NAVIGATION: BaseNavigationTreeNode[] = [
     path: 'guides',
     children: [HTML_CSS_GUIDE_NAV, JAVASCRIPT_GUIDE_NAV, ANGULAR_GUIDE_NAV],
   },
-  {
-    title: 'ცნობარი',
-    path: 'references',
-    children: [HTML_CSS_REFERENCE_NAV],
-  },
+  // TODO: fill later
+  // {
+  //   title: 'ცნობარი',
+  //   path: 'references',
+  //   children: [HTML_CSS_REFERENCE_NAV],
+  // },
 ];

@@ -1,8 +1,14 @@
-import { MetaService, ThemeService } from '@app-shared/services';
+import {
+  ArticleService,
+  MetaService,
+  ThemeService,
+} from '@app-shared/services';
 import {
   ChangeDetectionStrategy,
   Component,
   PLATFORM_ID,
+  computed,
+  effect,
   inject,
 } from '@angular/core';
 import {
@@ -19,7 +25,7 @@ import {
   RouterModule,
 } from '@angular/router';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { filter, fromEvent, map, startWith, tap } from 'rxjs';
+import { filter, fromEvent, map, of, startWith, switchMap, tap } from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -29,9 +35,14 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 import { DocContent } from '@app-shared/interfaces';
 import { SidenavComponent, AutoBreadcrumbsComponent } from '@app-shared/ui';
-import { DOC_NAVIGATION } from '@app-shared/providers';
 import { LAYOUT_SIZES } from '@app-shared/consts';
-import { DocTocComponent, DocViewerComponent } from './ui';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import {
+  DocContributorsComponent,
+  DocTocComponent,
+  DocViewerComponent,
+} from './ui';
+import { ContributorsService } from '@app-shared/services/contributors.service';
 
 @Component({
   selector: 'sw-docs',
@@ -51,6 +62,8 @@ import { DocTocComponent, DocViewerComponent } from './ui';
     NzIconModule,
     NzBackTopModule,
     AsyncPipe,
+    NzToolTipModule,
+    DocContributorsComponent,
   ],
   templateUrl: './docs.component.html',
   styleUrl: './docs.component.less',
@@ -63,61 +76,66 @@ export default class DocsComponent {
   private readonly viewport = inject(ViewportScroller);
   private readonly document = inject(DOCUMENT);
   private readonly metaService = inject(MetaService);
+  private readonly contributorsService = inject(ContributorsService);
+  private readonly articleService = inject(ArticleService);
   private readonly article$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as DocContent),
   );
+  private readonly baseNavNode = toSignal(this.articleService.navigation$);
 
   readonly themeService = inject(ThemeService);
-  readonly docNavigation = inject(DOC_NAVIGATION);
+
   readonly article = toSignal(this.article$);
   readonly isBrowser = isPlatformBrowser(this.platform);
   readonly siderWidth = LAYOUT_SIZES.docSiderWidth;
 
   isDrawerVisible = false;
-  activeContentTitle = 'კონტენტი';
 
-  readonly navigation = toSignal(
+  readonly activeContentTitle = computed(
+    () => this.baseNavNode()?.title || 'კონტენტი',
+  );
+  readonly navigation = computed(() => this.baseNavNode()?.children || []);
+
+  readonly articleSiblings = toSignal(this.articleService.siblings$);
+
+  readonly contributors = toSignal(
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       map(() => this.router.url),
-      map((url) => {
-        /*
-          Since the URL starts with a "/", we need to slice it after that,
-          split it by "/", then only take the second value as a reference or guide.
-        */
-        const path = url.slice(1).split('/')[1];
-        const navigation = this.docNavigation.find((nav) => nav.path === path);
-        this.activeContentTitle = navigation?.title || 'კონტენტი';
-        return navigation?.children || [];
+      switchMap((url) => {
+        if (url.split('/').slice(2).length === 2) {
+          // Exclude contributors from base articles
+          return of([]);
+        }
+        return this.contributorsService.getContributors(url);
       }),
     ),
   );
 
-  private readonly windowResize$ = fromEvent(
-    this.document.defaultView as Window,
-    'resize',
-  ).pipe(startWith(this.document.body.clientWidth));
-
-  readonly isXLarge$ = this.windowResize$.pipe(
-    map(() => this.document.body.clientWidth >= LAYOUT_SIZES.xLargeForDoc),
+  private readonly windowWidth = toSignal(
+    fromEvent(this.document.defaultView as Window, 'resize').pipe(
+      map((event) => (event.target as Window).innerWidth),
+      startWith(this.document.body.clientWidth),
+    ),
   );
 
-  readonly hideToc$ = this.windowResize$.pipe(
-    map(() => !(this.document.body.clientWidth >= LAYOUT_SIZES.hideToc)),
+  readonly isXLarge = computed(
+    () => this.windowWidth()! >= LAYOUT_SIZES.xLargeForDoc,
+  );
+
+  readonly hideToc = computed(
+    () => !(this.windowWidth()! >= LAYOUT_SIZES.hideToc),
   );
 
   constructor() {
-    this.article$
-      .pipe(
-        takeUntilDestroyed(),
-        tap((content) => {
-          this.metaService.updateContentMetaTags(
-            content,
-            this.activatedRoute.snapshot.params[1],
-          );
-        }),
-      )
-      .subscribe();
+    effect(() => {
+      const content = this.article();
+      if (!content) return;
+      this.metaService.updateContentMetaTags(
+        content,
+        this.activatedRoute.snapshot.params[1],
+      );
+    });
   }
 
   scrollUp() {

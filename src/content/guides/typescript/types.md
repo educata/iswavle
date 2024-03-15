@@ -190,3 +190,7 @@ const [a, b, c] = myTuple;
 ```
 
 a ცვლადი იქნება number, b ცვლადი იქნება string, ხოლო c იქნება boolean.
+
+## Enums
+
+<!-- TODO: write -->

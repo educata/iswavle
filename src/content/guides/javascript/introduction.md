@@ -2,18 +2,14 @@
 title: 'შესავალი'
 description: 'JavaScript მცირედი მიმოხილვა'
 keywords: 'js, javascript, ჯავასკრიპტი, jit, first-class, node.js, apache couchdb, adobe acrobat, single-threaded, oop, framework, library, ecmascript'
-headings:
-  - რა არის JavaScript
-  - სად გამოიყენება JavaScript
-  - JavaScript-ის სტანდარტი
 ---
 
 ## რა არის JavaScript
 
 JavaScript (JS) არის ინტერპრეტირებადი ან [just-in-time](https://en.wikipedia.org/wiki/Just-in-time_compilation) (JIT) კომპილირებადი პროგრამული ენა,
-რომელიც არის [first-class](./references/javascript/first-class) ფუნქციებით სავსე. JavaScript ცნობილია, როგორც ვებ-გვერდებისთვის სკრიპტულიენა,
-ასევე ხშირად გამოიყენება როგორც არა ვებ-გვერდისთვის, არამედ [Node.js](./references/javascript/node.js), [Apache CouchDB](https://couchdb.apache.org/) და [Adobe Acrobat](https://opensource.adobe.com/dc-acrobat-sdk-docs/acrobatsdk/). ჯავასკრიპტი არის ერთ ნაკადიანი ([single-threaded](./references/javascript/single-threaded)),
-დინამიური ენა , რომელსაც მხარდაჭერა გააჩნია ობიეტზე-ორიენტირება([OOP](./references/javascript/oop)) და ასევე ფუნქციონალური პროგრამირების სტილი.
+რომელიც არის [first-class](https://developer.mozilla.org/en-US/docs/Glossary/First-class_Function) ფუნქციებით სავსე. JavaScript ცნობილია, როგორც ვებ-გვერდებისთვის სკრიპტულიენა,
+ასევე ხშირად გამოიყენება როგორც არა ვებ-გვერდისთვის, არამედ [Node.js](https://developer.mozilla.org/en-US/docs/Glossary/Node.js?retiredLocale=hu&language=hu), [Apache CouchDB](https://couchdb.apache.org/) და [Adobe Acrobat](https://opensource.adobe.com/dc-acrobat-sdk-docs/acrobatsdk/). ჯავასკრიპტი არის ერთ ნაკადიანი ([single-threaded](https://developer.mozilla.org/en-US/docs/Glossary/Thread)),
+დინამიური ენა , რომელსაც მხარდაჭერა გააჩნია ობიეტზე-ორიენტირება([OOP](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object-oriented_programming)) და ასევე ფუნქციონალური პროგრამირების სტილი.
 ზოგადად ნებისმიერ ენაზე დაწერილი პროგრამა შესრულდება ხდება ორ ვარიანტად: კომპილირებად ან ინტერპრეტირებად. კომპილაცია არის პროცესი,
 როდესაც პროგრამული კოდი სხვა პროგრამის სპეციალური ინსტრუმენტის ე.წ კომპილატორის დახმარებით გადაიწერება პროცესორისთვის და სრულდება.
 ინტერპრეტაცია არის პროცესი , როდესაც პროგრამული კოდი გადაეცემა ინტერპრეტატორს, რომელიც კოდში მითითებულ ინსტრუქციებს ასრულებს კომპილაციის გარეშე.
@@ -21,7 +17,7 @@ JavasScript არის პროგრამირების ინტერ
 
 ## სად გამოიყენება JavaScript
 
-JavaScript შესაძლებელია გამოვიყენოთ, როგორც კლიენტის მხარეს ასევე სერვერის მხარესაც. კლიენტის მხარეს სხვადასხვა ტიპის ინფორმაციის დამუშავებისათვის შეგვიძლია გამოვიყენოთ [DOM](./referenecs/javascript/dom), ასევე [Web APIs](./references/javascript/web-api) და სერვერთან დაკავშირებისთვის [API](./reference/javascript/api). JavaScript-ზე დაყრდნობით შეიქმნა, არაერთი ბიბლიოთეკა([Library](./references/javascript/library)) და ფრეიმვორკი([Framework](./references/javascript/framework)), რაც დეველოპერებს ეხმარება სხვადასხვა ტიპის ვებ-გვერდების აწყობაში. სერვერის მხარეს Node.js დაყრდნობით, შესაძლებელი გახდა სხვადასხვა ტიპის API სერვისების აწყობა, რაც შემდგომ ისევ გამოიყენება კლიენტის მხარეს.
+JavaScript შესაძლებელია გამოვიყენოთ, როგორც კლიენტის მხარეს ასევე სერვერის მხარესაც. კლიენტის მხარეს სხვადასხვა ტიპის ინფორმაციის დამუშავებისათვის შეგვიძლია გამოვიყენოთ [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model), ასევე [Web APIs](https://developer.mozilla.org/en-US/docs/Web/API) და სერვერთან დაკავშირებისთვის [API](https://developer.mozilla.org/en-US/docs/Glossary/API). JavaScript-ზე დაყრდნობით შეიქმნა, არაერთი ბიბლიოთეკა([Library](<https://en.wikipedia.org/wiki/Library_(computing)>)) და ფრეიმვორკი([Framework](https://en.wikipedia.org/wiki/Software_framework)), რაც დეველოპერებს ეხმარება სხვადასხვა ტიპის ვებ-გვერდების აწყობაში. სერვერის მხარეს Node.js დაყრდნობით, შესაძლებელი გახდა სხვადასხვა ტიპის API სერვისების აწყობა, რაც შემდგომ ისევ გამოიყენება კლიენტის მხარეს.
 
 ## JavaScript-ის სტანდარტი
 
