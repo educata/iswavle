@@ -1,0 +1,21 @@
+const h1 = document.querySelector('h1');
+const highlight = document.querySelector('.highlight');
+const firstParagraphInMain = document.querySelector('main > p:first-child');
+const secondParagraphInMain = document.querySelector('main > p:nth-of-type(3)');
+const secondParagraph = document.querySelector('#secondParagraph');
+const paragraphs = document.querySelectorAll('p');
+const highlights = document.querySelectorAll('.highlight');
+const excludeParagraphs = document.querySelectorAll(':not(p)');
+const genders = document.getElementsByName('gender');
+const secondParagraphById = document.getElementById('#secondParagraph');
+
+console.log(h1);
+console.log(paragraphs);
+console.log(highlight);
+console.log(highlights);
+console.log(secondParagraph);
+console.log(genders);
+console.log(firstParagraphInMain);
+console.log(secondParagraphInMain);
+console.log(excludeParagraphs);
+console.log(secondParagraphById);
