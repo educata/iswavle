@@ -29,6 +29,8 @@ export class DocViewerComponent implements OnChanges {
   private readonly router = inject(Router);
   private readonly viewport = inject(ViewportScroller);
 
+  // TODO: implement scroll after routes changes with search query
+
   ngOnChanges(changes: SimpleChanges) {
     if ('docContent' in changes) {
       this.renderPage(this.docContent.content);
