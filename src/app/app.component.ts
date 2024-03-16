@@ -5,25 +5,16 @@ import {
   inject,
 } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { AsyncPipe, DOCUMENT, TitleCasePipe } from '@angular/common';
+import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {
-  BehaviorSubject,
-  Observable,
-  combineLatest,
-  filter,
-  fromEvent,
-  map,
-  startWith,
-} from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, filter, map } from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModeType } from 'ng-zorro-antd/menu';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { Theme } from '@app-shared/enums';
-import { ThemeService } from '@app-shared/services';
-import { LAYOUT_SIZES } from '@app-shared/consts';
+import { LayoutService, ThemeService } from '@app-shared/services';
 import { LOG_GREETER, NAVIGATION } from './shared/providers';
 import { SearchComponent } from '@app-shared/ui';
 
@@ -46,22 +37,17 @@ import { SearchComponent } from '@app-shared/ui';
 })
 export class AppComponent implements OnInit {
   private readonly defaultDataLog = inject(LOG_GREETER);
-  private readonly document = inject(DOCUMENT);
   private readonly router = inject(Router);
   private readonly themeService = inject(ThemeService);
-
+  private readonly layoutService = inject(LayoutService);
   readonly headerNavigation = inject(NAVIGATION);
   readonly theme = Theme;
 
   readonly isMenuOpenedByUser$ = new BehaviorSubject<boolean>(false);
 
-  readonly isWideScreen$ = fromEvent(
-    this.document.defaultView as Window,
-    'resize',
-  ).pipe(
-    map((event) => (event.target as Window).innerWidth),
-    startWith(this.document.body.clientWidth),
-    map((width) => width >= LAYOUT_SIZES.header),
+  readonly isWideScreen$ = this.layoutService.isNarrowerThan(
+    this.layoutService.sizes.header,
+    100,
   );
 
   readonly isMenuOpen$ = combineLatest([

@@ -59,9 +59,7 @@
           class="burger"
           aria-label="გამოაჩინე სანავიგაციო ველი"
           [attr.aria-expanded]="vm.isMenuOpen"
-          (click)="
-            this.isMenuOpenedByUser$.next(!this.isMenuOpenedByUser$.value)
-          "
+          (click)="isMenuOpenedByUser$.next(!isMenuOpenedByUser$.value)"
         >
           <span
             nz-icon

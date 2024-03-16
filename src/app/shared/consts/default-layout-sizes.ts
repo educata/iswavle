@@ -1,4 +1,4 @@
-export const LAYOUT_SIZES = {
+export const DEFAULT_LAYOUT_SIZES = {
   header: 830,
   terminalMaxRow: 15,
   docSiderWidth: `250px`,

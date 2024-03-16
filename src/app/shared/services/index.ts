@@ -5,3 +5,6 @@ export * from './theme.service';
 export * from './meta.service';
 export * from './title.strategy';
 export * from './search.service';
+export * from './article.service';
+export * from './contributors.service';
+export * from './layout.service';
