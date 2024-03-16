@@ -79,6 +79,46 @@ html {
     overflow-x: auto;
   }
 
+  .code-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+
+    .language-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 5px 16px;
+      border-bottom: 1px solid var(--border-color);
+
+      button {
+        background-color: transparent;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        svg {
+          fill: var(--border-color);
+          transition: 0.5s;
+        }
+
+        &:hover {
+          svg {
+            fill: @primary-color;
+          }
+        }
+      }
+    }
+
+    pre {
+      margin-bottom: 0;
+    }
+  }
+
   nz-anchor {
     nz-affix {
       max-width: 200px;
@@ -97,6 +137,10 @@ html {
       .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
         background-color: transparent;
       }
+    }
+
+    pre {
+      margin-bottom: 0;
     }
   }
 }

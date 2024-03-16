@@ -29,7 +29,7 @@ render.code = (code, language) => {
     ? hljs.highlight(code, { language }).value
     : code;
 
-  return `<pre><code class="hljs ${language}">${highlighted}</code></pre>`;
+  return `<div class="code-wrapper"><div class="language-header"><span>${language?.toUpperCase()}</span><button><svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z" /></svg></button></div><span hidden data-value="code">${code}</span><pre><code class="hljs ${language}">${highlighted}</code></pre></div>`;
 };
 
 render.heading = (text: string, level: number, raw: string) => {
@@ -52,11 +52,17 @@ function extractHeaders(htmlString: string): ArticleToc[] {
     .filter((text) => text.trim().startsWith('<h'))
     .forEach((heading) => {
       if (heading.includes('1') || heading.includes('2')) {
+        if (heading.search('id="') === -1) {
+          return;
+        }
         result.push({
           id: heading.split('id="')[1].split('"')[0],
           title: heading.split('>')[1].split('<')[0],
         });
       } else {
+        if (heading.search('id="') === -1) {
+          return;
+        }
         if (!result[result.length - 1].sub) {
           result[result.length - 1].sub = [];
         }
