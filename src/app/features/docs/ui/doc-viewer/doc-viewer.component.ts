@@ -11,10 +11,11 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
+import { tap } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { DocContent } from '@app-shared/interfaces';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { tap } from 'rxjs';
+import { CUSTOM_ICONS } from '@app-shared/consts';
 
 @Component({
   selector: 'sw-doc-viewer',
@@ -93,11 +94,24 @@ export class DocViewerComponent implements OnChanges {
     if (code && button) {
       button.addEventListener('click', () => {
         navigator.clipboard.writeText(code);
-        this.message.success('კოდი წარმატებით დაკოპირდა', {
-          nzAnimate: true,
-          nzPauseOnHover: true,
-          nzDuration: 2000,
-        });
+        button.innerHTML = CUSTOM_ICONS['check'];
+        button.disabled = true;
+        button.style.cursor = 'wait';
+        (button.children[0] as SVGElement).style.fill = 'green';
+        this.message
+          .success('კოდი წარმატებით დაკოპირდა', {
+            nzAnimate: true,
+            nzPauseOnHover: true,
+            nzDuration: 2000,
+          })
+          .onClose.pipe(
+            tap(() => {
+              button.innerHTML = CUSTOM_ICONS['copy'];
+              button.disabled = false;
+              button.style.cursor = 'pointer';
+            }),
+          )
+          .subscribe();
       });
     }
   }
