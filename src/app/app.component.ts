@@ -9,13 +9,14 @@ import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, Observable, combineLatest, filter, map } from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzMenuModeType, NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzMenuModeType } from 'ng-zorro-antd/menu';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { Theme } from '@app-shared/enums';
 import { LayoutService, ThemeService } from '@app-shared/services';
 import { LOG_GREETER, NAVIGATION } from './shared/providers';
+import { SearchComponent } from '@app-shared/ui';
 
 @Component({
   selector: 'sw-root',
@@ -23,10 +24,10 @@ import { LOG_GREETER, NAVIGATION } from './shared/providers';
   imports: [
     RouterModule,
     NzLayoutModule,
-    NzMenuModule,
     NzButtonComponent,
     NzIconModule,
     NzDropDownModule,
+    SearchComponent,
     TitleCasePipe,
     AsyncPipe,
   ],

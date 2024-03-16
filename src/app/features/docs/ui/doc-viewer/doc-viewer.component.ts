@@ -9,10 +9,12 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { DocContent } from '@app-shared/interfaces';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'sw-doc-viewer',
@@ -28,8 +30,24 @@ export class DocViewerComponent implements OnChanges {
 
   private readonly renderer = inject(Renderer2);
   private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
   private readonly viewport = inject(ViewportScroller);
   private readonly message = inject(NzMessageService);
+
+  constructor() {
+    this.activatedRoute.queryParams
+      .pipe(
+        tap((query) => {
+          const search = query['search'];
+          // TODO: implement scroll to search text
+          if (search) {
+            console.log(`Scroll to ${search}`);
+          }
+        }),
+        takeUntilDestroyed(),
+      )
+      .subscribe();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if ('docContent' in changes) {

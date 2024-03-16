@@ -40,7 +40,12 @@
             </ul>
           </li>
           <ng-template #menuGroupTitle>
-            <a [routerLink]="menu.routerLink">{{ menu.title }}</a>
+            <a
+              class="group-title"
+              routerLinkActive="active"
+              [routerLink]="menu.routerLink"
+              >{{ menu.title }}</a
+            >
           </ng-template>
         }
       } @else {

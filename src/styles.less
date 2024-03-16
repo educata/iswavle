@@ -128,6 +128,12 @@ html {
     }
   }
 
+  header {
+    ul.is-open {
+      background-color: @body-background;
+    }
+  }
+
   &.dark {
     @import './styles/dark.less';
 
@@ -141,6 +147,22 @@ html {
 
     pre {
       margin-bottom: 0;
+    }
+
+    .ant-menu .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+      background-color: @primary-2;
+    }
+
+    header {
+      ul.is-open {
+        .ant-menu-item-selected {
+          background-color: transparent;
+        }
+      }
+    }
+
+    .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
+      background-color: @primary-2;
     }
   }
 }
