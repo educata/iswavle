@@ -5,6 +5,9 @@
         <h3>
           <span>{{ searchContent.routerLink | searchBreadcrumb }}</span>
           @for (content of searchContent.title; track content) {
+            @if ($index === 0) {
+              <span> > </span>
+            }
             <span [class.highlight]="content.highlight">{{
               content.data
             }}</span>

@@ -15,7 +15,6 @@ export class SearchBreadcrumbPipe implements PipeTransform {
           .join('');
       })
       .slice(0, -1)
-      .join(' > ')
-      .concat(' > ');
+      .join(' > ');
   }
 }
