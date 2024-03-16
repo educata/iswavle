@@ -12,7 +12,8 @@ export class SearchService {
   readonly #indexMap$ = new BehaviorSubject<IndexMap | null>(null);
   readonly indexMap$ = this.#indexMap$.asObservable();
 
-  readonly search$ = new BehaviorSubject<string>('');
+  readonly #search$ = new BehaviorSubject<string>('');
+  readonly search$ = this.#search$.asObservable();
 
   constructor() {
     this.init();
@@ -30,5 +31,9 @@ export class SearchService {
         }),
       )
       .subscribe();
+  }
+
+  search(search: string) {
+    this.#search$.next(search);
   }
 }

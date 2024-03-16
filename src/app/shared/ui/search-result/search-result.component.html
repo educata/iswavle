@@ -1,6 +1,6 @@
 @if (result$ | async; as searchMap) {
   <div class="search-content">
-    @for (searchContent of searchMap; track searchContent) {
+    @for (searchContent of searchMap; track searchContent.routerLink) {
       <a class="search-item" (click)="onClick(searchContent)">
         <h3>
           @for (content of searchContent.title; track content) {

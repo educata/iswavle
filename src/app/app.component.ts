@@ -17,17 +17,15 @@ import {
   startWith,
 } from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzMenuModeType, NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzMenuModeType } from 'ng-zorro-antd/menu';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { NzModalModule } from 'ng-zorro-antd/modal';
-import { NzInputModule } from 'ng-zorro-antd/input';
 import { Theme } from '@app-shared/enums';
-import { SearchService, ThemeService } from '@app-shared/services';
+import { ThemeService } from '@app-shared/services';
 import { LAYOUT_SIZES } from '@app-shared/consts';
 import { LOG_GREETER, NAVIGATION } from './shared/providers';
-import { SearchResultComponent } from '@app-shared/ui';
+import { SearchComponent } from '@app-shared/ui';
 
 @Component({
   selector: 'sw-root',
@@ -35,13 +33,10 @@ import { SearchResultComponent } from '@app-shared/ui';
   imports: [
     RouterModule,
     NzLayoutModule,
-    NzMenuModule,
     NzButtonComponent,
     NzIconModule,
     NzDropDownModule,
-    SearchResultComponent,
-    NzModalModule,
-    NzInputModule,
+    SearchComponent,
     TitleCasePipe,
     AsyncPipe,
   ],
@@ -54,12 +49,11 @@ export class AppComponent implements OnInit {
   private readonly document = inject(DOCUMENT);
   private readonly router = inject(Router);
   private readonly themeService = inject(ThemeService);
-  readonly searchService = inject(SearchService);
+
   readonly headerNavigation = inject(NAVIGATION);
   readonly theme = Theme;
 
   readonly isMenuOpenedByUser$ = new BehaviorSubject<boolean>(false);
-  readonly isSearchModalVisible$ = new BehaviorSubject<boolean>(false);
 
   readonly isWideScreen$ = fromEvent(
     this.document.defaultView as Window,
@@ -98,29 +92,13 @@ export class AppComponent implements OnInit {
     this.menuMode$,
     this.activePath$,
     this.headerNavigation$,
-    this.searchService.indexMap$,
-    this.isSearchModalVisible$.asObservable(),
-    this.searchService.search$.asObservable(),
   ]).pipe(
-    map(
-      ([
-        isMenuOpen,
-        menuMode,
-        activePath,
-        headerNavigation,
-        indexMap,
-        isSearchModalVisible,
-        search,
-      ]) => ({
-        isMenuOpen,
-        menuMode,
-        activePath,
-        headerNavigation,
-        indexMap,
-        isSearchModalVisible,
-        search,
-      }),
-    ),
+    map(([isMenuOpen, menuMode, activePath, headerNavigation]) => ({
+      isMenuOpen,
+      menuMode,
+      activePath,
+      headerNavigation,
+    })),
   );
 
   constructor() {
@@ -146,15 +124,5 @@ export class AppComponent implements OnInit {
       routerLink = routerLink.join('/');
     }
     return currentPath ? currentPath.includes(routerLink) : false;
-  }
-
-  searchUp(event: Event) {
-    const target = event.target as HTMLInputElement;
-    this.searchService.search$.next(target.value);
-  }
-
-  clearSearch(input: HTMLInputElement) {
-    input.value = '';
-    this.searchService.search$.next('');
   }
 }
