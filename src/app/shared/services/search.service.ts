@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { IndexMap } from '@app-shared/interfaces';
+import { IndexMap, IndexMapResult } from '@app-shared/interfaces';
 import { BehaviorSubject, EMPTY, catchError, tap } from 'rxjs';
 
 @Injectable({
@@ -14,6 +14,8 @@ export class SearchService {
 
   readonly #search$ = new BehaviorSubject<string>('');
   readonly search$ = this.#search$.asObservable();
+
+  readonly cache = new Map<string, IndexMapResult[]>();
 
   constructor() {
     this.init();
@@ -35,5 +37,13 @@ export class SearchService {
 
   search(search: string) {
     this.#search$.next(search);
+  }
+
+  getCache(word: string) {
+    return this.cache.get(word);
+  }
+
+  setCache(word: string, result: IndexMapResult[]) {
+    this.cache.set(word, result);
   }
 }
