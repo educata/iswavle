@@ -165,6 +165,28 @@ html {
       background-color: @primary-2;
     }
   }
+
+  a.anchor-fragment {
+    color: var(--text-color);
+    position: relative;
+
+    &::after {
+      content: '#';
+      position: absolute;
+      top: -1px;
+      right: -20px;
+      transition: color 0.3s;
+      opacity: 0;
+    }
+
+    &:hover {
+      color: @primary-color;
+
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
 }
 
 ::-webkit-scrollbar {

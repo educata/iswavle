@@ -26,7 +26,14 @@ import {
   RouterModule,
 } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, map, of, switchMap } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  of,
+  switchMap,
+} from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -107,6 +114,7 @@ export default class DocsComponent {
           // Exclude contributors from base articles
           return of([]);
         }
+        url = url.split('#')[0];
         return this.contributorsService.getContributors(url);
       }),
     ),
