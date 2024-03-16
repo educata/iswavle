@@ -1,0 +1,58 @@
+@if (vm$ | async; as vm) {
+  <div class="search">
+    @if (vm.indexMap) {
+      <button
+        nz-button
+        nzType="text"
+        nzShape="circle"
+        (click)="isSearchModalVisible$.next(true)"
+      >
+        <span nz-icon nzType="search"></span>
+      </button>
+    }
+  </div>
+  <nz-modal
+    nzTitle="ძებნა"
+    [nzStyle]="{ top: '64px' }"
+    [nzCancelText]="null"
+    [nzOkText]="null"
+    [nzFooter]="null"
+    [(nzVisible)]="vm.isSearchModalVisible"
+    (nzOnCancel)="isSearchModalVisible$.next(false); searchService.search('')"
+  >
+    <ng-container *nzModalContent>
+      <div class="search">
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+          <input
+            #input
+            nz-input
+            type="text"
+            placeholder="შეიყვანეთ საძიებო ტექსტი"
+            (keyup)="searchUp($event)"
+          />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button
+            nz-button
+            nzSearch
+            nzType="primary"
+            (click)="clearSearch(input)"
+          >
+            <span nz-icon nzType="clear" nzTheme="outline"></span>
+          </button>
+        </ng-template>
+      </div>
+      @if (vm.search) {
+        <sw-search-result
+          [indexMap]="vm.indexMap"
+          [searchValue]="vm.search"
+          [cache]="cache"
+          (cacheChange)="onCacheChange($event)"
+          (onResultClick)="
+            isSearchModalVisible$.next(false); searchService.search('')
+          "
+        ></sw-search-result>
+      }
+    </ng-container>
+  </nz-modal>
+}

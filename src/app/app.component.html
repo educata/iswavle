@@ -1,9 +1,10 @@
 <nz-layout class="root-layout">
   <header>
-    <div class="brand">
-      <a routerLink="/">Iswavle</a>
-    </div>
     @if (vm$ | async; as vm) {
+      <div class="brand">
+        <a routerLink="/">Iswavle</a>
+        <sw-search></sw-search>
+      </div>
       <nav>
         <ul
           nz-menu
