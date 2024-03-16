@@ -37,7 +37,10 @@ export class DocViewerComponent implements OnChanges {
       .pipe(
         tap((query) => {
           const search = query['search'];
-          console.log(search);
+          // TODO: implement scroll to search text
+          if (search) {
+            console.log(`Scroll to ${search}`);
+          }
         }),
         takeUntilDestroyed(),
       )
