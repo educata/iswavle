@@ -15,8 +15,6 @@ export class SearchService {
   readonly #search$ = new BehaviorSubject<string>('');
   readonly search$ = this.#search$.asObservable();
 
-  readonly cache = new Map<string, IndexMapResult[]>();
-
   constructor() {
     this.init();
   }
@@ -37,13 +35,5 @@ export class SearchService {
 
   search(search: string) {
     this.#search$.next(search);
-  }
-
-  getCache(word: string) {
-    return this.cache.get(word);
-  }
-
-  setCache(word: string, result: IndexMapResult[]) {
-    this.cache.set(word, result);
   }
 }

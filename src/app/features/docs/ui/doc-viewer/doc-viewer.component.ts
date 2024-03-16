@@ -9,9 +9,11 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import { DocContent } from '@app-shared/interfaces';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'sw-doc-viewer',
@@ -27,9 +29,20 @@ export class DocViewerComponent implements OnChanges {
 
   private readonly renderer = inject(Renderer2);
   private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
   private readonly viewport = inject(ViewportScroller);
 
-  // TODO: implement scroll after routes changes with search query
+  constructor() {
+    this.activatedRoute.queryParams
+      .pipe(
+        tap((query) => {
+          const search = query['search'];
+          console.log(search);
+        }),
+        takeUntilDestroyed(),
+      )
+      .subscribe();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if ('docContent' in changes) {

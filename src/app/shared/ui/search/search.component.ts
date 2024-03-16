@@ -7,6 +7,7 @@ import { SearchResultComponent } from '..';
 import { AsyncPipe } from '@angular/common';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { IndexMapResult } from '@app-shared/interfaces';
 
 @Component({
   selector: 'sw-search',
@@ -26,6 +27,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 export class SearchComponent {
   readonly searchService = inject(SearchService);
   readonly isSearchModalVisible$ = new BehaviorSubject<boolean>(false);
+
+  readonly cache = new Map<string, IndexMapResult[]>();
 
   readonly vm$ = combineLatest([
     this.searchService.indexMap$,
@@ -47,5 +50,9 @@ export class SearchComponent {
   clearSearch(input: HTMLInputElement) {
     input.value = '';
     this.searchService.search('');
+  }
+
+  onCacheChange(event: { key: string; data: IndexMapResult[] }) {
+    this.cache.set(event.key, event.data);
   }
 }

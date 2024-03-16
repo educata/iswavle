@@ -30,11 +30,16 @@ import { BehaviorSubject } from 'rxjs';
 export class SearchResultComponent implements OnChanges {
   @Input() indexMap: IndexMap | null = null;
   @Input() searchValue = '';
+  @Input() cache = new Map<string, IndexMapResult[]>();
 
   @Output() onResultClick = new EventEmitter<IndexMapResult>();
+  @Output() cacheChange = new EventEmitter<{
+    key: string;
+    data: IndexMapResult[];
+  }>();
 
   private readonly router = inject(Router);
-  private readonly searchService = inject(SearchService);
+
   readonly #result$ = new BehaviorSubject<IndexMapResult[]>([]);
   readonly result$ = this.#result$.asObservable();
 
@@ -45,7 +50,7 @@ export class SearchResultComponent implements OnChanges {
   }
 
   filter() {
-    const cachedValue = this.searchService.getCache(this.searchValue);
+    const cachedValue = this.cache.get(this.searchValue);
 
     if (cachedValue) {
       this.#result$.next(cachedValue);
@@ -76,7 +81,7 @@ export class SearchResultComponent implements OnChanges {
     }
 
     this.#result$.next(result);
-    this.searchService.setCache(this.searchValue, result);
+    this.cacheChange.emit({ key: this.searchValue, data: result });
   }
 
   highlightText(text: string, searchTerm: string): IndexMapResultContent[] {

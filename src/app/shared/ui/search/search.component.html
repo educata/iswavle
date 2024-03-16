@@ -46,6 +46,8 @@
         <sw-search-result
           [indexMap]="vm.indexMap"
           [searchValue]="vm.search"
+          [cache]="cache"
+          (cacheChange)="onCacheChange($event)"
           (onResultClick)="
             isSearchModalVisible$.next(false); searchService.search('')
           "
