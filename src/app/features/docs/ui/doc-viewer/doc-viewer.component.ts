@@ -51,18 +51,24 @@ export class DocViewerComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if ('docContent' in changes) {
-      this.renderPage(this.docContent.content);
+      this.renderPage(this.docContent);
     }
   }
 
-  renderPage(content: string) {
+  renderPage(docContent: DocContent) {
     const contentContainer = this.container.nativeElement;
-    contentContainer.innerHTML = content;
+    contentContainer.innerHTML = docContent.content;
 
-    const codeWrappers = contentContainer.querySelectorAll('div.code-wrapper');
-    codeWrappers.forEach((code) => {
-      this.handleCopy(code as HTMLElement);
-    });
+    if (docContent.attributes.codes) {
+      const codeWrappers =
+        contentContainer.querySelectorAll('div.code-wrapper');
+      codeWrappers.forEach((code, index) => {
+        this.handleCopy(
+          code as HTMLElement,
+          (docContent.attributes.codes || [])[index],
+        );
+      });
+    }
 
     this.renderer.listen(contentContainer, 'click', (event) => {
       if (event.target instanceof HTMLAnchorElement) {
@@ -82,10 +88,8 @@ export class DocViewerComponent implements OnChanges {
     this.viewport.scrollToPosition([0, 0]);
   }
 
-  handleCopy(codeWrapper: HTMLElement) {
+  handleCopy(codeWrapper: HTMLElement, code: string) {
     const button = codeWrapper.querySelector('button');
-    const code =
-      codeWrapper.querySelector('span[data-value="code"]')?.innerHTML || '';
     if (code && button) {
       button.addEventListener('click', () => {
         navigator.clipboard.writeText(code);
