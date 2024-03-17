@@ -19,3 +19,13 @@ console.log(firstParagraphInMain);
 console.log(secondParagraphInMain);
 console.log(excludeParagraphs);
 console.log(secondParagraphById);
+
+const parent = document.querySelector('#parent');
+const child = document.querySelector('#child2');
+console.log(parent.childNodes); // [ #text, <div id="child1"></div>, #text, <div id="child2"></div>, #text, <div id="child3"></div>, #text ]
+console.log(parent.children); // [ <div id="child1"></div>, <div id="child2"></div>, <div id="child3"></div> ]
+console.log(parent.firstElementChild); // <div id="child1"></div>
+console.log(parent.lastElementChild); // <div id="child3"></div>
+console.log(child.parentNode); // <div id="parent">...</div>
+console.log(child.parentnextElementSiblingNode); // <div id="child3"></div>
+console.log(child.previousElementSibling); // <div id="child1"></div>

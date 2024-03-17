@@ -137,26 +137,70 @@ const radioInputs = document.getElementsByName('some-random-radio-inputs');
 
 ## კვანძის ელემენტები
 
+DOM-ში კვანძების ობიექტები ისე არის აგებული, რომ ნავიგაცია ნებისმიერი ელემენტიდან შეგვიძლია დავიწყოთ და გავიდეთ ნებისმიერ ელემეტნზე. ეს ყველაფერი კარგად ორგანიზებული
+ობიექტებით არის მიღებული. განვიხილოთ რამოდენიმე ძირითადი თვისება, რაც დაგეხამრება ნავიგაციაში.
+
 ### parentNode
 
-### childrenNodes
+[`parentNode`](https://developer.mozilla.org/en-US/docs/Web/API/Node/parentNode) თვისება გვიბრუნებს ამოღებული ელემენტის მშობელ ელემენტს. თუ ელემენტი ახალი შექმნილია
+და ჯერ არცეთ ელემენტზე არ არის დამატებული, რაც მის მშობელ ელემენტად `null` აქცევს. დაბრუნებული ელემენტის არის
+[`Node`](https://developer.mozilla.org/en-US/docs/Web/API/Node) ტიპის.
+
+### childNodes
+
+[`childNodes`](https://developer.mozilla.org/en-US/docs/Web/API/Node/childNodes) თვისება აბრუნებს ყოველ შვილობილ ელემენტს მათ შორის კომენტარსაც კი. დაბრუნებული მნიშვნელობა
+არის [`NodeList`](https://developer.mozilla.org/en-US/docs/Web/API/NodeList) ტიპი.
 
 ### children
 
-### firstChild
+[`children`](https://developer.mozilla.org/en-US/docs/Web/API/Element/children) თვისება აბრუნებს ყოველ შვილობილ ელემენტს გარდა კომენტარებისა. დაბრუნებული მნიშვნელობა არის
+[`HTMLCollection`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection) ტიპის.
 
-### lastChild
+### firstElementChild
 
-### nextSibling
+[`firstElementChild`](https://developer.mozilla.org/en-US/docs/Web/API/Element/firstElementChild) თვისება აბრუნებს პირველ შვილობილ ელემენტს, თუ არ არსებობს
+დააბრუნებს `null`. დაბრუნებული ელემენტი არის [`Element`](https://developer.mozilla.org/en-US/docs/Web/API/Element) ტიპის.
 
-### previousSibling
+### lastElementChild
 
-### nodeValue
+[`lastElementChild`](https://developer.mozilla.org/en-US/docs/Web/API/Node/lastElementChild) თვისება აბრუნებს ბოლო შვილობილ ელემენტს, თუ არ არსებობს
+დააბრუნებს `null`. დაბრუნებული ელემენტი არის [`Element`](https://developer.mozilla.org/en-US/docs/Web/API/Element) ტიპის.
 
-### nodeName
+### nextElementSibling
+
+[`nextElementSibling`](https://developer.mozilla.org/en-US/docs/Web/API/Element/nextElementSibling) აბრუნებს შემდგომი ელემენტის მნიშვნელობას,
+თუ ბოლო ელემენტია დააბრუნებს `null`. დაბრუნებული ელემენტი არის [`Element`](https://developer.mozilla.org/en-US/docs/Web/API/Element) ტიპის.
+
+### previousElementSibling
+
+[`previousElementSibling`](https://developer.mozilla.org/en-US/docs/Web/API/Element/previousElementSibling) აბრუნებს წინა ელემენტის მნიშვნელობას,
+თუ პირველი ელემენტია დააბრუნებს `null`. დაბრუნებული ელემენტი არის [`Element`](https://developer.mozilla.org/en-US/docs/Web/API/Element) ტიპის.
+
+განვიხილოთ თითოეული თვისების მაგალითები:
+
+```html
+<div id="parent">
+  <div id="child1"></div>
+  <div id="child2"></div>
+  <div id="child3"></div>
+</div>
+```
+
+```js
+const parent = document.querySelector('#parent');
+const child = document.querySelector('#child2');
+console.log(parent.childNodes); // [ #text, <div id="child1"></div>, #text, <div id="child2"></div>, #text, <div id="child3"></div>, #text ]
+console.log(parent.children); // [ <div id="child1"></div>, <div id="child2"></div>, <div id="child3"></div> ]
+console.log(parent.firstElementChild); // <div id="child1"></div>
+console.log(parent.lastElementChild); // <div id="child3"></div>
+console.log(child.parentNode); // <div id="parent">...</div>
+console.log(child.parentnextElementSiblingNode); // <div id="child3"></div>
+console.log(child.previousElementSibling); // <div id="child1"></div>
+```
 
 ## შეჯამება
 
-ამ თავში მიმოვიხილეთ სელექტორები და მისი გამოყენების საშუალებები. ხშირ შემთხვევაში გამოიყენებთ: [`querySelector`](#querySelector), [`querySelectorAll`](#querySelectorAll), [`getElementById`](#getElementById), [`getElementsByName`](#getElementsByName). `querySelector` გამოიყენებთ როცა ერთი ელემენტის ამოღება გსურთ, `querySelectorAll` გამოიყენებთ მაშინ როცა ბევრი ერთნაირი ელემენტის ამოღება გსურთ, `getElementById` გამოიყენებთ მაშინ, როცა `id` გაქვთ და პირდაპირ ელემენტის ამოღება გინდათ ზედმეტი პრეფიქსის გარეშე, ხოლო `getElementsByName` მაშინ როცა `name` გსურთ მიწვდეთ ელემენტებს. გაითვალისწინეთ `querySelector` სჭირდება კლასებთან მიმართებაში `.` პრეფიქსი, `id` მიმართებაში `#` პრეფიქსი, ხოლო ატრიბუტის შემთხვევაში `[]` მოთავსება ატრიბუტის, ამ დამატებითი სინტაქსის გარეშე `querySelector` ამოიღებს მხოლოდ თეგებს.
+ამ თავში მიმოვიხილეთ სელექტორები და მისი გამოყენების საშუალებები. ხშირ შემთხვევაში გამოიყენებთ: [`querySelector`](#querySelector), [`querySelectorAll`](#querySelectorAll), [`getElementById`](#getElementById), [`getElementsByName`](#getElementsByName). `querySelector` გამოიყენებთ როცა ერთი ელემენტის ამოღება გსურთ, `querySelectorAll` გამოიყენებთ მაშინ როცა ბევრი ერთნაირი ელემენტის ამოღება გსურთ, `getElementById` გამოიყენებთ მაშინ, როცა `id` გაქვთ და პირდაპირ ელემენტის ამოღება გინდათ ზედმეტი პრეფიქსის გარეშე, ხოლო `getElementsByName` მაშინ როცა `name` გსურთ მიწვდეთ ელემენტებს. გაითვალისწინეთ `querySelector` სჭირდება კლასებთან მიმართებაში `.` პრეფიქსი, `id` მიმართებაში `#` პრეფიქსი, ხოლო ატრიბუტის შემთხვევაში `[]` მოთავსება ატრიბუტის, ამ დამატებითი სინტაქსის გარეშე `querySelector` ამოიღებს მხოლოდ თეგებს. თუ გვსურს ნავიგაცია შეგვიძლია გამოვიყენოთ კვანძის
+ელემენტების თვისებები.
 
 იხილეთ სამაგალითო კოდები [playground](./playground/guides/javascript-dom-selectors)-ში.
