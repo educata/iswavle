@@ -163,7 +163,6 @@ DOM იშიფრება, როგორც **D**ocument **O**bject **M**od
 - [სელექტორები](./doc/guides/javascript/dom/selectors)
 - [ივენთები](./doc/guides/javascript/dom/events)
 - [მანიპულაცია ელემენტებზე](./doc/guides/javascript/dom/elements-manipulation)
-- [ელემენტზე CRUD ოპერაციები](./doc/guides/javascript/dom/elements-crud)
 - [ფორმები](./doc/guides/javascript/dom/form)
 - [კანვასი](./doc/guides/javascript/dom/canvas)
 - [ხელმისაწვდომობა](./doc/guides/javascript/dom/accessibility)

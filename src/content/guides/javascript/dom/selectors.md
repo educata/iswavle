@@ -135,6 +135,26 @@ const radioInputs = document.getElementsByName('some-random-radio-inputs');
 დაბრუნებული `NodeList` შეიცავს ყოველ ელემენტს, რომელიც გადმოცემული `name` პარამეტრის მიხედვით გადიოდა სელექტორის პირობას, მსგავსი ტიპის ელემენტები შეიძლება იყოს,
 ნებისმიერი HTML ელემენტი მათშორის [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta), [`<object>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object) და ისეთი ელემენტებიც კი, რომელსაც რეალურად არ გააჩნია `name` ატრიბუტი (მაგალითად: `<div name="some">` ამოღებაც შეიძლება).
 
+## კვანძის ელემენტები
+
+### parentNode
+
+### childrenNodes
+
+### children
+
+### firstChild
+
+### lastChild
+
+### nextSibling
+
+### previousSibling
+
+### nodeValue
+
+### nodeName
+
 ## შეჯამება
 
 ამ თავში მიმოვიხილეთ სელექტორები და მისი გამოყენების საშუალებები. ხშირ შემთხვევაში გამოიყენებთ: [`querySelector`](#querySelector), [`querySelectorAll`](#querySelectorAll), [`getElementById`](#getElementById), [`getElementsByName`](#getElementsByName). `querySelector` გამოიყენებთ როცა ერთი ელემენტის ამოღება გსურთ, `querySelectorAll` გამოიყენებთ მაშინ როცა ბევრი ერთნაირი ელემენტის ამოღება გსურთ, `getElementById` გამოიყენებთ მაშინ, როცა `id` გაქვთ და პირდაპირ ელემენტის ამოღება გინდათ ზედმეტი პრეფიქსის გარეშე, ხოლო `getElementsByName` მაშინ როცა `name` გსურთ მიწვდეთ ელემენტებს. გაითვალისწინეთ `querySelector` სჭირდება კლასებთან მიმართებაში `.` პრეფიქსი, `id` მიმართებაში `#` პრეფიქსი, ხოლო ატრიბუტის შემთხვევაში `[]` მოთავსება ატრიბუტის, ამ დამატებითი სინტაქსის გარეშე `querySelector` ამოიღებს მხოლოდ თეგებს.

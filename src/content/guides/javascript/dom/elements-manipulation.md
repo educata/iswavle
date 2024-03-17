@@ -1,0 +1,399 @@
+---
+title: 'მანიპულაცია ელემენტებზე'
+description: 'HTML ელემენტების მანიპულირება JavaScript-ში'
+keywords: 'FILL LATER'
+---
+
+წინა სტატიებში განვიხილეთ თუ როგორ უნდა ამოგვეღო ელემენტი და მოგვესმინა მის ივენთებზე. ელემენტებზე რეალურად უფრო მეტი
+შესაძლებელობა გვაქვს, შეგვიძლია: დავუმატოთ კლასი, წავუშალოთ კლასი, დავუმატოთ კონტენტი, წავუშალოთ კონტენტი და ბევრი
+სხვა თვისება, რომლებიც შესაძლებლობას გვაძლევს კონტენტი დინამიურად დავაგენერიროთ.
+
+## ტექსტური კონტენტის შეცვლა
+
+კონტენტის შეცვლა ხშირ შემთხვევაში გვიწევს ორგვარად: სტატიკურად ან დინამიურად. სტატიკურია მომენტი მაშინ როცა დაზუსტებით
+ვიცით თუ რაც უნდა მივანიჭოთ პირდაპირ, მაგალითად გამოვიტანოთ ყოველ ჯერზე სტატიკური ტექსტი `გამარჯობა მომხარებელო`,
+ხოლო დინამიურობის იდეა არის, რაღაც მოქმედებებიდან გამომდინარე გამოვითვალოთ ან მოვიპოვოთ მნიშვნელობა და ვიზუალზე ის
+წარვადგინოთ, მაგალითად: `გამარჯობა name`. `name` ამ შემთხვევაში პირობითი მნიშვნელობა არის სადაც შესაძლებელია ნებისმიერი
+მნიშვნელობა ჩაჯდეს.
+
+პირდაპირი კონტენტის შესაცვლელად შეგვიძლია DOM რამოდენიმე თვისება გამოვიყენოთ: `textContent`, `innerText`, `innerHTML`.
+
+### textContent
+
+[`textContent`](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) თვისება გამოიყენება იმისთვის, რომ წავიკითხოთ
+სრული ტექსტი ელემენტიდან. მასზე მნიშვნელობის მინიჭება გულისხმებს ელემენტის ტექსტური კონტენტის ცვლილებას.
+
+მაგალითად:
+
+```html
+<p class="quote">დღევანდელი შემთხვევითი ციტატა: ვების სწავლა <a href="https://iswavle.com">iswavle.com</a>-ზე მარტივია</p>
+```
+
+```js
+const paragraph = document.querySelector('p.quote');
+console.log(paragraph.textContent); // დღევანდელი შემთხვევითი ციტატა: ვების სწავლა iswavle.com-ზე მარტივია
+```
+
+პ.ს იცოდი რომ [iswavle.com](https://iswavle.com)-ს ცალკე პროექტიც აქვს ფრონტის დეველოპერებისთვის, სადაც უფასოდ შეგიძლია
+სხვადასხვა `API`-ს გამოყენება ? გაეცანი [`everrest.educata.dev`](https://everrest.educata.dev/)-ს.
+
+განვიხილოთ განახლების მაგალითი:
+
+```html
+<p>დღეს <span id="weatherResult">...</span> ამინდია</p>
+<button id="goodBtn">კარგი</button>
+<button id="badBtn">ცუდი</button>
+```
+
+```js
+const weatherResult = document.querySelector('#weatherResult');
+const goodBtn = document.querySelector('goodBtn');
+const badBtn = document.querySelector('badBtn');
+
+goodBtn.addEventListener('click', () => {
+  weatherResult.textContent = 'კარგი';
+});
+
+badBtn.addEventListener('click', () => {
+  weatherResult.textContent = 'ცუდი';
+});
+```
+
+მაგალითში განხიულია ჯერ ელემენტების ამოღება, შემდგომ ღილაკებზე დაკლიკების მოსმენა, შესაბამისი ღილაკზე დაკლიკებით
+კი ვღებულობთ `span` ელემენტის კონტენტის ცვლილებას.
+
+### innerText
+
+[`innerText`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText) თვისება საკმაოდ წააგავს [`textContent`](#textContent)-ს
+თვისებას. ამ შემთხვევაში `innerText`-ც აბრუნებს ტექსტს და ანალოგიურად შესაძლებელია ტექსტური ტიპის მნიშვნელობას ცვლილება, ოღონდ გვაქვს
+მცირედი განსხვავება: `innerText` წაიკითხავს მხოლოდ თვალით ხილვად ტექსტს.
+
+მაგალითად:
+
+```html
+<p class="weather-text">დღეს კარგი ამინდია<span style="display: none"> მაგრამ გაწვიმებას აპირებს</span></p>
+```
+
+```js
+const paragraph = document.querySelector('p.weather-text');
+console.log(paragraph.innerText); // 'დღეს კარგი ამინდია'
+console.log(paragraph.textContent); // 'დღეს კარგი ამინდია მაგრამ გაწვიმებას აპირებს'
+```
+
+ამ კონკრეტულ მაგალითში `span` ელემენტზე გაწერილი არის `display: none` თვისება, რაც გულისხმობს რომ ის ვიზუალზე არ უნდა გამოჩნდეს, თუ
+შევეცდებით კონტენტის წაკითხვას `innerText` მხოლოდ ხილვად ნაწილს დაგვიბრუნებს რაც არის: `'დღეს კარგი ამინდია'`, ხოლო თუ გამოვიყენებთ
+`textContent` შედარებით სრულ სურათს დავინახავთ: `'დღეს კარგი ამინდია მაგრამ გაწვიმებას აპირებს'`. ორივე თვისება სიტუაციურია, თუ გსურთ
+სრული კონტენტის ხილვა მაშინ გამოიყენეთ `textContent` ხოლო თუ გსურთ მხოლოდ ხილვადი ტექსტის წაკითხვა გამოიყენეთ `innerText`.
+
+### innerHTML
+
+[`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) თვისება გამოიყენება HTML კონტენტის დასარენდერებლად.
+**რენდერი** ეს არის პროცესი, როცა კონტენტი გამოდის არა როგორც ტექსტური ელემენტის სახით არამედ, როგორც რეალური ელემენტი.
+
+მაგალითად:
+
+```html
+<p>მცდელობა პირველი: <span id="firstResult"></span></p>
+<p>მცდელობა მეორე: <span id="secondResult"></span></p>
+<p>მცდელობა მესამე: <span id="thirdResult"></span></p>
+<button id="renderBtn">დავარენდეროთ კონტენტი</button>
+```
+
+```js
+const firstResult = document.querySelector('#firstResult');
+const secondResult = document.querySelector('#secondResult');
+const thirdResult = document.querySelector('#thirdResult');
+const renderBtn = document.querySelector('#renderBtn');
+
+renderBtn.addEventListener('click', () => {
+  firstResult.textContent = '<i>დახრილი ტექსტი</i>';
+  secondResult.innerText = '<i>დახრილი ტექსტი</i>';
+  thirdResult.innerHTML = '<i>დახრილი ტექსტი</i>';
+});
+```
+
+კონკრეტულ მაგალითში გვაქვს 3 მცდელობა, რომ HTML თეგი დავარენდეროთ. პირველი და მეორე მცდელობა არ იმუშავებს, რადგან `textContent`
+და `innerText` უბრალოდ ტექსტს არენდერებს, ხოლო `innerHTML` გააჩნია რენდერის შესაძლებლობა, ამიტომაც თუ შეუძლია ელემენტის
+დარენდერება აუცილებლად დაარენდერებს სხვა შემთხვევაში ეს თვისებაც უბრალოდ ტექსტად გამოიტანს.
+
+`innerHTML` კი გვთავაზობს HTML დარენდერება მაგრამ არასწორი გამოყენების შემთხვევაში მოჰყვება სხვადასხვა უსაფრთხოების რისკები. DOM-ს ბოლო
+სტატიაში განხილული იქნება [უსაფრთხოები](./guides/javascript/dom/security)-ს ნაწილი.
+
+## სტილიზაციის მანიპულაცია
+
+DOM ასევე გვთავაზობს სტილიზაციის მანიპულაციასაც, ამისათვის საჭიროა ამოვიღოთ ელემენტი და მისი `style` ობიექტის მოდიფიცირება შევასრულოთ,
+რაც შესაძლებელაი შესრულდეს, როგორც სტატიკურად ასევე დინამიურადაც.
+
+სტატიკურის მაგალითი:
+
+```html
+<div class="box"></div>
+```
+
+```js
+const box = document.querySelector('.box');
+box.style.width = '150px';
+box.style.height = '150px';
+box.style.backgroundColor = 'steelblue';
+```
+
+`box` ელემენტი, როგორც კი JavaScript გაეშვება სტატიკურად მიიღებს ფერს `steelblue` ხოლო `150px`-ს ზომებს.
+
+დინამიურის მაგალითი:
+
+```html
+<p>საინტერესო <span id="dynamicStyle">ტექსტი</span></p>
+<div>
+  <label id="fontSize">ფონტის ზომა</label>
+  <input type="number" id="fontSize" name="fontSize" placeholder="ფონტის ზომა" />
+</div>
+<div>
+  <label id="color">ფერის ცვლილება</label>
+  <select id="color" name="color">
+    <option value="steelblue">ლურჯი</option>
+    <option value="green">მწვანე</option>
+    <option value="black">შავი</option>
+    <option value="random">შემთხვევითი</option>
+  </select>
+</div>
+```
+
+```js
+const dynamicStyle = document.querySelector('#dynamicStyle');
+const fontSizeInput = document.querySelector('#fontSize');
+const colorSelect = document.querySelector('#color');
+
+fontSizeInput.addEventListener('change', function () {
+  const size = Number(this.value); // ამოვიღოთ ველის მნიშვნელობა და გადავიყვანოთ რიცხვში
+  dynamicStyle.style.fontSize = `${size}px`; // dynamicStyle-ს ფონტის ზომა
+});
+
+colorSelect.addEventListener('change', function () {
+  // შევცვალოთ dynamicStyle ფერი შემთხვევითი ფერით ან სტატიკურად განთავსებული ფერით
+  dynamicStyle.style.color = this.value === 'random' ? getRandomColor() : this.value;
+});
+
+function getRandomColor() {
+  // დავაგენერიროთ შემთხვევითი რიცხვი 0 - 256, შემდგომ კი შევფუთოთ rgb ფორმატში
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r},${g},${b})`;
+}
+```
+
+კონკრეტულ მაგალითში მომხარებელს შეუძლია შეცვალსო ფონტის ზომა და ფერი. ერთერთი მარტივი მიდგომა, ველიდან
+მნიშვნელობის წასაკითხად არის მისი `value` თვისების წაკითხვა. ფონტის ზომის შემთხვევაში პირდაპირ რაზეც შეცვლის
+იმ მნიშვნელობას ვუყენებთ `span`-ის ელემენტს, ხოლო ფერის შემთხვევაშ თუ შემთხვევითი ოპცია აირჩია დავაგენერირებთ
+შემთხვევით ფერს და მის მიხედვით ვანიჭებთ ან შემთხვევით ფერს ან არსებულ სტატიკურ ფერს, რომელიც `select` ველშია.
+
+ფორმის ელემენტებთან მუშაობა უფრო დეტალურად განხილული იქნება [ფორმები](./doc/guides/javasccript/dom/form)-ს სტატიაში.
+
+## ატრიბუტის მანიპულაცია
+
+HTML-ში მრავალი საინტერესო და გამოსადეგი ატრიბუტი გვაქვს, რომლის დინამიურად წაკითხვა, ცვლილება, წაშლა შეგვიძლია JavaScript-ს
+მხრიდან.
+
+### class მეთოდები
+
+### custom ატრიბუტის მეთოდები
+
+## ელემენტის მანიპულაცია
+
+ტექსტური კონტენტის და სტილიზაციის კონტენტის გარდა ასევე შეგვიძლია დინამიურად შევქმნათ ელემენტები და წავშალოთ.
+ხშირ შემთხვევაში, როცა საქმე: ჩაწერა, წაკითხვა, განახლება და წაშლასთან მიდგება გვაქვს მარტივი ტერმინი **CRUD**.
+CRUD იშიფრება, როგორც:
+
+- **C**reate - შექმნა
+- **R**ead - წაკითხვა
+- **U**pdate - განახლება
+- **D**elete - წაშლა
+
+### Create
+
+HTML ელემენტის შექმნა შესაძლებელია ორი გზით:
+
+- პირდაპირ HTML ელემენტის დამატებით (`innerHTML` გამოყენებით).
+- [`createElement`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement) მეთოდის გამოყენებით.
+
+განვიხილოთ ორივე გზა:
+
+```html
+<article>
+  <p>საინტერესო სტატია</p>
+</article>
+```
+
+```js
+const article = document.querySelector('article');
+article.innerHTML += `
+  <img src="https://everrest.educata.dev/logo.png" alt="სტატიის სურათი">
+`;
+```
+
+`innerHTML` გზის გამოყენებით ვღებულობთ პირდაპირ დამატებულ კონტენტს არტიკლში (არტიკლი პირობითი ელემენტია, იგივე
+მოქმედებები შეიძლება **ნებისმიერ** ელემენტზე). ამ შემთხვევაში დავარენდერეთ სურათის თეგი.
+[`+=`](./doc/guides/javascript/operations-operators#მინიჭების_ოპერაციები) გამოვიყენეთ შემოკლებული სინტაქსისთვის,
+რომ ახალი კონტენტი დაგვემატებინა `innerHTML` არსებულ კონტენტთან ერთად.
+
+განვიხილოთ იგივე მაგალითი `createElement` მეთოდის გამოყენებით:
+
+```html
+<article>
+  <p>საინტერესო სტატია</p>
+</article>
+```
+
+```js
+const article = document.querySelector('article');
+const image = document.createElement('img');
+image.src = 'https://everrest.educata.dev/logo.png';
+image.alt = 'სტატიის სურათი';
+article.appendChild(image);
+```
+
+`createElement` მეთოდის გამოყენებით გვიწევს ჯერ ელემენტის შექმნა, შემდგომ მისი შესაბამისად მოდიფიცირება და ბოლოს
+[`appendChild`](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) მეთოდის გამოყენებით ჩავსვით კონტენტი
+`article` ელემენტში.
+
+ორივე მიდგომა სრულყოფილად ასრულებს თავის საქმეს, მაგრამ რომელი მეთოდი უნდა გამოვიყენოთ ხშირად ?
+
+შესაძლებელია ორივე მეთოდი გამოვიყენოთ სხვადასხვა სიტუაციების დროს, მეტწილადად `innerHTML` შეგიძლიათ გამოიყენოთ მაშინ
+როცა პირდაპირ გსურთ ელემენტის დამატება ზედმეტი თვისებების გაწერის გარეშე და არ გჭირდებათ დამატებული ელემენტის თავიდან
+ამოღება, ხოლო `createElement` გამოიყენეთ მაშინ როცა გჭრდება თვისებების ცვლილებაც და ელემენტის სამომავლოდ გამოყენებაც,
+მსგავს ტიპად თავს აარიდებთ დამატებული კონტენტის თავიდან ამოღებას, რასაც `innerHTML` არ გვთავაზობს.
+
+### Read
+
+ელემენტის წაკითხვასთან დაკავშირებით შეგიძლიათ გაეცნოთ [ელემენტის ძებნი](./doc/guides/javascript/dom/selectors#ელემენტების_ძებნა)-ს
+სტატიას, სადაც დეტალურად არის განხილული თუ როგორ უნდა ამოვიღოთ ელემენტი ან ელემენტები.
+
+### Update
+
+ელემენტის განახლება შესაძლებელია ბევრი გზით. რეალურად HTML-ს ელემენტს, რომელიც არის წარმოდგენილი როგორც კვანძი (node), გააჩნია
+საკმაოდ ბევრი თვისება და მეთოდი. მისი თითოეული თვისების ცვლილება გულისხმობს უკვე მის განახლებას. ამავე სტატიაში
+განვიხილეთ რამოდენიმე განახლების ნაწილი: [ტექსტური კონტენტის შეცვლა](ტექსტური_კონტენტის_შეცვლა),
+[სტილიზაციის მანიპულაცია](სტილიზაციის_მანიპულაცია), [ატრიბუტის მანიპულაცია](ატრიბუტის_მანიპულაცია).
+
+### Delete
+
+ხშირ შემთხვევაში დამატებული ელემენტი აღარ საჭიროებს ვებგვერდზე ყოფნას ამიტომაც გვიწევს მისი წაშლა. წაშლისათვის შესაძლებელია
+რამოდენიმე მიდგომის შესრულება:
+
+- `innerHTML` თვისების გამოყენება
+- `remove` მეთოდის გამოყენება.
+- `removeChild` მეთოდის გამოყენება.
+
+`innerHTML` წაშლა პრაქტიკაში ყველაზე ცუდი წაშლის მიდგომა არის, თუმცა ზოგი დეველოპერი მას მაინც იყენებს. რეალურად `innerHTML`
+არ შლის, ის ასუფთავებს კონტენტს, შედეგად ვღებულობ მშობელ ელემენტს, რომელსაც არ აქვს არანაირი კონტენტი.
+
+```html
+<p id="removeParagraph">არასაჭირო პარაგრაფი</p>
+<button id="removeParagraphBtn">წაშლა</button>
+```
+
+```js
+const removeParagraph = document.querySelector('#removeParagraph');
+const removeParagraphBtn = document.querySelector('#removeParagraphBtn');
+
+removeParagraphBtn.addEventListener('click', () => {
+  removeParagraph.innerHTML = '';
+});
+```
+
+მსგავს ტიპად კონტენტი გაქრება `<p>` ელემენტიდან მაგრამ თუ გახსნით დეველოპერის თულს და დააკვირდებით ელემენტებს შეამჩნევთ,
+რომ HTML-ში ისევ არის `<p>` ელემენტი. ამიტომაც ეს მიდგომა არ არის კარგი მიდგომა, უმჯობესია `remove` ან `removeChild` გამოყენება.
+
+[`remove`](https://developer.mozilla.org/en-US/docs/Web/API/Element/remove) მეთოდი გამოიყენება იმისათვის, რომ კონკრეტული
+ელემენტი წავშალოთ მთლაიანდ HTML-დან. მეთოდი არანაირ პარამეტრს არ ღებულობს და არც არაფერს აბრუნებს, უბრალოდ წაშლის ელემენტს
+HTML-დან.
+
+იგივე მაგალითზე განვიხილოთ `remove`:
+
+```html
+<p id="removeParagraph">არასაჭირო პარაგრაფი</p>
+<button id="removeParagraphBtn">წაშლა</button>
+```
+
+```js
+const removeParagraph = document.querySelector('#removeParagraph');
+const removeParagraphBtn = document.querySelector('#removeParagraphBtn');
+
+removeParagraphBtn.addEventListener('click', () => {
+  removeParagraph.remove();
+});
+```
+
+მსგავსი მიდგომით საერთოდ წაიშლება `<p>` ელემენტი HTML-ს სტრუქტურიდან.
+
+[`removeChild`](https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild) თვისება გამოიყენება მშობლიდან, შვილობილი ელემენტის
+წასაშლელად. თუმცა თუ არ გვაქვს მშობელი ელემენტზე წვდომა შვილობილიდანაც შეიძლება პირდაპირ საკუთარი თავის წაშლა.
+
+შვილობილიდან წაშლის მაგალითი:
+
+```html
+<p id="removeParagraph">არასაჭირო პარაგრაფი</p>
+<button id="removeParagraphBtn">წაშლა</button>
+```
+
+```js
+const removeParagraph = document.querySelector('#removeParagraph');
+const removeParagraphBtn = document.querySelector('#removeParagraphBtn');
+
+removeParagraphBtn.addEventListener('click', () => {
+  if (removeParagraph.parentNode) {
+    removeParagraph.parentNode.removeChild(removeParagraph);
+  }
+});
+```
+
+მსგავს ტიპად მშობელ ელემენტზე წვდომის გარეშეც წავშლით არსებულ ელემენტს, თუმცა ესეთ დროს უფრო მიღებულია
+`remove` მეთოდის გამოყენება.
+
+განვიხილოთ მშობლიდან შვილობილი ელემენტის წაშლის მაგალითი:
+
+```html
+<div id="parent">
+  <div id="child"></div>
+</div>
+<button id="deleteFromParentNode">წაშალე შვილობილი ელემენტი</button>
+```
+
+```js
+const deleteFromParentNodeBtn = document.querySelector('#deleteFromParentNode');
+const parent = document.querySelector('#parent');
+const child = document.querySelector('#child');
+
+deleteFromParentNodeBtn.addEventListener('click', () => {
+  parent.removeChild(child);
+});
+```
+
+რეალურად ესე არის მშობელი ელემენტიდან შვილობილი ელემენტის წაშლა მიღებული.
+
+განვიხილოთ ყოველი შვილობილი ელემენტის წაშლის მაგალითი:
+
+```html
+<div id="parentNode">
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+  <div>4</div>
+  <div>5</div>
+</div>
+<button id="deleteAllNodeBtn">წაშალე შვილობილი ელემენტი</button>
+```
+
+```js
+const deleteAllNodeBtn = document.querySelector('#deleteAllNodeBtn');
+const parentNode = document.querySelector('#parentNode');
+
+deleteAllBtn.addEventListener('click', () => {
+  while (parentNode.firstChild) {
+    parentNode.removeChild(parentNode.firstChild);
+  }
+});
+```
+
+ესეთი მიდგომით შესაძლებელია ციკლი ვამუშავოთ მანამ სანამ მშობელ ელემენტს გააჩნია
+პირველი შვილობილი ელემენტი.
