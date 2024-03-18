@@ -1,7 +1,8 @@
 ---
 title: 'მანიპულაცია ელემენტებზე'
 description: 'HTML ელემენტების მანიპულირება JavaScript-ში'
-keywords: 'FILL LATER'
+keywords: 'ელემენტებზე მანიპულაცია, ტექსტური კონტენტის შეცვლა, სტილიზაციის შეცვლა, დინამიურად სტილიზაციის შეცვლა, textContent, innerText, innerHTML, getAttribute, setAttribute, removeAttribute, hasAttribute, attributes, dataset, classList, add class, remove class, toggle class, CRUD on element, ელემენტების შექმნა, ელემენტის შექმნა,
+ელემენტის წაშლა, ელემენტის რედაქტირება, remove, removeChild'
 ---
 
 წინა სტატიებში განვიხილეთ თუ როგორ უნდა ამოგვეღო ელემენტი და მოგვესმინა მის ივენთებზე. ელემენტებზე რეალურად უფრო მეტი

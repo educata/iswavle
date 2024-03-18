@@ -1,7 +1,7 @@
 ---
 title: 'სელექტორები'
 description: 'HTML ელემენტის ამოღება JavaScript-ში'
-keywords: 'selector, unique selector, id, class, tag, attr, select by attr, select by id, select by name, select by class, select by tag, querySelector, querySelectorAll, getElementById, getElementsByTagName, getElementsByClassName, getElementsByName'
+keywords: 'selector, unique selector, id, class, tag, attr, select by attr, select by id, select by name, select by class, select by tag, querySelector, querySelectorAll, getElementById, getElementsByTagName, getElementsByClassName, getElementsByName, parentNode, childNodes, children, firstElementChild, lastElementChild, nextElementSibling, previousElementSibling'
 ---
 
 ხშირ შემთხვევაში ვებგვერდზე სტატიკური კონტენტის გარდა საჭიროა დინამიურადაც გამოვიტანოთ კონტენტი. წარმოვიდგინოთ მაღაზიის ვებგვერდი
