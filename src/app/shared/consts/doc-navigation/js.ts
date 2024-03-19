@@ -40,6 +40,12 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
     {
       title: 'კანვასი',
       path: 'canvas',
+      children: [
+        {
+          title: 'ძირითადი გამოყენება',
+          path: 'basic-usage',
+        },
+      ],
     },
   ],
 };
