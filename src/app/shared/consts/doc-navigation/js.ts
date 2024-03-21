@@ -45,6 +45,14 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
           title: 'ძირითადი გამოყენება',
           path: 'basic-usage',
         },
+        {
+          title: 'ფიგურების დახატვა',
+          path: 'drawing-figures',
+        },
+        {
+          title: 'სტილიზაციების და ფერების მინიჭება',
+          path: 'style_and_colors',
+        },
       ],
     },
   ],
