@@ -1,6 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { AsyncPipe, DOCUMENT, TitleCasePipe } from '@angular/common';
+import {
+  AsyncPipe,
+  DOCUMENT,
+  TitleCasePipe,
+  ViewportScroller,
+} from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   BehaviorSubject,
@@ -44,6 +49,7 @@ export class AppComponent {
   private readonly router = inject(Router);
   private readonly themeService = inject(ThemeService);
   private readonly layoutService = inject(LayoutService);
+  private readonly viewport = inject(ViewportScroller);
   private readonly document = inject(DOCUMENT);
   readonly headerNavigation = inject(NAVIGATION);
   readonly theme = Theme;
@@ -100,6 +106,9 @@ export class AppComponent {
         takeUntilDestroyed(),
         tap((isOpen) => {
           this.document.body.style.overflow = isOpen ? 'hidden' : 'visible';
+          if (isOpen) {
+            this.viewport.scrollToPosition([0, 0]);
+          }
         }),
       )
       .subscribe();
