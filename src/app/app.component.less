@@ -8,6 +8,7 @@
 nz-layout.root-layout {
   min-height: 100vh;
   position: relative;
+  container-type: inline-size;
 }
 
 header {
@@ -68,7 +69,7 @@ header {
       @media (max-width: @menuBreakPoint) {
         height: 100%;
         display: block;
-        position: absolute;
+        position: fixed;
         top: @headerSize;
         right: -100%;
         transition: 0.5s all;
