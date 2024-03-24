@@ -1,4 +1,8 @@
 <article>
-  <h1>{{ docContent.attributes.title }}</h1>
+  <h1>
+    <a class="anchor-fragment" [href]="docContent.attributes.title | titleId">
+      {{ docContent.attributes.title }}
+    </a>
+  </h1>
   <section #container></section>
 </article>
