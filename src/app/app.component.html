@@ -1,4 +1,14 @@
 <nz-layout class="root-layout">
+  <nz-alert
+    nzType="info"
+    nzShowIcon="false"
+    nzCloseable
+    nzBanner
+    [nzMessage]="banner"
+  ></nz-alert>
+  <ng-template #banner>
+    <div class="banner">საიტი არის დეველოპმენტის ადრეულ ეტაპზე</div>
+  </ng-template>
   <header>
     @if (vm$ | async; as vm) {
       <div class="brand">
