@@ -83,11 +83,15 @@ export default class DocsComponent {
     map((response) => response['data'] as DocContent),
   );
   private readonly baseNavNode = toSignal(this.articleService.navigation$);
+  private readonly queryParamMap = toSignal(this.activatedRoute.queryParamMap);
 
   readonly article = toSignal(this.article$);
   readonly theme = toSignal(this.themeService.theme$);
   readonly isBrowser = isPlatformBrowser(this.platform);
   readonly siderWidth = this.layoutServie.sizes.docSiderWidth;
+  readonly searchKey = computed(
+    () => this.queryParamMap()?.get('search') ?? null,
+  );
 
   isDrawerVisible = false;
 

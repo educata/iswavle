@@ -16,7 +16,6 @@ import {
   IndexMapResult,
   IndexMapResultContent,
 } from '@app-shared/interfaces';
-import { SearchService } from '@app-shared/services';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
