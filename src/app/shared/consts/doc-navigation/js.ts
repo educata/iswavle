@@ -19,5 +19,41 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'მათემატიკური ობიექტი', path: 'math' },
     { title: 'რიცხვი', path: 'number' },
     { title: 'კონსოლის ობიექტი', path: 'console' },
+    {
+      title: 'შესავალი DOM-ში',
+      path: 'dom',
+      children: [
+        {
+          title: 'სელექტორები',
+          path: 'selectors',
+        },
+        {
+          title: 'ივენთები',
+          path: 'events',
+        },
+        {
+          title: 'მანიპულაცია ელემენტებზე',
+          path: 'elements-manipulation',
+        },
+      ],
+    },
+    {
+      title: 'კანვასი',
+      path: 'canvas',
+      children: [
+        {
+          title: 'ძირითადი გამოყენება',
+          path: 'basic-usage',
+        },
+        {
+          title: 'ფიგურების დახატვა',
+          path: 'drawing-figures',
+        },
+        {
+          title: 'სტილიზაციების და ფერების მინიჭება',
+          path: 'style_and_colors',
+        },
+      ],
+    },
   ],
 };
