@@ -98,9 +98,7 @@ export class DocViewerComponent implements OnChanges {
     this.listener = this.renderer.listen(contentContainer, 'click', (event) => {
       if (event.target instanceof HTMLAnchorElement) {
         const target = event.target as HTMLAnchorElement;
-        if (target.classList.contains('anchor-fragment')) {
-          this.handleHeadingClick(target.href);
-        } else {
+        if (!target.classList.contains('anchor-fragment')) {
           this.handleAnchorClick(event);
         }
       }
@@ -143,18 +141,5 @@ export class DocViewerComponent implements OnChanges {
           .subscribe();
       });
     }
-  }
-
-  handleHeadingClick(url: string) {
-    navigator.clipboard.writeText(decodeURI(url));
-    this.message.success('მისამართი წარმატებით დაკოპირდა', {
-      nzAnimate: true,
-      nzPauseOnHover: true,
-      nzDuration: 2000,
-    });
-  }
-
-  onTitleClick() {
-    this.handleHeadingClick(location.href);
   }
 }
