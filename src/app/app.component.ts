@@ -1,13 +1,20 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { AsyncPipe, TitleCasePipe } from '@angular/common';
+import {
+  AsyncPipe,
+  DOCUMENT,
+  TitleCasePipe,
+  ViewportScroller,
+} from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { BehaviorSubject, Observable, combineLatest, filter, map } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  combineLatest,
+  filter,
+  map,
+  tap,
+} from 'rxjs';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModeType } from 'ng-zorro-antd/menu';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
@@ -37,11 +44,13 @@ import { SearchComponent } from '@app-shared/ui';
   styleUrls: ['./app.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   private readonly defaultDataLog = inject(LOG_GREETER);
   private readonly router = inject(Router);
   private readonly themeService = inject(ThemeService);
   private readonly layoutService = inject(LayoutService);
+  private readonly viewport = inject(ViewportScroller);
+  private readonly document = inject(DOCUMENT);
   readonly headerNavigation = inject(NAVIGATION);
   readonly theme = Theme;
 
@@ -90,11 +99,19 @@ export class AppComponent implements OnInit {
   );
 
   constructor() {
+    this.initDefaultLog();
     this.themeService.init().pipe(takeUntilDestroyed()).subscribe();
-  }
-
-  ngOnInit(): void {
-    // this.initDefaultLog();
+    this.isMenuOpen$
+      .pipe(
+        takeUntilDestroyed(),
+        tap((isOpen) => {
+          this.document.body.style.overflow = isOpen ? 'hidden' : 'visible';
+          if (isOpen) {
+            this.viewport.scrollToPosition([0, 0]);
+          }
+        }),
+      )
+      .subscribe();
   }
 
   private initDefaultLog() {
