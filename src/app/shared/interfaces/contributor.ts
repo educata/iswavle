@@ -12,3 +12,7 @@ export interface GithubAuthor
 export interface GithubResponse {
   author: GithubAuthor;
 }
+
+export interface Author extends Contributor {
+  displayed_name: string;
+}

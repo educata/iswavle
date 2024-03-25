@@ -124,7 +124,9 @@ export class AppComponent implements AfterViewInit {
   );
 
   constructor() {
-    this.initDefaultLog();
+    if (this.isBrowser) {
+      this.initDefaultLog();
+    }
     this.themeService.init().pipe(takeUntilDestroyed()).subscribe();
     this.isMenuOpen$
       .pipe(
