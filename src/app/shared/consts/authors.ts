@@ -1,16 +1,14 @@
-import { Author } from '@app-shared/interfaces';
+import { Contributor } from '@app-shared/interfaces';
 
-export const AUTHORS: Author[] = [
+export const AUTHORS: Contributor[] = [
   {
     name: 'KostaD02',
-    displayed_name: 'კონსტანტინე დათუნიშვილი',
     html_url: 'https://github.com/KostaD02',
-    avatar_url: './assets/images/kd.jpg',
+    avatar_url: 'https://avatars.githubusercontent.com/u/68782786?v=4',
   },
   {
     name: 'CondensedMilk7',
-    displayed_name: 'ფრიდონ თეთრაძე',
     html_url: 'https://github.com/CondensedMilk7',
-    avatar_url: './assets/images/pt.jpg',
+    avatar_url: 'https://avatars.githubusercontent.com/u/82287873?v=4',
   },
 ];

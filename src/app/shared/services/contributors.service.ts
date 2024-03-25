@@ -38,23 +38,27 @@ export class ContributorsService {
                   (user) => user.html_url === contributor.html_url,
                 ),
             )
-            .map((contributor, index) => {
+            .map((contributor, index, self) => {
               const author = AUTHORS.find(
                 (author) => author.html_url === contributor.html_url,
               );
-              return !author
-                ? contributor
-                : {
-                    name: `${index === 0 || index === 1 ? 'ავტორი' : 'რედაქტორი'}: ${author.displayed_name}`,
-                    html_url: author.html_url,
-                    avatar_url: author.avatar_url,
-                  };
+
+              if (!author) {
+                return contributor;
+              }
+
+              const isAuthor = AUTHORS.some(
+                (author) => author.html_url === self[0].html_url,
+              );
+
+              contributor.name = `${isAuthor ? 'ავტორი' : 'რედაქტორი'}: ${author.name}`;
+              return contributor;
             }),
         ),
         catchError(() => {
           return of(
             AUTHORS.map((author) => ({
-              name: `ავტორი: ${author.displayed_name}`,
+              name: `ავტორი: ${author.name}`,
               html_url: author.html_url,
               avatar_url: author.avatar_url,
             })),
