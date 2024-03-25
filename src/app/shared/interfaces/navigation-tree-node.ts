@@ -9,4 +9,5 @@ export interface NavigationTreeNode extends BaseNavigationTreeNode {
   routerLink: string[];
   breadCrumb: string[];
   children?: NavigationTreeNode[];
+  isActive?: boolean;
 }
