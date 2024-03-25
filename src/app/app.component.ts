@@ -1,10 +1,20 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  PLATFORM_ID,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import {
   AsyncPipe,
+  CommonModule,
   DOCUMENT,
   TitleCasePipe,
   ViewportScroller,
+  isPlatformBrowser,
 } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
@@ -39,12 +49,15 @@ import { SearchComponent } from '@app-shared/ui';
     SearchComponent,
     TitleCasePipe,
     AsyncPipe,
+    CommonModule,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  @ViewChild('alert') alertRef!: ElementRef<HTMLDivElement>;
+  private readonly platform = inject(PLATFORM_ID);
   private readonly defaultDataLog = inject(LOG_GREETER);
   private readonly router = inject(Router);
   private readonly themeService = inject(ThemeService);
@@ -53,8 +66,10 @@ export class AppComponent {
   private readonly document = inject(DOCUMENT);
   readonly headerNavigation = inject(NAVIGATION);
   readonly theme = Theme;
+  readonly isBrowser = isPlatformBrowser(this.platform);
 
   readonly isMenuOpenedByUser$ = new BehaviorSubject<boolean>(false);
+  readonly burgerTopDistance$ = new BehaviorSubject<string>('66px');
 
   readonly isWideScreen$ = this.layoutService.isNarrowerThan(
     this.layoutService.sizes.header,
@@ -89,13 +104,23 @@ export class AppComponent {
     this.menuMode$,
     this.activePath$,
     this.headerNavigation$,
+    this.burgerTopDistance$,
   ]).pipe(
-    map(([isMenuOpen, menuMode, activePath, headerNavigation]) => ({
-      isMenuOpen,
-      menuMode,
-      activePath,
-      headerNavigation,
-    })),
+    map(
+      ([
+        isMenuOpen,
+        menuMode,
+        activePath,
+        headerNavigation,
+        burgerTopDistance,
+      ]) => ({
+        isMenuOpen,
+        menuMode,
+        activePath,
+        headerNavigation,
+        burgerTopDistance,
+      }),
+    ),
   );
 
   constructor() {
@@ -112,6 +137,14 @@ export class AppComponent {
         }),
       )
       .subscribe();
+  }
+
+  ngAfterViewInit(): void {
+    if (this.isBrowser) {
+      this.burgerTopDistance$.next(
+        `${66 + this.alertRef.nativeElement.clientHeight}px`,
+      );
+    }
   }
 
   private initDefaultLog() {
