@@ -1,10 +1,13 @@
-<nz-alert
-  nzType="info"
-  nzShowIcon="false"
-  nzCloseable
-  nzBanner
-  [nzMessage]="banner"
-></nz-alert>
+<div #alert>
+  <nz-alert
+    nzType="info"
+    nzShowIcon="false"
+    nzCloseable
+    nzBanner
+    [nzMessage]="banner"
+    (nzOnClose)="burgerTopDistance$.next('66px')"
+  ></nz-alert>
+</div>
 <nz-layout class="root-layout">
   <ng-template #banner>
     <div class="banner">საიტი არის დეველოპმენტის ადრეულ ეტაპზე</div>
@@ -22,6 +25,7 @@
           nz-menu
           [nzMode]="vm.menuMode || 'horizontal'"
           [class.is-open]="vm.isMenuOpen"
+          [ngStyle]="{ top: vm.burgerTopDistance }"
         >
           @for (nav of vm.headerNavigation; track nav.routerLink) {
             <li
