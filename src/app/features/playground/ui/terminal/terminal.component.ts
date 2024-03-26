@@ -14,14 +14,18 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { WebContainerProcess } from '@webcontainer/api';
 import {
   Observable,
+  Subject,
   combineLatest,
   filter,
+  firstValueFrom,
+  from,
   fromEvent,
   switchMap,
   take,
   tap,
 } from 'rxjs';
 import { Terminal } from 'xterm';
+import { FitAddon } from 'xterm-addon-fit';
 import { WEBCONTAINER_STATE, LAYOUT_SIZES } from '@app-shared/providers';
 import 'xterm/css/xterm.css'; // terminal styles
 
@@ -34,73 +38,77 @@ import 'xterm/css/xterm.css'; // terminal styles
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TerminalComponent implements AfterViewInit {
-  private readonly platform = inject(PLATFORM_ID);
-  private readonly webContainerState = inject(WEBCONTAINER_STATE, {
-    skipSelf: true,
-  });
-  private readonly destroyRef = inject(DestroyRef);
-  private readonly document = inject(DOCUMENT);
-  private readonly layoutSizes = inject(LAYOUT_SIZES);
-
   @ViewChild('terminal') terminalRef!: ElementRef<HTMLElement>;
   @Input() interactive = true;
   @Input() processInput$: Observable<WebContainerProcess> | undefined;
 
-  shellProcess$ = this.webContainerState.shellProcess$.pipe(filter(Boolean));
-  instanceLoaded$ = this.webContainerState.instanceLoaded$.pipe(
+  private readonly platform = inject(PLATFORM_ID);
+  private readonly webContainerState = inject(WEBCONTAINER_STATE, {
+    skipSelf: true,
+  });
+
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly document = inject(DOCUMENT);
+  private readonly layoutSizes = inject(LAYOUT_SIZES);
+
+  readonly shellProcess$ = this.webContainerState.shellProcess$.pipe(
+    filter(Boolean),
+  );
+
+  readonly instanceLoaded$ = this.webContainerState.instanceLoaded$.pipe(
     filter(Boolean),
   );
 
   async ngAfterViewInit() {
     if (!isPlatformBrowser(this.platform)) return;
     // Has to be imported only in browser
-    try {
-      const Terminal = await import('xterm').then((m) => m.Terminal);
-      const FitAddon = await import('xterm-addon-fit').then((m) => m.FitAddon);
+    const Terminal = await firstValueFrom(from(import('xterm'))).then(
+      (m) => m.Terminal,
+    );
+    const FitAddon = await firstValueFrom(from(import('xterm-addon-fit'))).then(
+      (m) => m.FitAddon,
+    );
 
-      const terminal = new Terminal({
-        convertEol: true,
-        rows: this.layoutSizes.terminalMaxRow,
-      });
-      const fitAddon = new FitAddon();
-      terminal.loadAddon(fitAddon);
+    const terminal = new Terminal({
+      convertEol: true,
+      rows: this.layoutSizes.terminalMaxRow,
+    });
+    const fitAddon = new FitAddon();
+    terminal.loadAddon(fitAddon);
+    this.terminalRef.nativeElement.style.maxWidth = `${document.getElementById('result-side')?.clientWidth ?? 100}px`;
+    terminal.open(this.terminalRef.nativeElement);
+    fitAddon.fit();
+
+    if (this.interactive) {
+      this.startShell(terminal);
       this.terminalRef.nativeElement.style.maxWidth = `${document.getElementById('result-side')?.clientWidth ?? 100}px`;
-      terminal.open(this.terminalRef.nativeElement);
-      fitAddon.fit();
 
-      if (this.interactive) {
-        this.startShell(terminal);
-        this.terminalRef.nativeElement.style.maxWidth = `${document.getElementById('result-side')?.clientWidth ?? 100}px`;
+      fromEvent(this.document.defaultView!, 'resize')
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          switchMap(() => this.shellProcess$),
+          tap((shellProcess) => {
+            this.terminalRef.nativeElement.style.maxWidth = `${document.getElementById('result-side')?.clientWidth ?? 100}px`;
+            fitAddon.fit();
+            shellProcess.resize({
+              cols: terminal.cols,
+              rows:
+                terminal.rows >= this.layoutSizes.terminalMaxRow
+                  ? this.layoutSizes.terminalMaxRow
+                  : terminal.rows,
+            });
+          }),
+        )
+        .subscribe();
+    }
 
-        fromEvent(this.document.defaultView!, 'resize')
-          .pipe(
-            takeUntilDestroyed(this.destroyRef),
-            switchMap(() => this.shellProcess$),
-            tap((shellProcess) => {
-              this.terminalRef.nativeElement.style.maxWidth = `${document.getElementById('result-side')?.clientWidth ?? 100}px`;
-              fitAddon.fit();
-              shellProcess.resize({
-                cols: terminal.cols,
-                rows:
-                  terminal.rows >= this.layoutSizes.terminalMaxRow
-                    ? this.layoutSizes.terminalMaxRow
-                    : terminal.rows,
-              });
-            }),
-          )
-          .subscribe();
-      }
-
-      if (this.processInput$) {
-        this.processInput$
-          .pipe(
-            takeUntilDestroyed(this.destroyRef),
-            tap((process) => this.writeProcess(terminal, process)),
-          )
-          .subscribe();
-      }
-    } catch (err) {
-      console.log(err);
+    if (this.processInput$) {
+      this.processInput$
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          tap((process) => this.writeProcess(terminal, process)),
+        )
+        .subscribe();
     }
   }
 
