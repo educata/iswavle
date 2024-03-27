@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import {
+  AUTHORS,
   GITHUB_API_COMMITS,
   GITHUB_API_COMMITS_PREFIX,
 } from '@app-shared/consts';
@@ -25,18 +26,48 @@ export class ContributorsService {
         map((response) =>
           response
             .map((item) => ({
-              name: item.author.login,
+              name: `კონტრიბუტორი: ${item.author.login}`,
               avatar_url: item.author.avatar_url,
               html_url: item.author.html_url,
             }))
+            .concat(AUTHORS)
             .filter(
               (contributor, index, self) =>
                 index ===
-                self.findIndex((user) => user.name === contributor.name),
-            ),
+                self.findIndex(
+                  (user) => user.html_url === contributor.html_url,
+                ),
+            )
+            .map((contributor, index, self) => {
+              // check if default author is the contributor
+
+              const author = AUTHORS.find(
+                (author) => author.html_url === contributor.html_url,
+              );
+
+              if (!author) {
+                return contributor;
+              }
+
+              // check if default author is the initial comitter
+              const isAuthor = AUTHORS.some(
+                (author) => author.html_url === self[0].html_url,
+              );
+
+              // if initial commiter is default author's mark as author else as editor
+              contributor.name = `${isAuthor ? 'ავტორი' : 'რედაქტორი'}: ${author.name}`;
+              return contributor;
+            }),
         ),
         catchError(() => {
-          return of([]);
+          return of(
+            // if request error return default authors
+            AUTHORS.map((author) => ({
+              name: `ავტორი: ${author.name}`,
+              html_url: author.html_url,
+              avatar_url: author.avatar_url,
+            })),
+          );
         }),
       );
   }
