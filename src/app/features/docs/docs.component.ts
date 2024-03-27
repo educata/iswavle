@@ -125,6 +125,10 @@ export default class DocsComponent {
     () => !(this.windowWidth()! >= this.layoutServie.sizes.hideToc),
   );
 
+  readonly isEnoughToc = computed(
+    () => (this.article()?.attributes.toc.length || 0) > 1,
+  );
+
   constructor() {
     effect(() => {
       const content = this.article();
