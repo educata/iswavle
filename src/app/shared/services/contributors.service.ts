@@ -39,6 +39,8 @@ export class ContributorsService {
                 ),
             )
             .map((contributor, index, self) => {
+              // check if default author is the contributor
+
               const author = AUTHORS.find(
                 (author) => author.html_url === contributor.html_url,
               );
@@ -47,16 +49,19 @@ export class ContributorsService {
                 return contributor;
               }
 
+              // check if default author is the initial comitter
               const isAuthor = AUTHORS.some(
                 (author) => author.html_url === self[0].html_url,
               );
 
+              // if initial commiter is default author's mark as author else as editor
               contributor.name = `${isAuthor ? 'ავტორი' : 'რედაქტორი'}: ${author.name}`;
               return contributor;
             }),
         ),
         catchError(() => {
           return of(
+            // if request error return default authors
             AUTHORS.map((author) => ({
               name: `ავტორი: ${author.name}`,
               html_url: author.html_url,
