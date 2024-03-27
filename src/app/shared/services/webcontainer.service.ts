@@ -7,7 +7,7 @@ import {
   WebContainerProcess,
 } from '@webcontainer/api';
 import { FileSystemTree } from '@webcontainer/api';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, filter, take } from 'rxjs';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import {
   WebContainerFile,
@@ -118,6 +118,10 @@ export class WebContainerService implements WebContainerState, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.instance?.teardown();
+    this.#instanceLoaded$.pipe(filter(Boolean), take(1)).subscribe(() => {
+      console.log("Destroying webcontainer instance...")
+      this.instance?.teardown();
+      this.#instanceDestroyed$.next(true);
+    });
   }
 }
