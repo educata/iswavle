@@ -165,3 +165,4 @@ DOM იშიფრება, როგორც **D**ocument **O**bject **M**od
 - [სელექტორები](./doc/guides/javascript/dom/selectors)
 - [ივენთები](./doc/guides/javascript/dom/events)
 - [მანიპულაცია ელემენტებზე](./doc/guides/javascript/dom/elements-manipulation)
+- [ფერების თამაში](./doc/guides/javascript/dom/color-game)
