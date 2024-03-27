@@ -8,6 +8,7 @@ export interface ArticleAttributes {
   depricated?: boolean;
   headings?: string[];
   codes?: string[];
+  image?: string;
 }
 
 export interface ArticleToc {
