@@ -21,9 +21,19 @@ export class ArticleService {
 
   get navigation$() {
     return this.currentUrl$.pipe(
-      map(() =>
-        this.docNavigation.find((nav) => nav.path === this.navigationSection),
-      ),
+      map((url) => {
+        const navigation = this.docNavigation.find(
+          (nav) => nav.path === this.navigationSection,
+        );
+
+        if (navigation) {
+          navigation.children?.map((subject) => {
+            subject.isActive = url.includes(subject.routerLink.join('/'));
+          });
+        }
+
+        return navigation;
+      }),
     );
   }
 
