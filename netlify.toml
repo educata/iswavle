@@ -3,7 +3,7 @@
   to = "/index.html"
   status = 200
 [[headers]]
-  for = "/playground/*"
+  for = "/*"
   [headers.values]
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Embedder-Policy = "require-corp"
