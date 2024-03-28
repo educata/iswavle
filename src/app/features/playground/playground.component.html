@@ -97,11 +97,16 @@
       <aside class="preview" nz-col nzXs="24" nzMd="12" nzLg="12">
         <div class="wrapper" id="result-side">
           <aside class="result">
-            <nz-spin [nzSpinning]="!vm.isServerRunning" nzSimple nzTip="ერთი წამი...">
+            <nz-spin
+              nzSimple
+              nzTip="ერთი წამი..."
+              [nzSpinning]="!vm.isServerRunning"
+            >
             </nz-spin>
             <iframe
               class="site"
               aria-label="კოდიდან დაგენერირებული ვებგვერდი"
+              allow="cross-origin-isolated"
               [src]="vm.serverUrl"
             ></iframe>
           </aside>
