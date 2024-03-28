@@ -54,9 +54,15 @@ export class ContributorsService {
                 (author) => author.html_url === self[0].html_url,
               );
 
+              // Since the author can come from the AUTHORS array,
+              // modifying the name value could potentially result in duplicating the prefix.
+              const modifiedContributor = JSON.parse(
+                JSON.stringify(contributor),
+              );
+
               // if initial commiter is default author's mark as author else as editor
-              contributor.name = `${isAuthor ? 'ავტორი' : 'რედაქტორი'}: ${author.name}`;
-              return contributor;
+              modifiedContributor.name = `${isAuthor ? 'ავტორი' : 'რედაქტორი'}: ${author.name}`;
+              return modifiedContributor;
             }),
         ),
         catchError(() => {
