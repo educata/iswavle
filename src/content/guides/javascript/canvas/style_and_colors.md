@@ -1,7 +1,7 @@
 ---
 title: 'სტილიზაციების და ფერების მინიჭება'
 description: 'კანვასის ელემენტებზე სტილიზაციების და ფერების მინიჭება JavaScript-ში'
-keywords: 'FILL LATER'
+keywords: 'ხაზების ხატვა, სტილიზაციების მინიჭება ხაზებზე, ტირეს გამოტანა, ხაზების შეერთება'
 ---
 
 წინა სტატიაში განვიხილეთ ფიგურების ხატვა მხოლოდ ნაგულისხმევი ხაზებით და ფერებით. ამ სტატიაში
@@ -196,3 +196,42 @@ if (lineCapCanvas.getContext) {
 თვისებამ შეიძლება მიიღოს სამი მნიშვნელობა: `round`, `bevel` და `miter`. ნაგულისხმევი მნიშვნელობა არის
 `miter`. გაითვალისწინეთ `lineJoin`-ს არ გააჩნია არანაირი ეფექტი თუ ორივე სეგმენტის მიმართულება
 არის ერთნაირი, რადგან გაერთიანების წერტილი არ ექნებათ.
+
+- `round` - წარმოქმნის მომრგვალებულ კუთხეს ხაზების შეერთების ადგილზე.
+- `bevel` - ქმნის ბრტყელ, დახრილ კუთხეს ხაზების შეერთების ადგილზე.
+- `miter` - წარმოქმნის მკვეთრ კუთხეს, სადაც ხაზების გარე კიდეები ხვდება ერთმანეთს. თუ `miter` სიგრძე
+  (დაშორება გადაკვეთის წერტილიდან კუთხემდე) აჭარბებს გარკვეულ ზღვარს (`miterLimit`),
+  შეერთება იჭრება ზედმეტად გრძელი და მკვეთრი კუთხეების თავიდან ასაცილებლად.
+
+```html
+<canvas id="lineJoinExample" width="150" height="150"></canvas>
+```
+
+```js
+const lineJoinCanvas = document.querySelector('#lineJoinExample');
+
+if (lineJoinCanvas.getContext) {
+  const ctx = lineJoinCanvas.getContext('2d');
+  ctx.lineWidth = 10;
+  ['round', 'bevel', 'miter'].forEach((lineJoin, index) => {
+    ctx.lineJoin = lineJoin;
+    ctx.beginPath();
+    ctx.moveTo(-5, 5 + index * 40);
+    ctx.lineTo(35, 45 + index * 40);
+    ctx.lineTo(75, 5 + index * 40);
+    ctx.lineTo(115, 45 + index * 40);
+    ctx.lineTo(155, 5 + index * 40);
+    ctx.stroke();
+  });
+}
+```
+
+## შეჯამება
+
+ამ სტატიაში განვიხილეთ თუ როგორ შეიძლება სტილიზაციების და ფერების მინიჭება ხაზებზე და ფიგურებზე.
+რეალურად კანვას უფრო მეტი ჩაშენებული სტილიზაციებიც გააჩნია, როგორებიცა:
+
+- [CanvasGradient](https://developer.mozilla.org/en-US/docs/Web/API/CanvasGradient)
+- [Patterns](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createPattern)
+
+იხილეთ სტატიის სამაგალითო კოდები [playground](./playground/guides/javascript-canvas-style-and-colors)-ში.

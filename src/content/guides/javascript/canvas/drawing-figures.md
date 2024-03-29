@@ -512,4 +512,4 @@ const path = new Path2D('M10 10 h 80 v 80 h -80 Z');
 შემდეგ `80` ერთეულით გაავლებს ვერტიკალურ ხაზს ქვემოთ, შემდეგ `80` ერთეულით გაავლებს ჰორიზონტალურ ხაზს მარცხნივ და `Z`-ით გაავლებს ამჟამინდელი წერტილიდან
 დასაწყისამდე ხაზს (`Z` გამოიყენება path დასახურად).
 
-იხილეთ სამაგალითო კოდები [playground](./playground/guides/javascript-drawing-figures)-ში.
+იხილეთ სამაგალითო კოდები [playground](./playground/guides/javascript-canvas-drawing-figures)-ში.

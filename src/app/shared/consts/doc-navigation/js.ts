@@ -35,6 +35,10 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
           title: 'მანიპულაცია ელემენტებზე',
           path: 'elements-manipulation',
         },
+        {
+          title: 'ფერების თამაში',
+          path: 'color-game',
+        },
       ],
     },
     {
