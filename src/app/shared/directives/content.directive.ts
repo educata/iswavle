@@ -10,7 +10,7 @@ import {
   ViewContainerRef,
   inject,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DocContent } from '@app-shared/interfaces';
 
 @Directive({
@@ -27,9 +27,12 @@ export class ContentDirective implements OnChanges, AfterViewInit {
   private readonly vcr = inject(ViewContainerRef);
   private readonly renderer = inject(Renderer2);
   private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
   private readonly viewport = inject(ViewportScroller);
   private readonly document = inject(DOCUMENT);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
+  private unlistenFn = () => {};
 
   ngOnChanges(changes: SimpleChanges) {
     if ('content' in changes || 'searchKey' in changes) {
@@ -47,6 +50,12 @@ export class ContentDirective implements OnChanges, AfterViewInit {
     const body = this.renderer.createElement('div');
     title.textContent = content.attributes.title;
     body.innerHTML = content.content;
+
+    const headings = body.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+    headings.forEach((heading: HTMLHeadingElement) => {
+      heading.innerHTML = `<a class="anchor-fragment" href="doc/${this.activatedRoute.snapshot.url.map((url) => url.path).join('/')}#${heading.id}">${heading.innerHTML}</a>`;
+    });
 
     if (searchKey) {
       const segments = (body.innerHTML as string).split(/(<[^>]+>)/);
@@ -76,16 +85,24 @@ export class ContentDirective implements OnChanges, AfterViewInit {
       }, 500);
     }
 
-    this.renderer.listen(contentContainer, 'click', (event) => {
-      if (event.target instanceof HTMLAnchorElement) {
-        this.handleAnchorClick(event);
-      }
-    });
+    if (this.isBrowser) {
+      this.unlistenFn();
+    }
+
+    this.unlistenFn = this.renderer.listen(
+      contentContainer,
+      'click',
+      (event) => {
+        if (event.target instanceof HTMLAnchorElement) {
+          this.handleAnchorClick(event);
+        }
+      },
+    );
   }
 
   handleAnchorClick(event: Event) {
     const a = event.target as HTMLAnchorElement;
-    if (a?.target || /^https:\/\/.*/.test(a.href) || /^#.*/.test(a.href)) {
+    if (a?.target || /^https:\/\/.*/.test(a.href) || a.href.includes('#')) {
       return;
     }
     event.preventDefault();
