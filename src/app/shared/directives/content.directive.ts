@@ -21,7 +21,8 @@ export class ContentDirective implements OnChanges, AfterViewInit {
   // Might consider passing templateRef to allow custom rendering
   @Input('swContent') content!: DocContent;
   @Input('swContentSearch') searchKey: string | null = null;
-  @Input() highlightColor = '#d4d400a3';
+  @Input() highlightBgColor = '#1890ff';
+  @Input() highlightColor = '#fff';
 
   private readonly vcr = inject(ViewContainerRef);
   private readonly renderer = inject(Renderer2);
@@ -48,21 +49,20 @@ export class ContentDirective implements OnChanges, AfterViewInit {
     body.innerHTML = content.content;
 
     if (searchKey) {
-      // TODO: do test extensively how well this works
-      // FIXME: Georgian letters not working
-      const regexToEscape = /[.*+?^${}()|[\]\\]/g;
-      const regexp = new RegExp(
-        '>([^<]*)\\b(' +
-          searchKey.replace(regexToEscape, '\\$&') +
-          ')\\b([^<]*)<',
-        'giu',
-      );
-      body.innerHTML = body.innerHTML.replace(
-        regexp,
-        '>$1<span class="sw-content-highlighted" style="background: ' +
-          this.highlightColor +
-          '">$2</span>$3<',
-      );
+      const segments = (body.innerHTML as string).split(/(<[^>]+>)/);
+      const escapedSearchKey = searchKey.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const pattern = new RegExp(escapedSearchKey, 'giu');
+      body.innerHTML = segments
+        .map((segment) =>
+          segment.startsWith('<')
+            ? segment
+            : segment.replace(
+                pattern,
+                (match) =>
+                  `<span class="sw-content-highlighted" style="background: ${this.highlightBgColor}; color: ${this.highlightColor}">${match}</span>`,
+              ),
+        )
+        .join('');
     }
 
     contentContainer.appendChild(title);
