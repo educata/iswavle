@@ -2,8 +2,10 @@ import { DOCUMENT, ViewportScroller, isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   Directive,
+  EventEmitter,
   Input,
   OnChanges,
+  Output,
   PLATFORM_ID,
   Renderer2,
   SimpleChanges,
@@ -11,6 +13,7 @@ import {
   inject,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CUSTOM_ICONS } from '@app-shared/consts';
 import { DocContent } from '@app-shared/interfaces';
 
 @Directive({
@@ -98,6 +101,14 @@ export class ContentDirective implements OnChanges, AfterViewInit {
         }
       },
     );
+
+    if (content.attributes.codes) {
+      const codeWrappers =
+        contentContainer.querySelectorAll('div.code-wrapper');
+      codeWrappers.forEach((code: HTMLElement, index: number) => {
+        this.handleCopy(code, (content.attributes.codes || [])[index]);
+      });
+    }
   }
 
   handleAnchorClick(event: Event) {
@@ -109,5 +120,23 @@ export class ContentDirective implements OnChanges, AfterViewInit {
     const currentDomain = a.href.split('/').slice(0, 3).join('/');
     this.router.navigateByUrl(a.href.replace(currentDomain, ''));
     this.viewport.scrollToPosition([0, 0]);
+  }
+
+  handleCopy(codeWrapper: HTMLElement, code: string) {
+    const button = codeWrapper.querySelector('button');
+    if (code && button) {
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(code);
+        button.innerHTML = CUSTOM_ICONS['check'];
+        button.disabled = true;
+        (button.children[0] as SVGElement).style.fill = 'green';
+
+        setTimeout(() => {
+          button.innerHTML = CUSTOM_ICONS['copy'];
+          button.disabled = false;
+          button.style.cursor = 'pointer';
+        }, 3000);
+      });
+    }
   }
 }
