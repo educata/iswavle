@@ -2,10 +2,8 @@ import { DOCUMENT, ViewportScroller, isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   Directive,
-  EventEmitter,
   Input,
   OnChanges,
-  Output,
   PLATFORM_ID,
   Renderer2,
   SimpleChanges,
