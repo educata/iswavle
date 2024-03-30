@@ -17,11 +17,12 @@ import {
   IndexMapResultContent,
 } from '@app-shared/interfaces';
 import { BehaviorSubject } from 'rxjs';
+import { SearchBreadcrumbPipe } from './search-breadcrumb.pipe';
 
 @Component({
   selector: 'sw-search-result',
   standalone: true,
-  imports: [AsyncPipe, RouterModule],
+  imports: [AsyncPipe, RouterModule, SearchBreadcrumbPipe],
   templateUrl: './search-result.component.html',
   styleUrl: './search-result.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,

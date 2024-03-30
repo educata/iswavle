@@ -49,7 +49,9 @@
           [cache]="cache"
           (cacheChange)="onCacheChange($event)"
           (onResultClick)="
-            isSearchModalVisible$.next(false); searchService.search('')
+            isSearchModalVisible$.next(false);
+            searchService.search('');
+            searchCompleted.emit()
           "
         ></sw-search-result>
       }

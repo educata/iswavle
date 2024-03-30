@@ -12,7 +12,7 @@
     @for (menu of navItems; track menu.path) {
       @if (menu.children) {
         @if (level === 1) {
-          <li nz-submenu [nzOpen]="true" [nzTitle]="menu.title">
+          <li nz-submenu [nzOpen]="menu.isActive" [nzTitle]="menu.title">
             <ul>
               <ng-container
                 *ngTemplateOutlet="

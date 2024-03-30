@@ -111,6 +111,7 @@ export default class DocsComponent {
           // Exclude contributors from base articles
           return of([]);
         }
+        url = url.split('#')[0];
         return this.contributorsService.getContributors(url);
       }),
     ),
@@ -126,6 +127,10 @@ export default class DocsComponent {
 
   readonly hideToc = computed(
     () => !(this.windowWidth()! >= this.layoutServie.sizes.hideToc),
+  );
+
+  readonly isEnoughToc = computed(
+    () => (this.article()?.attributes.toc.length || 0) > 1,
   );
 
   constructor() {

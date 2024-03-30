@@ -47,6 +47,7 @@ nz-layout.base {
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
+        gap: 1em;
 
         &.single-prev {
           justify-content: flex-end;
@@ -69,16 +70,13 @@ nz-layout.base {
 
         sw-doc-viewer.full-size {
           width: 100%;
+          display: inline-block;
         }
 
         &.with-toc {
           display: flex;
           justify-content: center;
           gap: 20px;
-        }
-
-        div.wrapper {
-          width: 100%;
         }
       }
     }

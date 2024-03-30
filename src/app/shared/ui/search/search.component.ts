@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output,
+  inject,
+} from '@angular/core';
 import { BehaviorSubject, combineLatest, debounceTime, map, tap } from 'rxjs';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -28,6 +34,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent {
+  @Output() searchCompleted = new EventEmitter<void>();
+
   readonly searchService = inject(SearchService);
   readonly isSearchModalVisible$ = new BehaviorSubject<boolean>(false);
 

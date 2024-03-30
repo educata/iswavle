@@ -7,7 +7,7 @@
   >
     <aside class="sidenav-sticky">
       @if (article(); as article) {
-        @if (!isXLarge()) {
+        @if (!isXLarge() && isEnoughToc()) {
           <sw-doc-toc
             [isFixed]="false"
             [docAttrs]="article.attributes.toc"
@@ -47,10 +47,12 @@
         <ng-container *nzDrawerContent>
           <div class="drawer">
             @if (article(); as article) {
-              <sw-doc-toc
-                [isFixed]="false"
-                [docAttrs]="article.attributes.toc"
-              ></sw-doc-toc>
+              @if (isEnoughToc()) {
+                <sw-doc-toc
+                  [isFixed]="false"
+                  [docAttrs]="article.attributes.toc"
+                ></sw-doc-toc>
+              }
             }
             <sw-sidenav
               [navItems]="navigation()"
@@ -103,11 +105,13 @@
               </div>
             }
           </div>
-          <aside>
-            @if (!hideToc() && isXLarge()) {
-              <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
-            }
-          </aside>
+          @if (isEnoughToc()) {
+            <aside>
+              @if (!hideToc() && isXLarge()) {
+                <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
+              }
+            </aside>
+          }
         } @else {
           <p>კონტენტი არ არის</p>
         }
