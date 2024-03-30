@@ -5,7 +5,7 @@ import {
   Output,
   inject,
 } from '@angular/core';
-import { BehaviorSubject, combineLatest, map } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, map, tap } from 'rxjs';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { SearchService } from '@app-shared/services';
@@ -14,6 +14,8 @@ import { AsyncPipe } from '@angular/common';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { IndexMapResult } from '@app-shared/interfaces';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'sw-search',
@@ -25,6 +27,7 @@ import { IndexMapResult } from '@app-shared/interfaces';
     NzIconModule,
     SearchResultComponent,
     AsyncPipe,
+    ReactiveFormsModule,
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.less',
@@ -38,6 +41,8 @@ export class SearchComponent {
 
   readonly cache = new Map<string, IndexMapResult[]>();
 
+  searchControl = new FormControl('');
+
   readonly vm$ = combineLatest([
     this.searchService.indexMap$,
     this.isSearchModalVisible$,
@@ -50,14 +55,20 @@ export class SearchComponent {
     })),
   );
 
-  searchUp(event: Event) {
-    const target = event.target as HTMLInputElement;
-    this.searchService.search(target.value);
+  constructor() {
+    this.searchControl.valueChanges
+      .pipe(
+        takeUntilDestroyed(),
+        debounceTime(500),
+        tap((value) => {
+          this.searchService.search(value || '');
+        }),
+      )
+      .subscribe();
   }
 
-  clearSearch(input: HTMLInputElement) {
-    input.value = '';
-    this.searchService.search('');
+  clearSearch() {
+    this.searchControl.setValue(null);
   }
 
   onCacheChange(event: { key: string; data: IndexMapResult[] }) {

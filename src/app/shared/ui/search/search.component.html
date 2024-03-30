@@ -28,7 +28,7 @@
             nz-input
             type="text"
             placeholder="შეიყვანეთ საძიებო ტექსტი"
-            (keyup)="searchUp($event)"
+            [formControl]="searchControl"
           />
         </nz-input-group>
         <ng-template #suffixIconButton>
@@ -36,7 +36,7 @@
             nz-button
             nzSearch
             nzType="primary"
-            (click)="clearSearch(input)"
+            (click)="clearSearch()"
           >
             <span nz-icon nzType="clear" nzTheme="outline"></span>
           </button>

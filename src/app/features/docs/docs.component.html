@@ -69,6 +69,7 @@
             <sw-doc-viewer
               [class.full-size]="!isXLarge()"
               [docContent]="article"
+              [searchKey]="searchKey()"
             ></sw-doc-viewer>
             @if (isBrowser) {
               @if (articleSiblings(); as siblings) {

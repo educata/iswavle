@@ -16,7 +16,6 @@ import {
   IndexMapResult,
   IndexMapResultContent,
 } from '@app-shared/interfaces';
-
 import { BehaviorSubject } from 'rxjs';
 import { SearchBreadcrumbPipe } from './search-breadcrumb.pipe';
 

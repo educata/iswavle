@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { IndexMap, IndexMapResult } from '@app-shared/interfaces';
+import { IndexMap } from '@app-shared/interfaces';
 import { BehaviorSubject, EMPTY, catchError, tap } from 'rxjs';
 
 @Injectable({
