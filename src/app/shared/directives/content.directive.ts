@@ -13,6 +13,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_ICONS } from '@app-shared/consts';
 import { DocContent } from '@app-shared/interfaces';
+import { SanitizerService } from '@app-shared/services';
 
 @Directive({
   selector: '[swContent]',
@@ -30,6 +31,7 @@ export class ContentDirective implements OnChanges, AfterViewInit {
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly viewport = inject(ViewportScroller);
+  private readonly sanitizer = inject(SanitizerService);
   private readonly document = inject(DOCUMENT);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
@@ -55,7 +57,8 @@ export class ContentDirective implements OnChanges, AfterViewInit {
     const headings = body.querySelectorAll('h1, h2, h3, h4, h5, h6');
 
     headings.forEach((heading: HTMLHeadingElement) => {
-      heading.innerHTML = `<a class="anchor-fragment" href="doc/${this.activatedRoute.snapshot.url.map((url) => url.path).join('/')}#${heading.id}">${heading.innerHTML}</a>`;
+      heading.id = this.sanitizer.sanitizeTocID(heading.id);
+      heading.innerHTML = `<a class="anchor-fragment" href="doc/${this.activatedRoute.snapshot.url.map((url) => url.path).join('/')}#${this.sanitizer.sanitizeTocID(heading.id)}">${heading.innerHTML}</a>`;
     });
 
     if (searchKey) {
