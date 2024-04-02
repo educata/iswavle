@@ -55,7 +55,11 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
         },
         {
           title: 'სტილიზაციების და ფერების მინიჭება',
-          path: 'style_and_colors',
+          path: 'style-and-colors',
+        },
+        {
+          title: 'ტექსტების დახატვა',
+          path: 'drawing-text',
         },
       ],
     },

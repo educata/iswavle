@@ -22,8 +22,8 @@ keywords: 'canvas, <canvas>, canvas basic usage, კანვასის ძი
 
 - [ძირითადი გამოყენება](./doc/guides/javascript/canvas/basic-usage)
 - [ფიგურების დახატვა](./doc/guides/javascript/canvas/drawing-figures)
-- [სტილიზაციების და ფერების მინიჭება](./doc/guides/javascript/canvas/style_and_colors)
-- ტექსტების დახატვა
+- [სტილიზაციების და ფერების მინიჭება](./doc/guides/javascript/canvas/style-and-colors)
+- [ტექსტების დახატვა](./doc/guides/javascript/canvas/drawing-text)
 - სურათების გამოყენება
 - ტრანსფორმაციები
 - შედგენა და ამოკვეთა
