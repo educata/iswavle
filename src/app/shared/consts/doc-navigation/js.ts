@@ -61,6 +61,10 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
           title: 'ტექსტების დახატვა',
           path: 'drawing-text',
         },
+        {
+          title: 'სურათების გამოყენება',
+          path: 'using-images',
+        },
       ],
     },
   ],
