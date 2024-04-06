@@ -32,6 +32,7 @@ export class CommentsComponent {
         tap((theme) => {
           if (this.isBrowser) {
             this.vcr.clear();
+            (this.vcr.element.nativeElement as HTMLElement).innerHTML = '';
             const script = this.renderer.createElement('script');
             this.renderer.setAttribute(
               script,
