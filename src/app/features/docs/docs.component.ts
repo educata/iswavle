@@ -35,7 +35,11 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 import { DocContent } from '@app-shared/interfaces';
-import { SidenavComponent, AutoBreadcrumbsComponent } from '@app-shared/ui';
+import {
+  SidenavComponent,
+  AutoBreadcrumbsComponent,
+  CommentsComponent,
+} from '@app-shared/ui';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import {
   DocContributorsComponent,
@@ -63,6 +67,7 @@ import {
     AsyncPipe,
     NzToolTipModule,
     DocContributorsComponent,
+    CommentsComponent,
   ],
   templateUrl: './docs.component.html',
   styleUrl: './docs.component.less',
