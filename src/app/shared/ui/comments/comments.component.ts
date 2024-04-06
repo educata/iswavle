@@ -32,7 +32,7 @@ export class CommentsComponent implements OnInit {
       );
       this.renderer.setAttribute(script, 'repo', 'educata/iswavle-comments');
       this.renderer.setAttribute(script, 'issue-term', 'title');
-      this.renderer.setAttribute(script, 'label', '💬');
+      this.renderer.setAttribute(script, 'label', 'კომენტარი 💬');
       this.renderer.setAttribute(script, 'theme', 'github-light');
       this.renderer.setAttribute(script, 'crossorigin', 'anonymous');
       this.renderer.setAttribute(script, 'async', '');
