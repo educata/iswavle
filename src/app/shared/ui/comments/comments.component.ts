@@ -30,7 +30,7 @@ export class CommentsComponent implements OnInit {
         'src',
         'https://utteranc.es/client.js',
       );
-      this.renderer.setAttribute(script, 'repo', 'educata/iswavle');
+      this.renderer.setAttribute(script, 'repo', 'educata/iswavle-comments');
       this.renderer.setAttribute(script, 'issue-term', 'title');
       this.renderer.setAttribute(script, 'label', '💬');
       this.renderer.setAttribute(script, 'theme', 'github-light');
