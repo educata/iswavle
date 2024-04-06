@@ -6,6 +6,11 @@ on:
       - main
   pull_request:
 
+permissions:
+  pull-requests: write
+  issues: write
+  repository-projects: write
+
 jobs:
   deploy:
     runs-on: ubuntu-22.04
