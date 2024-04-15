@@ -1,14 +1,31 @@
+<div #alert>
+  <nz-alert
+    nzType="info"
+    nzShowIcon="false"
+    nzCloseable
+    nzBanner
+    [nzMessage]="banner"
+    (nzOnClose)="burgerTopDistance$.next('66px')"
+  ></nz-alert>
+</div>
 <nz-layout class="root-layout">
+  <ng-template #banner>
+    <div class="banner">საიტი არის დეველოპმენტის ადრეულ ეტაპზე</div>
+  </ng-template>
   <header>
-    <div class="brand">
-      <a routerLink="/">Iswavle</a>
-    </div>
     @if (vm$ | async; as vm) {
+      <div class="brand">
+        <a routerLink="/">ისწავლე</a>
+        <sw-search
+          (searchCompleted)="isMenuOpenedByUser$.next(false)"
+        ></sw-search>
+      </div>
       <nav>
         <ul
           nz-menu
           [nzMode]="vm.menuMode || 'horizontal'"
           [class.is-open]="vm.isMenuOpen"
+          [ngStyle]="{ top: vm.burgerTopDistance }"
         >
           @for (nav of vm.headerNavigation; track nav.routerLink) {
             <li
@@ -58,9 +75,7 @@
           class="burger"
           aria-label="გამოაჩინე სანავიგაციო ველი"
           [attr.aria-expanded]="vm.isMenuOpen"
-          (click)="
-            this.isMenuOpenedByUser$.next(!this.isMenuOpenedByUser$.value)
-          "
+          (click)="isMenuOpenedByUser$.next(!isMenuOpenedByUser$.value)"
         >
           <span
             nz-icon

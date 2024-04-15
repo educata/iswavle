@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
+import { SanitizeIdPipe } from './sanitize-id.pipe';
 
 @Component({
   selector: 'sw-doc-toc',
   standalone: true,
-  imports: [NzAnchorModule],
+  imports: [NzAnchorModule, SanitizeIdPipe],
   templateUrl: './doc-toc.component.html',
   styleUrl: './doc-toc.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,

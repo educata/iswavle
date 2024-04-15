@@ -1,6 +1,10 @@
 @menuBreakPoint: 830px;
 @headerSize: 66px;
 
+.banner {
+  text-align: center;
+}
+
 nz-layout.root-layout {
   min-height: 100vh;
 }
@@ -70,7 +74,8 @@ header {
         z-index: 1000;
 
         &.is-open {
-          right: 0px;
+          right: 0;
+          padding: 0 20px;
         }
       }
     }

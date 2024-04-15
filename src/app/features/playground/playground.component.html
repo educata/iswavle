@@ -97,15 +97,22 @@
       <aside class="preview" nz-col nzXs="24" nzMd="12" nzLg="12">
         <div class="wrapper" id="result-side">
           <aside class="result">
+            <nz-spin
+              nzSimple
+              nzTip="ერთი წამი..."
+              [nzSpinning]="!vm.isServerRunning"
+            >
+            </nz-spin>
             <iframe
               class="site"
               aria-label="კოდიდან დაგენერირებული ვებგვერდი"
+              allow="cross-origin-isolated"
               [src]="vm.serverUrl"
             ></iframe>
           </aside>
-          <aside class="terminal">
+          <!-- <aside class="terminal">
             <sw-terminal aria-label="ტერმინალი"></sw-terminal>
-          </aside>
+          </aside> -->
         </div>
       </aside>
     </section>

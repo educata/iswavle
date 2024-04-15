@@ -30,6 +30,7 @@
     "prerender:content": "node --loader ts-node/esm ./prerender/render-content.ts",
     "prerender:examples": "node --loader ts-node/esm ./prerender/render-examples.ts",
     "prerender": "yarn prerender:content && yarn prerender:examples",
+    "prerender:watch": "node --loader ts-node/esm ./prerender/watch.ts",
     "lint:md": "markdownlint **/*.md",
     "lint:md:fix": "markdownlint --fix **/*.md",
     "release": "release-it",

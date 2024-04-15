@@ -112,6 +112,9 @@ export default class PlaygroundComponent {
   readonly serverUrl$ = this.webcontainerState.serverUrl$.pipe(
     map((url) => this.domSanitizer.bypassSecurityTrustResourceUrl(url)),
   );
+  readonly isServerRunning$ = this.webcontainerState.serverUrl$.pipe(
+    map((url) => Boolean(url)),
+  );
 
   readonly editorTheme$ = combineLatest([
     this.currentEditorTheme$,
@@ -147,6 +150,7 @@ export default class PlaygroundComponent {
     this.editorTheme$,
     this.isSiderCollapsed$,
     this.isEditorInitialized$,
+    this.isServerRunning$,
   ]).pipe(
     map(
       ([
@@ -159,6 +163,7 @@ export default class PlaygroundComponent {
         editorTheme,
         isSiderCollapsed,
         isEditorInitialized,
+        isServerRunning,
       ]) => ({
         files,
         openFile,
@@ -169,6 +174,7 @@ export default class PlaygroundComponent {
         editorTheme,
         isSiderCollapsed,
         isEditorInitialized,
+        isServerRunning,
       }),
     ),
   );
@@ -192,8 +198,8 @@ export default class PlaygroundComponent {
           this.webcontainerState.init({
             files: mappedFiles,
             initialFilePath: path,
-            // static: true,
-            // port: '8080',
+            static: true,
+            port: '8080',
             root: files[0]['path'],
           });
         }

@@ -7,3 +7,4 @@ export * from './webcontainer-state';
 export * from './content-loader';
 export * from './meta';
 export * from './contributor';
+export * from './search';
