@@ -1,4 +1,4 @@
-<nz-anchor [nzAffix]="isFixed">
+<nz-anchor [nzAffix]="isFixed" (nzClick)="onClick.emit($event)">
   @for (attr of docAttrs; track attr.id) {
     @if (attr.sub) {
       <nz-link nzHref="#{{ attr.id | sanitizeId }}" [nzTitle]="attr.title">
