@@ -65,6 +65,10 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
           title: 'სურათების გამოყენება',
           path: 'using-images',
         },
+        {
+          title: 'ტრანსფორმაციები',
+          path: 'transformations',
+        },
       ],
     },
   ],
