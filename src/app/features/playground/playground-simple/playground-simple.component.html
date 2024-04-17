@@ -1,0 +1,109 @@
+<main>
+  @if (vm$ | async; as vm) {
+    <section nz-row class="playground">
+      <aside class="editor" nz-col nzXs="24" nzMd="12" nzLg="12">
+        <section class="actions">
+          <nz-button-group>
+            <button
+              nz-button
+              [disabled]="!vm.isEditorInitialized"
+              [attr.aria-expanded]="!vm.isSiderCollapsed"
+              [attr.aria-label]="
+                vm.isSiderCollapsed ? 'ფაილების ჩვენება' : 'ფაილების დამალვა'
+              "
+              (click)="isSiderCollapsed$.next(!vm.isSiderCollapsed)"
+            >
+              <span
+                nz-icon
+                nzTheme="outline"
+                [nzType]="vm.isSiderCollapsed ? 'menu-unfold' : 'menu-fold'"
+              ></span>
+            </button>
+            @if (isBrowser) {
+              <button
+                nz-button
+                nz-dropdown
+                nzPlacement="bottomLeft"
+                [nzDropdownMenu]="theme"
+              >
+                <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
+              </button>
+              <nz-dropdown-menu #theme="nzDropdownMenu">
+                <ul nz-menu>
+                  <li nz-menu-item (click)="defaultTheme()">ნაგულისხმევი</li>
+                  @for (theme of editorThemes; track theme) {
+                    <li nz-menu-item (click)="changeTheme(theme)">
+                      {{ theme }}
+                    </li>
+                  }
+                </ul>
+              </nz-dropdown-menu>
+            }
+            <button nz-button (click)="download()" aria-label="კოდის გადმოწერა">
+              <span nz-icon nzType="download" nzTheme="outline"></span>
+            </button>
+          </nz-button-group>
+        </section>
+        <nz-layout>
+          <nz-sider
+            nzCollapsible
+            aria-label="ფაილების ჩამონათვალი"
+            [nzTheme]="vm.globalTheme"
+            [nzCollapsedWidth]="0"
+            [nzTrigger]="null"
+            [nzCollapsed]="vm.isSiderCollapsed"
+            (nzCollapsedChange)="isSiderCollapsed$.next($event)"
+          >
+            <nz-tree
+              [nzData]="vm.files"
+              [nzShowIcon]="true"
+              (nzClick)="selectFile($event)"
+            ></nz-tree>
+          </nz-sider>
+          <nz-layout>
+            <nz-content>
+              <ng-container
+                #editorOutlet
+                [ngTemplateOutlet]="editorTemplate"
+              ></ng-container>
+              <ng-template #editorTemplate>
+                <form [formGroup]="editorForm">
+                  <nz-code-editor
+                    #editor
+                    class="editor"
+                    aria-label="კოდის ედიტორი"
+                    [formControlName]="vm.openFileName.replaceAll('.', '')"
+                    (nzEditorInitialized)="isEditorInitialized$.next(true)"
+                    [nzEditorOption]="{
+                      language: vm.openFileName | languageExtension,
+                      theme: vm.editorTheme,
+                      minimap: {
+                        enabled: false
+                      }
+                    }"
+                  ></nz-code-editor>
+                </form>
+              </ng-template>
+            </nz-content>
+          </nz-layout>
+        </nz-layout>
+      </aside>
+      <aside class="preview" nz-col nzXs="24" nzMd="12" nzLg="12">
+        <div class="wrapper" id="result-side">
+          <aside class="result">
+            <nz-spin nzSimple nzTip="ერთი წამი..." [nzSpinning]="false">
+            </nz-spin>
+            <iframe
+              class="site"
+              aria-label="კოდიდან დაგენერირებული ვებგვერდი"
+              allow="cross-origin-isolated"
+            ></iframe>
+          </aside>
+          <!-- <aside class="terminal">
+            <sw-terminal aria-label="ტერმინალი"></sw-terminal>
+          </aside> -->
+        </div>
+      </aside>
+    </section>
+  }
+</main>

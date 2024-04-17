@@ -1,60 +1,56 @@
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   PLATFORM_ID,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
   inject,
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DomSanitizer } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import {
-  BehaviorSubject,
-  combineLatest,
-  debounceTime,
-  filter,
-  map,
-  merge,
-  take,
-  tap,
-  withLatestFrom,
-} from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { EDITOR_THEMES, CUSTOM_ICONS, ICON_PREFIX } from '@app-shared/consts';
+import { LocalStorageKeys, Theme } from '@app-shared/enums';
+import { WebContainerFile } from '@app-shared/interfaces';
+import { WEBCONTAINER_STATE } from '@app-shared/providers';
+import { ThemeService } from '@app-shared/services';
 import { Uri } from 'monaco-editor';
-import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
-import { NzGridModule } from 'ng-zorro-antd/grid';
-import {
-  NzFormatEmitEvent,
-  NzTreeModule,
-  NzTreeNodeOptions,
-} from 'ng-zorro-antd/tree';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import {
   NzCodeEditorComponent,
   NzCodeEditorModule,
 } from 'ng-zorro-antd/code-editor';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import {
-  WEBCONTAINER_STATE,
-  provideWebcontainerState,
-} from '@app-shared/providers/';
-import { WebContainerFile } from '@app-shared/interfaces';
-import { CUSTOM_ICONS, EDITOR_THEMES, ICON_PREFIX } from '@app-shared/consts';
+  NzTreeNodeOptions,
+  NzFormatEmitEvent,
+  NzTreeModule,
+} from 'ng-zorro-antd/tree';
+import {
+  BehaviorSubject,
+  map,
+  combineLatest,
+  tap,
+  filter,
+  debounceTime,
+  withLatestFrom,
+  take,
+  merge,
+} from 'rxjs';
+import { LanguageExtensionPipe } from '../language-extension.pipe';
 import { TerminalComponent } from './ui';
-import { LanguageExtensionPipe } from './language-extension.pipe';
-import { ThemeService } from '@app-shared/services';
-import { LocalStorageKeys, Theme } from '@app-shared/enums';
 
 declare const monaco: any;
 
 @Component({
-  selector: 'sw-playground',
+  selector: 'sw-playground-wc',
   standalone: true,
   imports: [
     CommonModule,
@@ -70,12 +66,11 @@ declare const monaco: any;
     NzButtonModule,
     NzDropDownModule,
   ],
-  providers: [provideWebcontainerState()],
-  templateUrl: './playground.component.html',
-  styleUrl: './playground.component.less',
+  templateUrl: './playground-wc.component.html',
+  styleUrl: './playground-wc.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class PlaygroundComponent {
+export class PlaygroundWcComponent {
   private readonly platform = inject(PLATFORM_ID);
   private readonly iconService = inject(NzIconService);
   private readonly route = inject(ActivatedRoute);

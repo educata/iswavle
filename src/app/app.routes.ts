@@ -53,7 +53,9 @@ export const routes: Routes = [
       {
         matcher: indeterminateSegments,
         loadComponent: () =>
-          import('./features/playground/playground.component'),
+          import(
+            './features/playground/playground-simple/playground-simple.component'
+          ),
         resolve: { data: codeResolver },
       },
     ],
