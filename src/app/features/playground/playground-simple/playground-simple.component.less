@@ -7,36 +7,38 @@ main {
     min-height: calc(100vh - 66px);
     box-sizing: border-box;
 
-    form {
-      .editor {
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr;
-        // grid-template-rows: 42px 1fr;
+    .editor {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 42px 1fr;
 
-        .actions {
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-          padding: 5px 10px;
-          margin-left: 19px;
-        }
+      form {
+        height: 100%;
+      }
 
-        .wrapper {
+      .actions {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 5px 10px;
+        margin-left: 19px;
+      }
+
+      .wrapper {
+        height: 100%;
+
+        aside {
           height: 100%;
 
-          aside {
+          nz-code-editor {
+            width: 100%;
+            min-height: 300px;
             height: 100%;
+          }
 
-            nz-code-editor {
-              width: 100%;
-              min-height: 300px;
-              height: 100%;
-            }
-
-            nz-tree {
-              height: 100%;
-            }
+          nz-tree {
+            height: 100%;
           }
         }
       }

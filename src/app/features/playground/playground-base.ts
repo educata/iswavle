@@ -15,18 +15,13 @@ import { ActivatedRoute } from '@angular/router';
 import { CUSTOM_ICONS, EDITOR_THEMES, ICON_PREFIX } from '@app-shared/consts';
 import { LocalStorageKeys, Theme } from '@app-shared/enums';
 import { ThemeService } from '@app-shared/services';
-import {
-  NzCodeEditorComponent,
-  NzCodeEditorModule,
-} from 'ng-zorro-antd/code-editor';
-import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
-import { NzTreeModule, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
+import { NzIconService } from 'ng-zorro-antd/icon';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { BehaviorSubject, combineLatest, map, tap } from 'rxjs';
-import {
-  PLAYGROUND_EFFECTS,
-  PlaygroundEffects,
-} from './playground-effects.token';
+
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { PlaygroundEffects } from '@app-shared/interfaces';
 
 @Component({
   selector: 'sw-playground-base',

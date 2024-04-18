@@ -91,17 +91,18 @@
       <aside class="preview" nz-col nzXs="24" nzMd="12" nzLg="12">
         <div class="wrapper" id="result-side">
           <aside class="result">
-            <nz-spin nzSimple nzTip="ერთი წამი..." [nzSpinning]="false">
+            <nz-spin
+              nzSimple
+              nzTip="ერთი წამი..."
+              [nzSpinning]="vm.frameSource === ''"
+            >
             </nz-spin>
             <iframe
               class="site"
               aria-label="კოდიდან დაგენერირებული ვებგვერდი"
-              allow="cross-origin-isolated"
+              [srcdoc]="vm.frameSource | bypassSanitize"
             ></iframe>
           </aside>
-          <!-- <aside class="terminal">
-            <sw-terminal aria-label="ტერმინალი"></sw-terminal>
-          </aside> -->
         </div>
       </aside>
     </section>

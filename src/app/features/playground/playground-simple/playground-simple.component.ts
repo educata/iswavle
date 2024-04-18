@@ -26,7 +26,11 @@ import {
   BehaviorSubject,
   combineLatest,
   map,
+  switchMap,
+  startWith,
 } from 'rxjs';
+import { PlaygroundEffects } from '@app-shared/interfaces';
+import { BypassSanitizePipe } from './bypass-sanitize.pipe';
 
 declare const monaco: any;
 
@@ -46,6 +50,7 @@ declare const monaco: any;
     NzLayoutModule,
     NzButtonModule,
     NzDropDownModule,
+    BypassSanitizePipe,
   ],
   templateUrl: './playground-simple.component.html',
   styleUrl: './playground-simple.component.less',
@@ -57,9 +62,16 @@ export default class PlaygroundSimpleComponent
 {
   private readonly fb = inject(FormBuilder);
 
-  editorForm = this.fb.group({});
-
+  readonly editorForm = this.fb.group({});
   readonly openFileName$ = new BehaviorSubject<string>('index.html');
+
+  readonly frameSource$ = this.files$.pipe(
+    take(1),
+    switchMap(() =>
+      this.editorForm.valueChanges.pipe(startWith(this.editorForm.value)),
+    ),
+    map((files) => this.combineFiles(files)),
+  );
 
   readonly vm$ = combineLatest([
     this.files$,
@@ -68,6 +80,7 @@ export default class PlaygroundSimpleComponent
     this.isSiderCollapsed$,
     this.isEditorInitialized$,
     this.openFileName$,
+    this.frameSource$,
   ]).pipe(
     map(
       ([
@@ -77,6 +90,7 @@ export default class PlaygroundSimpleComponent
         isSiderCollapsed,
         isEditorInitialized,
         openFileName,
+        frameSource,
       ]) => ({
         files,
         globalTheme,
@@ -84,11 +98,12 @@ export default class PlaygroundSimpleComponent
         isSiderCollapsed,
         isEditorInitialized,
         openFileName,
+        frameSource,
       }),
     ),
   );
 
-  effects = {
+  readonly effects: PlaygroundEffects = {
     refreshEditorLayout$: this.isSiderCollapsed$.pipe(
       withLatestFrom(this.isEditorInitialized$),
       filter(([_, isEditorInitialized]) => isEditorInitialized),
@@ -119,7 +134,11 @@ export default class PlaygroundSimpleComponent
         files[0].children.forEach((file) => {
           this.editorForm.setControl(
             file.title.replaceAll('.', ''),
-            this.fb.control(file['content']),
+            this.fb.control(
+              file.title.includes('html')
+                ? this.parseHTML(file['content'])
+                : file['content'],
+            ),
           );
         });
       }),
@@ -135,5 +154,58 @@ export default class PlaygroundSimpleComponent
   selectFile(event: NzFormatEmitEvent) {
     if (!event.node?.isLeaf) return;
     this.openFileName$.next(event.node.title);
+  }
+
+  private parseHTML(html: string) {
+    html = html.replace(
+      /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+      '',
+    );
+
+    const bodyContent = html.match(/<body[^>]*>[\s\S]*<\/body>/i);
+
+    if (bodyContent && bodyContent.length > 0) {
+      return bodyContent[0].replace(/<\/?body[^>]*>/g, '');
+    }
+
+    return '';
+  }
+
+  private combineFiles(files: Partial<{ [key: string]: string }>) {
+    const htmls: string[] = [];
+    const styles: string[] = [];
+    const scripts: string[] = [];
+
+    for (const key in files) {
+      const content = files[key] || '';
+      if (key.includes('html')) {
+        htmls.push(content);
+      } else if (key.includes('js')) {
+        scripts.push(content);
+      } else if (key.includes('css')) {
+        styles.push(content);
+      }
+    }
+
+    // TODO: Update
+
+    return `
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Example</title>
+          <style>${styles.join(' ')}</style>
+        </head>
+        <body>
+          ${htmls.join(' ')}
+          <span></span>
+          <script>
+            ${scripts.join(' ')}
+          </script>
+        </body>
+      </html>
+    `;
   }
 }
