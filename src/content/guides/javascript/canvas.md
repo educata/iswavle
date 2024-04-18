@@ -26,8 +26,7 @@ keywords: 'canvas, <canvas>, canvas basic usage, კანვასის ძი
 - [ტექსტების დახატვა](./doc/guides/javascript/canvas/drawing-text)
 - [სურათების გამოყენება](./doc/guides/javascript/canvas/using-images)
 - [ტრანსფორმაციები](./doc/guides/javascript/canvas/transformations)
-- შედგენა და ამოკვეთა
-- ძირითადი ანიმაციები
+- [ძირითადი ანიმაციები](./doc/guides/javascript/canvas/basic-animations)
 - რთული ანიმაციები
 - პიქსელების მანიპულაცია
 - ოპტიმიზირება კანვასის

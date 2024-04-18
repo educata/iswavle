@@ -38,7 +38,6 @@ keywords: 'კანვასის სთეითთან მუშაობ�
 - [textBaseline](./doc/guides/javascript/canvas/drawing-text#textBaseLine)
 - [direction](./doc/guides/javascript/canvas/drawing-text#direction)
 - [imageSmoothingEnabled](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/imageSmoothingEnabled)
-- ამჟამინდელი [path ამოჭრა](./doc/guides/javascript/canvas/compositing-and-clipping#clipping_paths), რომელსაც შემდგომ სტატიაში განვიხილავთ.
 
 `save` მეთოდი შეგიძლიათ გამოიძახოთ იმდენჯერ რამდენჯერაც გაგიხარდებათ. რამდენჯერაც `restore` მეთოდს გამოიძახებთ, დაგვიბრუნებს რიგრიგობით
 ბოლო შენახულ სთეითებს.
