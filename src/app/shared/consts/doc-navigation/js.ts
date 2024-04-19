@@ -69,6 +69,14 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
           title: 'ტრანსფორმაციები',
           path: 'transformations',
         },
+        {
+          title: 'მარტივი ანიმაციები',
+          path: 'basic-animations',
+        },
+        {
+          title: 'რთული ანიმაციები',
+          path: 'advanced-animations',
+        },
       ],
     },
   ],
