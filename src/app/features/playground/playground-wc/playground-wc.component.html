@@ -41,6 +41,7 @@
             }
             <button
               nz-button
+              [disabled]="!vm.isEditorInitialized"
               (click)="isDownloadModalVisible$.next(true)"
               aria-label="კოდის გადმოწერა"
             >

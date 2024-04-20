@@ -119,7 +119,7 @@ export class WebContainerService implements WebContainerState, OnDestroy {
 
   ngOnDestroy(): void {
     this.#instanceLoaded$.pipe(filter(Boolean), take(1)).subscribe(() => {
-      console.log("Destroying webcontainer instance...")
+      console.log('Destroying webcontainer instance...');
       this.instance?.teardown();
       this.#instanceDestroyed$.next(true);
     });

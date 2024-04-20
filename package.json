@@ -22,6 +22,7 @@
   ],
   "scripts": {
     "ng": "ng",
+    "ci": "yarn install --pure-lockfile",
     "start": "yarn prerender && ng serve",
     "build": "yarn prerender && ng build",
     "watch": "yarn prerender && ng build --watch --configuration development",

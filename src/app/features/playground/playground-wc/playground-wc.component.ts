@@ -38,6 +38,7 @@ import {
 import { LanguageExtensionPipe } from '../language-extension.pipe';
 import { TerminalComponent } from './ui';
 import { PlaygroundBaseComponent } from '../playground-base';
+import { TITLE_SUFFIX_SEPARATOR } from '@app-shared/consts';
 
 declare const monaco: any;
 
@@ -201,5 +202,71 @@ export default class PlaygroundWcComponent
     return null;
   }
 
-  download(combined: boolean) {}
+  download(combined: boolean) {
+    this.files$
+      .pipe(
+        take(1),
+        tap(async (files) => {
+          this.isDownloadModalVisible$.next(false);
+          const allFiles: NzTreeNodeOptions[] = [];
+          this.appendChildrenFiles(files, allFiles);
+
+          const title =
+            this.title
+              .getTitle()
+              .split(TITLE_SUFFIX_SEPARATOR)
+              .shift()
+              ?.split(' ')
+              .filter((part) => Boolean(part))
+              .join('_') || 'blank';
+
+          for (const file of allFiles) {
+            const content = await this.webcontainerState.readFile(file['path']);
+            file['updatedContent'] = content;
+            if (file['language'] === 'html') {
+              const prev = file['updatedContent'];
+              file['updatedContent'] =
+                `<!-- კოდი დაგენერირდა: ${location.href}-ს ედიტორის გამოყენებით -->`.concat(
+                  prev,
+                );
+            }
+          }
+
+          if (combined) {
+            this.downloadService.downloadFiles(
+              allFiles.map((file) => ({
+                name: file.key,
+                content: file['updatedContent'] || '',
+                contentType: `text/${file['language']}`,
+              })),
+              title,
+            );
+            return;
+          }
+
+          allFiles.forEach((file) => {
+            this.downloadService.downloadFile({
+              name: file.key,
+              content: file['updatedContent'] || '',
+              contentType: `text/${file['language']}`,
+            });
+          });
+        }),
+      )
+      .subscribe();
+  }
+
+  private appendChildrenFiles(
+    files: NzTreeNodeOptions[],
+    allFiles: NzTreeNodeOptions[],
+  ) {
+    files.forEach((file) => {
+      if (file['content'] && file['language']) {
+        allFiles.push(file);
+      }
+      if (file.children) {
+        this.appendChildrenFiles(file.children, allFiles);
+      }
+    });
+  }
 }
