@@ -1,9 +1,8 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   DestroyRef,
-  Inject,
-  OnInit,
+  HostListener,
   PLATFORM_ID,
   TemplateRef,
   ViewChild,
@@ -81,6 +80,19 @@ export class PlaygroundBaseComponent {
       }
     }),
   );
+
+  @HostListener('window:keydown', ['$event']) keyDown(event: KeyboardEvent) {
+    if (event.key === 's' && event.ctrlKey) {
+      event.preventDefault();
+      this.download();
+    }
+  }
+
+  @HostListener('window:beforeunload', ['$event']) onBeforeUnload(
+    event: Event,
+  ) {
+    event.preventDefault();
+  }
 
   constructor() {
     this.registerIcons();
