@@ -39,7 +39,11 @@
                 </ul>
               </nz-dropdown-menu>
             }
-            <button nz-button (click)="download()" aria-label="კოდის გადმოწერა">
+            <button
+              nz-button
+              (click)="isDownloadModalVisible$.next(true)"
+              aria-label="კოდის გადმოწერა"
+            >
               <span nz-icon nzType="download" nzTheme="outline"></span>
             </button>
           </nz-button-group>

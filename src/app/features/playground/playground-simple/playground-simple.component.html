@@ -39,7 +39,11 @@
                 </ul>
               </nz-dropdown-menu>
             }
-            <button nz-button (click)="download()" aria-label="კოდის გადმოწერა">
+            <button
+              nz-button
+              aria-label="კოდის გადმოწერა"
+              (click)="isDownloadModalVisible$.next(true)"
+            >
               <span nz-icon nzType="download" nzTheme="outline"></span>
             </button>
           </nz-button-group>
@@ -106,5 +110,42 @@
         </div>
       </aside>
     </section>
+    <nz-modal
+      nzTitle="გადმოწერა"
+      [nzStyle]="{ top: '64px' }"
+      [nzCancelText]="null"
+      [nzOkText]="null"
+      [nzFooter]="null"
+      [(nzVisible)]="vm.isDownloadModalVisible"
+      (nzOnCancel)="isDownloadModalVisible$.next(false)"
+    >
+      <ng-container *nzModalContent>
+        <h3 style="margin-bottom: 24px; text-align: center">
+          გაითვალისწინეთ შესაძლებელია ბრაუზერმა სკრიპტის ტიპის ფაილი
+          <span style="color: red; font-weight: bold">ვირუსად</span>
+          მონიშნოს!
+        </h3>
+        <div class="center-wrap" style="margin-bottom: 24px">
+          <button
+            nz-button
+            nzType="default"
+            aria-label="ერთი ფაილის გადმოწერა"
+            (click)="download(false)"
+          >
+            რიგრიგობით გადმოწერა
+            <span nz-icon nzType="download" nzTheme="outline"></span>
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            aria-label="ერთიანად დაზიპული გადმოწერა"
+            (click)="download(true)"
+          >
+            ერთიანად დაზიპული გადმოწერა
+            <span nz-icon nzType="download" nzTheme="outline"></span>
+          </button>
+        </div>
+      </ng-container>
+    </nz-modal>
   }
 </main>

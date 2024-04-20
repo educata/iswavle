@@ -9,11 +9,11 @@ import {
   ViewContainerRef,
   inject,
 } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { CUSTOM_ICONS, EDITOR_THEMES, ICON_PREFIX } from '@app-shared/consts';
 import { LocalStorageKeys, Theme } from '@app-shared/enums';
-import { ThemeService } from '@app-shared/services';
+import { DownloadService, ThemeService } from '@app-shared/services';
 import { NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
@@ -28,12 +28,14 @@ import { PlaygroundEffects } from '@app-shared/interfaces';
   template: '',
 })
 export class PlaygroundBaseComponent {
-  protected readonly destroyRef = inject(DestroyRef);
   protected readonly platform = inject(PLATFORM_ID);
+  protected readonly destroyRef = inject(DestroyRef);
   protected readonly iconService = inject(NzIconService);
   protected readonly route = inject(ActivatedRoute);
+  protected readonly title = inject(Title);
   protected readonly domSanitizer = inject(DomSanitizer);
   protected readonly themeService = inject(ThemeService);
+  protected readonly downloadService = inject(DownloadService);
 
   @ViewChild('editorOutlet', { read: ViewContainerRef })
   outletRef!: ViewContainerRef;
@@ -52,6 +54,7 @@ export class PlaygroundBaseComponent {
       localStorage?.getItem(LocalStorageKeys.CodeEditorTheme)) ||
       EDITOR_THEMES[0],
   );
+  readonly isDownloadModalVisible$ = new BehaviorSubject<boolean>(false);
 
   readonly files$ = this.route.data.pipe(
     map((res) => [res['data']] as NzTreeNodeOptions[]),
@@ -84,7 +87,7 @@ export class PlaygroundBaseComponent {
   @HostListener('window:keydown', ['$event']) keyDown(event: KeyboardEvent) {
     if (event.key === 's' && event.ctrlKey) {
       event.preventDefault();
-      this.download();
+      this.isDownloadModalVisible$.next(true);
     }
   }
 
@@ -119,10 +122,6 @@ export class PlaygroundBaseComponent {
       this.outletRef.clear();
       this.outletRef.createEmbeddedView(this.contentRef);
     }
-  }
-
-  download() {
-    console.log('Download all files');
   }
 
   changeTheme(theme: string) {

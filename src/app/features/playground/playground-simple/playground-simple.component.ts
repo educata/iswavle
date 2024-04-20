@@ -14,6 +14,8 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzFormatEmitEvent, NzTreeModule } from 'ng-zorro-antd/tree';
 import { LanguageExtensionPipe } from '../language-extension.pipe';
 import { Uri } from 'monaco-editor';
@@ -29,8 +31,9 @@ import {
   switchMap,
   startWith,
 } from 'rxjs';
-import { PlaygroundEffects } from '@app-shared/interfaces';
+import { PlaygroundEffects, PlaygroundFile } from '@app-shared/interfaces';
 import { BypassSanitizePipe } from './bypass-sanitize.pipe';
+import { LANGUAGE_MAP, TITLE_SUFFIX_SEPARATOR } from '@app-shared/consts';
 
 declare const monaco: any;
 
@@ -45,6 +48,8 @@ declare const monaco: any;
     NzCodeEditorModule,
     NzSpinModule,
     FormsModule,
+    NzModalModule,
+    NzButtonComponent,
     LanguageExtensionPipe,
     NzGridModule,
     NzLayoutModule,
@@ -81,6 +86,7 @@ export default class PlaygroundSimpleComponent
     this.isEditorInitialized$,
     this.openFileName$,
     this.frameSource$,
+    this.isDownloadModalVisible$,
   ]).pipe(
     map(
       ([
@@ -91,6 +97,7 @@ export default class PlaygroundSimpleComponent
         isEditorInitialized,
         openFileName,
         frameSource,
+        isDownloadModalVisible,
       ]) => ({
         files,
         globalTheme,
@@ -99,6 +106,7 @@ export default class PlaygroundSimpleComponent
         isEditorInitialized,
         openFileName,
         frameSource,
+        isDownloadModalVisible,
       }),
     ),
   );
@@ -187,8 +195,6 @@ export default class PlaygroundSimpleComponent
       }
     }
 
-    // TODO: Update
-
     return `
       <!DOCTYPE html>
       <html lang="en">
@@ -207,5 +213,73 @@ export default class PlaygroundSimpleComponent
         </body>
       </html>
     `;
+  }
+
+  download(combined: boolean) {
+    this.isDownloadModalVisible$.next(false);
+
+    const title =
+      this.title
+        .getTitle()
+        .split(TITLE_SUFFIX_SEPARATOR)
+        .shift()
+        ?.split(' ')
+        .filter((part) => Boolean(part))
+        .join('_') || 'blank';
+
+    const files: PlaygroundFile[] = [];
+    for (const key in this.editorForm.value) {
+      const file: Partial<PlaygroundFile> = {};
+      let extension = 'text';
+      file.content = this.editorForm.get(key)?.value || '';
+      for (const languageKey in LANGUAGE_MAP) {
+        if (key.includes(languageKey)) {
+          file.contentType = `text/${LANGUAGE_MAP[languageKey]}`;
+          extension = languageKey;
+          break;
+        }
+      }
+      file.name = key.split(extension).shift()?.concat('.', extension);
+      files.push(file as PlaygroundFile);
+    }
+
+    for (const file of files) {
+      if (!file.name.includes('html')) {
+        continue;
+      }
+      file.content = `
+        <!-- კოდი დაგენერირდა: ${location.href}-ს ედიტორის გამოყენებით -->
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>${this.title.getTitle()}</title>
+            <link rel="icon" type="image/x-icon" href="https://iswavle.com/favicon.ico" />
+            ${files
+              .filter((item) => item.name.includes('css'))
+              .map((item) => `<link rel="stylesheet" href="./${item.name}">`)
+              .join('')}
+          </head>
+          <body>
+            ${file.content}
+            <span></span>
+            ${files
+              .filter((item) => item.name.includes('js'))
+              .map((item) => `<script src="./${item.name}"></script`)
+              .join('')}
+          </body>
+        </html>
+      `;
+    }
+
+    if (combined) {
+      this.downloadService.downloadFiles(files, title);
+      return;
+    }
+
+    files.forEach((file) => {
+      this.downloadService.downloadFile(file);
+    });
   }
 }
