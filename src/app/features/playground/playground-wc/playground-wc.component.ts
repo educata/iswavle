@@ -18,6 +18,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import {
   NzTreeNodeOptions,
@@ -56,6 +57,7 @@ declare const monaco: any;
     NzLayoutModule,
     NzButtonModule,
     NzDropDownModule,
+    NzModalModule,
   ],
   templateUrl: './playground-wc.component.html',
   styleUrl: './playground-wc.component.less',
@@ -143,6 +145,7 @@ export default class PlaygroundWcComponent
     this.isSiderCollapsed$,
     this.isEditorInitialized$,
     this.isServerRunning$,
+    this.isDownloadModalVisible$,
   ]).pipe(
     map(
       ([
@@ -156,6 +159,7 @@ export default class PlaygroundWcComponent
         isSiderCollapsed,
         isEditorInitialized,
         isServerRunning,
+        isDownloadModalVisible,
       ]) => ({
         files,
         openFile,
@@ -167,6 +171,7 @@ export default class PlaygroundWcComponent
         isSiderCollapsed,
         isEditorInitialized,
         isServerRunning,
+        isDownloadModalVisible,
       }),
     ),
   );
@@ -195,4 +200,6 @@ export default class PlaygroundWcComponent
     }
     return null;
   }
+
+  download(combined: boolean) {}
 }
