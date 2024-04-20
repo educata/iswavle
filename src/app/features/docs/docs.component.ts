@@ -152,4 +152,8 @@ export default class DocsComponent {
   scrollUp() {
     this.viewport.scrollToPosition([0, 0]);
   }
+
+  sidenavTocClick() {
+    this.isDrawerVisible = false;
+  }
 }
