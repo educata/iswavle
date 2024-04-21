@@ -25,6 +25,7 @@ export class WebContainerService implements WebContainerState, OnDestroy {
   #openFile$ = new BehaviorSubject<WebContainerFile | null>(null);
   #serverUrl$ = new BehaviorSubject<string>('');
   #shellProcess = new BehaviorSubject<WebContainerProcess | null>(null);
+  #serverProcess: WebContainerProcess | null = null;
 
   instanceDestroyed$ = this.#instanceDestroyed$.asObservable();
   instanceLoaded$ = this.#instanceLoaded$.asObservable();
@@ -57,7 +58,7 @@ export class WebContainerService implements WebContainerState, OnDestroy {
     }
 
     if (opts.static) {
-      await this.instance.spawn('npx', [
+      this.#serverProcess = await this.instance.spawn('npx', [
         '-y',
         'servor',
         opts.root || '/',
@@ -67,7 +68,7 @@ export class WebContainerService implements WebContainerState, OnDestroy {
       ]);
     } else if (opts.npm) {
       await this.instance.spawn('npm', ['i']);
-      await this.instance.spawn('npm', ['run', 'start']);
+      this.#serverProcess = await this.instance.spawn('npm', ['run', 'start']);
     }
   }
 
@@ -118,8 +119,12 @@ export class WebContainerService implements WebContainerState, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.#instanceLoaded$.pipe(filter(Boolean), take(1)).subscribe(() => {
-      console.log("Destroying webcontainer instance...")
+    this.#instanceLoaded$.pipe(filter(Boolean), take(1)).subscribe(async () => {
+      console.log('Destroying webcontainer instance...');
+      if (this.#serverProcess) {
+        this.#serverProcess.kill();
+        await this.#serverProcess.exit;
+      }
       this.instance?.teardown();
       this.#instanceDestroyed$.next(true);
     });

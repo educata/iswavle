@@ -1,4 +1,4 @@
-import { Routes, UrlSegment } from '@angular/router';
+import { Route, Routes, UrlSegment } from '@angular/router';
 import { contentResolver } from './shared/resolvers';
 import { codeResolver } from './shared/resolvers/code.resolver';
 
@@ -15,6 +15,12 @@ const indeterminateSegments = (url: UrlSegment[]) => {
   } else {
     return null;
   }
+};
+
+const DEFAULT_PLAYGROUND_CHILD: Route = {
+  path: '',
+  pathMatch: 'full',
+  redirectTo: 'blank',
 };
 
 export const routes: Routes = [
@@ -46,15 +52,37 @@ export const routes: Routes = [
     title: 'ედიტორი',
     loadChildren: () => [
       {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'blank',
+        path: 'simple',
+        loadChildren: () => [
+          DEFAULT_PLAYGROUND_CHILD,
+          {
+            matcher: indeterminateSegments,
+            loadComponent: () =>
+              import(
+                './features/playground/playground-simple/playground-simple.component'
+              ),
+            resolve: { data: codeResolver },
+          },
+        ],
       },
       {
-        matcher: indeterminateSegments,
-        loadComponent: () =>
-          import('./features/playground/playground.component'),
-        resolve: { data: codeResolver },
+        path: 'wc',
+        loadChildren: () => [
+          DEFAULT_PLAYGROUND_CHILD,
+          {
+            matcher: indeterminateSegments,
+            loadComponent: () =>
+              import(
+                './features/playground/playground-wc/playground-wc.component'
+              ),
+            resolve: { data: codeResolver },
+          },
+        ],
+      },
+      {
+        path: '**',
+        pathMatch: 'full',
+        redirectTo: 'simple/blank',
       },
     ],
   },

@@ -9,3 +9,4 @@ export * from './article.service';
 export * from './contributors.service';
 export * from './layout.service';
 export * from './sanitizer.service';
+export * from './download.service';
