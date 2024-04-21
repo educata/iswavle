@@ -12,8 +12,17 @@
   <ng-template #banner>
     <div class="banner">საიტი არის დეველოპმენტის ადრეულ ეტაპზე</div>
   </ng-template>
-  <header>
-    @if (vm$ | async; as vm) {
+  @if (vm$ | async; as vm) {
+    <header
+      [class.home-header]="vm.isHomePage"
+      [ngStyle]="{
+        backgroundColor: vm.isMenuOpen
+          ? 'transparent'
+          : vm.isHomePage
+            ? '#e6f7ff'
+            : 'transparent'
+      }"
+    >
       <div class="brand">
         <a routerLink="/">ისწავლე</a>
         <sw-search
@@ -86,8 +95,8 @@
           ></span>
         </button>
       </nav>
-    }
-  </header>
+    </header>
+  }
   <nz-layout>
     <router-outlet></router-outlet>
   </nz-layout>
