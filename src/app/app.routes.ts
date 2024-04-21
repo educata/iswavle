@@ -39,6 +39,11 @@ export const routes: Routes = [
     title: 'დოკუმენტაცია',
     loadChildren: () => [
       {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'guides',
+      },
+      {
         // Match for indeterminate amount of segments
         // as we don't know how deeply nested the markdown content is.
         matcher: indeterminateSegments,

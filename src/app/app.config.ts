@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ka_GE, provideNzI18n } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import { IMAGE_CONFIG, registerLocaleData } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import ka from '@angular/common/locales/ka';
@@ -24,6 +24,13 @@ export const appConfig: ApplicationConfig = {
     {
       provide: TitleStrategy,
       useClass: SwTitleStrategy,
+    },
+    {
+      provide: IMAGE_CONFIG,
+      useValue: {
+        disableImageSizeWarning: true,
+        disableImageLazyLoadWarning: true,
+      },
     },
   ],
 };

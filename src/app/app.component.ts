@@ -99,12 +99,15 @@ export class AppComponent implements AfterViewInit {
     ),
   );
 
+  readonly isHomePage$ = this.activePath$.pipe(map((path) => path === '/'));
+
   readonly vm$ = combineLatest([
     this.isMenuOpen$,
     this.menuMode$,
     this.activePath$,
     this.headerNavigation$,
     this.burgerTopDistance$,
+    this.isHomePage$,
   ]).pipe(
     map(
       ([
@@ -113,12 +116,14 @@ export class AppComponent implements AfterViewInit {
         activePath,
         headerNavigation,
         burgerTopDistance,
+        isHomePage,
       ]) => ({
         isMenuOpen,
         menuMode,
         activePath,
         headerNavigation,
         burgerTopDistance,
+        isHomePage,
       }),
     ),
   );

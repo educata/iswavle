@@ -32,7 +32,7 @@ import {
   startWith,
 } from 'rxjs';
 import { PlaygroundEffects, PlaygroundFile } from '@app-shared/interfaces';
-import { BypassSanitizePipe } from './bypass-sanitize.pipe';
+import { BypassSanitizePipe } from '@app-shared/pipes';
 import { LANGUAGE_MAP, TITLE_SUFFIX_SEPARATOR } from '@app-shared/consts';
 
 declare const monaco: any;

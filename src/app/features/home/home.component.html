@@ -1,1 +1,24 @@
-<sw-loader [isFullSize]="true"></sw-loader>
+<main>
+  <section class="banner home-header">
+    <article>
+      <h1>ისწავლე</h1>
+      <h2>Web ტექნოლოგიები დამოუკიდებლად</h2>
+      <a nz-button routerLink="doc" nzType="primary">დაიწყე</a>
+    </article>
+  </section>
+  <section class="showcase">
+    @for (showcase of showcases; track showcase.title) {
+      <article>
+        <div class="left">
+          <h3>{{ showcase.title }}</h3>
+          <h4>{{ showcase.description }}</h4>
+          <img alt="{{ showcase.title }} ლოგო" [src]="showcase.image" />
+          <a nz-button [routerLink]="showcase.routerLink" nzType="primary">
+            დაიწყე
+          </a>
+        </div>
+        <div class="right" [innerHTML]="showcase.code | bypassSanitize"></div>
+      </article>
+    }
+  </section>
+</main>
