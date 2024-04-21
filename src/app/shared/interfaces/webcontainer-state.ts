@@ -1,4 +1,3 @@
-import { ElementRef } from '@angular/core';
 import {
   FileSystemTree,
   ServerReadyListener,
@@ -6,7 +5,6 @@ import {
   WebContainerProcess,
 } from '@webcontainer/api';
 import { Observable } from 'rxjs';
-import { Terminal } from 'xterm';
 
 export interface WebContainerInitOpts {
   files: FileSystemTree;
