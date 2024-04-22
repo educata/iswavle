@@ -35,6 +35,7 @@ import { Theme } from '@app-shared/enums';
 import { LayoutService, ThemeService } from '@app-shared/services';
 import { LOG_GREETER, NAVIGATION } from './shared/providers';
 import { SearchComponent } from '@app-shared/ui';
+import { ENVIRONMENT } from '@app-shared/providers/environment';
 
 @Component({
   selector: 'sw-root',
@@ -59,6 +60,7 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('alert') alertRef!: ElementRef<HTMLDivElement>;
   private readonly platform = inject(PLATFORM_ID);
   private readonly defaultDataLog = inject(LOG_GREETER);
+  private readonly environment = inject(ENVIRONMENT);
   private readonly router = inject(Router);
   private readonly themeService = inject(ThemeService);
   private readonly layoutService = inject(LayoutService);
@@ -129,7 +131,7 @@ export class AppComponent implements AfterViewInit {
   );
 
   constructor() {
-    if (this.isBrowser) {
+    if (this.isBrowser && this.environment.production) {
       this.initDefaultLog();
     }
     this.themeService.init().pipe(takeUntilDestroyed()).subscribe();
