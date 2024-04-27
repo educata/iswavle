@@ -162,8 +162,6 @@ pow ფუნქცია რეკურსიულად იძახებ�
 
 განსხვავებული მაგალითი რეკურსიულად [ფაილების წაკითხვა](./playground/simple/guides/javascript-tree-recursion)-ზე:
 
-<iframe data-url="guides/javascript-tree-recursion" data-height="250" data-title="რეკურსიულად ფაილების წაკითხვა"></iframe>
-
 უშუალოდ [iswavle.com](https://iswavle.com)-ს აწყობისას, კონტენტის დასარენდერებლად რეკურსია არის გამოყენებული, იხილეთ [კოდი](https://github.com/educata/iswavle/blob/main/prerender/render-content.ts).
 
 ## Arrow ფუნქცია
