@@ -8,3 +8,7 @@ export * from './content-loader';
 export * from './meta';
 export * from './contributor';
 export * from './search';
+export * from './playground';
+export * from './file';
+export * from './toc';
+export * from './environment'
