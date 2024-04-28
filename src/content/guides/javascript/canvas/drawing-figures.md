@@ -68,6 +68,8 @@ if (rectangularCanvas.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-drawing-figures-rectangular" data-title="მართკუთხა ფორმის მაგალითი" data-height="170"></iframe>
+
 `fillRect` მეთოდი დახატავს დიდ შავ კვადრატს 100 პიქსელის ოთხივე მხარეს. `clearRect` მეთოდი ამოჭრის
 `60x60` პიქსელის კვადრატს ცენტრიდან და შემდგომ `strokeRect` მეთოდი შექმნის მართკუთხა მონახაზს
 `50x50` ზომისას.
@@ -136,6 +138,8 @@ if (triangleCanvas.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-drawing-figures-triangle" data-title="სამკუთხედის დახატვის მაგალითი" data-height="170"></iframe>
+
 ## კალმის გადაადგილება
 
 ერთერთი სასარგებლო ფუნქცია, რომელიც საერთოდ არაფერს არ ხატავს მაგრამ ხშირად გამოიყენება არის `moveTo` მეთოდი. ეს მეთოდი შეგიძლიათ
@@ -172,6 +176,8 @@ if (moveToCanvas.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-drawing-figures-move-to" data-title="კალმის გადაადგილების მაგალითი" data-height="170"></iframe>
+
 თუ გაინტერესებთ დამაკავშირებელი ხაზები შეგიძლიათ წაშალოთ `moveTo` მეთოდების გამოყენება. [`arc`](#arc) მეთოდს განვიხილავთ ცოტა ხანში.
 
 ## ხაზები
@@ -207,6 +213,8 @@ if (twoTriangleCanvas.getContext) {
   console.log('ბრაუზერს არ აქვს კანვასის მხარდაჭერა');
 }
 ```
+
+<iframe data-url="guides/javascript-canvas-drawing-figures-two-triangle" data-title="ორი სამკუთხედის მაგალითი" data-height="170"></iframe>
 
 მაგალითს ვიწყებთ `beginPath` მეთოდის გამოყენებით, რის მიხედვითაც ვქმნით ახალი ფიგურის path. როცა ვიყენებთ `moveTo` მეთოდს
 ვცლით თუ საიდან დაიწყო ფიგურამ დახატვა.
@@ -271,6 +279,8 @@ if (arcsCanvas.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-drawing-figures-arcs" data-title="რკალის მაგალითი" data-height="210"></iframe>
+
 განვიხილოთ მაგალითი: ორი ციკლი შექმნის სვეტს და სტრიქონს რკალისთვის. თითოეული რკალისთვის ვქმნით ახალ საწყის path-ს `beginPath` მეთოდის
 გამოყენებით. ამავე მაგალითში პარამეტრები არის დინამიურად დაგენერირებული თუმცა არ არის რეალურად საჭირო მსგავს ტიპად დაგენერირება. `x` და `y`
 კორიდნატი, როგორც მანამდე ვახსენეთ განსაზღვრავს წრის ცენტრის კორდინატებს. `radius` და `startAngle` ფიქსირებული ზომებით გვაქვს დაწერილი. ხოლო
@@ -326,6 +336,8 @@ if (quadraticCurveCanvas.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-drawing-figures-quadratic-curve" data-title="კვადრატული ბეზიერის მაგალითი" data-height="170"></iframe>
+
 კუბური ბეზიერის მაგალითი:
 
 ```html
@@ -349,6 +361,8 @@ if (bezierCurveCanvas.getContext) {
   console.log('ბრაუზერს არ აქვს კანვასის მხარდაჭერა');
 }
 ```
+
+<iframe data-url="guides/javascript-canvas-drawing-figures-bazier-curve" data-title="კუბური ბეზიერის მაგალითი" data-height="170"></iframe>
 
 ## მართკუთხედები
 
@@ -449,6 +463,8 @@ function roundedRect(ctx, x, y, width, height, radius) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-drawing-figures-game" data-title="Pac man თამაშის მაგალითი" data-height="170"></iframe>
+
 მაგალითში განხილულია [Pac-Man](https://en.wikipedia.org/wiki/Pac-Man) თამაშის პერსონაჟები. ძირითადად ყოველი მეთოდი ცალ-ცალკე ამავე სტატიაში უკვე არის აღწერილი, მაგრამ
 მაგალითში არის ერთი მეთოდი, რომელიც არ გვაქვს განხილული, ეს არის `fillStyle` მეთოდი. `fillStyle` მეთოდი აღწერილი იქნება
 [სტილიზაციების და ფერების მინიჭება](./doc/guides/javascript/canvas/style-and-colors) სტატიაში. ამავე მაგალითში შევქმენით ფუნქცია `roundedRect`, მსგავსი ტიპის ფუნქციები
@@ -499,6 +515,8 @@ if (path2Canavs.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-drawing-figures-path2" data-title="Path2D მაგალითი" data-height="170"></iframe>
+
 ### SVG path გამოყენება
 
 როგორც ვახსენეთ `Path2D`-ს გამოყენების დროს შეიძლება გამოიყენოთ SVG path, რაც არის საკმაოდ კარგი მიდგომა როცა გვსურს `<canvas>`-ში SVG გამოტანა, რომელსაც
@@ -512,4 +530,4 @@ const path = new Path2D('M10 10 h 80 v 80 h -80 Z');
 შემდეგ `80` ერთეულით გაავლებს ვერტიკალურ ხაზს ქვემოთ, შემდეგ `80` ერთეულით გაავლებს ჰორიზონტალურ ხაზს მარცხნივ და `Z`-ით გაავლებს ამჟამინდელი წერტილიდან
 დასაწყისამდე ხაზს (`Z` გამოიყენება path დასახურად).
 
-იხილეთ სამაგალითო კოდები [playground](./playground/guides/javascript-canvas-drawing-figures)-ში.
+იხილეთ სამაგალითო კოდები [playground](./playground/simple/guides/javascript-canvas-drawing-figures)-ში.

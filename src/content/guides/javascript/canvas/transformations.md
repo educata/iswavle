@@ -71,6 +71,8 @@ if (stateCanvas.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-transformations-state" data-title="State მაგალითი" data-height="170"></iframe>
+
 განვიხილოთ არსებული კოდი: პირველ რიგში დავხატეთ შავი მართკთხედი, რომელმაც სრულიად შეავსო
 კანვასი. შემდგომ შევინახეთ მისი სთეითი, ამჟამად მას აქვს ნაგულისხმევი თვისებები ამიტომაც სთეითში
 შევინახეთ შავი ფერი. შემდგომ შევუცავლეთ ფერი ლურჯზე, დავხატეთ ახალი მართკუთხედი და შევინახეთ
@@ -119,6 +121,8 @@ if (translateCanvas.getContext) {
   }
 }
 ```
+
+<iframe data-url="guides/javascript-canvas-transformations-translate" data-title="Translate მაგალითი" data-height="170"></iframe>
 
 ამ მაგალითშია ნაჩვენებია თუ როგორი გამოსადეგია `translate` მეთოდი. ამ მეთოდი გარეშე ყოველი მართკუთხედი დახატული
 იქნება ერთ ადგილას (0, 0) კორდინატზე. მეთოდის გამოყენებით მოვახერხეთ მართკუთხედების დახატვა სხვადასხვა პოზიციაზე.
@@ -181,6 +185,8 @@ if (rotateCanvas.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-transformations-rotate" data-title="Rotate მაგალითი" data-height="220"></iframe>
+
 არსებული მაგალითიდან მივიღებთ ოთხ მარკუთხედს სადაც ორი იქნება ლურჯი ფერის (უკანა მართკუთხედები)
 და 2 ნაცრისფერი, რომლებიც იქნება ლურჯზე ზემოდან გამოსული.
 
@@ -222,9 +228,11 @@ if (scaleCanvas.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-transformations-scale" data-title="Scale მაგალითი" data-height="170"></iframe>
+
 ## შეჯამება
 
 ამ თავში განვიხილეთ თუ როგორი ტრანსფორმაციის თვისებები გააჩნია კანვას, რეალურად თითოეული თვისება
 მსგავსია CSS-ის `transform`-ის თვისებებისა.
 
-იხილეთ სტატიის სამაგალითო კოდები [playground](./playground/guides/javascript-canvas-transformations)-ში.
+იხილეთ სტატიის სამაგალითო კოდები [playground](./playground/simple/guides/javascript-canvas-transformations)-ში.

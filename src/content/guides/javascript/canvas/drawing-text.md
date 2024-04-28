@@ -35,6 +35,8 @@ if (textCanvas.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-drawing-text-text" data-title="Fill text მაგალითი" data-height="170"></iframe>
+
 ### strokeText
 
 `strokeText` მეთოდი საკმაოდ წააგავს `fillText` მეთოდს. განსხვავება მათ შორის არის გამოტანილ ტექსტში: `fillText` შეავსებს
@@ -56,6 +58,8 @@ if (strokeTextCanvas.getContext) {
   ctx.strokeText('EverREST', 22, 44);
 }
 ```
+
+<iframe data-url="guides/javascript-canvas-drawing-text-stroke-text" data-title="Stroke text მაგალითი" data-height="170"></iframe>
 
 ## ტექსტების სტილიზაცია
 
@@ -96,9 +100,11 @@ if (basicStylesCanvas.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-drawing-text-basic-style" data-title="Basic style მაგალითი" data-height="170"></iframe>
+
 ## შეჯამება
 
 ტექსტის გამოტანა არამხოლოდ HTML თეგებში არის შესაძლებელი, ასევე შეგვიძლია გამოვიტანოთ `canvas`-სის ელემენტშიც, სადაც
 ანალოგიური CSS თვისებები შეგვიძლია გავუწეროთ.
 
-იხილეთ სტატიის სამაგალითო კოდები [playground](./playground/guides/javascript-canvas-drawing-text)-ში.
+იხილეთ სტატიის სამაგალითო კოდები [playground](./playground/simple/guides/javascript-canvas-drawing-text)-ში.

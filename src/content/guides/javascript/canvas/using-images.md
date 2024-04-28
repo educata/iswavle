@@ -90,6 +90,8 @@ if (graphExampleCanvas.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-drawing-images" data-title="დიაგრამის მაგალითი" data-height="170"></iframe>
+
 `drawImage` მეთოდს ასევე შესაძლებელია გადავცეთ `width` და `height`, რის მიხედვითაც
 განისაზღვრება სურათის რეზოლუცია.
 
@@ -97,5 +99,3 @@ if (graphExampleCanvas.getContext) {
 
 ამ თავში განვიხილეთ თუ როგორ არის შესაძლებელი `canvas`-ის ელემენტში დავამატოთ
 სურათი.
-
-იხილეთ სტატიის სამაგალითო კოდები [playground](./playground/guides/javascript-canvas-drawing-images)-ში.

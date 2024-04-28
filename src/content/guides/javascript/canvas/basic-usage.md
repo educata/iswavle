@@ -79,4 +79,4 @@ if (canvas.getContext) {
 }
 ```
 
-იხილეთ სამაგალითო კოდები [playground](./playground/guides/javascript-canvas-basic)-ში.
+<iframe data-url="guides/javascript-canvas-basic" data-title="მარტივი მაგალითი" data-height="170"></iframe>

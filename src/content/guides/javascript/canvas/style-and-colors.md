@@ -58,6 +58,8 @@ if (fillStyleCanvas.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-style-and-colors-fill-style" data-title="Fill style მაგალითი" data-height="170"></iframe>
+
 ამ მაგალითში ვიყენებთ ორ ციკლს, რომ დავხატოთ გრიდი მართკთხედების, ყოველ მართკუთხედს ექნება განსხვავებული ფერი.
 ორ ციკლს ვიყენებთ `i` და `j` ცვლადებისთვის, რომ დავაგენერიროთ ყოველ ჯერზე უნიკალური RGB ფერი ყოველი
 კვადრატისთვის, რასაც ვცლით არის მხოლოდ წითელი და მწვანე ფერები, ლურჯი ამჯერად სტატიკური მნიშვნელობა არის.
@@ -85,6 +87,8 @@ if (strokeStyleCanvas.getContext) {
   }
 }
 ```
+
+<iframe data-url="guides/javascript-canvas-style-and-colors-stroke-style" data-title="Stroke style მაგალითი" data-height="170"></iframe>
 
 მაგალითი მსგავსია, რაც `fillStyle`-ზე გვაქვს შესრულებული. განსხვავება მდგომარეობს, რომ მართკუთხედის ნაცვლად
 წრეს ვაგებთ, `arc` მეთოდს გამოყენებით. ხოლო `strokeStyle` გამოყენებით წრის ჩარჩოებს ვაფერადებთ.
@@ -149,6 +153,8 @@ if (widthCanvas.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-style-and-colors-width" data-title="Line width მაგალითი" data-height="170"></iframe>
+
 ### `lineCap` მაგალითი
 
 `lineCap` თვისება განსაზღვრავს, თუ როგორ არის შედგენილი თითოეული ხაზის ბოლო წერტილები. თვისებამ შეიძლება მიიღოს
@@ -185,6 +191,8 @@ if (lineCapCanvas.getContext) {
   });
 }
 ```
+
+<iframe data-url="guides/javascript-canvas-style-and-colors-line-cap" data-title="Line cap მაგალითი" data-height="170"></iframe>
 
 ამ მაგალითში სამივე თვისების მნიშვნელობა გამოვიყენეთ, კოდის გაშვების შემდგომ შეამჩნევთ ვიზუალურ
 განსხვავებებსაც. წინასწარ დამატებული არის დასაწყისში და დასასრულში ლურჯი ხაზები, რაც დაგეხმარებათ
@@ -226,6 +234,8 @@ if (lineJoinCanvas.getContext) {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-style-and-colors-line-join" data-title="Line join მაგალითი" data-height="170"></iframe>
+
 ## შეჯამება
 
 ამ სტატიაში განვიხილეთ თუ როგორ შეიძლება სტილიზაციების და ფერების მინიჭება ხაზებზე და ფიგურებზე.
@@ -234,4 +244,4 @@ if (lineJoinCanvas.getContext) {
 - [CanvasGradient](https://developer.mozilla.org/en-US/docs/Web/API/CanvasGradient)
 - [Patterns](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createPattern)
 
-იხილეთ სტატიის სამაგალითო კოდები [playground](./playground/guides/javascript-canvas-style-and-colors)-ში.
+იხილეთ სტატიის სამაგალითო კოდები [playground](./playground/simple/guides/javascript-canvas-style-and-colors)-ში.

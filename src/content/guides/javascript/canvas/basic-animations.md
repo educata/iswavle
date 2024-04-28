@@ -141,6 +141,8 @@ function draw() {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-basic-animations-solar" data-title="მზის სისტემის ანიმაცია" data-height="320"></iframe>
+
 ## საათის ანიმაცია
 
 საათის ანიმაცია რომელიც აჩვენებს ამჟამინდელ დროს.
@@ -258,6 +260,8 @@ function drawClock() {
 requestAnimationFrame(drawClock);
 ```
 
+<iframe data-url="guides/javascript-canvas-basic-animations-clock" data-title="საათის ანიმაცია" data-height="170"></iframe>
+
 ## მაუსის ანიმაცია
 
 ეხლა კი შევქმნათ ისეთი ანიმაცია, რომ მომხარებლის მაუსის გამოძრავებისას მცირედი ნაწილაკები მის გარშემო ტრიალებდეს.
@@ -370,6 +374,8 @@ function anim() {
 }
 ```
 
+<iframe data-url="guides/javascript-canvas-mouse-animation" data-title="მაუსის ანიმაცია" data-height="500"></iframe>
+
 ## შეჯამება
 
 ამ თავში განხიულილი იყო მარტივი ანიმაციები, რომლის მიღებაც შესაძლებელი იყო კანვასის გამოყენებით.
@@ -378,5 +384,5 @@ function anim() {
 
 იხილეთ სტატიის სამაგალითო კოდები playground-ში:
 
-- [მზის სისტემის და საათის ანიმაცია](./playground/guides/javascript-canvas-basic-animations)
-- [მაუსის ანიმაცია](./playground/guides/javascript-canvas-mouse-animation)
+- [მზის სისტემის და საათის ანიმაცია](./playground/simple/guides/javascript-canvas-basic-animations)
+- [მაუსის ანიმაცია](./playground/simple/guides/javascript-canvas-mouse-animation)

@@ -41,6 +41,8 @@ const ball = {
 ball.draw();
 ```
 
+<iframe data-url="guides/javascript-canvas-advanced-animations-draw-ball" data-title="ბურთის დახატვა" data-height="350"></iframe>
+
 ამ მაგალითში არაფერი განსაკუთრებული არ ხდება, ვიღებთ წინა სტატიებში განხილულ [`arc`](./doc/guides/javascript/canvas/drawing-figures#რკალი)
 მეთოდს, რომ მივიღოთ წრე.
 
@@ -91,6 +93,8 @@ canvas.addEventListener('mouseout', (e) => {
 ball.draw();
 ```
 
+<iframe data-url="guides/javascript-canvas-advanced-animations-adding-velocity" data-title="სიჩქარის დამატება" data-height="350"></iframe>
+
 ამ შემთხვევაში ანიმაციის გასაშვებად ვიყენებთ `requestAnimationFrame` მეთოდს, რომელიც მოდის გლობალური `window`-ს
 ობიექტიდან. მეთოდს პარამეტრად ვაძლევთ თუ რომელი ფუნქცია უნდა გაუშვას, რაც ჩვენს შემთხვევაში არის `draw`.
 ეს მოქმედებები კი ხდება როცა კანვასზე იქნება მაუსი, ხოლო როცა კანვასი მაუს დატოვებს ვიყენებთ
@@ -122,6 +126,8 @@ function draw() {
   raf = window.requestAnimationFrame(draw);
 }
 ```
+
+<iframe data-url="guides/javascript-canvas-advanced-animations-boundaries" data-title="საზღვრების დამატება" data-height="350"></iframe>
 
 ## აჩქარება
 
@@ -192,6 +198,8 @@ canvas.addEventListener('mouseout', (e) => {
 ball.draw();
 ```
 
+<iframe data-url="guides/javascript-canvas-advanced-animations-acceleration" data-title="აჩქარების დამატება" data-height="350"></iframe>
+
 ## მიმავალი ეფექტი
 
 ჩვენს ბურთს ამჟამად არ აქვს მიმავალი (Trailing) ეფექტი. ყოველი ფრეიმის განახლებაზე ჩვენ უბრალოდ
@@ -203,6 +211,8 @@ ball.draw();
 ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 ```
+
+<iframe data-url="guides/javascript-canvas-advanced-animations-trailing-effect" data-title="მიმავალი ეფექტის დამატება" data-height="350"></iframe>
 
 ## მაუსის კონტროლის დამატება
 
@@ -282,6 +292,8 @@ canvas.addEventListener('mouseout', (e) => {
 ball.draw();
 ```
 
+<iframe data-url="guides/javascript-canvas-advanced-animations-result" data-title="მაუსის კონტროლის დამატება" data-height="350"></iframe>
+
 ## შეჯამება
 
 ამ თავში განვიხილეთ თუ როგორ უნდა შევქმნათ შედარებით კომპლექსური ანიმაციები მცირედი ფიზიკის გამოყენებით.
@@ -295,7 +307,7 @@ ball.draw();
 
 იხილეთ სტატიის სამაგალითო კოდები playground-ში:
 
-- [ბურთის დახატვა](./playground/simple/guides/javascript-canvas-advanced-animations-drawing-ball)
+- [ბურთის დახატვა](./playground/simple/guides/javascript-canvas-advanced-animations-draw-ball)
 - [სიჩქარის დამატება](./playground/simple/guides/javascript-canvas-advanced-animations-adding-velocity)
 - [საზღვრები](./playground/simple/guides/javascript-canvas-advanced-animations-boundaries)
 - [აჩქარება](./playground/simple/guides/javascript-canvas-advanced-animations-acceleration)
