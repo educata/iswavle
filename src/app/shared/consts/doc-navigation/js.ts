@@ -77,6 +77,10 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
           title: 'რთული ანიმაციები',
           path: 'advanced-animations',
         },
+        {
+          title: 'კანვასის ოპტიმიზირება',
+          path: 'optimization',
+        },
       ],
     },
   ],
