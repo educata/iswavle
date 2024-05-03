@@ -84,18 +84,18 @@ export class PlaygroundBaseComponent {
     }),
   );
 
-  @HostListener('window:keydown', ['$event']) keyDown(event: KeyboardEvent) {
-    if (event.key === 's' && event.ctrlKey) {
-      event.preventDefault();
-      this.isDownloadModalVisible$.next(true);
-    }
-  }
+  // @HostListener('window:keydown', ['$event']) keyDown(event: KeyboardEvent) {
+  //   if (event.key === 's' && event.ctrlKey) {
+  //     event.preventDefault();
+  //     this.isDownloadModalVisible$.next(true);
+  //   }
+  // }
 
-  @HostListener('window:beforeunload', ['$event']) onBeforeUnload(
-    event: Event,
-  ) {
-    event.preventDefault();
-  }
+  // @HostListener('window:beforeunload', ['$event']) onBeforeUnload(
+  //   event: Event,
+  // ) {
+  //   event.preventDefault();
+  // }
 
   constructor() {
     this.registerIcons();
