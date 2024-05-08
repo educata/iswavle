@@ -303,7 +303,7 @@ ball.draw();
 კანვასის ბოლო სტატიებში კი შეგიძლიათ იხილოთ ორი თამაში:
 
 1. [Breakout](./doc/guides/javascript/canvas/breakout)
-2. TODO: სახელის განალება სტატიის დამატების შემდგომ
+2. [Stickman](./doc/guides/javascript/canvas/stickman)
 
 იხილეთ სტატიის სამაგალითო კოდები playground-ში:
 

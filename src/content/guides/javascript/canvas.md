@@ -29,4 +29,6 @@ keywords: 'canvas, <canvas>, canvas basic usage, კანვასის ძი
 - [ძირითადი ანიმაციები](./doc/guides/javascript/canvas/basic-animations)
 - [რთული ანიმაციები](./doc/guides/javascript/canvas/advanced-animations)
 - [კანვასის ოპტიმიზირება](./doc/guides/javascript/canvas/optimization)
-- შეჯამება
+- [Breakout თამაში](./doc/guides/javascript/canvas/breakout)
+- [Stickman თამაში](./doc/guides/javascript/canvas/stickman)
+- [შეჯამება](./doc/guides/javascript/canvas/summary)

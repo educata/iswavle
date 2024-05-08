@@ -81,6 +81,18 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
           title: 'კანვასის ოპტიმიზირება',
           path: 'optimization',
         },
+        {
+          title: 'Breakout თამაში',
+          path: 'breakout',
+        },
+        {
+          title: 'Stickman თამაში',
+          path: 'stickman',
+        },
+        {
+          title: 'შეჯამება',
+          path: 'summary',
+        },
       ],
     },
   ],
