@@ -15,12 +15,13 @@ import { CUSTOM_ICONS } from '@app-shared/consts';
 import { DocContent } from '@app-shared/interfaces';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
 import { SanitizerService } from '@app-shared/services';
+import mermaid from 'mermaid';
 
 @Directive({
   selector: '[swContent]',
   standalone: true,
 })
-export class ContentDirective implements OnChanges, AfterViewInit {
+export class ContentDirective implements OnChanges {
   // Might consider passing templateRef to allow custom rendering
   @Input('swContent') content!: DocContent;
   @Input('swContentSearch') searchKey: string | null = null;
@@ -39,13 +40,15 @@ export class ContentDirective implements OnChanges, AfterViewInit {
 
   private unlistenFn = () => {};
 
+  constructor() {
+    mermaid.initialize({ startOnLoad: true, securityLevel: 'loose' });
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if ('content' in changes || 'searchKey' in changes) {
       this.renderPage(this.content, this.searchKey);
     }
   }
-
-  ngAfterViewInit(): void {}
 
   renderPage(content: DocContent, searchKey: string | null) {
     const contentContainer = this.vcr.element.nativeElement;
@@ -64,6 +67,7 @@ export class ContentDirective implements OnChanges, AfterViewInit {
     });
 
     this.renderIframes(body);
+    this.renderGraphs(body);
 
     if (searchKey) {
       const segments = (body.innerHTML as string).split(/(<[^>]+>)/);
@@ -196,6 +200,36 @@ export class ContentDirective implements OnChanges, AfterViewInit {
         `;
 
         iframe.replaceWith(newFrame);
+      });
+    }
+  }
+
+  private async renderGraphs(body: HTMLDivElement) {
+    if (!this.isBrowser) {
+      return;
+    }
+
+    const elements = body.querySelectorAll('div.mermaid');
+
+    // Unknown mermaid bug workaround
+    // TODO: fix me after
+
+    try {
+      for (let i = 0; i < elements.length; i++) {
+        const element = elements[i];
+        element.id = `mermaid-${i}`;
+        const graphDefinition = element.textContent || '';
+        mermaid.render;
+        const { svg } = await mermaid.render(
+          element.id,
+          graphDefinition,
+          element,
+        );
+        element.innerHTML = svg;
+      }
+    } catch (err) {
+      body.querySelectorAll('.error-text').forEach((error) => {
+        error.remove();
       });
     }
   }
