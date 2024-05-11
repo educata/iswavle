@@ -2,13 +2,17 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
+  ViewChild,
   inject,
 } from '@angular/core';
 import { PlaygroundBaseComponent } from '../playground-base';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
+import {
+  NzCodeEditorComponent,
+  NzCodeEditorModule,
+} from 'ng-zorro-antd/code-editor';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -30,6 +34,7 @@ import {
   map,
   switchMap,
   startWith,
+  delay,
 } from 'rxjs';
 import { PlaygroundEffects, PlaygroundFile } from '@app-shared/interfaces';
 import { BypassSanitizePipe } from '@app-shared/pipes';
@@ -65,6 +70,7 @@ export default class PlaygroundSimpleComponent
   extends PlaygroundBaseComponent
   implements OnInit
 {
+  @ViewChild(NzCodeEditorComponent) editor!: NzCodeEditorComponent;
   private readonly fb = inject(FormBuilder);
 
   readonly editorForm = this.fb.group({});
@@ -130,6 +136,19 @@ export default class PlaygroundSimpleComponent
             return true;
           },
         });
+      }),
+    ),
+
+    formatOnFirstRun$: this.isEditorInitialized$.pipe(
+      filter(Boolean),
+      take(1),
+      delay(1000),
+      tap(() => {
+        // It's hack to format document this way becouse ng-zorro decided to make editor instance private
+        // @ts-ignore
+        this.editor.editorInstance._actions
+          .get('editor.action.formatDocument')
+          .run();
       }),
     ),
 
