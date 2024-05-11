@@ -1,7 +1,7 @@
 ---
 title: 'Breakout თამაში'
 description: 'Breakout თამაშის აწყობა JavaScript-ში კანვასის გამოყენებით'
-keywords: ''
+keywords: 'Breakout, Breakout game, თამაშის აწყობა javascript-ში'
 ---
 
 ამ სტატიაში განვიხილავთ თუ როგორ უნდა ავაწყოთ Breakout თამაში. თუ არ იცით თამაში შეგიძლიათ

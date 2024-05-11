@@ -10,6 +10,8 @@ const config = {
   x: 0,
   x2: bgImage.width,
   moveSpeedX: 2,
+  originalMoveSpeedX: 2,
+  isMoving: false,
 };
 
 function initCanvasSizes() {
@@ -45,9 +47,33 @@ function animate() {
   }
 
   drawBackground();
-  requestAnimationFrame(animate);
+
+  if (config.isMoving) {
+    requestAnimationFrame(animate);
+  }
 }
 
 initCanvasSizes();
 drawBackground();
-animate();
+
+document.addEventListener('keydown', function (event) {
+  if (event.key === 'ArrowRight') {
+    config.moveSpeedX = Math.abs(config.originalMoveSpeedX);
+    if (!config.isMoving) {
+      config.isMoving = true;
+      animate();
+    }
+  } else if (event.key === 'ArrowLeft') {
+    config.moveSpeedX = -Math.abs(config.originalMoveSpeedX);
+    if (!config.isMoving) {
+      config.isMoving = true;
+      animate();
+    }
+  }
+});
+
+document.addEventListener('keyup', function (event) {
+  if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+    config.isMoving = false;
+  }
+});
