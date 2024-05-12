@@ -26,7 +26,7 @@
     "start": "yarn prerender && ng serve",
     "start:dev": "yarn dev-example-assets && yarn start",
     "build": "yarn prerender && ng build",
-    "watch": "yarn prerender && ng build --watch --configuration development",
+    "watch": "yarn prerender && yarn start",
     "test": "ng test",
     "prepare": "husky install",
     "prerender:content": "node --loader ts-node/esm ./prerender/render-content.ts",
