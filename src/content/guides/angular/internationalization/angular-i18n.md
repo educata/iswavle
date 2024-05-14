@@ -1,5 +1,5 @@
 ---
-title: "ანგულარის i18n"
+title: 'ანგულარის i18n'
 ---
 
 # ანგულარის i18n
@@ -30,7 +30,7 @@ title: "ანგულარის i18n"
 ასერომ, თუ ინტერნაციონალიზაცია გულისხმობს ზოგადად აპლიკაციაში სხვადასხვა ენებისთვის მხარდაჭერის შემოტანას, ლოკალიზაცია გულისხმობს აპლიკაციის
 კონკრეტულ ენაზე მომზადებას.
 
-<img src="../../assets/media/i18n.png" alt="i18n დიაგრამა" style="margin: auto; display: block">
+<img src="./assets/images/i18n.png" alt="i18n დიაგრამა">
 
 ინტერნაციონალიზაციის პროცესი საჭიროა რეალურად მოხდეს ერთხელ და შემდგომ მთლიანი აპლიკაცია შედგიძლიათ გახადოთ ლოკალური იმდენი ენისთვის,
 რამდენი ენისთვისაც გჭირდებათ, კოდის ცვლილების გარეშე. თუ გაზრდით თქვენს აპლიკაციას, აუცილებლად უნდა გაატაროთ ინტერნაციონალიზაციაში ახალი გვერდები.
@@ -82,10 +82,7 @@ ng add @angular/localize
 
 ```html
 <h1>Page header</h1>
-<img
-  src="https://raw.githubusercontent.com/educata/everrest/main/assets/images/educata-bg-white.png"
-  alt="educata project logo"
-/>
+<img src="https://raw.githubusercontent.com/educata/everrest/main/assets/images/educata-bg-white.png" alt="educata project logo" />
 ```
 
 ახლა უნდა დავიწყოთ ლოკალიზაციისთვის მომზადება ანუ იმ ადგილების მონიშვნა, რომლის ლოკალიზაცია გვსურს, ამას `html`-ში ვაკეთებთ `i18n` ატრიბუტის დამატებით.
@@ -97,11 +94,7 @@ ng add @angular/localize
 ზოგჯერ დაგვჭირდება თვითონ ატრიბუტების გადათარგმნაც, რაც მეტწილად გვეხმარება `accsessibility` ნაწილში, მაგალითად: `alt`, `aria-label` და ა.შ.
 
 ```html
-<img
-  i18n-alt
-  src="https://raw.githubusercontent.com/educata/everrest/main/assets/images/educata-bg-white.png"
-  alt="educata project logo"
-/>
+<img i18n-alt src="https://raw.githubusercontent.com/educata/everrest/main/assets/images/educata-bg-white.png" alt="educata project logo" />
 ```
 
 ხოლო `app.component.ts` მხარეს, შევიტანოთ მცირედი მოდიფიკაციები. პირველ რიგში დავაინჯექტოთ კონსტრუქტორში `Title` და გამოვიყენოთ დაინჯექტებული სერვისი იმისათვის,
