@@ -3,7 +3,7 @@
     nz-tooltip
     target="_blank"
     [href]="contributor.html_url"
-    nzTooltipTitle="კონტრიბუტორი: {{ contributor.name }}"
+    [nzTooltipTitle]="contributor.name"
   >
     <nz-avatar
       nzAlt="კონტრიბუტორის სურათი"

@@ -22,8 +22,7 @@ import {
   tap,
 } from 'rxjs';
 import { Terminal } from 'xterm';
-import { WEBCONTAINER_STATE } from '@app-shared/providers';
-import { LAYOUT_SIZES } from '@app-shared/consts';
+import { WEBCONTAINER_STATE, LAYOUT_SIZES } from '@app-shared/providers';
 import 'xterm/css/xterm.css'; // terminal styles
 
 @Component({
@@ -41,6 +40,7 @@ export class TerminalComponent implements AfterViewInit {
   });
   private readonly destroyRef = inject(DestroyRef);
   private readonly document = inject(DOCUMENT);
+  private readonly layoutSizes = inject(LAYOUT_SIZES);
 
   @ViewChild('terminal') terminalRef!: ElementRef<HTMLElement>;
   @Input() interactive = true;
@@ -59,7 +59,7 @@ export class TerminalComponent implements AfterViewInit {
 
     const terminal = new Terminal({
       convertEol: true,
-      rows: LAYOUT_SIZES.terminalMaxRow,
+      rows: this.layoutSizes.terminalMaxRow,
     });
     const fitAddon = new FitAddon();
     terminal.loadAddon(fitAddon);
@@ -81,8 +81,8 @@ export class TerminalComponent implements AfterViewInit {
             shellProcess.resize({
               cols: terminal.cols,
               rows:
-                terminal.rows >= LAYOUT_SIZES.terminalMaxRow
-                  ? LAYOUT_SIZES.terminalMaxRow
+                terminal.rows >= this.layoutSizes.terminalMaxRow
+                  ? this.layoutSizes.terminalMaxRow
                   : terminal.rows,
             });
           }),

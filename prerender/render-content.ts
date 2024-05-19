@@ -20,6 +20,10 @@ const hyperLinks: {
   references: [],
 };
 
+const dataMap: { [key: string]: { title: string; content: string } } = {};
+
+const codesArray: string[] = [];
+
 const render = new Renderer();
 
 render.code = (code, language) => {
@@ -29,7 +33,9 @@ render.code = (code, language) => {
     ? hljs.highlight(code, { language }).value
     : code;
 
-  return `<pre><code class="hljs ${language}">${highlighted}</code></pre>`;
+  codesArray.push(code);
+
+  return `<div class="code-wrapper"><div class="language-header"><span>${language?.toUpperCase()}</span><button><svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z" /></svg></button></div><pre><code class="hljs ${language}">${highlighted}</code></pre></div>`;
 };
 
 render.heading = (text: string, level: number, raw: string) => {
@@ -42,7 +48,40 @@ render.table = (header: string, body: string) => {
   return `<div class="table-wrapper"><table><thead>${header}</thead><tbody>${body}</tbody></table></div>`;
 };
 
+render.paragraph = (text) => {
+  if (text.startsWith(':::') && text.endsWith(':::')) {
+    return registerCustomBlocks(text);
+  }
+
+  return `<p>${text}</p>`;
+};
+
 marked.setOptions({ renderer: render });
+
+function registerCustomBlocks(text: string) {
+  const block = text.split('\n')[0].replace(':::', '');
+
+  switch (block.toLocaleLowerCase()) {
+    case 'mermaid': {
+      return `<div class="mermaid">${text.slice(11, -4)}</div>`;
+    }
+    case 'success': {
+      return `<div class="note ant-alert ant-alert-success">${text.slice(11, -4)}</div>`;
+    }
+    case 'warning': {
+      return `<div class="note ant-alert ant-alert-warning">${text.slice(11, -4)}</div>`;
+    }
+    case 'error': {
+      return `<div class="note ant-alert ant-alert-error">${text.slice(9, -4)}</div>`;
+    }
+    case 'info': {
+      return `<div class="note ant-alert ant-alert-info">${text.slice(8, -4)}</div>`;
+    }
+    default: {
+      return `<div class="note ant-alert ant-alert-info">${text.slice(4, -4)}</div>`;
+    }
+  }
+}
 
 function extractHeaders(htmlString: string): ArticleToc[] {
   const result: ArticleToc[] = [];
@@ -51,6 +90,9 @@ function extractHeaders(htmlString: string): ArticleToc[] {
     .split('\n')
     .filter((text) => text.trim().startsWith('<h'))
     .forEach((heading) => {
+      if (heading.search('id="') === -1) {
+        return;
+      }
       if (heading.includes('1') || heading.includes('2')) {
         result.push({
           id: heading.split('id="')[1].split('"')[0],
@@ -122,6 +164,7 @@ function processMarkdownFiles(directory: string) {
     if (fs.statSync(filePath).isDirectory()) {
       processMarkdownFiles(filePath);
     } else if (file.endsWith('.md')) {
+      codesArray.splice(0);
       const outputPath = createOutputDirectoryStructure(filePath);
       const data = renderMarkdownFile(filePath);
       appendFileToHyperLinkList(data.content);
@@ -132,6 +175,13 @@ function processMarkdownFiles(directory: string) {
         'utf-8',
       );
 
+      dataMap[normalizePath(outputPath)] = {
+        title: data.frontMatter.title,
+        content: removePreAndHtmlTags(data.content),
+      };
+
+      data.frontMatter.codes = codesArray;
+
       fs.writeFileSync(
         outputPath.replace('.md', '.json'),
         JSON.stringify(data.frontMatter),
@@ -139,6 +189,20 @@ function processMarkdownFiles(directory: string) {
       );
     }
   });
+}
+
+function removePreAndHtmlTags(content: string) {
+  return content
+    .replace(/<pre>.*?<\/pre>/gs, '')
+    .replace(/<\/?[^>]*>/g, '')
+    .replaceAll('\n', ' ');
+}
+
+function normalizePath(path: string): string {
+  return path
+    .replaceAll('\\', '/')
+    .replaceAll('src/assets', 'doc')
+    .replaceAll('.md', '');
 }
 
 function createFileFromConnetion() {
@@ -159,6 +223,11 @@ function createFileFromConnetion() {
   });
 
   fs.writeFileSync('src/assets/empty-hyperlinks.json', data, 'utf-8');
+  fs.writeFileSync(
+    'src/assets/index-map.json',
+    JSON.stringify(dataMap),
+    'utf-8',
+  );
 
   let count = 0;
 

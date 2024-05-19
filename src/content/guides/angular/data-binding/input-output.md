@@ -1,5 +1,5 @@
 ---
-title: "Input & Output"
+title: 'Input & Output'
 ---
 
 # Input & Output
@@ -8,7 +8,7 @@ title: "Input & Output"
 გადავცეთ ერთი კომპონენტიდან მეორეს. `Input`-ის საშუალებით შვილი კომპონენტი მშობელისგან იღებს
 მონაცემს, ხოლო `Output`-ის საშუალებით შვილი კომპონენტი მოვლენას გადასცემს მშობელ კომპონენტს.
 
-![input და output პრინციპების დიაგრამა](/assets/media/input-output.png)
+![input და output პრინციპების დიაგრამა](./assets/images/input-output.png)
 
 სანიმუშოდ შექმნილი გვაქვს ანგულარის ახალი აპლიკაცია, სადაც შევქმენით კომპონენტი სახელად child.
 ეს უკანასკნელი სელექტორით განვათავსეთ `app.component.html`-ში. `ChildComponent` გამოდის `AppComponent`-ის
@@ -20,18 +20,18 @@ title: "Input & Output"
 `@Input` დეკორატორით, რომელიც `@angular/core`-დან უნდა დავაიმპორტოთ.
 
 ```ts
-import { Component, Input } from "@angular/core";
-import { CommonModule } from "@angular/core";
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/core';
 
 @Component({
-  selector: "app-child",
+  selector: 'app-child',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: "./child.component.html",
-  styleUrl: "./child.component.scss",
+  templateUrl: './child.component.html',
+  styleUrl: './child.component.scss',
 })
 export class ChildComponent {
-  @Input() message: string = "";
+  @Input() message: string = '';
 }
 ```
 
@@ -51,18 +51,18 @@ export class ChildComponent {
 მშობელ კომპონენტში შევქმნათ მასივი `messages` რომელშიც შევინახავთ ორ სტრინგს:
 
 ```ts
-import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: "app-root",
+  selector: 'app-root',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: "./app.component.html",
-  styleUrl: "./app.component.scss",
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  messages = ["The first message", "The second message"];
+  messages = ['The first message', 'The second message'];
 }
 ```
 
@@ -70,8 +70,7 @@ export class AppComponent {
 შვილის კლასში არსებულ სახელზე რაიმე მნიშვნელობების მიბმა:
 
 ```html
-<app-child [message]="messages[0]"></app-child>
-<app-child [message]="messages[1]"></app-child>
+<app-child [message]="messages[0]"></app-child> <app-child [message]="messages[1]"></app-child>
 ```
 
 აქ ჩვენ ორი child კომპონენტი განვათავსეთ, სადაც პირველს message თვისებაზე
@@ -112,18 +111,18 @@ export class AppComponent {
 `EventEmitter`-ის ინსტანციას ვინახავთ, რომელიც ასევე `@angular/core`-დან შემოგვაქვს.
 
 ```ts
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: "app-child",
+  selector: 'app-child',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: "./child.component.html",
-  styleUrl: "./child.component.scss",
+  templateUrl: './child.component.html',
+  styleUrl: './child.component.scss',
 })
 export class ChildComponent {
-  @Input() message: string = "";
+  @Input() message: string = '';
   @Output() lengthCount = new EventEmitter<number>();
 
   onCount() {
@@ -148,14 +147,7 @@ export class ChildComponent {
 `lengthCount`-ზე, იმ თვისებაზე, რომელიც ჩვენ კლასში შევქმენით `Output` დეკორატორით:
 
 ```html
-<app-child
-  [message]="messages[0]"
-  (lengthCount)="logLength($event)"
-></app-child>
-<app-child
-  [message]="messages[1]"
-  (lengthCount)="logLength($event)"
-></app-child>
+<app-child [message]="messages[0]" (lengthCount)="logLength($event)"></app-child> <app-child [message]="messages[1]" (lengthCount)="logLength($event)"></app-child>
 ```
 
 `$event` არის განსაკუთრებული (key) სიტყვა, რომლითაც შეგვიძლია მოვიხელთოთ ის მნიშვნელობა, რომელსაც
@@ -184,25 +176,18 @@ logLength(length: number) {
 ამისთვის არსებობს `ngOnChanges` სიცოცხლის ციკლის ჰუკი.
 
 ```ts
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  OnChanges,
-  SimpleChanges,
-} from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: "app-child",
+  selector: 'app-child',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: "./child.component.html",
-  styleUrl: "./child.component.scss",
+  templateUrl: './child.component.html',
+  styleUrl: './child.component.scss',
 })
 export class ChildComponent implements OnChanges {
-  @Input() message: string = "";
+  @Input() message: string = '';
   @Output() lengthCount = new EventEmitter<number>();
 
   onCount() {
@@ -211,7 +196,7 @@ export class ChildComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.message) {
-      console.log("მესიჯი განახლდა: ", changes.message.currentValue);
+      console.log('მესიჯი განახლდა: ', changes.message.currentValue);
     }
   }
 }

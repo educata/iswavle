@@ -392,4 +392,4 @@ console.log(randomNumbers.toSorted((a, b) => b - a)); // [30, 22, 11, 10, 9, 7, 
 | [`splice()`](#splice-და-tospliced)                  | [`toSpliced()`](#splice-და-tospliced)                         |
 | [`unshift(variable1, variable2)`](#push-და-unshift) | [`toSpliced(0,0,variable1, variable2)`](#splice-და-tospliced) |
 
-იხილეთ სამაგალითო კოდები [playground](./playground/guides/javascript-array)-ში.
+იხილეთ სამაგალითო კოდები [playground](./playground/simple/guides/javascript-array)-ში.

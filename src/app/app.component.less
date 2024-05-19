@@ -1,6 +1,10 @@
 @menuBreakPoint: 830px;
 @headerSize: 66px;
 
+.banner {
+  text-align: center;
+}
+
 nz-layout.root-layout {
   min-height: 100vh;
 }
@@ -12,6 +16,7 @@ header {
   justify-content: space-between;
   padding: 10px 20px;
   box-sizing: border-box;
+  transition: 0.5s all;
 
   .brand {
     display: flex;
@@ -70,7 +75,8 @@ header {
         z-index: 1000;
 
         &.is-open {
-          right: 0px;
+          right: 0;
+          padding: 0 20px;
         }
       }
     }
