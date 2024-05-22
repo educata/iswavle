@@ -17,7 +17,7 @@ import { DownloadService, ThemeService } from '@app-shared/services';
 import { NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
-import { BehaviorSubject, combineLatest, map, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, lastValueFrom, map, tap } from 'rxjs';
 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PlaygroundEffects } from '@app-shared/interfaces';
@@ -129,10 +129,9 @@ export class PlaygroundBaseComponent {
     localStorage.setItem(LocalStorageKeys.CodeEditorTheme, theme);
   }
 
-  defaultTheme() {
-    this.currentEditorTheme$.next(
-      this.convertGlobalTheme(this.themeService.theme),
-    );
+  async defaultTheme() {
+    const defaultTheme = await lastValueFrom(this.themeService.theme$);
+    this.currentEditorTheme$.next(this.convertGlobalTheme(defaultTheme));
     localStorage.removeItem(LocalStorageKeys.CodeEditorTheme);
   }
 }

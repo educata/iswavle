@@ -1,7 +1,15 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
-import { LocalStorageKeys, Theme } from '@app-shared/enums';
-import { BehaviorSubject, tap } from 'rxjs';
+import { LocalStorageKeys, Theme, ThemeOptions } from '@app-shared/enums';
+import {
+  BehaviorSubject,
+  fromEvent,
+  map,
+  of,
+  startWith,
+  switchMap,
+  tap,
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,34 +18,58 @@ export class ThemeService {
   private readonly platform = inject(PLATFORM_ID);
   private readonly isBrowser = isPlatformBrowser(this.platform);
   private readonly document = inject(DOCUMENT);
-  readonly #theme$ = new BehaviorSubject<Theme>(Theme.Light);
-  readonly theme$ = this.#theme$.asObservable();
 
-  get theme() {
-    return this.#theme$.value;
-  }
+  readonly #selectedMode$ = new BehaviorSubject<ThemeOptions>(ThemeOptions.OS);
+  readonly selectedMode$ = this.#selectedMode$.asObservable();
 
-  set theme(theme: Theme) {
-    this.#theme$.next(theme);
+  readonly theme$ = this.#selectedMode$.pipe(
+    switchMap((theme) => {
+      switch (theme) {
+        case ThemeOptions.Light: {
+          return of(Theme.Light);
+        }
+
+        case ThemeOptions.Dark: {
+          return of(Theme.Dark);
+        }
+
+        default: {
+          const query = this.document.defaultView!.matchMedia(
+            '(prefers-color-scheme: dark)',
+          );
+          return fromEvent(query, 'change').pipe(
+            startWith(query),
+            map((query) => {
+              const matches = (query as MediaQueryList).matches;
+              return matches ? Theme.Dark : Theme.Light;
+            }),
+          );
+        }
+      }
+    }),
+  );
+
+  setTheme(theme: ThemeOptions) {
+    this.#selectedMode$.next(theme);
   }
 
   init() {
     if (this.isBrowser) {
       const prevTheme = localStorage.getItem(
         LocalStorageKeys.Theme,
-      ) as Theme | null;
+      ) as ThemeOptions | null;
       if (prevTheme) {
-        this.theme = prevTheme;
+        this.#selectedMode$.next(prevTheme);
       }
     }
-    return this.#theme$.pipe(
+    return this.theme$.pipe(
       tap((theme) => {
-        this.changeTheme(theme);
+        this.applyThemeToDoc(theme);
       }),
     );
   }
 
-  changeTheme(theme: Theme) {
+  private applyThemeToDoc(theme: Theme) {
     if (this.isBrowser) {
       const documentClassList = this.document.documentElement.classList;
       if (theme === Theme.Dark) {
