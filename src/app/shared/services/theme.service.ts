@@ -3,6 +3,7 @@ import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { LocalStorageKeys, Theme, ThemeOptions } from '@app-shared/enums';
 import {
   BehaviorSubject,
+  Observable,
   fromEvent,
   map,
   of,
@@ -22,7 +23,8 @@ export class ThemeService {
   readonly #selectedMode$ = new BehaviorSubject<ThemeOptions>(ThemeOptions.OS);
   readonly selectedMode$ = this.#selectedMode$.asObservable();
 
-  readonly theme$ = this.#selectedMode$.pipe(
+  readonly theme$: Observable<Theme> = this.#selectedMode$.pipe(
+    startWith(ThemeOptions.OS),
     switchMap((theme) => {
       switch (theme) {
         case ThemeOptions.Light: {

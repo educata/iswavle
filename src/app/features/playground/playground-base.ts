@@ -17,7 +17,7 @@ import { DownloadService, ThemeService } from '@app-shared/services';
 import { NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
-import { BehaviorSubject, combineLatest, lastValueFrom, map, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, tap } from 'rxjs';
 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PlaygroundEffects } from '@app-shared/interfaces';
@@ -64,17 +64,10 @@ export class PlaygroundBaseComponent {
     this.currentEditorTheme$,
     this.themeService.theme$,
   ]).pipe(
-    map(([editorTheme, globalTheme]) => {
-      let userPrefrableTheme;
-      if (this.isBrowser) {
-        userPrefrableTheme = localStorage.getItem(
-          LocalStorageKeys.CodeEditorTheme,
-        );
-      }
-      return userPrefrableTheme
-        ? editorTheme
-        : this.convertGlobalTheme(globalTheme);
-    }),
+    map(
+      ([editorTheme, globalTheme]) =>
+        editorTheme || this.convertGlobalTheme(globalTheme),
+    ),
     tap(() => {
       if (this.isBrowser) {
         if (!localStorage.getItem(LocalStorageKeys.CodeEditorTheme)) {
@@ -127,11 +120,5 @@ export class PlaygroundBaseComponent {
   changeTheme(theme: string) {
     this.currentEditorTheme$.next(theme);
     localStorage.setItem(LocalStorageKeys.CodeEditorTheme, theme);
-  }
-
-  async defaultTheme() {
-    const defaultTheme = await lastValueFrom(this.themeService.theme$);
-    this.currentEditorTheme$.next(this.convertGlobalTheme(defaultTheme));
-    localStorage.removeItem(LocalStorageKeys.CodeEditorTheme);
   }
 }
