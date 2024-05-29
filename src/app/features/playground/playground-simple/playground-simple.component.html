@@ -30,7 +30,7 @@
               </button>
               <nz-dropdown-menu #theme="nzDropdownMenu">
                 <ul nz-menu>
-                  <li nz-menu-item (click)="defaultTheme()">ნაგულისხმევი</li>
+                  <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
                   @for (theme of editorThemes; track theme) {
                     <li nz-menu-item (click)="changeTheme(theme)">
                       {{ theme }}
@@ -116,7 +116,7 @@
       [nzCancelText]="null"
       [nzOkText]="null"
       [nzFooter]="null"
-      [(nzVisible)]="vm.isDownloadModalVisible"
+      [nzVisible]="vm.isDownloadModalVisible"
       (nzOnCancel)="isDownloadModalVisible$.next(false)"
     >
       <ng-container *nzModalContent>
