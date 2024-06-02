@@ -4,6 +4,7 @@ import { LocalStorageKeys, Theme, ThemeOptions } from '@app-shared/enums';
 import {
   BehaviorSubject,
   Observable,
+  filter,
   fromEvent,
   map,
   of,
@@ -25,6 +26,7 @@ export class ThemeService {
 
   readonly theme$: Observable<Theme> = this.#selectedMode$.pipe(
     startWith(ThemeOptions.OS),
+    filter(() => this.isBrowser),
     switchMap((theme) => {
       switch (theme) {
         case ThemeOptions.Light: {

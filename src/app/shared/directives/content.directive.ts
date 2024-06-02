@@ -1,6 +1,5 @@
 import { DOCUMENT, ViewportScroller, isPlatformBrowser } from '@angular/common';
 import {
-  AfterViewInit,
   Directive,
   Input,
   OnChanges,
@@ -15,7 +14,6 @@ import { CUSTOM_ICONS } from '@app-shared/consts';
 import { DocContent } from '@app-shared/interfaces';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
 import { SanitizerService } from '@app-shared/services';
-import mermaid from 'mermaid';
 
 @Directive({
   selector: '[swContent]',
@@ -40,10 +38,6 @@ export class ContentDirective implements OnChanges {
 
   private unlistenFn = () => {};
 
-  constructor() {
-    mermaid.initialize({ startOnLoad: true, securityLevel: 'loose' });
-  }
-
   ngOnChanges(changes: SimpleChanges) {
     if ('content' in changes || 'searchKey' in changes) {
       this.renderPage(this.content, this.searchKey);
@@ -67,7 +61,6 @@ export class ContentDirective implements OnChanges {
     });
 
     this.renderIframes(body);
-    this.renderGraphs(body);
 
     if (searchKey) {
       const segments = (body.innerHTML as string).split(/(<[^>]+>)/);
@@ -202,36 +195,6 @@ export class ContentDirective implements OnChanges {
         `;
 
         iframe.replaceWith(newFrame);
-      });
-    }
-  }
-
-  private async renderGraphs(body: HTMLDivElement) {
-    if (!this.isBrowser) {
-      return;
-    }
-
-    const elements = body.querySelectorAll('div.mermaid');
-
-    // Unknown mermaid bug workaround
-    // TODO: fix me after
-
-    try {
-      for (let i = 0; i < elements.length; i++) {
-        const element = elements[i];
-        element.id = `mermaid-${i}`;
-        const graphDefinition = element.textContent || '';
-        mermaid.render;
-        const { svg } = await mermaid.render(
-          element.id,
-          graphDefinition,
-          element,
-        );
-        element.innerHTML = svg;
-      }
-    } catch (err) {
-      body.querySelectorAll('.error-text').forEach((error) => {
-        error.remove();
       });
     }
   }
