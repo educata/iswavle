@@ -170,10 +170,10 @@ function appendFileToHyperLinkList(data: string) {
 
 async function processMarkdownFiles(directory: string) {
   const dir = fs.readdirSync(directory);
-  for (const file of dir) {
+  const promises = dir.map(async (file) => {
     const filePath = path.join(directory, file);
     if (fs.statSync(filePath).isDirectory()) {
-      processMarkdownFiles(filePath);
+      await processMarkdownFiles(filePath);
     } else if (file.endsWith('.md')) {
       codesArray.splice(0);
       const outputPath = createOutputDirectoryStructure(filePath);
@@ -199,8 +199,8 @@ async function processMarkdownFiles(directory: string) {
         'utf-8',
       );
     }
-  }
-  return dataMap;
+  });
+  await Promise.all(promises);
 }
 
 function removePreAndHtmlTags(content: string) {
@@ -252,10 +252,12 @@ function createFileFromConnetion() {
   console.log(`Created empty hyperlinks file, missing ${count} hyperlinks.`);
 }
 
-processMarkdownFiles(srcContentDir).then(() => {
+async function main() {
+  await processMarkdownFiles(srcContentDir);
   createFileFromConnetion();
-});
+  console.log(
+    `Markdown files have been prerendered and saved in the ${srcAssetsDir} directory.`,
+  );
+}
 
-console.log(
-  `Markdown files have been prerendered and saved in the ${srcAssetsDir} directory.`,
-);
+main();
