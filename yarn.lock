@@ -2106,6 +2106,46 @@
   dependencies:
     "@octokit/openapi-types" "^19.0.2"
 
+"@oven/bun-darwin-aarch64@1.1.15":
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/@oven/bun-darwin-aarch64/-/bun-darwin-aarch64-1.1.15.tgz#1ed0f07c53e21a1970591fe5aed9949df8d74e2c"
+  integrity sha512-L6nwdpkKVK0HtZXti6QODUWuZhdsJNNohxuCQ9pqXKL1Vn/kviCGstnrqo/I8kfrYGlRtuPZj5r+22hye5Qs/A==
+
+"@oven/bun-darwin-x64-baseline@1.1.15":
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/@oven/bun-darwin-x64-baseline/-/bun-darwin-x64-baseline-1.1.15.tgz#28d465488ff81bf6b583a1c3c5438e9e072e50a9"
+  integrity sha512-Y7+iLN0vdEvAgyHyGrITmiuvARmAoULzFr72usqdmjHpWYqLd7R/EG+THuhOhfHlPZjcheeiTXLHCjM3RykTZg==
+
+"@oven/bun-darwin-x64@1.1.15":
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/@oven/bun-darwin-x64/-/bun-darwin-x64-1.1.15.tgz#869d157f266a47d5283609aa7f5820f526e8af3f"
+  integrity sha512-m6p8qr9VYPKk1SauyFUgPPkSWfqDrrDRVy3WNvFYcxUXX0d3nXlvR6dcLady373vfOou0E1uO7z0pNKmCmwVhg==
+
+"@oven/bun-linux-aarch64@1.1.15":
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/@oven/bun-linux-aarch64/-/bun-linux-aarch64-1.1.15.tgz#0ff9d312fd9d77aa61d710fd093f23a4bf463eb4"
+  integrity sha512-w29biKdcUM7Du9tdUYWdMRcQ4gl4AiWrBFpoTKszUwfszinptqFvEwLbGmNT2/2v694Xu6izCu8nS0s6HVj4Gg==
+
+"@oven/bun-linux-x64-baseline@1.1.15":
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/@oven/bun-linux-x64-baseline/-/bun-linux-x64-baseline-1.1.15.tgz#a8b33064e2eb31d89746246dc31292d7e921bb93"
+  integrity sha512-NAsL0hybkinYgtB8CiUjbUREYjxSTTs2Wbn48gPtqttYu9F+XS4sHULrgXMfOH5BfLHFJPLjNbweGzyzcauuWw==
+
+"@oven/bun-linux-x64@1.1.15":
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/@oven/bun-linux-x64/-/bun-linux-x64-1.1.15.tgz#109325c7f81bfda3f10eacef019abd73f168cd48"
+  integrity sha512-eoUc0XuC3X4IB3L5X5j6iT+75AlYNELhv4JkIn+kkLE4owQXBocLrjvskP706u1uvFhKyV5yzQ3f2XLXCPmpeg==
+
+"@oven/bun-windows-x64-baseline@1.1.15":
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/@oven/bun-windows-x64-baseline/-/bun-windows-x64-baseline-1.1.15.tgz#9881f3bead48e6f6af690323389904dad4c416f2"
+  integrity sha512-jubGxGBl0LvvRt+AHXchfHums9xWZjS5TVw8SszenDS8WlvSeWdEQriolNi4l6XikaUuQFojeJv1oK3C957lyQ==
+
+"@oven/bun-windows-x64@1.1.15":
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/@oven/bun-windows-x64/-/bun-windows-x64-1.1.15.tgz#149de27a096c6ac0047c5df616f4f8c0a2ed0404"
+  integrity sha512-rWes+nBE2UVq3n9mWlFmE9WAutBUE7qqR6MAiH0mmgBUwpGPWA9sxl0COJxv7ZDQtByQaZDYEJ2wPMN17n6UNw==
+
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
@@ -3462,6 +3502,20 @@ builtins@^5.0.0:
   integrity sha512-qwVpFEHNfhYJIzNRBvd2C1kyo6jz3ZSMPyyuR47OPdiKWlbYnZNyDWuyR175qDnAJLiCo5fBBqPb3RiXgWlkOQ==
   dependencies:
     semver "^7.0.0"
+
+bun@^1.1.15:
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/bun/-/bun-1.1.15.tgz#4921add104a62664454389ad984d1ac0459a9bca"
+  integrity sha512-OZmJLqCM+nayx8v3TdoySSfv3njc8YMZHFfy4UUShMgBF9aXvlRCuAIPGNLKPUqOoIc/RY+RmVwhEGBXf3hmvA==
+  optionalDependencies:
+    "@oven/bun-darwin-aarch64" "1.1.15"
+    "@oven/bun-darwin-x64" "1.1.15"
+    "@oven/bun-darwin-x64-baseline" "1.1.15"
+    "@oven/bun-linux-aarch64" "1.1.15"
+    "@oven/bun-linux-x64" "1.1.15"
+    "@oven/bun-linux-x64-baseline" "1.1.15"
+    "@oven/bun-windows-x64" "1.1.15"
+    "@oven/bun-windows-x64-baseline" "1.1.15"
 
 bundle-name@^3.0.0:
   version "3.0.0"
@@ -9494,7 +9548,16 @@ streamroller@^3.1.5:
     debug "^4.3.4"
     fs-extra "^8.1.0"
 
-"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
+  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^6.0.1"
+
+string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -9562,7 +9625,14 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
+  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
+  dependencies:
+    ansi-regex "^5.0.1"
+
+strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -10417,7 +10487,7 @@ wordwrap@^1.0.0:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
@@ -10430,6 +10500,15 @@ wrap-ansi@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-6.2.0.tgz#e9393ba07102e6c91a3b221478f0257cd2856e53"
   integrity sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+
+wrap-ansi@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
+  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
   dependencies:
     ansi-styles "^4.0.0"
     string-width "^4.1.0"

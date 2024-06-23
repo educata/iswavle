@@ -31,7 +31,10 @@
     "prepare": "husky install",
     "prerender:content": "node --loader ts-node/esm ./prerender/render-content.ts",
     "prerender:examples": "node --loader ts-node/esm ./prerender/render-examples.ts",
+    "prerender:content:bun": "bun ./prerender/render-content.ts",
+    "prerender:examples:bun": "bun ./prerender/render-examples.ts",
     "prerender": "yarn prerender:content && yarn prerender:examples",
+    "prerender:bun": "yarn prerender:content:bun && yarn prerender:examples:bun",
     "prerender:watch": "node --loader ts-node/esm ./prerender/watch.ts",
     "dev-example-assets": "node --loader ts-node/esm ./prerender/local-examples.ts",
     "lint:md": "markdownlint **/*.md",
@@ -54,6 +57,7 @@
     "@angular/router": "^17.1.2",
     "@angular/ssr": "^17.1.2",
     "@webcontainer/api": "^1.1.9",
+    "bun": "^1.1.15",
     "express": "^4.18.2",
     "file-saver": "^2.0.5",
     "jszip": "^3.10.1",
@@ -133,5 +137,6 @@
         }
       }
     }
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
