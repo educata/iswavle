@@ -31,7 +31,7 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
-import { Theme, ThemeOptions } from '@app-shared/enums';
+import { ThemeOptions } from '@app-shared/enums';
 import { LayoutService, ThemeService } from '@app-shared/services';
 import { LOG_GREETER, NAVIGATION } from './shared/providers';
 import { SearchComponent } from '@app-shared/ui';

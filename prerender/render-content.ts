@@ -4,7 +4,7 @@ import { Renderer, marked } from 'marked';
 import { ArticleAttributes, ArticleToc } from '@global-shared/interfaces';
 import frontMatter from 'front-matter';
 import hljs from 'highlight.js';
-import { docsWalkTokens } from './docs-walk-tokens.mjs';
+import { docsWalkTokens } from './docs-walk-tokens';
 
 const srcContentDir = './src/content';
 const srcAssetsDir = './src/assets';
