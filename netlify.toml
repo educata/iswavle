@@ -1,6 +1,6 @@
 [build]
   command = "bun run build"
-  publish = "dist/iswavle"
+  publish = "dist/iswavle/browser"
 [[redirects]]
   from = "/*"
   to = "/index.html"
