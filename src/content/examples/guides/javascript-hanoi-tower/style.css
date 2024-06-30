@@ -7,14 +7,6 @@ body {
   padding: 0;
 }
 
-main form.container-sm {
-  max-width: 780px;
-}
-
-main form label {
-  line-break: anywhere;
-}
-
 ul {
   max-height: 300px;
   overflow-y: auto;
