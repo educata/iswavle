@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Javascript password validator</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="container-xxl m-auto pt-4">
+      <form class="container-sm m-auto p-4 border shadow-sm round">
+        <div class="mb-3">
+          <label for="passwordInput" class="form-label">პაროლი</label>
+          <div class="input-group">
+            <input
+              id="passwordInput"
+              type="password"
+              class="form-control"
+              placeholder="რაიმე რთული პაროლი"
+              aria-label="password"
+            />
+            <span class="input-group-text" data-action="clear">
+              <i class="bi bi-trash"></i>
+            </span>
+            <span class="input-group-text" data-action="eye">
+              <i class="bi bi-eye"></i>
+            </span>
+            <span class="input-group-text" data-action="generate">
+              <i class="bi bi-file-earmark-plus"></i>
+            </span>
+            <span class="input-group-text" data-action="copy">
+              <i class="bi bi-clipboard"></i>
+            </span>
+          </div>
+        </div>
+        <ul class="list-group" id="validators">
+          <li class="list-group-item" data-regex="^.{8,}$">
+            <span class="icon"><i class="bi bi-circle-fill"></i></span>
+            მინიმუმ 8 სიმბოლო
+          </li>
+          <li class="list-group-item" data-regex="^.{0,22}$">
+            <span class="icon"><i class="bi bi-circle-fill"></i></span>
+            მაქსიმუმ 22 სიმბოლო
+          </li>
+          <li class="list-group-item" data-regex="\w">
+            <span class="icon"><i class="bi bi-circle-fill"></i></span>
+            მინიმუმ 1 სიმბოლო
+          </li>
+          <li class="list-group-item" data-regex="[a-z]">
+            <span class="icon"><i class="bi bi-circle-fill"></i></span>
+            მინიმუმ 1 პატარა სიმბოლო
+          </li>
+          <li class="list-group-item" data-regex="[A-Z]">
+            <span class="icon"><i class="bi bi-circle-fill"></i></span>
+            მინიმუმ 1 დიდი სომბოლო
+          </li>
+          <li class="list-group-item" data-regex="[0-9]">
+            <span class="icon"><i class="bi bi-circle-fill"></i></span>
+            მინიმუმ 1 რიცხვითი სომბოლო
+          </li>
+          <li class="list-group-item" data-regex="[!@#$%^&]">
+            <span class="icon"><i class="bi bi-circle-fill"></i></span>
+            მინიმუმ 1 სპეციალური სომბოლო (!@#$%^&)
+          </li>
+        </ul>
+        <div
+          class="progress mt-3"
+          role="progressbar"
+          aria-label="პაროლის პროგრესი"
+          aria-valuenow="0"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >
+          <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+      </form>
+    </main>
+    <script src="./main.js"></script>
+  </body>
+</html>
