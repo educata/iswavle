@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Javascript number calculation</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="container-fluid m-auto">
+      <form class="m-auto row g-3">
+        <div class="col-4">
+          <label for="firstInput" class="form-label">
+            პირველი მნიშვნელობა
+          </label>
+          <input
+            type="text"
+            name="firstInput"
+            id="firstInput"
+            class="form-control"
+            placeholder="რაიმე მნიშვნელობა"
+          />
+        </div>
+        <div class="col-2">
+          <label for="operation" class="form-label"> ოპერატორი </label>
+          <select
+            id="operation"
+            name="operation"
+            class="form-control"
+            placeholder="რომელიმე ოპერაცია"
+          >
+            <option value="+" selected>+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+            <option value="**">**</option>
+            <option value="%">%</option>
+          </select>
+        </div>
+        <div class="col-4">
+          <label for="secondInput" class="form-label">
+            მეორე მნიშვნელობა
+          </label>
+          <input
+            type="text"
+            id="secondInput"
+            name="secondInput"
+            class="form-control"
+            placeholder="რაიმე მნიშვნელობა"
+          />
+        </div>
+        <div class="col-2">
+          <label for="result" class="form-label">შედეგი</label>
+          <input
+            readonly
+            type="text"
+            id="result"
+            name="result"
+            class="form-control"
+          />
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary">გამოთვლა</button>
+        </div>
+      </form>
+    </main>
+    <script src="./main.js"></script>
+  </body>
+</html>
