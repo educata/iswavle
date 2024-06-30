@@ -14,3 +14,8 @@ main form.container-sm {
 main form label {
   line-break: anywhere;
 }
+
+ul {
+  max-height: 300px;
+  overflow-y: auto;
+}
