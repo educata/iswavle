@@ -4,15 +4,17 @@ description: 'HTML ელემენტის ამოღება JavaScript-
 keywords: 'selector, unique selector, id, class, tag, attr, select by attr, select by id, select by name, select by class, select by tag, querySelector, querySelectorAll, getElementById, getElementsByTagName, getElementsByClassName, getElementsByName, parentNode, childNodes, children, firstElementChild, lastElementChild, nextElementSibling, previousElementSibling'
 ---
 
-ხშირ შემთხვევაში ვებგვერდზე სტატიკური კონტენტის გარდა საჭიროა დინამიურადაც გამოვიტანოთ კონტენტი. წარმოვიდგინოთ მაღაზიის ვებგვერდი
-რათქმაუნდა თითოეულ პროდუქტს HTML-ში ხელით არ დავწერთ, უფრო ეფექტური მიდგომა იქნებოდა ჯერ სერვერიდან წამოვიღოთ ინფორმაცია
-იმის შესახებ თუ რა პროდუქტები არის გამოსატანი ვებგვერდზე და შემდგომ ნაწილ-ნაწილ გამოვიტანოთ ვიზუალზე პროდუქტები. ვიზუალურად
-HTML-ს მხარეს რომ გამოვიტანოთ პროდუქტი ამისათვის საჭიროა ჯერ შესაბამისი HTML ელემენტი ამოვიღოთ სელექტორების საშუალებით და შემდგომ
+ხშირ შემთხვევაში ვებგვერდზე სტატიკური კონტენტის გარდა საჭიროა დინამიურადაც გამოვიტანოთ კონტენტი. წარმოვიდგინოთ მაღაზიის ვებგვერდი.
+რათქმაუნდა თითოეულ პროდუქტს HTML-ში ხელით არ დავწერთ, უფრო ეფექტური მიდგომა იქნება, რომ ჯერ სერვერიდან წამოვიღოთ ინფორმაცია
+იმის შესახებ, თუ რა პროდუქტები არის გამოსატანი ვებგვერდზე და შემდგომ ნაწილ-ნაწილ გამოვიტანოთ ვიზუალზე პროდუქტები.
+ამისათვის საჭიროა ჯერ შესაბამისი HTML ელემენტი ამოვიღოთ სელექტორების საშუალებით და შემდგომ
 მასში დავარენდეროთ კონტენტი.
 
 ## რა არის სელექტორი ?
 
-სელექტორი ეს არის ტექსტი, რომლის მიხედვითაც უნდა ამოვიღოთ შესაბამისი ელემენტი ან ელემენტები. სელექტორი შესაძლოა იყოს:
+სელექტორი ეს არის ტექსტი, რომლის მიხედვითაც ბრაუზერი მოგვაწვდის შესაბამის ელემენტს ან ელემენტებს.
+
+სელექტორი შესაძლოა იყოს:
 
 - თეგის სახელი
 - კლასი
@@ -34,12 +36,15 @@ const selector7 = 'main > p:nth-of-type(3)'; // მესამე პ ელე
 const selector8 = ':not(section)'; // ყოველი ელემენტი გარდა სექციისა
 ```
 
-სელექტორები გამოიყენება სხვადასხვა მეთოდებში, რის მიხედვითაც შესაძლებელია ამოვიღოთ ელემენტები.
+შენიშნეთ, რომ ეს იგივე CSS-ის სელექტორებია?
+
+სელექტორები გამოიყენება `document` ობიექტისა და დომის კვანძების სხვადასხვა მეთოდებში,
+რომლის მიხედვითაც შესაძლებელია ამოვიღოთ ელემენტები.
 
 ## ელემენტების ძებნა
 
-ელემენტების მოსაძებნად გვაქვს ჩაშენებული მეთოდები, რომლებიც მოდის [`document`](https://developer.mozilla.org/en-US/docs/Web/API/Document) ობიექტიდან.
-მოძებნილი ელემენტი ისეთივე DOM-ის კვანძია, როგორც თვითონ document, მაშასადამე მასზე მანიპულაცია შეგვიძლია.
+ელემენტების მოსაძებნად გვაქვს ჩაშენებული მეთოდები, რომლებიც მოდის ობიექტიდან.
+მოძებნილი ელემენტი ისეთივე DOM-ის კვანძია, როგორც თვითონ `document`, მაშასადამე მასზე მანიპულაცია შეგვიძლია.
 განვიხილოთ ელემენტების მოსაძებნად განკუთვნილი მეთოდები.
 
 ### querySelector
@@ -64,7 +69,7 @@ const highlightedParagraph = document.querySelector('p.highlight');
 
 [`querySelectorAll`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll) არის `querySelector`-ის მსგავსი მეთოდი მცირედი განსხვავებით.
 `querySelectorAll` აბრუნებს ყოველ იმ ელემენტს, რომელიც დააკმაყოფილებს სელექტორის პირობას. პოვნის შემთხვევაში დააბრუნებს მასივის მსგავს ობიექტს
-[`NodeList`](https://developer.mozilla.org/en-US/docs/Web/API/NodeList), რომელზეც შეიძლება მასივის [`forEach`](./doc/guides/javascript/array#forEach) მეთოდის
+\- [`NodeList`](https://developer.mozilla.org/en-US/docs/Web/API/NodeList)-ს, რომელზეც შეიძლება მასივის [`forEach`](./doc/guides/javascript/array#forEach) მეთოდის
 გამოყენება.
 
 მაგალითები:
@@ -134,7 +139,7 @@ const radioInputs = document.getElementsByName('some-random-radio-inputs');
 ```
 
 მსგავსი ტიპის ელემენტები შეიძლება იყოს,
-ნებისმიერი HTML ელემენტი მათშორის [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta), [`<object>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object) და ისეთი ელემენტებიც კი, რომელსაც რეალურად არ გააჩნია `name` ატრიბუტი (მაგალითად: `<div name="some">` ამოღებაც შეიძლება).
+ნებისმიერი HTML ელემენტი, მათ შორის [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta), [`<object>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object) და ისეთი ელემენტებიც კი, რომელსაც რეალურად არ გააჩნია `name` ატრიბუტი (მაგალითად: `<div name="some">` ელემენტის ამოღებაც შეიძლება).
 
 ## ერთი კვანძიდან მეორეზე
 
@@ -145,7 +150,7 @@ DOM-ში კვანძების ობიექტები ისე ა
 
 [`parentNode`](https://developer.mozilla.org/en-US/docs/Web/API/Node/parentNode) თვისება გვიბრუნებს ამოღებული ელემენტის მშობელ ელემენტს. თუ ელემენტი ახალი შექმნილია
 და ჯერ არცეთ ელემენტზე არ არის დამატებული, მაშინ მისი მშობელი ელემენტი `null` გამოდის.
-სხვა შემთხვევაში, დაბრუნებული ელემენტის არის [`Node`](https://developer.mozilla.org/en-US/docs/Web/API/Node) ტიპის.
+სხვა შემთხვევაში, დაბრუნებული ელემენტი არის [`Node`](https://developer.mozilla.org/en-US/docs/Web/API/Node) ტიპის.
 
 ### childNodes
 
@@ -201,7 +206,15 @@ console.log(child.previousElementSibling); // <div id="child1"></div>
 
 ## შეჯამება
 
-ამ თავში მიმოვიხილეთ სელექტორები და მათი გამოყენების ნიმუშები. ხშირ შემთხვევაში გამოიყენებთ შემდეგ მეთოდებს: [`querySelector`](#querySelector), [`querySelectorAll`](#querySelectorAll), [`getElementById`](#getElementById), [`getElementsByName`](#getElementsByName). `querySelector`-ს გამოიყენებთ როცა ერთი ელემენტის ამოღება გსურთ, `querySelectorAll` გამოიყენებთ მაშინ როცა ბევრი ერთნაირი ელემენტის ამოღება გსურთ, `getElementById`-ს გამოიყენებთ მაშინ, როცა `id` გაქვთ და პირდაპირ ელემენტის ამოღება გინდათ ზედმეტი პრეფიქსის გარეშე, ხოლო `getElementsByName`-ს - მაშინ როცა `name` გსურთ მიწვდეთ ელემენტებს. თუ გვსურს ნავიგაცია, შეგვიძლია გამოვიყენოთ კვანძის
-ელემენტების თვისებები.
+ამ თავში მიმოვიხილეთ სელექტორები და მათი გამოყენების ნიმუშები. ხშირ შემთხვევაში გამოიყენებთ შემდეგ მეთოდებს:
+[`querySelector`](#querySelector),
+[`querySelectorAll`](#querySelectorAll),
+[`getElementById`](#getElementById),
+[`getElementsByName`](#getElementsByName).
+`querySelector`-ს გამოიყენებთ როცა ერთი ელემენტის ამოღება გსურთ,
+`querySelectorAll`-ს გამოიყენებთ მაშინ როცა ბევრი ერთნაირი ელემენტის ამოღება გსურთ,
+`getElementById`-ს გამოიყენებთ მაშინ, როცა `id` გაქვთ და პირდაპირ ელემენტის ამოღება გინდათ ზედმეტი პრეფიქსის გარეშე,
+ხოლო `getElementsByName`-ს - მაშინ როცა `name` ატრიბუტით გსურთ მიწვდეთ ელემენტებს.
+თუ გვსურს ნავიგაცია, შეგვიძლია გამოვიყენოთ კვანძის ელემენტების თვისებები.
 
 იხილეთ სამაგალითო კოდები [playground](./playground/guides/javascript-dom-selectors)-ში.
