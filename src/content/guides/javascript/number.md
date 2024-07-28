@@ -77,7 +77,7 @@ console.log(Number.MAX_SAFE_INTEGER + 1 === Number.MAX_SAFE_INTEGER + 2); // tru
 
 ```js
 let someNumber = 2;
-console.log(2..toFixed(2)); // პროტოტიპის მეთოდი
+console.log(2.toFixed(2)); // პროტოტიპის მეთოდი
 console.log((2).toFixed(2)); // პროტოტიპის მეთოდი
 console.log(someNumber.toFixed(2)); // პროტოტიპის მეთოდი
 console.log(Number.isNaN(2)); // ობიექტის მეთოდი
@@ -143,4 +143,4 @@ console.log(hexToRgb('#0a141e')); // "rgb(10,20,30)"
 
 ნებისმიერი რიცხვი რასაც ვწერთ JavaScript-ში საბოლოო ჯამში წარმოდგენილი არის, როგორც `Number` ობიექტში, რომელსაც გააჩნია თავისი პროტოტიპის მეთოდები. ცალკეულ `Number` ობიექტს კი გააჩნია მისი თვისებები და მეთოდები. თითოეული თვისებას და მეთოდს გააჩნია საკუთარი გამოყენების სიტუაცია, რომელიც სამომავლოდ საკმაოდ დაგეხმაროთ.
 
-იხილეთ სამაგალითო კოდები [playground](./playground/guides/javascript-number)-ში.
+იხილეთ სამაგალითო კოდები [playground](./playground/simple/guides/javascript-number)-ში.

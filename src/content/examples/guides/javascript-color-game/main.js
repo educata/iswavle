@@ -172,3 +172,9 @@ function initDefaultAttributes() {
     box.removeAttribute('data-clicked');
   });
 }
+
+// For scripts
+
+const script = document.createElement('script');
+script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+document.head.appendChild(script);

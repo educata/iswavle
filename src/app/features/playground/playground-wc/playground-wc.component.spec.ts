@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlaygroundComponent } from './playground.component';
+import { PlaygroundWcComponent } from './playground-wc.component';
 
-describe('PlaygroundComponent', () => {
-  let component: PlaygroundComponent;
-  let fixture: ComponentFixture<PlaygroundComponent>;
+describe('PlaygroundWcComponent', () => {
+  let component: PlaygroundWcComponent;
+  let fixture: ComponentFixture<PlaygroundWcComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PlaygroundComponent]
+      imports: [PlaygroundWcComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(PlaygroundComponent);
+    fixture = TestBed.createComponent(PlaygroundWcComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

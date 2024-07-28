@@ -14,7 +14,6 @@ nz-layout.base {
   }
 
   nz-layout.inner-layout {
-    width: 100%;
     padding: 0 24px 24px;
 
     nz-drawer {
@@ -40,21 +39,38 @@ nz-layout.base {
         padding: 0;
       }
 
+      div.actions {
+        max-width: 800px;
+        width: 100%;
+        margin: 1rem auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1em;
+
+        &.single-prev {
+          justify-content: flex-end;
+        }
+      }
+
+      div.contributors {
+        max-width: 800px;
+        width: 100%;
+        margin: auto;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
       section {
         width: 100%;
 
         sw-doc-viewer.full-size {
           width: 100%;
-        }
-
-        &.contributors {
-          max-width: 825px;
-          margin: 1rem auto;
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-          gap: 1rem;
-          flex-wrap: wrap;
+          display: inline-block;
         }
 
         &.with-toc {

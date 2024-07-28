@@ -109,3 +109,4 @@ console.log(name.length); // 7
 JavaScript-ში [`Object`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object)-ები წარმოდგენილი არის, როგორც კოლექცია თვისებების. ობიექტის ტიპის იდეა არის, რომ შევინახოთ ერთი ტიპის ცვლადში, სხვადასხვა ტიპის მნიშვნელობები, სადაც თითოეულ მათგანს ექნება უნიკალური იდენტიფიკატორი(`key`). `key` შეიძლება წარმოვადგინოთ, როგორც [`string`](#string)-ით ან [`symbol`](#symbol)-ოთი. `key` საშუალებით შეგვიძლია, ამოვიღოთ შენახული თვისება ან მეთოდი (მეთოდი შესაძლებელია არ იყოს `key`-ზე მიბმული). უფრო დეტალურად ობიექტი განხილული იქნება:
 
 - [ობიექტის თავში](./doc/guides/javascript/object-basics)
+- [ობიექტის ცნობარში](./references/javascript/object)

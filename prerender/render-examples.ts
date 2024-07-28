@@ -35,6 +35,9 @@ function readContent(src: string): string | null {
 }
 
 function renderExamplesJSON(examples: ExampleFile[], outputSrc: string) {
+  if (!fs.existsSync(outputSrc)) {
+    fs.mkdirSync(outputSrc);
+  }
   examples.forEach((example) => {
     const fileName = path.join(outputSrc, example.name);
     fs.writeFileSync(`${fileName}.json`, JSON.stringify(example), {
