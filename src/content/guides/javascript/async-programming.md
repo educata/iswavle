@@ -85,5 +85,4 @@ console.log('დასასრული');
 
 - [`Promise`](./doc/guides/javascript/async-programming/promise)
 - [`Async-Await`](./doc/guides/javascript/async-programming/async-await)
-- [`Try-Catch`](./doc/guides/javascript/async-programming/try-catch)
 - [შეჯამება](./doc/guides/javascript/async-programming/summary)
