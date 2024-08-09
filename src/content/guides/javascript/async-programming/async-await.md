@@ -119,8 +119,8 @@ const users = [
   { id: 2, name: 'ავთანდილი' },
   { id: 3, name: 'ნურადინ-ფრიდონი' },
   { id: 4, name: 'ნესტან-დარეჯანი' },
-  { id: 5, name: 'თინათინი' },
-  { id: 6, name: 'დავარი' },
+  { id: 5, name: 'ასმათი' },
+  { id: 6, name: 'თინათინი' },
 ];
 
 function fetchUser(id, users) {
@@ -193,7 +193,7 @@ randomUser(users);
 
 `Promise`-ებს გააჩნია რამოდენიმე კარგი სტატიკური მეთოდი, რომლებიც შეგიძლიათ გამოიყენოთ:
 
-### `Promise.all`
+### Promise.all
 
 [`Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) პარამეტრად ღებულობს პრომისების მასივს და აბრუნებს გაერთიანებულ პრომის შევსებული მნიშვნელობებით, მაშინ როცა **ყოველი** პრომისი გაეშვება წარმატებით. პრომისების გაშვება სრულდება ერთდროულად თუმცა თუ **ერთი** პრომისი მაინც არ შესრულდა დააბრუნებს წარუმატებელი `reject`-ის მნიშვნელობას.
 
@@ -223,7 +223,7 @@ calculate();
 
 `Promise.all` გამოყენება კარგია მაშინ, როცა რამოდენიმე პრომისის გაშვება გინდათ, რომელიც ერთმანეთზე არ არის დამოკიდებული. იგივე კოდი, რომ დაგვეწერა `Promise.all` გარეშე დრო იქნებოდა 1 წამით მეტი. შეიძლება იფიქროთ ერთი წამი არაფერია თუმცა ეს ამ კონკრეტული მაგალითის შემთხვევაში თუ შესაძლოა უფრო მეტი დროც კი დაზოგოთ სხვა შემთხვევაშიც.
 
-### `Promise.allSettled`
+### Promise.allSettled
 
 [`Promise.allSettled`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) მუშაობს, როგორც `Promise.all` ოღონდ მცირედი განსხვავებით: `Promise.allSettled` უცდის ყოველი პრომისის მნიშვნელობის დასრულებას, მნიშვნელობა არ აქვს ეს წარმატებული იყო თუ წარუმატებელი, მხოლოდ მის შემდგომ დაბრუნდება პრომისების მასივი.
 
@@ -245,7 +245,7 @@ Promise.allSettled([firstPromise, secondPromise, thirdPromise]).then((results) =
 
 არსებული კოდი გამოიტანს სამივე პრომისის მნიშვნელობას მაშინ როცა სამივე შესრულდება.
 
-### `Promise.any`
+### Promise.any
 
 [`Promise.any`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/any) მეთოდი ღებულობს პრომისების მასივს და დააბრუნებს მნიშვნელობას, როცა **ერთი** პრომისი მაინც შესრულდება წარმატებით, ხოლო აბრუნებს წარუმატებელ შემთხვევას თუ ყოველი პრომისი წარუმატებლად დასრულდა.
 
@@ -265,7 +265,7 @@ Promise.any([firstPromise, secondPromise, thirdPromise])
 
 ამ შემთხვევაში დაილოგება `'წარმატებულად შესრულებული პრომისის მნიშვნელობა: მესამე დაპირება'`, რადგან პირველი მესამე პრომისი შესრულდება.
 
-### `Promise.race`
+### Promise.race
 
 [`Promise.race`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/race) საკმაოდ წააგავს `Promise.any` მეთოდს, ოღონდ მცირედი განსხვავებით: `Promise.race` არ დაუცდის შესრულების წარმატებით შესრულებას, თუ წარმატებულ შედეგზე ადრე წარუმატებეული შესრულდა, მაშინ წარუმატებელ შემთხვევას გაუშვებს. მარტივად რომ ვთქვათ, ვინც პირველი გაეშვება მისი მნიშვნელობა დაბრუნდება.
 
