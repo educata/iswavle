@@ -108,10 +108,6 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
           title: 'Async & Await',
           path: 'async-await',
         },
-        {
-          title: 'შეჯამება',
-          path: 'summary',
-        },
       ],
     },
   ],
