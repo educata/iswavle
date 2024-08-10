@@ -19,12 +19,16 @@ async function handleMermaid(token: Tokens.Code) {
   const inputPath = `${tempMermaidPath}.mmd`;
   const outputPath = `${tempMermaidPath}.svg`;
 
-  writeFileSync(inputPath, token.text, 'utf-8');
+  try {
+    writeFileSync(inputPath, token.text, 'utf-8');
 
-  await run(inputPath, outputPath);
+    await run(inputPath, outputPath);
 
-  token.text = `<div data-search-ignore class="mermaid">${readFileSync(outputPath, 'utf-8')}</div>`;
+    token.text = `<div data-search-ignore class="mermaid">${readFileSync(outputPath, 'utf-8')}</div>`;
 
-  existsSync(inputPath) && rmSync(inputPath);
-  existsSync(outputPath) && rmSync(outputPath);
+    existsSync(inputPath) && rmSync(inputPath);
+    existsSync(outputPath) && rmSync(outputPath);
+  } catch (error) {
+    console.error('Error rendering mermaid diagram: ', error);
+  }
 }
