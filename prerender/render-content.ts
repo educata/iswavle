@@ -207,21 +207,6 @@ function removePreAndHtmlTags(content: string) {
   return content
     .replace(/<pre>.*?<\/pre>/gs, '')
     .replace(/<\/?[^>]*>/g, '')
-    .replace(/<[^>]*data-search-ignore[^>]*>[^<]*<\/[^>]*>/gim, '')
-    .replaceAll('\n', ' ');
-}
-
-function normalizePath(path: string): string {
-  return path
-    .replaceAll('\\', '/')
-    .replaceAll('src/assets', 'doc')
-    .replaceAll('.md', '');
-}
-
-function removePreAndHtmlTags(content: string) {
-  return content
-    .replace(/<pre>.*?<\/pre>/gs, '')
-    .replace(/<\/?[^>]*>/g, '')
     .replaceAll('\n', ' ');
 }
 
