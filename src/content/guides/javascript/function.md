@@ -1,6 +1,6 @@
 ---
 title: 'ფუნქცია'
-description: 'სამომხმარებლო ფუნქციები JavaScript-ში'
+description: 'ფუნქციები JavaScript-ში'
 keywords: 'functions, return, default params, void functions, scope, hoisting, hoisted, რეკურსია, recursion, arrow, async, await'
 ---
 
@@ -160,7 +160,7 @@ console.log(powTernary(2, 10)); // 1024
 
 pow ფუნქცია რეკურსიულად იძახებს თავის თავს მანამ სანამ `n` არ გაუტოლდება 1.
 
-განსხვავებული მაგალითი რეკურსიულად [ფაილების წაკითხვა](./playground/guides/javascript-tree-recursion)-ზე.
+განსხვავებული მაგალითი რეკურსიულად [ფაილების წაკითხვა](./playground/simple/guides/javascript-tree-recursion)-ზე:
 
 უშუალოდ [iswavle.com](https://iswavle.com)-ს აწყობისას, კონტენტის დასარენდერებლად რეკურსია არის გამოყენებული, იხილეთ [კოდი](https://github.com/educata/iswavle/blob/main/prerender/render-content.ts).
 

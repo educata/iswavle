@@ -1,7 +1,7 @@
-<nz-anchor [nzAffix]="isFixed">
+<nz-anchor [nzAffix]="isFixed" (nzClick)="onClick.emit($event)">
   @for (attr of docAttrs; track attr.id) {
     @if (attr.sub) {
-      <nz-link nzHref="#{{ attr.id }}" [nzTitle]="attr.title">
+      <nz-link nzHref="#{{ attr.id | sanitizeId }}" [nzTitle]="attr.title">
         @for (childAttr of attr.sub; track childAttr.id) {
           <nz-link
             nzHref="#{{ childAttr.id }}"
@@ -10,7 +10,10 @@
         }
       </nz-link>
     } @else {
-      <nz-link nzHref="#{{ attr.id }}" [nzTitle]="attr.title"></nz-link>
+      <nz-link
+        nzHref="#{{ attr.id | sanitizeId }}"
+        [nzTitle]="attr.title"
+      ></nz-link>
     }
   }
 </nz-anchor>

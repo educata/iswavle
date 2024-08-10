@@ -1,5 +1,5 @@
-@import '../../../../node_modules/ng-zorro-antd/ng-zorro-antd.less';
-@import '../../../../node_modules/ng-zorro-antd/code-editor/style/entry.less';
+@import '../../../../../node_modules/ng-zorro-antd/ng-zorro-antd.less';
+@import '../../../../../node_modules/ng-zorro-antd/code-editor/style/entry.less';
 
 main {
   section.playground {
@@ -45,12 +45,24 @@ main {
         height: 100%;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 3fr auto;
+        // grid-template-rows: 3fr auto;
+        grid-template-rows: 1fr;
         box-sizing: border-box;
 
         aside {
           height: 100%;
           width: 100%;
+        }
+
+        .result {
+          position: relative;
+
+          nz-spin {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
 
           iframe {
             width: 100%;

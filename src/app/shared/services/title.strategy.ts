@@ -60,7 +60,8 @@ export class SwTitleStrategy extends TitleStrategy {
     }
     if (content.attributes.title) {
       params.shift();
-      params.splice(1, 1, content.attributes.title);
+      params.pop();
+      params.push(content.attributes.title);
     }
     const title =
       params.reverse().join(` ${TITLE_SEPARATOR} `) ||

@@ -39,7 +39,12 @@
                 </ul>
               </nz-dropdown-menu>
             }
-            <button nz-button (click)="download()" aria-label="კოდის გადმოწერა">
+            <button
+              nz-button
+              [disabled]="!vm.isEditorInitialized"
+              (click)="isDownloadModalVisible$.next(true)"
+              aria-label="კოდის გადმოწერა"
+            >
               <span nz-icon nzType="download" nzTheme="outline"></span>
             </button>
           </nz-button-group>
@@ -97,17 +102,61 @@
       <aside class="preview" nz-col nzXs="24" nzMd="12" nzLg="12">
         <div class="wrapper" id="result-side">
           <aside class="result">
+            <nz-spin
+              nzSimple
+              nzTip="ერთი წამი..."
+              [nzSpinning]="!vm.isServerRunning"
+            >
+            </nz-spin>
             <iframe
               class="site"
               aria-label="კოდიდან დაგენერირებული ვებგვერდი"
+              allow="cross-origin-isolated"
               [src]="vm.serverUrl"
             ></iframe>
           </aside>
-          <aside class="terminal">
+          <!-- <aside class="terminal">
             <sw-terminal aria-label="ტერმინალი"></sw-terminal>
-          </aside>
+          </aside> -->
         </div>
       </aside>
     </section>
+    <nz-modal
+      nzTitle="გადმოწერა"
+      [nzStyle]="{ top: '64px' }"
+      [nzCancelText]="null"
+      [nzOkText]="null"
+      [nzFooter]="null"
+      [(nzVisible)]="vm.isDownloadModalVisible"
+      (nzOnCancel)="isDownloadModalVisible$.next(false)"
+    >
+      <ng-container *nzModalContent>
+        <h3 style="margin-bottom: 24px; text-align: center">
+          გაითვალისწინეთ შესაძლებელია ბრაუზერმა სკრიპტის ტიპის ფაილი
+          <span style="color: red; font-weight: bold">ვირუსად</span>
+          მონიშნოს!
+        </h3>
+        <div class="center-wrap" style="margin-bottom: 24px">
+          <button
+            nz-button
+            nzType="default"
+            aria-label="ერთი ფაილის გადმოწერა"
+            (click)="download(false)"
+          >
+            რიგრიგობით გადმოწერა
+            <span nz-icon nzType="download" nzTheme="outline"></span>
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            aria-label="ერთიანად დაზიპული გადმოწერა"
+            (click)="download(true)"
+          >
+            ერთიანად დაზიპული გადმოწერა
+            <span nz-icon nzType="download" nzTheme="outline"></span>
+          </button>
+        </div>
+      </ng-container>
+    </nz-modal>
   }
 </main>
