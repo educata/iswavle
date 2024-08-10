@@ -207,6 +207,7 @@ function removePreAndHtmlTags(content: string) {
   return content
     .replace(/<pre>.*?<\/pre>/gs, '')
     .replace(/<\/?[^>]*>/g, '')
+    .replace(/<[^>]*data-search-ignore[^>]*>[^<]*<\/[^>]*>/gim, '')
     .replaceAll('\n', ' ');
 }
 
@@ -235,11 +236,6 @@ function createFileFromConnetion() {
   });
 
   fs.writeFileSync('src/assets/empty-hyperlinks.json', data, 'utf-8');
-  fs.writeFileSync(
-    'src/assets/index-map.json',
-    JSON.stringify(dataMap),
-    'utf-8',
-  );
 
   fs.writeFileSync(
     'src/assets/index-map.json',
