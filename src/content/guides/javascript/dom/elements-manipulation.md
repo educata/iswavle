@@ -144,7 +144,7 @@ box.style.backgroundColor = 'steelblue';
 
 დინამიურის მაგალითი:
 
-```html{color-example}
+```html
 <p>საინტერესო <span id="dynamicStyle">ტექსტი</span></p>
 <div>
   <label for="fontSize">ფონტის ზომა</label>
