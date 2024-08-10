@@ -217,4 +217,4 @@ console.log(child.previousElementSibling); // <div id="child1"></div>
 ხოლო `getElementsByName`-ს - მაშინ როცა `name` ატრიბუტით გსურთ მიწვდეთ ელემენტებს.
 თუ გვსურს ნავიგაცია, შეგვიძლია გამოვიყენოთ კვანძის ელემენტების თვისებები.
 
-იხილეთ სამაგალითო კოდები [playground](./playground/guides/javascript-dom-selectors)-ში.
+იხილეთ სამაგალითო კოდები [playground](./playground/simple/guides/javascript-dom-selectors)-ში.

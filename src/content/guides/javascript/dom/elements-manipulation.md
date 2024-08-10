@@ -584,4 +584,4 @@ deleteAllNodeBtn.addEventListener('click', () => {
 უკვე იცით, თუ როგორი სახით არის შესაძლებელი ელემენტის კონტენტზე მანიპულაცია, ატრიბუტებზე მანიპულაცია,
 კლასების მანიპულაცია და CRUD ოპერაციები.
 
-იხილეთ სამაგალითო კოდები [playground](./playground/guides/javascript-dom-elements-manipulation)-ში.
+იხილეთ სამაგალითო კოდები [playground](./playground/simple/guides/javascript-dom-elements-manipulation)-ში.

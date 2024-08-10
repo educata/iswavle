@@ -615,6 +615,8 @@ function initDefaultAttributes() {
 
 კოდი დაწერილია იმ ცოდნით, რა ცოდნასაც მიიღებდით წინა სტატიებიდან, ამიტომაც სცადეთ და გააუმჯობესეთ აპლიკაცია.
 
+<iframe data-url="guides/javascript-color-game" data-title="ფერების თამაში" data-height="930"></iframe>
+
 ## დავალება
 
 მომხარებელმა შეიძლება ყოველ არასწორ ყუთს დააკლიკოს და დარჩეს მხოლოდ სწორი ყუთი.
@@ -628,4 +630,4 @@ function initDefaultAttributes() {
   <code>document.querySelectorAll("div.box[data-clicked]").length</code>
 </details>
 
-იხილეთ მთლიანი კოდი თავისი დავალებით [playground](./playground/guides/javascript-color-game)-ში.
+იხილეთ მთლიანი კოდი თავისი დავალებით [playground](./playground/simple/guides/javascript-color-game)-ში.
