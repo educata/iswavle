@@ -66,14 +66,7 @@ html {
   }
 
   img {
-    max-width: 100%;
-    display: block;
-    margin: 0 auto 1rem;
-  }
-
-  .note,
-  .mermaid {
-    margin-bottom: 1rem;
+    width: 100%;
   }
 
   kbd {
@@ -105,117 +98,6 @@ html {
   .table-wrapper {
     max-width: 100%;
     overflow-x: auto;
-  }
-
-  .code-wrapper {
-    display: grid;
-    grid-template-columns: 1fr;
-    border: 1px solid var(--border-color);
-    margin-bottom: 1rem;
-
-    .language-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 5px 16px;
-      border-bottom: 1px solid var(--border-color);
-
-      button {
-        background-color: transparent;
-        border: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-
-        svg {
-          fill: var(--border-color);
-          transition: 0.5s;
-        }
-
-        &:hover {
-          svg {
-            fill: @primary-color;
-          }
-        }
-      }
-    }
-
-    pre {
-      margin-bottom: 0;
-      code {
-        padding: 0;
-      }
-    }
-  }
-
-  .external-frame {
-    width: 100%;
-    height: 0;
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 */
-    margin: 0 auto 1rem;
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-  }
-
-  .frame-wrapper {
-    display: grid;
-    grid-template-columns: 1fr;
-    border: 1px solid var(--border-color);
-    margin-bottom: 1rem;
-
-    .title-frame {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 5px 16px;
-      border-bottom: 1px solid var(--border-color);
-
-      a {
-        background-color: transparent;
-        border: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        gap: 0.5rem;
-        color: var(--text-color);
-
-        svg {
-          width: 16px;
-          height: 16px;
-          fill: var(--border-color);
-          transition: 0.5s;
-        }
-
-        &:hover {
-          color: @primary-color;
-
-          svg {
-            fill: @primary-color;
-          }
-        }
-      }
-    }
-
-    .body-frame {
-      width: 100%;
-      padding: 1rem;
-      box-sizing: border-box;
-
-      iframe {
-        width: 100%;
-      }
-    }
   }
 
   nz-anchor {

@@ -64,17 +64,10 @@ export class PlaygroundBaseComponent {
     this.currentEditorTheme$,
     this.themeService.theme$,
   ]).pipe(
-    map(([editorTheme, globalTheme]) => {
-      let userPrefrableTheme;
-      if (this.isBrowser) {
-        userPrefrableTheme = localStorage.getItem(
-          LocalStorageKeys.CodeEditorTheme,
-        );
-      }
-      return userPrefrableTheme
-        ? editorTheme
-        : this.convertGlobalTheme(globalTheme);
-    }),
+    map(
+      ([editorTheme, globalTheme]) =>
+        editorTheme || this.convertGlobalTheme(globalTheme),
+    ),
     tap(() => {
       if (this.isBrowser) {
         if (!localStorage.getItem(LocalStorageKeys.CodeEditorTheme)) {
@@ -127,12 +120,5 @@ export class PlaygroundBaseComponent {
   changeTheme(theme: string) {
     this.currentEditorTheme$.next(theme);
     localStorage.setItem(LocalStorageKeys.CodeEditorTheme, theme);
-  }
-
-  defaultTheme() {
-    this.currentEditorTheme$.next(
-      this.convertGlobalTheme(this.themeService.theme),
-    );
-    localStorage.removeItem(LocalStorageKeys.CodeEditorTheme);
   }
 }

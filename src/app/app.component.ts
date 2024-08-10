@@ -30,12 +30,10 @@ import { NzMenuModeType } from 'ng-zorro-antd/menu';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { Theme } from '@app-shared/enums';
-import { LayoutService, ThemeService } from '@app-shared/services';
+import { ThemeService } from '@app-shared/services';
+import { LAYOUT_SIZES } from '@app-shared/consts';
 import { LOG_GREETER, NAVIGATION } from './shared/providers';
-import { SearchComponent } from '@app-shared/ui';
-import { ENVIRONMENT } from '@app-shared/providers/environment';
 
 @Component({
   selector: 'sw-root',
@@ -68,7 +66,6 @@ export class AppComponent implements AfterViewInit {
   private readonly document = inject(DOCUMENT);
   readonly headerNavigation = inject(NAVIGATION);
   readonly theme = Theme;
-  readonly isBrowser = isPlatformBrowser(this.platform);
 
   readonly isMenuOpenedByUser$ = new BehaviorSubject<boolean>(false);
   readonly burgerTopDistance$ = new BehaviorSubject<string>('66px');
@@ -131,29 +128,11 @@ export class AppComponent implements AfterViewInit {
   );
 
   constructor() {
-    if (this.isBrowser && this.environment.production) {
-      this.initDefaultLog();
-    }
     this.themeService.init().pipe(takeUntilDestroyed()).subscribe();
-    this.isMenuOpen$
-      .pipe(
-        takeUntilDestroyed(),
-        tap((isOpen) => {
-          this.document.body.style.overflow = isOpen ? 'hidden' : 'visible';
-          if (isOpen) {
-            this.viewport.scrollToPosition([0, 0]);
-          }
-        }),
-      )
-      .subscribe();
   }
 
-  ngAfterViewInit(): void {
-    if (this.isBrowser) {
-      this.burgerTopDistance$.next(
-        `${66 + this.alertRef.nativeElement.clientHeight}px`,
-      );
-    }
+  ngOnInit(): void {
+    // this.initDefaultLog();
   }
 
   private initDefaultLog() {
@@ -162,8 +141,8 @@ export class AppComponent implements AfterViewInit {
     });
   }
 
-  changeTheme(theme: Theme) {
-    this.themeService.theme = theme;
+  changeTheme(theme: ThemeOptions) {
+    this.themeService.setTheme(theme);
   }
 
   isActivePath(currentPath: string | null, routerLink: string | string[]) {

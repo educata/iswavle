@@ -1,9 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Renderer, marked } from 'marked';
-import frontMatter from 'front-matter';
 import { ArticleAttributes, ArticleToc } from '@global-shared/interfaces';
+import frontMatter from 'front-matter';
 import hljs from 'highlight.js';
+import { docsWalkTokens } from './docs-walk-tokens';
 
 const srcContentDir = './src/content';
 const srcAssetsDir = './src/assets';
@@ -27,6 +28,10 @@ const codesArray: string[] = [];
 const render = new Renderer();
 
 render.code = (code, language) => {
+  if (language === 'mermaid') {
+    return code;
+  }
+
   const validLang = !!(language && hljs.getLanguage(language));
 
   const highlighted = validLang
@@ -56,7 +61,35 @@ render.paragraph = (text) => {
   return `<p>${text}</p>`;
 };
 
-marked.setOptions({ renderer: render });
+marked.use({
+  renderer: render,
+  async: true,
+  walkTokens: docsWalkTokens,
+});
+
+function registerCustomBlocks(text: string) {
+  const block = text.split('\n')[0].replace(':::', '') || '';
+
+  switch (block.toLocaleLowerCase()) {
+    case 'success': {
+      return `<div class="note ant-alert ant-alert-success">${text.slice(11, -4)}</div>`;
+    }
+    case 'warning': {
+      return `<div class="note ant-alert ant-alert-warning">${text.slice(11, -4)}</div>`;
+    }
+    case 'error': {
+      return `<div class="note ant-alert ant-alert-error">${text.slice(9, -4)}</div>`;
+    }
+    case 'info': {
+      return `<div class="note ant-alert ant-alert-info">${text.slice(8, -4)}</div>`;
+    }
+    case '': {
+      return `<div class="note ant-alert ant-alert-info">${text.slice(4, -4)}</div>`;
+    }
+  }
+
+  return text;
+}
 
 function registerCustomBlocks(text: string) {
   const block = text.split('\n')[0].replace(':::', '');
@@ -112,9 +145,11 @@ function extractHeaders(htmlString: string): ArticleToc[] {
   return result;
 }
 
-function renderMarkdownFile(filePath: string) {
+async function renderMarkdownFile(filePath: string) {
   const markdown = fs.readFileSync(filePath, 'utf8');
-  const parsedMarkdown = marked.parse(markdown.replace(/^---$.*^---$/ms, ''));
+  const parsedMarkdown = await marked.parse(
+    markdown.replace(/^---$.*^---$/ms, ''),
+  );
   const data = frontMatter<ArticleAttributes>(markdown);
   if (data?.attributes) {
     data.attributes.toc = extractHeaders(parsedMarkdown);
@@ -158,15 +193,16 @@ function appendFileToHyperLinkList(data: string) {
   }
 }
 
-function processMarkdownFiles(directory: string) {
-  fs.readdirSync(directory).forEach((file) => {
+async function processMarkdownFiles(directory: string) {
+  const dir = fs.readdirSync(directory);
+  const promises = dir.map(async (file) => {
     const filePath = path.join(directory, file);
     if (fs.statSync(filePath).isDirectory()) {
-      processMarkdownFiles(filePath);
+      await processMarkdownFiles(filePath);
     } else if (file.endsWith('.md')) {
       codesArray.splice(0);
       const outputPath = createOutputDirectoryStructure(filePath);
-      const data = renderMarkdownFile(filePath);
+      const data = await renderMarkdownFile(filePath);
       appendFileToHyperLinkList(data.content);
 
       fs.writeFileSync(
@@ -189,6 +225,22 @@ function processMarkdownFiles(directory: string) {
       );
     }
   });
+  await Promise.all(promises);
+}
+
+function removePreAndHtmlTags(content: string) {
+  return content
+    .replace(/<pre>.*?<\/pre>/gs, '')
+    .replace(/<\/?[^>]*>/g, '')
+    .replace(/<[^>]*data-search-ignore[^>]*>[^<]*<\/[^>]*>/gim, '')
+    .replaceAll('\n', ' ');
+}
+
+function normalizePath(path: string): string {
+  return path
+    .replaceAll('\\', '/')
+    .replaceAll('src/assets', 'doc')
+    .replaceAll('.md', '');
 }
 
 function removePreAndHtmlTags(content: string) {
@@ -229,6 +281,12 @@ function createFileFromConnetion() {
     'utf-8',
   );
 
+  fs.writeFileSync(
+    'src/assets/index-map.json',
+    JSON.stringify(dataMap),
+    'utf-8',
+  );
+
   let count = 0;
 
   for (const section in hyperLinks) {
@@ -238,8 +296,12 @@ function createFileFromConnetion() {
   console.log(`Created empty hyperlinks file, missing ${count} hyperlinks.`);
 }
 
-processMarkdownFiles(srcContentDir);
-createFileFromConnetion();
-console.log(
-  `Markdown files have been prerendered and saved in the ${srcAssetsDir} directory.`,
-);
+async function main() {
+  await processMarkdownFiles(srcContentDir);
+  createFileFromConnetion();
+  console.log(
+    `Markdown files have been prerendered and saved in the ${srcAssetsDir} directory.`,
+  );
+}
+
+main();

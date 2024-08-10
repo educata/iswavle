@@ -77,7 +77,7 @@ console.log(Number.MAX_SAFE_INTEGER + 1 === Number.MAX_SAFE_INTEGER + 2); // tru
 
 ```js
 let someNumber = 2;
-console.log(2.toFixed(2)); // პროტოტიპის მეთოდი
+console.log(2..toFixed(2)); // პროტოტიპის მეთოდი
 console.log((2).toFixed(2)); // პროტოტიპის მეთოდი
 console.log(someNumber.toFixed(2)); // პროტოტიპის მეთოდი
 console.log(Number.isNaN(2)); // ობიექტის მეთოდი

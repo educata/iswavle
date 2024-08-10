@@ -68,12 +68,11 @@
               </button>
               <nz-dropdown-menu #themeMenu="nzDropdownMenu">
                 <ul nz-menu>
-                  <li nz-menu-item (click)="changeTheme(theme.Light)">
-                    {{ theme.Light | titlecase }}
-                  </li>
-                  <li nz-menu-item (click)="changeTheme(theme.Dark)">
-                    {{ theme.Dark | titlecase }}
-                  </li>
+                  @for (theme of themeOptions; track theme.value) {
+                    <li nz-menu-item (click)="changeTheme(theme.value)">
+                      {{ theme.title }}
+                    </li>
+                  }
                 </ul>
               </nz-dropdown-menu>
             </div>
