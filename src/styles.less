@@ -76,6 +76,10 @@ html {
     margin-bottom: 1rem;
   }
 
+  .note {
+    display: block;
+  }
+
   kbd {
     background-color: #eee;
     border-radius: 3px;
@@ -180,6 +184,27 @@ html {
       padding: 5px 16px;
       border-bottom: 1px solid var(--border-color);
 
+      @media screen and (max-width: 885px) {
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      @media screen and (max-width: 767px) {
+        justify-content: space-between;
+      }
+
+      @media screen and (max-width: 540px) {
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      div {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
       a {
         background-color: transparent;
         border: none;
@@ -189,6 +214,16 @@ html {
         cursor: pointer;
         gap: 0.5rem;
         color: var(--text-color);
+
+        @media screen and (max-width: 540px) {
+          flex-wrap: wrap;
+        }
+
+        span {
+          @media screen and (max-width: 360px) {
+            text-align: center;
+          }
+        }
 
         svg {
           width: 16px;

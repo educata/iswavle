@@ -55,6 +55,8 @@ if (age === 18) {
 }
 ```
 
+<iframe data-url="guides/javascript-logical-expression" data-title="სრულწლოვნობის შემოწმების მაგალითი" data-height="130"></iframe>
+
 ## ტერნარული ოპერატორი
 
 პირობითი ოპერაციები არამხოლოდ `if...else`-ს სახით გხვდება, არამედ შესაძლებელია ჩაიწეროს ტერნარული ([ternary](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator)) ოპერაციის სახითაც. ტერნარულ ოპერაციაში მონაწილეობს 3 ოპერანდი. ტერნარული ოპერატორი გამოიყენება იმისათვის, რომ ცვლადს მნიშვნელობა პირობიდან გამომდინარე მივანიჭოთ, მეორე ნაირად მას inline if უძახიან.

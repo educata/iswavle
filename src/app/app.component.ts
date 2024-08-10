@@ -31,11 +31,12 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
-import { Theme } from '@app-shared/enums';
+import { ThemeOptions } from '@app-shared/enums';
 import { LayoutService, ThemeService } from '@app-shared/services';
 import { LOG_GREETER, NAVIGATION } from './shared/providers';
 import { SearchComponent } from '@app-shared/ui';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
+import { DISPLAY_THEMES } from '@app-shared/consts/theme';
 
 @Component({
   selector: 'sw-root',
@@ -67,7 +68,7 @@ export class AppComponent implements AfterViewInit {
   private readonly viewport = inject(ViewportScroller);
   private readonly document = inject(DOCUMENT);
   readonly headerNavigation = inject(NAVIGATION);
-  readonly theme = Theme;
+  readonly themeOptions = DISPLAY_THEMES;
   readonly isBrowser = isPlatformBrowser(this.platform);
 
   readonly isMenuOpenedByUser$ = new BehaviorSubject<boolean>(false);
@@ -134,7 +135,9 @@ export class AppComponent implements AfterViewInit {
     if (this.isBrowser && this.environment.production) {
       this.initDefaultLog();
     }
-    this.themeService.init().pipe(takeUntilDestroyed()).subscribe();
+    if (this.isBrowser) {
+      this.themeService.init().pipe(takeUntilDestroyed()).subscribe();
+    }
     this.isMenuOpen$
       .pipe(
         takeUntilDestroyed(),
@@ -162,8 +165,8 @@ export class AppComponent implements AfterViewInit {
     });
   }
 
-  changeTheme(theme: Theme) {
-    this.themeService.theme = theme;
+  changeTheme(theme: ThemeOptions) {
+    this.themeService.setTheme(theme);
   }
 
   isActivePath(currentPath: string | null, routerLink: string | string[]) {
