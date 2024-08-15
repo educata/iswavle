@@ -115,6 +115,10 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
       path: 'rest-api',
       children: [
         {
+          title: 'JSON & XML',
+          path: 'json-xml',
+        },
+        {
           title: 'XMLHttpRequest',
           path: 'xhr',
         },
