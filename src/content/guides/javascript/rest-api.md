@@ -12,7 +12,7 @@ keywords: 'სტატუს კოდები, status codes, REST, RESTful'
 - WebSockets
   - ორმხრივი გზა კლიენტსა და სერვერს შორის კომუნიკაციისთვის, კარგია ისეთი აპლიკაციებისთვის სადაც საჭიროა სწრაფად ინფორმაციის განახლება (ჩათი, შეტყობინებები და ა.შ).
 
-## REST API
+## რა არის REST API?
 
 HTTP/HTTPS მოთხოვნებისთვის გამოიყენება REST API. REST (Representational State Transfer)-ის ძირითადი იდეა არის, რომ კლიენტსა და სერვერს შორის მოხდეს ინფორმაციის მიმონაცვლეობა. API (Application Programming Interface) იშიფრება, როგორც აპლიკაციის პროგრამული ინტერფეისი, რომელიც აღწერს სხვადასხვა მეთოდებსა და მნიშვნელობებს.
 
@@ -28,8 +28,8 @@ REST API გააჩნია ხუთი მოთხოვნა:
 
 ```mermaid
 sequenceDiagram
-    Client->>+Server: GET მოთხოვნა
-    Server->>+Client: დაბრუნებული მნიშვნელობა
+  Client->>+Server: GET მოთხოვნა
+  Server->>+Client: დაბრუნებული მნიშვნელობა
 ```
 
 ### GET
