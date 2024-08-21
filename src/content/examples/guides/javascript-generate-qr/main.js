@@ -2,7 +2,7 @@ const form = document.querySelector('form');
 const qrDisplay = document.querySelector('#qrDisplay');
 
 const API_URL = 'https://api.everrest.educata.dev';
-const RANDOM_QUOTE_ENDPOINT = 'qrcode/generate';
+const QR_CODE_ENDPOINT = 'qrcode/generate';
 
 form.addEventListener('submit', async function (event) {
   event.preventDefault();
@@ -16,7 +16,7 @@ form.addEventListener('submit', async function (event) {
 
   try {
     const response = await (
-      await fetch(`${API_URL}/${RANDOM_QUOTE_ENDPOINT}`, {
+      await fetch(`${API_URL}/${QR_CODE_ENDPOINT}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

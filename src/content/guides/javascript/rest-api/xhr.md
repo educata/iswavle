@@ -1,7 +1,7 @@
 ---
 title: 'XMLHttpRequest'
 description: 'როგორ გამოვიყენოთ XMLHttpRequest-ი JavaScript-ში?'
-keywords: 'XMLHttpRequest, როგორ გავაგზავნოთ მოთხოვნა, GET, POST, PUT, PATCH, DELETE'
+keywords: 'XMLHttpRequest, fetch, response, requset, api, rest api, get, post, put, patch, delete, მოთხოვნებთან მუშაობა, მოთხოვნის გაგზავნა'
 ---
 
 მოთხოვნის გასაგზავნას არაერთი მეთოდი არსებობს. ერთ-ერთი ფართოდ გამოყენებული მეთოდი არის `XMLHttpRequest`.
