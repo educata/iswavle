@@ -130,10 +130,6 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
           title: 'პრაქტიკა',
           path: 'practice',
         },
-        {
-          title: 'შეჯამება',
-          path: 'summary',
-        },
       ],
     },
   ],
