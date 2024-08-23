@@ -177,7 +177,6 @@ export class ContentDirective implements OnChanges {
 
         const newFrame = this.renderer.createElement('div') as HTMLDivElement;
         newFrame.classList.add('frame-wrapper');
-        newFrame.setAttribute('crossorigin', 'anonymous');
 
         let source = `${this.environment.examplesURL}/${url}`;
         const shouldHavePlaygroundLink = !iframe.src && url;
@@ -193,7 +192,7 @@ export class ContentDirective implements OnChanges {
             </div>
           </div>
           <div class="body-frame">
-            <iframe src="${source}/index.html" height="${height}" frameborder="0"></iframe>
+            <iframe src="${source}/index.html" height="${height}" frameborder="0" crossorigin="anonymous"></iframe>
           </div>
         `;
 
