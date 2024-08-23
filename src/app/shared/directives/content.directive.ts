@@ -177,6 +177,7 @@ export class ContentDirective implements OnChanges {
 
         const newFrame = this.renderer.createElement('div') as HTMLDivElement;
         newFrame.classList.add('frame-wrapper');
+        newFrame.setAttribute('crossorigin', 'anonymous');
 
         let source = `${this.environment.examplesURL}/${url}`;
         const shouldHavePlaygroundLink = !iframe.src && url;
@@ -205,12 +206,14 @@ export class ContentDirective implements OnChanges {
     const images = body.querySelectorAll('img');
     const regexForCrossOrigin = new RegExp('https://.*', 'g');
 
-    images.forEach((image) => {
-      const isCrossOrigin = regexForCrossOrigin.test(image.src);
+    if (images.forEach) {
+      images.forEach((image) => {
+        const isCrossOrigin = regexForCrossOrigin.test(image.src);
 
-      if (isCrossOrigin) {
-        image.setAttribute('crossorigin', 'anonymous');
-      }
-    });
+        if (isCrossOrigin) {
+          image.setAttribute('crossorigin', 'anonymous');
+        }
+      });
+    }
   }
 }
