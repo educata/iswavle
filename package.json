@@ -31,7 +31,7 @@
     "prepare": "husky install",
     "prerender:content": "bun ./prerender/render-content.ts",
     "prerender:examples": "bun ./prerender/render-examples.ts",
-    "prerender": "bun prerender:content && bun prerender:examples",
+    "prerender": "bun prerender:content && bun prerender:examples && bun prerender/clean-up.ts",
     "prerender:watch": "bun ./prerender/watch.ts",
     "dev-example-assets": "bun ./prerender/local-examples.ts",
     "lint:md": "markdownlint **/*.md",
