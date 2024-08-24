@@ -1,9 +1,14 @@
 @import '../node_modules/ng-zorro-antd/ng-zorro-antd.less';
 @import './styles/highlight-light.less';
 @import './styles/variables.less';
+@import './styles/mermaid.less';
 
 html {
   scroll-behavior: smooth;
+
+  iframe {
+    border: 0;
+  }
 
   code {
     background-color: #f0efef;
@@ -74,15 +79,6 @@ html {
   .note,
   .mermaid {
     margin-bottom: 1rem;
-  }
-
-  .mermaid {
-    svg {
-      // TODO: Use mermaid cli config
-      display: block;
-      margin: auto;
-      background-color: transparent !important;
-    }
   }
 
   .note {
@@ -169,6 +165,7 @@ html {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 */
     margin: 0 auto 1rem;
+    border: 1px solid var(--border-color);
 
     iframe {
       width: 100%;
