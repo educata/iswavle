@@ -66,7 +66,7 @@ const productsDisplay = document.querySelector('#products-display');
 
 async function init() {
   try {
-    const products = await (await fetch('https://api.everrest.educata.dev/shop/products/all?page_size=3')).json();
+    const products = await (await fetch('https://api.everrest.educata.dev/shop/products/all?page_size=2')).json();
     console.log(products);
   } catch (error) {
     console.error(error);
@@ -78,7 +78,7 @@ init();
 
 შევქმენით `init` ფუნქცია, სადაც დაიწყება მთლიანი ლოგიკის გაშვება. `try...catch` ბლოკში ვათავსებთ, წარუმატებელი შემთხვევის გასაკონტროლებლად, რაც ამ შემთხვევაში უბრალოდ გამოიტანს შეცდომას კონსოლში. თუ მოთხოვნა წარმატებული იყო დავინახავთ კონსოლში ობიექტს, რომელსაც გააჩნია შემდგომი მნიშვნელობები:
 
-- limit - მოთხოვნის მიხედვით მაქსიმუმ რამდენი პროდუქტი უნდა ჩაიტვირთოს (`page_size` არის გაწერილი მისამართის ბოლოს query პარამეტრის სახით), ამ შემთხვევაში 3.
+- limit - მოთხოვნის მიხედვით მაქსიმუმ რამდენი პროდუქტი უნდა ჩაიტვირთოს (`page_size` არის გაწერილი მისამართის ბოლოს query პარამეტრის სახით), ამ შემთხვევაში 2.
 - total - რამდენი პროდუქტი გამოაგზავნა სერვერმა ჯამში.
 - page - მერამდენე გვერდზე ვიმყოფებთ, გამოიყენება Pagination-ს დროს.
 - skip - რამდენი პროდუქტი გამოვტოვეთ, გამოიყენება Pagination-ს დროს.
@@ -91,7 +91,7 @@ const productsDisplay = document.querySelector('#products-display');
 
 async function init() {
   try {
-    const response = await (await fetch('https://api.everrest.educata.dev/shop/products/all?page_size=3')).json();
+    const response = await (await fetch('https://api.everrest.educata.dev/shop/products/all?page_size=2')).json();
     response.products.forEach((product) => {
       productsDisplay.appendChild(getProductElement(product));
     });

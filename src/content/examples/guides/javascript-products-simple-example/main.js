@@ -4,7 +4,7 @@ async function init() {
   try {
     const response = await (
       await fetch(
-        'https://api.everrest.educata.dev/shop/products/all?page_size=3',
+        'https://api.everrest.educata.dev/shop/products/all?page_size=2',
       )
     ).json();
     response.products.forEach((product) => {
