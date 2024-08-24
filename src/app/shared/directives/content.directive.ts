@@ -203,7 +203,7 @@ export class ContentDirective implements OnChanges {
 
   private appendCrossOrigin(body: HTMLDivElement) {
     const images = body.querySelectorAll('img');
-    const regexForCrossOrigin = new RegExp('https://.*', 'g');
+    const regexForCrossOrigin = new RegExp('^https://.*', 'g');
 
     if (images.forEach) {
       images.forEach((image) => {
