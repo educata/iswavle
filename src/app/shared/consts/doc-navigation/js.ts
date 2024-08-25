@@ -19,6 +19,7 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'მათემატიკური ობიექტი', path: 'math' },
     { title: 'რიცხვი', path: 'number' },
     { title: 'კონსოლის ობიექტი', path: 'console' },
+    { title: 'Date', path: 'date' },
     {
       title: 'შესავალი DOM-ში',
       path: 'dom',
