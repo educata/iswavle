@@ -419,7 +419,7 @@ class King {
   constructor(knight, general, soldier) {
     this.knight = knight;
     this.general = general;
-    this.solider = solider;
+    this.soldier = soldier;
   }
 }
 ```
@@ -453,9 +453,66 @@ flowchart TD
 კოდის პლიუსი სწორედ ეს არის.
 
 რაც უფრო მეტი კლასი გვიგროვდება, ამ dependency-ების მენეჯმენტი და ახალი კლასის ინსტანციების
-შექმნა უფრო გართულდება. ანგულარში სწორედ ამიტომ არსებობს DI კონტეინერი, რომელიც ამ
+შექმნა უფრო გართულდება. სწორედ ამიტომ არსებობს **DI კონტეინერი**, რომელიც ამ
 ყველაფერს ჩვენ მაგივრად აგვარებს. ჩვენ კონსტრუქტორში უბრალოდ ის უნდა გამოვაცხადოთ, თუ რაზე
 არის დამოკიდებული ჩვენი კლასი და დანარჩენს DI კონტეინერი მოაგვარებს.
+
+DI კონტეინერის ბევრი ბიბლიოთეკა/ფრეიმვორკი არსებობს, ბევრ ბიბლიოთეკა/ფრეიმვორკსაც კი საერთდ ჩაშენებული აქვს. მაგალითისთვის ანგულარში პირდაპრი ჩაშენებული არის _DI კონტეინერი_.
+
+ჩვენითაც შეგვიძლია შევქმნათ DI კონტეინერი:
+
+```js
+class DIContainer {
+  constructor() {
+    this.services = {};
+  }
+
+  register(name, definition, dependencies = []) {
+    this.services[name] = { definition, dependencies };
+  }
+
+  get(name) {
+    const service = this.services[name];
+
+    if (!service) {
+      throw new Error(`Service ${name} not found`);
+    }
+
+    if (!service.instance) {
+      const dependencies = service.dependencies.map((dep) => this.get(dep));
+      service.instance = new service.definition(...dependencies);
+    }
+
+    return service.instance;
+  }
+}
+
+class Knight {}
+class General {}
+class Soldier {
+  constructor(general) {
+    this.general = general;
+  }
+}
+class King {
+  constructor(knight, general, soldier) {
+    this.knight = knight;
+    this.general = general;
+    this.soldier = soldier;
+  }
+}
+
+const container = new DIContainer();
+container.register('knight', Knight);
+container.register('general', General);
+container.register('soldier', Soldier, ['general']);
+container.register('king', King, ['knight', 'general', 'soldier']);
+
+const king = container.get('king');
+console.log(king);
+```
+
+ამ კოდით ვღებულობთ მცირედ იმიტაციას DI კონტეინერების თუმცა რეალურ პროექტში საჭიროა უფრო მეტი ფუნქციონალური ნაწილი, როგორიცა: ავტომატურად დარეგისტრირება (inject), ქეშირება, lifecycle მენეჯმენტი, კონფიგურირება და სხვა.
 
 ## შეჯამება
 
