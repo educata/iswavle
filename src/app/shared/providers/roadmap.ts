@@ -1,6 +1,6 @@
+import { InjectionToken, inject } from '@angular/core';
 import { NzGraphEdgeDef, NzGraphNodeDef } from 'ng-zorro-antd/graph';
 import { DOC_NAVIGATION } from './doc-navigation';
-import { InjectionToken, inject } from '@angular/core';
 import { NavigationTreeNode } from '@app-shared/interfaces';
 import { Roadmap, RoadmapPart } from '@app-shared/interfaces/roadmap';
 
@@ -13,7 +13,6 @@ export const ROADMAP_NAVIGATION = new InjectionToken<Roadmap>(
 );
 
 export function roadmapNavigationFactory() {
-  // TODO: Filter data based on route, in future we will have more than FE
   const docNavigation = inject(DOC_NAVIGATION);
   const nodes: NzGraphNodeDef[] = []; // for unique node
   const edges: NzGraphEdgeDef[] = []; // for unique connection where v is parent and w is child
@@ -23,23 +22,26 @@ export function roadmapNavigationFactory() {
 
   const flatter = (
     node: NavigationTreeNode,
-    parent: number = -1,
+    parent = -1,
     depth = 0,
+    grandpa = 0,
   ) => {
     let nzNode: NzGraphNodeDef = {
+      depth,
+      parent,
+      grandpa,
       id: index++,
       label: node.title,
       width: node.title.length * 8 + 10,
       description: node.description,
       routerLink: node.routerLink || [],
-      parent,
-      depth,
     };
 
     let nzEdge: NzGraphEdgeDef = {
+      depth,
+      grandpa,
       v: parent,
       w: nzNode.id,
-      depth,
     };
 
     nodes.push(nzNode);
@@ -49,8 +51,10 @@ export function roadmapNavigationFactory() {
     }
 
     if (depth === 1) {
+      grandpa = nzNode.id;
       parentParts.push({
         depth,
+        grandpa,
         parent: nzNode.id,
         title: node.title,
       });
@@ -58,12 +62,13 @@ export function roadmapNavigationFactory() {
 
     if (node.children) {
       node.children.forEach((child) => {
-        flatter(child, nzNode.id, depth + 1);
+        flatter(child, nzNode.id, depth + 1, grandpa);
       });
     }
   };
 
   docNavigation.forEach((child) => {
+    // TODO: Filter data based on route, in future we will have more than FE
     flatter(child);
   });
 

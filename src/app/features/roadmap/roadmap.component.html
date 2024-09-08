@@ -67,7 +67,9 @@
         </ng-container>
       </nz-graph>
       <nz-drawer
-        [nzTitle]="vm.part?.title"
+        [nzTitle]="
+          vm.part?.title || roadmapNavigationBase.graphData.nodes[0].label
+        "
         [nzVisible]="vm.drawer?.show || false"
         (nzOnClose)="drawer$.next(null)"
       >

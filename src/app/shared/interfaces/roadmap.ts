@@ -6,9 +6,10 @@ export interface Roadmap {
 }
 
 export interface RoadmapPart {
+  title: string;
   depth: number;
   parent: number;
-  title: string;
+  grandpa: number;
 }
 
 export interface RoadmapDrawer {

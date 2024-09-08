@@ -116,10 +116,13 @@ export default class RoadmapComponent {
   private buildGraphData(part: RoadmapPart) {
     return {
       nodes: this.roadmapNavigationBase.graphData.nodes.filter(
-        (node) => node.id === part.parent || node['parent'] === part.parent,
+        (node) =>
+          node.id === part.parent ||
+          node['parent'] === part.parent ||
+          node['grandpa'] === part.parent,
       ),
       edges: this.roadmapNavigationBase.graphData.edges.filter(
-        (node) => node.v === part.parent,
+        (node) => node.v === part.parent || node['grandpa'] === part.parent,
       ),
     };
   }
