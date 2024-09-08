@@ -92,6 +92,11 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'roadmap',
+    title: 'roadmap', // TODO: ქართულად რა იქნება?
+    loadComponent: () => import('./features/roadmap/roadmap.component'),
+  },
+  {
     path: '404',
     loadComponent: () => import('./features/not-found/not-found.component'),
     title: 'გვერდი ვერ მოიძებნა',

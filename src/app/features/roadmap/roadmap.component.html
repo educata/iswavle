@@ -1,0 +1,98 @@
+<nz-layout class="base">
+  @if (isBrowser) {
+    @if (vm$ | async; as vm) {
+      <section class="controls">
+        <aside class="articles">
+          <button
+            nz-button
+            [nzType]="!vm.part ? 'primary' : 'default'"
+            (click)="part$.next(null)"
+          >
+            სრული
+          </button>
+          @for (subject of subjects; track subject.parent) {
+            <button
+              nz-button
+              nzType="default"
+              [nzType]="
+                vm.part?.parent === subject.parent ? 'primary' : 'default'
+              "
+              (click)="part$.next(subject)"
+            >
+              {{ subject.title }}
+            </button>
+          }
+        </aside>
+        <aside class="direction">
+          @for (dir of directions; track $index) {
+            <button
+              nz-button
+              [nzType]="dir === vm.direction ? 'primary' : 'default'"
+              (click)="direction$.next(dir)"
+            >
+              {{ dir }}
+            </button>
+          }
+        </aside>
+      </section>
+      <nz-graph
+        nz-graph-zoom
+        [nzAutoSize]="true"
+        [nzRankDirection]="vm.direction"
+        [nzGraphData]="vm.roadmapNavigation"
+        [nzZoom]="1"
+        (nzGraphInitialized)="graphInitialized()"
+      >
+        <ng-container *nzGraphNode="let node">
+          <foreignObject
+            x="0"
+            y="0"
+            [attr.width]="node.width"
+            [attr.height]="node.height"
+          >
+            <xhtml:div class="graph-node leaf-node">
+              <div
+                class="title"
+                (click)="
+                  drawer$.next({
+                    node,
+                    show: true,
+                  })
+                "
+              >
+                {{ node.label }}
+              </div>
+            </xhtml:div>
+          </foreignObject>
+        </ng-container>
+      </nz-graph>
+      <nz-drawer
+        [nzTitle]="vm.part?.title"
+        [nzVisible]="vm.drawer?.show || false"
+        (nzOnClose)="drawer$.next(null)"
+      >
+        <ng-container *nzDrawerContent>
+          @if (vm.drawer?.node; as node) {
+            <h2>{{ node.label }}</h2>
+            <p>
+              @if (node['description']; as description) {
+                {{ description }}
+              } @else {
+                აღწერა მალე დაემატება 🚀
+              }
+            </p>
+            @if (node['routerLink']; as routerLink) {
+              <div class="article-link">
+                <a nz-button [routerLink]="routerLink" nzType="link">
+                  გაეცანი სტატიას
+                </a>
+              </div>
+            }
+          }
+        </ng-container>
+      </nz-drawer>
+    }
+  } @else {
+    <sw-loader [isFullSize]="true"></sw-loader>
+  }
+</nz-layout>

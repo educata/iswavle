@@ -9,7 +9,7 @@ import { TYPESCRIPT_GUIDE_NAV } from './doc-navigation/ts';
 
 export const DEFAULT_DOC_NAVIGATION: BaseNavigationTreeNode[] = [
   {
-    title: 'გზამკლევი',
+    title: 'Front-end-ის გზამკლევი',
     path: 'guides',
     children: [
       HTML_CSS_GUIDE_NAV,

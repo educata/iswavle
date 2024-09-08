@@ -1,0 +1,54 @@
+nz-layout.base {
+  height: calc(100vh - 66px - 50px);
+
+  section {
+    &.controls {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      row-gap: 10px;
+      place-items: center;
+      padding: 10px 0;
+    }
+  }
+
+  nz-graph {
+    width: 100%;
+    height: 100%;
+
+    // TODO: update
+
+    .graph-node {
+      border: 1px solid #8cc8ff;
+      cursor: pointer;
+      font-size: 12px;
+      height: 100%;
+      border-radius: 0;
+      text-align: center;
+      word-break: break-all;
+      display: block;
+    }
+
+    .group-node {
+      border-width: 4px;
+    }
+
+    .leaf-node {
+      color: #1a90ff;
+      background: rgba(26, 144, 255, 0.15);
+      min-height: 30px;
+      height: fit-content;
+    }
+
+    .title {
+      padding: 4px;
+      word-break: keep-all;
+    }
+  }
+}
+
+.article-link {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

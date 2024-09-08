@@ -14,4 +14,8 @@ export const HEADER_NAVIGATION: Navigation[] = [
     title: 'ედიტორი',
     routerLink: '/playground',
   },
+  {
+    title: 'roadmap', // TODO: ქართულად რა იქნება?
+    routerLink: '/roadmap',
+  },
 ];
