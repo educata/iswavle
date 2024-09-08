@@ -23,7 +23,7 @@ export function defaultNavigationFactory(
   ) => {
     const mappedNav: NavigationTreeNode[] = [];
 
-    nodes.forEach(({ title, path, children }) => {
+    nodes.forEach(({ title, path, children, description }) => {
       const breadCrumb = [...parentBreadCrumb, title];
       const routerLink = [...parentRouterLink, path];
 
@@ -32,11 +32,13 @@ export function defaultNavigationFactory(
         path,
         breadCrumb,
         routerLink,
+        description,
       };
 
       if (children?.length) {
         mappedNode.children = dig(children, breadCrumb, routerLink);
       }
+
       mappedNav.push(mappedNode);
     });
 

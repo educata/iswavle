@@ -5,7 +5,11 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
   path: 'javascript',
   children: [
     { title: 'შესავალი', path: 'introduction' },
-    { title: 'რა არის JavaScript', path: 'what-is-javascript' },
+    {
+      title: 'რა არის JavaScript',
+      path: 'what-is-javascript',
+      description: 'სატესტო',
+    },
     { title: 'ცვლადი', path: 'variable' },
     { title: 'მონაცემთა ტიპები', path: 'data-types' },
     { title: 'ოპერაციები და ოპერატორები', path: 'operations-operators' },
