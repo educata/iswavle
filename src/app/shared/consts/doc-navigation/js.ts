@@ -169,6 +169,10 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
           path: 'audio',
         },
         {
+          title: 'location',
+          path: 'location',
+        },
+        {
           title: 'navigator',
           path: 'navigator',
         },
