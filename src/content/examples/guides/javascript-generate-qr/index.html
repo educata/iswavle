@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Javascript generate qr code</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="container-xxl m-auto pt-4">
+      <form class="container-sm m-auto">
+        <div class="mb-3">
+          <label for="text" class="form-label">ტექსტი</label>
+          <input
+            type="text"
+            placeholder="ნებისმიერი ტექსტი"
+            id="text"
+            name="text"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <button class="btn btn-primary">დაგენერირება</button>
+        </div>
+      </form>
+      <article id="qrDisplay"></article>
+    </main>
+    <script src="./main.js"></script>
+  </body>
+</html>
