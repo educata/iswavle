@@ -19,6 +19,9 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'მათემატიკური ობიექტი', path: 'math' },
     { title: 'რიცხვი', path: 'number' },
     { title: 'კონსოლის ობიექტი', path: 'console' },
+    { title: 'შეცდომების კონტროლი', path: 'error-handling' },
+    { title: 'OOP', path: 'oop' },
+    { title: 'Date', path: 'date' },
     {
       title: 'შესავალი DOM-ში',
       path: 'dom',
@@ -38,6 +41,140 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
         {
           title: 'ფერების თამაში',
           path: 'color-game',
+        },
+      ],
+    },
+    {
+      title: 'კანვასი',
+      path: 'canvas',
+      children: [
+        {
+          title: 'ძირითადი გამოყენება',
+          path: 'basic-usage',
+        },
+        {
+          title: 'ფიგურების დახატვა',
+          path: 'drawing-figures',
+        },
+        {
+          title: 'სტილიზაციების და ფერების მინიჭება',
+          path: 'style-and-colors',
+        },
+        {
+          title: 'ტექსტების დახატვა',
+          path: 'drawing-text',
+        },
+        {
+          title: 'სურათების გამოყენება',
+          path: 'using-images',
+        },
+        {
+          title: 'ტრანსფორმაციები',
+          path: 'transformations',
+        },
+        {
+          title: 'მარტივი ანიმაციები',
+          path: 'basic-animations',
+        },
+        {
+          title: 'რთული ანიმაციები',
+          path: 'advanced-animations',
+        },
+        {
+          title: 'კანვასის ოპტიმიზირება',
+          path: 'optimization',
+        },
+        {
+          title: 'Breakout თამაში',
+          path: 'breakout',
+        },
+        {
+          title: 'Stickman თამაში',
+          path: 'stickman',
+        },
+        {
+          title: 'შეჯამება',
+          path: 'summary',
+        },
+      ],
+    },
+    {
+      title: 'ასინქრონული პროგრამირება',
+      path: 'async-programming',
+      children: [
+        {
+          title: 'Promise',
+          path: 'promise',
+        },
+        {
+          title: 'Async & Await',
+          path: 'async-await',
+        },
+      ],
+    },
+    {
+      title: 'REST API',
+      path: 'rest-api',
+      children: [
+        {
+          title: 'JSON & XML',
+          path: 'json-xml',
+        },
+        {
+          title: 'XMLHttpRequest',
+          path: 'xhr',
+        },
+        {
+          title: 'fetch',
+          path: 'fetch',
+        },
+        {
+          title: 'პრაქტიკა',
+          path: 'practice',
+        },
+        {
+          title: 'შეჯამება',
+          path: 'summary',
+        },
+      ],
+    },
+    {
+      title: 'Window',
+      path: 'window',
+      children: [
+        {
+          title: 'დიალოგური ფანჯრები',
+          path: 'dialogs',
+        },
+        {
+          title: 'საცავები',
+          path: 'storages',
+          children: [
+            {
+              title: 'ლოკალური საცავი',
+              path: 'local',
+            },
+            {
+              title: 'სესიური საცავი',
+              path: 'session',
+            },
+            {
+              title: 'cookie',
+              path: 'cookie',
+            },
+          ],
+        },
+        {
+          title: 'audio',
+          path: 'audio',
+        },
+        {
+          title: 'navigator',
+          path: 'navigator',
+        },
+        {
+          title: 'ხშირად გამოყენებული ფუნქციები',
+          path: 'commonly-used-functions',
         },
       ],
     },
