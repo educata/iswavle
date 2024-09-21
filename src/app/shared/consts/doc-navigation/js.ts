@@ -159,7 +159,7 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
               path: 'session',
             },
             {
-              title: 'cookie',
+              title: 'Cookie',
               path: 'cookie',
             },
             {
@@ -169,15 +169,15 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
           ],
         },
         {
-          title: 'audio',
+          title: 'Audio',
           path: 'audio',
         },
         {
-          title: 'location',
+          title: 'Location',
           path: 'location',
         },
         {
-          title: 'navigator',
+          title: 'Navigator',
           path: 'navigator',
         },
         {
