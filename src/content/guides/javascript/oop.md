@@ -296,6 +296,63 @@ const hotdog2 = new HotDog('სტანდარტული', 'ვერსი
 
 ასე გავიტანეთ მეთოდებში თითოეული თვისების დამატება. თითოეული თვისება აბრუნებს კლასის ინსტანციას `this`-ს გამოყენებით, რაც გვაძლევს chaining-ს საშუალებას, რაც საბოლოო ჯამში გვაძლევს უფრო უკეთეს კოდს.
 
+## static
+
+ყოველთვის არ არის საჭირო ახალი ინსტანციის გამოყოფა, ზოგჯერ შესაძლებელია დაგვჭირდეს ისეთი ტიპის კლასი, სადაც მასში არსებული მეთოდები იქნება
+სრულიად სტატიკური.
+
+მაგალითისთვის შევქმნათ ჩვენი მათემატიკური კლასი, სადაც იქნება რამდენიმე საინტერესო მეთოდი:
+
+```js
+class MathUtils {
+  static fibonacci(n) {
+    if (n < 0) {
+      return NaN;
+    }
+    if (n === 0) {
+      return 0;
+    }
+    if (n === 1) {
+      return 1;
+    }
+    return MathUtils.fibonacci(n - 1) + MathUtils.fibonacci(n - 2);
+  }
+
+  static factorial(n) {
+    if (n < 1) {
+      return NaN;
+    }
+    return n === 0 || n === 1 ? 1 : n * MathUtils.factorial(n - 1);
+  }
+
+  static distanceBetweenCordinates(x1, y1, x2, y2) {
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  static discriminant(a, b, c) {
+    const d = b * b - 4 * a * c;
+    const re = -b * 2 * a;
+    const im = Math.sqrt(Math.abs(d)) / (2 * a);
+
+    if (d > 0) {
+      return [re + im, re - im];
+    } else if (d === 0) {
+      return [re, re];
+    } else {
+      return [`${re} + ${im} * i`, `${re} - ${im} * i`];
+    }
+  }
+}
+console.log(`ფიბონაჩს მეათე მიმდევრობა არის: ${MathUtils.fibonacci(10)}`); // ფიბონაჩს მეათე მიმდევრობა არის: 55
+console.log(`ფაქტორიალი ათისა არის: ${MathUtils.factorial(10)}`); // ფაქტორიალი ათისა არის: 3628800
+console.log(`(5, 1)-სა და (10, 3)-ს შორის მანძილი არის: ${MathUtils.distanceBetweenCordinates(5, 1, 10, 3)}`); // (5, 1)-სა და (10, 3)-ს შორის მანძილი არის: 5.385164807134504
+console.log(`ფესვები კვადრატული განტოლების 2x^2 - 10x + 2 = 0: ${MathUtils.discriminant(2, 10, 2)}`); // ფესვები კვადრატული განტოლების 2x^2 - 10x + 2 = 0: -37.70871215252208,-42.29128784747792
+```
+
+ამრიგად არ მოგვიწია ახალი ინსტანციის გამოყოფა და გამოვიყენეთ ყოველი სტატიკური მეთოდი.
+
 ## Dependency Injection
 
 DI არის დიზაინის პატერნი სადაც ობიექტი, კლასი თუ ფუნქცია
