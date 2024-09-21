@@ -162,6 +162,10 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
               title: 'cookie',
               path: 'cookie',
             },
+            {
+              title: 'შეჯამება',
+              path: 'summary',
+            },
           ],
         },
         {
