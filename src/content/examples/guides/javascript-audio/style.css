@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  text-align: center;
+}
+
+div.volume {
+  width: 100%;
+  max-width: 250px;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 10px;
+  margin: 16px auto;
+}
+
+section.animals {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+section.animals div {
+  width: 100%;
+  max-width: 250px;
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid rgba(0, 0, 0, 0.175);
+}
+
+section.animals div h3 {
+  margin: 5px 0 10px;
+  text-align: center;
+}
+
+section.animals div button,
+section.animals div a {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 16px;
+}
+
+section.animals div a {
+  border-bottom: 2px solid black;
+}
+
+section.animals div img {
+  width: 100%;
+  height: 250px;
+}
