@@ -45,7 +45,7 @@ const DocumentationProject = 'Iswavle'; // Pascalcase
   - კარგია მარტივი ტიპის ცვლადებისათვის
   - მაგალითი: `userName`
 - Camel case with prefixes
-  - იგივე Camel case, უბრალოდ პრეფიქსი აქვს, ცვლადის ტიპიდან გამომდინარე, თუ არის ბულეანი მაშინ იწყება `is` თუ რაიმე მნიშვნელობას აბრუნებს ფუნქცია სახელი იწყება `get` და მსგავსად.
+  - იგივე Camel case, უბრალოდ პრეფიქსი აქვს, ცვლადის ტიპიდან გამომდინარე, თუ არის ბულიანი მაშინ იწყება `is` თუ რაიმე მნიშვნელობას აბრუნებს ფუნქცია სახელი იწყება `get` და მსგავსად.
   - კარგია [ფუნქცი](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions)-ის სახელებისათვის
   - მაგალითი: `isUserAuthed` | `getRandomNumber`
 - Snake case

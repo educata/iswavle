@@ -66,8 +66,8 @@ if (arcsCanvas.getContext) {
     for (let j = 0; j < 3; j++) {
       ctx.beginPath();
 
-      const x = 25 + j * 50; // x კორდინატი
-      const y = 25 + i * 50; // y კორდინატი
+      const x = 25 + j * 50; // x კოორდინატი
+      const y = 25 + i * 50; // y კოორდინატი
       const radius = 20; // რკალის რადიუსი
       const startAngle = 0; // დასაწყისი წერტილი წრის
       const endAngle = Math.PI + (Math.PI * j) / 2; // დასასრული წერტილი წრის
