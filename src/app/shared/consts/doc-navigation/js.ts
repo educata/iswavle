@@ -41,5 +41,59 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
         },
       ],
     },
+    {
+      title: 'კანვასი',
+      path: 'canvas',
+      children: [
+        {
+          title: 'ძირითადი გამოყენება',
+          path: 'basic-usage',
+        },
+        {
+          title: 'ფიგურების დახატვა',
+          path: 'drawing-figures',
+        },
+        {
+          title: 'სტილიზაციების და ფერების მინიჭება',
+          path: 'style-and-colors',
+        },
+        {
+          title: 'ტექსტების დახატვა',
+          path: 'drawing-text',
+        },
+        {
+          title: 'სურათების გამოყენება',
+          path: 'using-images',
+        },
+        {
+          title: 'ტრანსფორმაციები',
+          path: 'transformations',
+        },
+        {
+          title: 'მარტივი ანიმაციები',
+          path: 'basic-animations',
+        },
+        {
+          title: 'რთული ანიმაციები',
+          path: 'advanced-animations',
+        },
+        {
+          title: 'კანვასის ოპტიმიზირება',
+          path: 'optimization',
+        },
+        {
+          title: 'Breakout თამაში',
+          path: 'breakout',
+        },
+        {
+          title: 'Stickman თამაში',
+          path: 'stickman',
+        },
+        {
+          title: 'შეჯამება',
+          path: 'summary',
+        },
+      ],
+    },
   ],
 };
