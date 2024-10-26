@@ -21,7 +21,7 @@ export class AutoBreadcrumbsComponent {
   currentNode = toSignal(
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
-      map(() => this.router.url),
+      map(() => this.router.url.split('?')[0]),
       map((url) => {
         let found: NavigationTreeNode | undefined;
 

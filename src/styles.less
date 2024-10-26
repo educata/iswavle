@@ -1,9 +1,14 @@
 @import '../node_modules/ng-zorro-antd/ng-zorro-antd.less';
 @import './styles/highlight-light.less';
 @import './styles/variables.less';
+@import './styles/mermaid.less';
 
 html {
   scroll-behavior: smooth;
+
+  iframe {
+    border: 0;
+  }
 
   code {
     background-color: #f0efef;
@@ -160,6 +165,7 @@ html {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 */
     margin: 0 auto 1rem;
+    border: 1px solid var(--border-color);
 
     iframe {
       width: 100%;
@@ -184,6 +190,27 @@ html {
       padding: 5px 16px;
       border-bottom: 1px solid var(--border-color);
 
+      @media screen and (max-width: 885px) {
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      @media screen and (max-width: 767px) {
+        justify-content: space-between;
+      }
+
+      @media screen and (max-width: 540px) {
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      div {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
       a {
         background-color: transparent;
         border: none;
@@ -193,6 +220,16 @@ html {
         cursor: pointer;
         gap: 0.5rem;
         color: var(--text-color);
+
+        @media screen and (max-width: 540px) {
+          flex-wrap: wrap;
+        }
+
+        span {
+          @media screen and (max-width: 360px) {
+            text-align: center;
+          }
+        }
 
         svg {
           width: 16px;

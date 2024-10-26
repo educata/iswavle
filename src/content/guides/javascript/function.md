@@ -1,6 +1,6 @@
 ---
 title: 'ფუნქცია'
-description: 'სამომხმარებლო ფუნქციები JavaScript-ში'
+description: 'ფუნქციები JavaScript-ში'
 keywords: 'functions, return, default params, void functions, scope, hoisting, hoisted, რეკურსია, recursion, arrow, async, await'
 ---
 
@@ -163,6 +163,19 @@ pow ფუნქცია რეკურსიულად იძახებ�
 განსხვავებული მაგალითი რეკურსიულად [ფაილების წაკითხვა](./playground/simple/guides/javascript-tree-recursion)-ზე:
 
 უშუალოდ [iswavle.com](https://iswavle.com)-ს აწყობისას, კონტენტის დასარენდერებლად რეკურსია არის გამოყენებული, იხილეთ [კოდი](https://github.com/educata/iswavle/blob/main/prerender/render-content.ts).
+
+## ჰანოის კოშკი რეკურსიულად
+
+ალბათ ერთხელ მაინც ყველას გვითამაშია [ჰანოის კოშკი](https://en.wikipedia.org/wiki/Tower_of_Hanoi). მისი იდეა მარტივია ერთი საყრდენი ჯოხიდან უნდა გადავიტანოთ
+რგოლები მეორე საყრდენ ჯოხზე ისე, რომ რამოდენიმე წესი არ დავარღვიოთ. წესები შემდგომია:
+
+- ერთ გადატანაზე გადაგვაქვს მხოლოდ ერთი რგოლი.
+- დიდ რგოლს, პატარა რგოლზე ვერ დავდებთ.
+- საყრდენი ჯოხიდან მხოლოდ პირველი რგოლის აღება შეგვიძლია (რაც ზემოთ არის).
+
+![ჰანოის კოშკის მაგალითი](https://miro.medium.com/v2/resize:fit:670/1*4fIwfKZCHzKGgPanAeWUnA.gif)
+
+<iframe data-url="guides/javascript-hanoi-tower" data-title="ჰანოის კოშკი" data-height="500"></iframe>
 
 ## Arrow ფუნქცია
 
