@@ -27,4 +27,4 @@ window.alert('რაღაც მეორე შეტყობინება!
 - [audio](./doc/guides/javascript/window/audio)
 - [location](./doc/guides/javascript/window/location)
 - [navigator](./doc/guides/javascript/window/navigator)
-- [ხშირად გამოყენებული ფუნქციები](./doc/guides/javascript/window/commonly-used-functions)
+- [შეჯამება](./doc/guides/javascript/window/summary)

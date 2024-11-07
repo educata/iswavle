@@ -181,8 +181,8 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
           path: 'navigator',
         },
         {
-          title: 'ხშირად გამოყენებული ფუნქციები',
-          path: 'commonly-used-functions',
+          title: 'შეჯამება',
+          path: 'summary',
         },
       ],
     },
