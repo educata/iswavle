@@ -1,7 +1,7 @@
 ---
 title: 'ნავიგატორი'
 description: 'ნავიგატორის ობიექტი JavaScript-ში'
-keywords: ''
+keywords: 'navigator, navigator-ის მეთოდები, navigator-ის ფუნქციები, navigator-ის თვისებები'
 ---
 
 JavaScript-ში [`Navigator`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator) ობიექტი წარმოადგენს ბრაუზერის state-ს და იდენტობას (user agent). ობიექტში გაერთიანებულია ბევრი ფუნქცია და თვისებები. ამ სტატიაში განვიხილავთ ძირითად ფუნქციებსა და თვისებებს.
