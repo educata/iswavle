@@ -180,10 +180,6 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
           title: 'Navigator',
           path: 'navigator',
         },
-        {
-          title: 'შეჯამება',
-          path: 'summary',
-        },
       ],
     },
   ],
