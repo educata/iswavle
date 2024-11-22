@@ -3,6 +3,7 @@ export interface BaseNavigationTreeNode {
   path: string;
   depricated?: boolean;
   children?: BaseNavigationTreeNode[];
+  description?: string;
 }
 
 export interface NavigationTreeNode extends BaseNavigationTreeNode {
