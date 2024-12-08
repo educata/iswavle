@@ -61,6 +61,7 @@ export class ContentDirective implements OnChanges {
     });
 
     this.renderIframes(body);
+    this.appendCrossOrigin(body);
 
     if (searchKey) {
       const segments = (body.innerHTML as string).split(/(<[^>]+>)/);
@@ -147,6 +148,7 @@ export class ContentDirective implements OnChanges {
 
     if (iframes.forEach) {
       iframes.forEach((iframe: HTMLIFrameElement) => {
+        iframe.setAttribute('crossorigin', 'anonymous');
         const isExternalSource =
           iframe.getAttribute('data-is-external-source') || false;
         const url = iframe.getAttribute('data-url') || '';
@@ -176,8 +178,16 @@ export class ContentDirective implements OnChanges {
         const newFrame = this.renderer.createElement('div') as HTMLDivElement;
         newFrame.classList.add('frame-wrapper');
 
-        let source = `${this.environment.examplesURL}/${url}`;
+        const source = `${this.environment.examplesURL}/${url}`;
         const shouldHavePlaygroundLink = !iframe.src && url;
+
+        const preloadLink = document.createElement('link');
+        preloadLink.rel = 'preload';
+        preloadLink.href = source;
+        preloadLink.as = 'document';
+        preloadLink.crossOrigin = 'anonymous';
+
+        this.document.head.appendChild(preloadLink);
 
         newFrame.innerHTML = `
           <div class="title-frame">
@@ -190,11 +200,26 @@ export class ContentDirective implements OnChanges {
             </div>
           </div>
           <div class="body-frame">
-            <iframe src="${source}/index.html" height="${height}" frameborder="0"></iframe>
+            <iframe src="${source}/index.html" height="${height}" frameborder="0" crossorigin="anonymous" loading="eager"></iframe>
           </div>
         `;
 
         iframe.replaceWith(newFrame);
+      });
+    }
+  }
+
+  private appendCrossOrigin(body: HTMLDivElement) {
+    const images = body.querySelectorAll('img');
+    const regexForCrossOrigin = new RegExp('^https://.*', 'g');
+
+    if (images.forEach) {
+      images.forEach((image) => {
+        const isCrossOrigin = regexForCrossOrigin.test(image.src);
+
+        if (isCrossOrigin) {
+          image.setAttribute('crossorigin', 'anonymous');
+        }
       });
     }
   }

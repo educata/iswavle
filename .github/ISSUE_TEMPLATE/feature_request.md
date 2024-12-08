@@ -1,20 +1,15 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: "[FEATURE] "
+name: ახალი ფიჩერი 🔥
+about: შემოგვთავაზე ახალი იდეა პროექტის გასაუმჯობესებლად ✨
+title: '[FEATURE] '
 labels: enhancement
 assignees: CondensedMilk7, KostaD02
+---
+
+## აღწერეთ რის დამატებას ისურვებდით
+
+მაგალითად: ...
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
-
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
-
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
-
-**Additional context**
-Add any other context or screenshots about the feature request here.
+**სანამ ახალ ფიჩერს დაარეგისტრირებთ** ჯერ შეამოწმეთ მსგავსი ფიჩერისთვის არის თუ არა გახსნილი [PR-ებსა](https://github.com/educata/iswavle/pulls?q=is%3Aopen+is%3Apr+label%3Aenhancement) ან [Issue-ებში](https://github.com/educata/iswavle/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement).
