@@ -186,7 +186,7 @@ export class ContentDirective implements OnChanges {
         preloadLink.href = source;
         preloadLink.as = 'document';
 
-        body.appendChild(preloadLink);
+        this.document.head.appendChild(preloadLink);
 
         newFrame.innerHTML = `
           <div class="title-frame">
