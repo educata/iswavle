@@ -19,6 +19,7 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'მათემატიკური ობიექტი', path: 'math' },
     { title: 'რიცხვი', path: 'number' },
     { title: 'კონსოლის ობიექტი', path: 'console' },
+    { title: 'შეცდომების კონტროლი', path: 'error-handling' },
     {
       title: 'შესავალი DOM-ში',
       path: 'dom',
@@ -92,6 +93,20 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
         {
           title: 'შეჯამება',
           path: 'summary',
+        },
+      ],
+    },
+    {
+      title: 'ასინქრონული პროგრამირება',
+      path: 'async-programming',
+      children: [
+        {
+          title: 'Promise',
+          path: 'promise',
+        },
+        {
+          title: 'Async & Await',
+          path: 'async-await',
         },
       ],
     },
