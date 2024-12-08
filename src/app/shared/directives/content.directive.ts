@@ -185,6 +185,7 @@ export class ContentDirective implements OnChanges {
         preloadLink.rel = 'preload';
         preloadLink.href = source;
         preloadLink.as = 'document';
+        preloadLink.crossOrigin = 'anonymous';
 
         this.document.head.appendChild(preloadLink);
 
@@ -199,7 +200,7 @@ export class ContentDirective implements OnChanges {
             </div>
           </div>
           <div class="body-frame">
-            <iframe src="${source}/index.html" height="${height}" frameborder="0" preload="metadata" crossorigin="anonymous"></iframe>
+            <iframe src="${source}/index.html" height="${height}" frameborder="0" crossorigin="anonymous" loading="eager"></iframe>
           </div>
         `;
 
