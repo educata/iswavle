@@ -178,8 +178,15 @@ export class ContentDirective implements OnChanges {
         const newFrame = this.renderer.createElement('div') as HTMLDivElement;
         newFrame.classList.add('frame-wrapper');
 
-        let source = `${this.environment.examplesURL}/${url}`;
+        const source = `${this.environment.examplesURL}/${url}`;
         const shouldHavePlaygroundLink = !iframe.src && url;
+
+        const preloadLink = document.createElement('link');
+        preloadLink.rel = 'preload';
+        preloadLink.href = source;
+        preloadLink.as = 'document';
+
+        body.appendChild(preloadLink);
 
         newFrame.innerHTML = `
           <div class="title-frame">
@@ -192,7 +199,7 @@ export class ContentDirective implements OnChanges {
             </div>
           </div>
           <div class="body-frame">
-            <iframe src="${source}/index.html" height="${height}" frameborder="0" crossorigin="anonymous"></iframe>
+            <iframe src="${source}/index.html" height="${height}" frameborder="0" preload="metadata" crossorigin="anonymous"></iframe>
           </div>
         `;
 
