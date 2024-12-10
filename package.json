@@ -39,7 +39,8 @@
     "release": "release-it",
     "release:minor": "release-it minor",
     "release:patch": "release-it patch",
-    "release:major": "release-it major"
+    "release:major": "release-it major",
+    "format": "prettier --write ."
   },
   "private": true,
   "dependencies": {

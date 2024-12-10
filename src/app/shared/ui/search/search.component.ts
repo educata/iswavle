@@ -18,19 +18,19 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'sw-search',
-    imports: [
-        NzModalModule,
-        NzInputModule,
-        NzButtonModule,
-        NzIconModule,
-        SearchResultComponent,
-        AsyncPipe,
-        ReactiveFormsModule,
-    ],
-    templateUrl: './search.component.html',
-    styleUrl: './search.component.less',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'sw-search',
+  imports: [
+    NzModalModule,
+    NzInputModule,
+    NzButtonModule,
+    NzIconModule,
+    SearchResultComponent,
+    AsyncPipe,
+    ReactiveFormsModule,
+  ],
+  templateUrl: './search.component.html',
+  styleUrl: './search.component.less',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent {
   @Output() searchCompleted = new EventEmitter<void>();

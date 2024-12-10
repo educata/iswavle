@@ -4,10 +4,10 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzResultModule } from 'ng-zorro-antd/result';
 
 @Component({
-    selector: 'sw-not-found',
-    imports: [RouterLink, NzResultModule, NzButtonModule],
-    templateUrl: './not-found.component.html',
-    styleUrl: './not-found.component.less',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'sw-not-found',
+  imports: [RouterLink, NzResultModule, NzButtonModule],
+  templateUrl: './not-found.component.html',
+  styleUrl: './not-found.component.less',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class NotFoundComponent {}

@@ -50,7 +50,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class AppComponent implements AfterViewInit {
   private readonly alertRef = viewChild<ElementRef<HTMLDivElement>>('alert');
-  
+
   private readonly platform = inject(PLATFORM_ID);
   private readonly defaultDataLog = inject(LOG_GREETER);
   private readonly environment = inject(ENVIRONMENT);
@@ -59,7 +59,7 @@ export class AppComponent implements AfterViewInit {
   private readonly layoutService = inject(LayoutService);
   private readonly viewport = inject(ViewportScroller);
   private readonly document = inject(DOCUMENT);
-  
+
   readonly headerNavigation = inject(NAVIGATION);
   readonly themeOptions = DISPLAY_THEMES;
   readonly isBrowser = isPlatformBrowser(this.platform);
@@ -68,27 +68,27 @@ export class AppComponent implements AfterViewInit {
   readonly isMenuOpenedByUser = signal(false);
   readonly burgerTopDistance = signal('66px');
   readonly currentPath = signal(this.router.url);
-  
-  readonly isWideScreen = computed(() => this.layoutService.windowWidth() > this.layoutService.sizes.header);
 
-  readonly isMenuOpen = computed(() => 
-    !this.isWideScreen() && this.isMenuOpenedByUser()
+  readonly isWideScreen = computed(
+    () => this.layoutService.windowWidth() > this.layoutService.sizes.header,
   );
 
-  readonly menuMode = computed<NzMenuModeType>(() => 
-    this.isWideScreen() ? 'horizontal' : 'vertical'
+  readonly isMenuOpen = computed(
+    () => !this.isWideScreen() && this.isMenuOpenedByUser(),
   );
 
-  readonly headerNavigationItems = computed(() => 
-    this.headerNavigation.map(nav => ({
+  readonly menuMode = computed<NzMenuModeType>(() =>
+    this.isWideScreen() ? 'horizontal' : 'vertical',
+  );
+
+  readonly headerNavigationItems = computed(() =>
+    this.headerNavigation.map((nav) => ({
       ...nav,
       isActive: this.isActivePath(this.currentPath(), nav.routerLink),
-    }))
+    })),
   );
 
-  readonly isHomePage = computed(() => 
-    this.currentPath() === '/'
-  );
+  readonly isHomePage = computed(() => this.currentPath() === '/');
 
   constructor() {
     if (this.isBrowser && this.environment.production) {
@@ -100,7 +100,7 @@ export class AppComponent implements AfterViewInit {
     }
 
     // Router events
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentPath.set(this.router.url);
       }
@@ -119,7 +119,7 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if (this.isBrowser) {
       this.burgerTopDistance.set(
-        `${66 + (this.alertRef()?.nativeElement?.clientHeight || 0)}px`
+        `${66 + (this.alertRef()?.nativeElement?.clientHeight || 0)}px`,
       );
     }
   }
@@ -142,7 +142,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   toggleMenu() {
-    this.isMenuOpenedByUser.update(value => !value);
+    this.isMenuOpenedByUser.update((value) => !value);
   }
 
   closeMenu() {

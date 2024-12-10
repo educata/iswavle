@@ -12,7 +12,7 @@
   <ng-template #banner>
     <div class="banner">საიტი არის დეველოპმენტის ადრეულ ეტაპზე</div>
   </ng-template>
-  
+
   <header
     [class.home-header]="isHomePage()"
     [ngStyle]="{
@@ -20,14 +20,12 @@
         ? 'transparent'
         : isHomePage()
           ? '#e6f7ff'
-          : 'transparent'
+          : 'transparent',
     }"
   >
     <div class="brand">
       <a routerLink="/">ისწავლე</a>
-      <sw-search
-        (searchCompleted)="closeMenu()"
-      ></sw-search>
+      <sw-search (searchCompleted)="closeMenu()"></sw-search>
     </div>
     <nav>
       <ul
@@ -43,10 +41,7 @@
             [nzMatchRouterExact]="$index === 0"
             [nzSelected]="nav.isActive"
           >
-            <a
-              [routerLink]="nav.routerLink"
-              (click)="closeMenu()"
-            >
+            <a [routerLink]="nav.routerLink" (click)="closeMenu()">
               {{ nav.title }}</a
             >
           </li>
@@ -88,9 +83,7 @@
         <span
           nz-icon
           [nzType]="isMenuOpen() ? 'close' : 'menu'"
-          [attr.aria-label]="
-            isMenuOpen() ? 'მენიუს გახსნა' : 'მენიუს დახურვა'
-          "
+          [attr.aria-label]="isMenuOpen() ? 'მენიუს გახსნა' : 'მენიუს დახურვა'"
         ></span>
       </button>
     </nav>

@@ -7,11 +7,11 @@ import { DOC_NAVIGATION } from '@app-shared/providers';
 import { NavigationTreeNode } from '@app-shared/interfaces';
 
 @Component({
-    selector: 'sw-auto-breadcrumbs',
-    imports: [NzBreadCrumbModule, RouterLink],
-    templateUrl: './auto-breadcrumbs.component.html',
-    styleUrl: './auto-breadcrumbs.component.less',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'sw-auto-breadcrumbs',
+  imports: [NzBreadCrumbModule, RouterLink],
+  templateUrl: './auto-breadcrumbs.component.html',
+  styleUrl: './auto-breadcrumbs.component.less',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutoBreadcrumbsComponent {
   private readonly navigation = inject(DOC_NAVIGATION);

@@ -16,11 +16,13 @@ export class LayoutService {
   }
 
   constructor() {
-    fromEvent(this.document.defaultView as Window, 'resize').pipe(
-      takeUntilDestroyed(),
-      map((event) => (event.target as Window).innerWidth),
-      startWith(this.document.body.clientWidth),
-    ).subscribe(width => this.#windowWidth.set(width));
+    fromEvent(this.document.defaultView as Window, 'resize')
+      .pipe(
+        takeUntilDestroyed(),
+        map((event) => (event.target as Window).innerWidth),
+        startWith(this.document.body.clientWidth),
+      )
+      .subscribe((width) => this.#windowWidth.set(width));
   }
 
   isWiderThan(toCompare: number) {

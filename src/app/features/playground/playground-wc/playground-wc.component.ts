@@ -42,25 +42,25 @@ import { TITLE_SUFFIX_SEPARATOR } from '@app-shared/consts';
 declare const monaco: any;
 
 @Component({
-    selector: 'sw-playground-wc',
-    imports: [
-        CommonModule,
-        NzIconModule,
-        NzTreeModule,
-        NzCodeEditorModule,
-        NzSpinModule,
-        FormsModule,
-        LanguageExtensionPipe,
-        NzGridModule,
-        NzLayoutModule,
-        NzButtonModule,
-        NzDropDownModule,
-        NzModalModule,
-    ],
-    templateUrl: './playground-wc.component.html',
-    styleUrl: './playground-wc.component.less',
-    providers: [provideWebcontainerState()],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'sw-playground-wc',
+  imports: [
+    CommonModule,
+    NzIconModule,
+    NzTreeModule,
+    NzCodeEditorModule,
+    NzSpinModule,
+    FormsModule,
+    LanguageExtensionPipe,
+    NzGridModule,
+    NzLayoutModule,
+    NzButtonModule,
+    NzDropDownModule,
+    NzModalModule,
+  ],
+  templateUrl: './playground-wc.component.html',
+  styleUrl: './playground-wc.component.less',
+  providers: [provideWebcontainerState()],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class PlaygroundWcComponent
   extends PlaygroundBaseComponent

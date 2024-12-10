@@ -26,11 +26,11 @@ import { WEBCONTAINER_STATE, LAYOUT_SIZES } from '@app-shared/providers';
 import 'xterm/css/xterm.css'; // terminal styles
 
 @Component({
-    selector: 'sw-terminal',
-    imports: [],
-    templateUrl: './terminal.component.html',
-    styleUrl: './terminal.component.less',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'sw-terminal',
+  imports: [],
+  templateUrl: './terminal.component.html',
+  styleUrl: './terminal.component.less',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TerminalComponent implements AfterViewInit {
   private readonly platform = inject(PLATFORM_ID);

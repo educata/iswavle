@@ -5,11 +5,11 @@ import { CODE_BLOCKS } from './code-blocks';
 import { BypassSanitizePipe } from '@app-shared/pipes';
 
 @Component({
-    selector: 'sw-home',
-    imports: [NzButtonModule, RouterLink, BypassSanitizePipe],
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.less',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'sw-home',
+  imports: [NzButtonModule, RouterLink, BypassSanitizePipe],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.less',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class HomeComponent {
   readonly showcases = [
