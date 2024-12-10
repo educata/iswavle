@@ -43,28 +43,27 @@ import { LANGUAGE_MAP, TITLE_SUFFIX_SEPARATOR } from '@app-shared/consts';
 declare const monaco: any;
 
 @Component({
-  selector: 'sw-playground-simple',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    NzIconModule,
-    NzTreeModule,
-    NzCodeEditorModule,
-    NzSpinModule,
-    FormsModule,
-    NzModalModule,
-    NzButtonComponent,
-    LanguageExtensionPipe,
-    NzGridModule,
-    NzLayoutModule,
-    NzButtonModule,
-    NzDropDownModule,
-    BypassSanitizePipe,
-  ],
-  templateUrl: './playground-simple.component.html',
-  styleUrl: './playground-simple.component.less',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sw-playground-simple',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        NzIconModule,
+        NzTreeModule,
+        NzCodeEditorModule,
+        NzSpinModule,
+        FormsModule,
+        NzModalModule,
+        NzButtonComponent,
+        LanguageExtensionPipe,
+        NzGridModule,
+        NzLayoutModule,
+        NzButtonModule,
+        NzDropDownModule,
+        BypassSanitizePipe,
+    ],
+    templateUrl: './playground-simple.component.html',
+    styleUrl: './playground-simple.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class PlaygroundSimpleComponent
   extends PlaygroundBaseComponent

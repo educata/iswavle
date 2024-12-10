@@ -36,34 +36,31 @@ import {
   take,
 } from 'rxjs';
 import { LanguageExtensionPipe } from '../language-extension.pipe';
-import { TerminalComponent } from './ui';
 import { PlaygroundBaseComponent } from '../playground-base';
 import { TITLE_SUFFIX_SEPARATOR } from '@app-shared/consts';
 
 declare const monaco: any;
 
 @Component({
-  selector: 'sw-playground-wc',
-  standalone: true,
-  imports: [
-    CommonModule,
-    NzIconModule,
-    NzTreeModule,
-    NzCodeEditorModule,
-    NzSpinModule,
-    FormsModule,
-    LanguageExtensionPipe,
-    TerminalComponent,
-    NzGridModule,
-    NzLayoutModule,
-    NzButtonModule,
-    NzDropDownModule,
-    NzModalModule,
-  ],
-  templateUrl: './playground-wc.component.html',
-  styleUrl: './playground-wc.component.less',
-  providers: [provideWebcontainerState()],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sw-playground-wc',
+    imports: [
+        CommonModule,
+        NzIconModule,
+        NzTreeModule,
+        NzCodeEditorModule,
+        NzSpinModule,
+        FormsModule,
+        LanguageExtensionPipe,
+        NzGridModule,
+        NzLayoutModule,
+        NzButtonModule,
+        NzDropDownModule,
+        NzModalModule,
+    ],
+    templateUrl: './playground-wc.component.html',
+    styleUrl: './playground-wc.component.less',
+    providers: [provideWebcontainerState()],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class PlaygroundWcComponent
   extends PlaygroundBaseComponent

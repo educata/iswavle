@@ -13,12 +13,11 @@ import { ThemeService } from '@app-shared/services';
 import { tap } from 'rxjs';
 
 @Component({
-  selector: 'sw-comments',
-  standalone: true,
-  imports: [],
-  templateUrl: './comments.component.html',
-  styleUrl: './comments.component.less',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sw-comments',
+    imports: [],
+    templateUrl: './comments.component.html',
+    styleUrl: './comments.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentsComponent {
   private readonly renderer = inject(Renderer2);

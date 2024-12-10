@@ -12,7 +12,6 @@ import {
   AsyncPipe,
   CommonModule,
   DOCUMENT,
-  TitleCasePipe,
   ViewportScroller,
   isPlatformBrowser,
 } from '@angular/common';
@@ -39,23 +38,21 @@ import { ENVIRONMENT } from '@app-shared/providers/environment';
 import { DISPLAY_THEMES } from '@app-shared/consts/theme';
 
 @Component({
-  selector: 'sw-root',
-  standalone: true,
-  imports: [
-    RouterModule,
-    NzLayoutModule,
-    NzButtonComponent,
-    NzIconModule,
-    NzDropDownModule,
-    NzAlertModule,
-    SearchComponent,
-    TitleCasePipe,
-    AsyncPipe,
-    CommonModule,
-  ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sw-root',
+    imports: [
+        RouterModule,
+        NzLayoutModule,
+        NzButtonComponent,
+        NzIconModule,
+        NzDropDownModule,
+        NzAlertModule,
+        SearchComponent,
+        AsyncPipe,
+        CommonModule,
+    ],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements AfterViewInit {
   @ViewChild('alert') alertRef!: ElementRef<HTMLDivElement>;

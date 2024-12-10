@@ -43,7 +43,10 @@
                 "output": "/assets/vs/"
               }
             ],
-            "styles": ["src/styles.less"],
+            "styles": [
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "src/styles.less"
+            ],
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
@@ -106,7 +109,10 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "less",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.less"],
+            "styles": [
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "src/styles.less"
+            ],
             "scripts": []
           }
         }

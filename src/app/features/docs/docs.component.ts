@@ -14,7 +14,6 @@ import {
   inject,
 } from '@angular/core';
 import {
-  AsyncPipe,
   CommonModule,
   ViewportScroller,
   isPlatformBrowser,
@@ -48,30 +47,28 @@ import {
 } from './ui';
 
 @Component({
-  selector: 'sw-docs',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    DocViewerComponent,
-    DocTocComponent,
-    NzBreadCrumbModule,
-    NzLayoutModule,
-    AutoBreadcrumbsComponent,
-    SidenavComponent,
-    NzMenuModule,
-    NzDrawerModule,
-    NzButtonModule,
-    NzIconModule,
-    NzBackTopModule,
-    AsyncPipe,
-    NzToolTipModule,
-    DocContributorsComponent,
-    CommentsComponent,
-  ],
-  templateUrl: './docs.component.html',
-  styleUrl: './docs.component.less',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sw-docs',
+    imports: [
+        CommonModule,
+        RouterModule,
+        DocViewerComponent,
+        DocTocComponent,
+        NzBreadCrumbModule,
+        NzLayoutModule,
+        AutoBreadcrumbsComponent,
+        SidenavComponent,
+        NzMenuModule,
+        NzDrawerModule,
+        NzButtonModule,
+        NzIconModule,
+        NzBackTopModule,
+        NzToolTipModule,
+        DocContributorsComponent,
+        CommentsComponent,
+    ],
+    templateUrl: './docs.component.html',
+    styleUrl: './docs.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class DocsComponent {
   private readonly platform = inject(PLATFORM_ID);
