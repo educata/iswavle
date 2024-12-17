@@ -7,5 +7,6 @@ export const TYPESCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'შესავალი', path: 'introduction' },
     { title: 'tsc', path: 'tsc' },
     { title: 'ტიპები', path: 'types' },
+    { title: 'ჯენერიკი', path: 'generic' },
   ],
 };
