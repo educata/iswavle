@@ -94,6 +94,11 @@ image?: ბექგრაუნდ სურათი სტატიის მ
 
 [შიდა](./doc/guides/typescript/introduction) ან [გარე](https://everrest.educata.dev/)
 
+## სურათი
+
+![alt ტექსტი](./assets/images/border-box.jpg)
+![alt ტექსტი](https://miro.medium.com/v2/resize:fit:670/1*4fIwfKZCHzKGgPanAeWUnA.gif)
+
 ## კოდი
 
 `ინლაინ კოდი`
@@ -105,6 +110,16 @@ image?: ბექგრაუნდ სურათი სტატიის მ
 ```ts
 let text: string = 'დიდი კოდი';
 ```
+
+## live კოდი
+
+<iframe data-url="guides/javascript-canvas-basic-animations-clock" data-title="საათის ანიმაცია" data-height="170"></iframe>
+
+## სხვა ვებგვერდის კონტენტი
+
+<iframe data-is-external-source="true" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=WISLAbUnjYMvgYrD" data-title="საათის ანიმაცია" data-height="500"></iframe>
+
+<iframe data-is-external-source="true" src="https://everrest.educata.dev" data-title="საათის ანიმაცია" data-height="500"></iframe>
 
 ## ალერტები
 
