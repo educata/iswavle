@@ -205,7 +205,111 @@ function placeOrder(id) {
 
 ამ შემთხვევაში გვაქვს ორი ფუნქცია. პირველი ფუნქცია ამოწმებს, ვალიდური არის თუ არა გადაცემული `id`, ხოლო მეორე ფუნქცია შეკვეთის სიმულაციისთვის არის. არის მომენტები, როცა რაღაც შეცდომის გამო ფუნქციამ შესაძლოა მიიღოს არასწორი `id`. სანამ ჩანაწერს გავაკეთებთ უმჯობესია მისი შემოწმება, სანამ კლიენტისა და სერვერის რესურსებს დავხარჯავთ. წინასწარ `id`-ის შემოწმებით ვზოგავთ მოთხოვნის გაგზავნას, რაც დარწმუნებით ვიცით რომ შეცდომას წარმოქმნიდა.
 
-`Promise`-ს კიდევ გააჩნია სხვა მეთოდებიც, რომელსაც განვიხილავთ შემდგომ თავში `async`-სა და `await`-თან ერთად.
+## Promise-ს სტატიკური მეთოდები
+
+`Promise`-ებს გააჩნია რამოდენიმე კარგი სტატიკური მეთოდი, რომლებიც შეგიძლიათ გამოიყენოთ:
+
+### Promise.all
+
+[`Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) პარამეტრად ღებულობს პრომისების მასივს
+და აბრუნებს გაერთიანებულ პრომისს შევსებული მნიშვნელობებით, მაშინ როცა **ყოველი** პრომისი გაეშვება წარმატებით.
+პრომისების გაშვება სრულდება ერთდროულად თუმცა თუ **ერთი** პრომისი მაინც არ შესრულდა, დააბრუნებს წარუმატებელი `reject`-ის მნიშვნელობას.
+
+```js
+const firstPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(Math.floor(Math.random() * 222));
+  }, 1000);
+});
+
+const secondPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(Math.floor(Math.random() * 22));
+  }, 2000);
+});
+
+async function calculate() {
+  const start = Date.now();
+  const result = await Promise.all([firstPromise, secondPromise]);
+  const end = Date.now();
+  console.log(`დასჭირდა დრო: ${end - start}ms`); // 'დასჭირდა დრო: 2000ms'
+  console.log(result); // [შემთხვევითი_რიცხვი_1, შემთხვევითი_რიცხვი_2]
+}
+
+calculate();
+```
+
+`Promise.all`-ის გამოყენება კარგია მაშინ, როცა რამოდენიმე პრომისის გაშვება გინდათ, რომელიც ერთმანეთზე არ არის დამოკიდებული. იგივე კოდი რომ დაგვეწერა `Promise.all`-ის გარეშე, დრო იქნებოდა 1 წამით მეტი.
+
+### Promise.allSettled
+
+[`Promise.allSettled`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) მუშაობს, როგორც `Promise.all`, ოღონდ მცირედი განსხვავებით: `Promise.allSettled` უცდის ყოველი პრომისის მნიშვნელობის დასრულებას, მნიშვნელობა არ აქვს ეს წარმატებული იყო თუ წარუმატებელი, მხოლოდ მის შემდგომ დაბრუნდება პრომისების მასივი.
+
+```js
+const firstPromise = new Promise((resolve, reject) => setTimeout(resolve, 1000, 'პირველი დაპირება'));
+const secondPromise = new Promise((resolve, reject) => setTimeout(reject, 1500, 'მეორე დაპირება'));
+const thirdPromise = new Promise((resolve, reject) => setTimeout(resolve, 500, 'მესამე დაპირება'));
+
+Promise.allSettled([firstPromise, secondPromise, thirdPromise]).then((results) => {
+  results.forEach((result, index) => {
+    const success = result.status === 'fulfilled';
+    console.log(
+      `პრომისი ${index + 1} ${success ? 'წარმატებით შესრულდა' : 'წარუმატებელად შესრულდა'},
+       მნიშვნელობით: ${success ? result.value : result.reason}`,
+    );
+  });
+});
+```
+
+არსებული კოდი გამოიტანს სამივე პრომისის მნიშვნელობას მაშინ როცა სამივე შესრულდება.
+
+### Promise.any
+
+[`Promise.any`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/any) მეთოდი ღებულობს პრომისების მასივს და დააბრუნებს მნიშვნელობას, როცა **ერთი** პრომისი მაინც შესრულდება წარმატებით, ხოლო აბრუნებს წარუმატებელ შემთხვევას თუ ყოველი პრომისი წარუმატებლად დასრულდა.
+
+```js
+const firstPromise = new Promise((resolve, reject) => setTimeout(resolve, 1000, 'პირველი დაპირება'));
+const secondPromise = new Promise((resolve, reject) => setTimeout(reject, 1500, 'მეორე დაპირება'));
+const thirdPromise = new Promise((resolve, reject) => setTimeout(resolve, 500, 'მესამე დაპირება'));
+
+Promise.any([firstPromise, secondPromise, thirdPromise])
+  .then((result) => {
+    console.log(`წარმატებულად შესრულებული პრომისის მნიშვნელობა: ${result}`);
+  })
+  .catch((error) => {
+    console.log(`ყოველი პრომისი წარუმატებლად შესრულდა`);
+  });
+```
+
+ამ შემთხვევაში დაილოგება `'წარმატებულად შესრულებული პრომისის მნიშვნელობა: მესამე დაპირება'`, რადგან პირველი და მესამე პრომისი შესრულდება.
+
+### Promise.race
+
+[`Promise.race`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/race) საკმაოდ წააგავს `Promise.any` მეთოდს, ოღონდ მცირედი განსხვავებით: `Promise.race` არ დაუცდის პრომისების წარმატებით შესრულებას, თუ წარმატებულ შედეგზე ადრე წარუმატებეული შესრულდა, მაშინ წარუმატებელ შემთხვევას გაუშვებს. მარტივად რომ ვთქვათ, ვინც პირველი გაეშვება მისი მნიშვნელობა დაბრუნდება.
+
+```js
+const firstPromise = new Promise((resolve, reject) => setTimeout(resolve, 1000, 'პირველი დაპირება'));
+const secondPromise = new Promise((resolve, reject) => setTimeout(reject, 300, 'მეორე დაპირება'));
+const thirdPromise = new Promise((resolve, reject) => setTimeout(resolve, 500, 'მესამე დაპირება'));
+
+Promise.race([firstPromise, secondPromise, thirdPromise])
+  .then((result) => {
+    console.log(`წარმატებულად შესრულებული პრომისის მნიშვნელობა: ${result}`);
+  })
+  .catch((error) => {
+    console.log(`წარუმატებლად შესრულებული პრომისის მნიშვნელობა: ${error}`);
+  });
+
+Promise.any([firstPromise, secondPromise, thirdPromise])
+  .then((result) => {
+    console.log(`წარმატებულად შესრულებული პრომისის მნიშვნელობა: ${result}`);
+  })
+  .catch((error) => {
+    console.log(`ყოველი პრომისი წარუმატებლად შესრულდა`);
+  });
+```
+
+ამ შემთხვევაში `race`-ის დროს დაგვიბრუნდება: `'წარუმატებლად შესრულებული პრომისის მნიშვნელობა: მეორე დაპირება'` ხოლო `any`-ს დროს: `წარმატებულად შესრულებული პრომისის მნიშვნელობა: მესამე დაპირება`.
 
 ## შეჯამება
 
