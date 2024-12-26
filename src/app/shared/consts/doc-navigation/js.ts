@@ -22,6 +22,20 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'შეცდომების კონტროლი', path: 'error-handling' },
     { title: 'OOP', path: 'oop' },
     {
+      title: 'მონაცემთა სტრუქტურები',
+      path: 'data-structures',
+      children: [
+        {
+          title: 'ჩაშენებული მონაცემთა სტრუქტურები',
+          path: 'built-in-data-structures',
+        },
+        {
+          title: 'Custom მონაცემთა სტრუქტურები',
+          path: 'custom-data-structures',
+        },
+      ],
+    },
+    {
       title: 'შესავალი DOM-ში',
       path: 'dom',
       children: [
