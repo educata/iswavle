@@ -668,3 +668,9 @@ function throwError(message: string): never {
 პრიმიტიული ტიპები უკვე აღწერილი არის, ახალი ტიპის და ინტერფეისის აღწერა შეგვიძლია შესაბამისი keywords-ს გამოყენებით.
 ყოველ მნიშვნელობას საჭიროა ჰქონდეს შესაბამისი ტიპი. ძალიან ცუდია პრაქტიკაში **any**-ს გამოყენება, უმჯობესია **unknown**-ს გამოყენება.
 სწორი ტიპების აღწერით და მინიჭებით დეველოპმენტის დროს ვგებულობთ სავარაუდო შეცდომებს, რაც გვიზოგავს დროს და გვიქმნის სასურველ სამუშაო გარემოს.
+
+## გამოყენებული ლიტერატურა
+
+- [The Basics](https://www.typescriptlang.org/docs/handbook/2/basic-types.html)
+- [Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)
+- [Object Types](https://www.typescriptlang.org/docs/handbook/2/objects.html)

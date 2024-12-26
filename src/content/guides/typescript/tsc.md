@@ -124,3 +124,8 @@ tsc
 ## შეჯამება
 
 ამ სტატიაში განვიხილეთ ტაიპსკრიპტის ქომფაილერი და მისი კონფიგურაცია.
+
+## გამოყენებული ლიტერატურა
+
+- [tsc CLI Options](https://www.typescriptlang.org/docs/handbook/compiler-options.html)
+- [What is a tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)

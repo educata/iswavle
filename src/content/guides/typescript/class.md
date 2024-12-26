@@ -512,3 +512,7 @@ truck.startEngine(); // The engine of the Ford F-150 truck is now running.
 ## შეჯამება
 
 ამ სტატიაში განვიხილეთ ტაიპსკრიპტის კლასები და მისი გამოყენების მაგალითები.
+
+## გამოყენებული ლიტერატურა
+
+- [Classes](https://www.typescriptlang.org/docs/handbook/2/classes.html)
