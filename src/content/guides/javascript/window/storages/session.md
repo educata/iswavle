@@ -4,16 +4,17 @@ description: 'სესიური საცავი JavaScript-ში'
 keywords: 'sessionStorage'
 ---
 
-[`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) ეს არის სესისური საცავი კლიენტის მხარეს. ის თითქმის ანალოგიურია
-[ლოკალური საცავისა](./doc/guides/javascript/window/storages/local).
+[`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) ეს არის სესისური საცავი კლიენტის მხარეს. ის თითქმის
+[ლოკალური საცავის](./doc/guides/javascript/window/storages/local) ანალოგიურია.
 
 ## სად ინახება ინფორმაცია?
 
-ინფორმაცია ინახება კლიენტის მხარეს. თითოეული შენახული ინფორმაცია საჯაროა მომხარებლისთვის და თავისფულად შეუძლია:
-დამატება, დარედაქტირება ან წაშლა. მასში შენახული ინფორმაცია ინახება ლოკალურად მანამ სანამ მას მომხარებელი არ წაშლის, დეველოპერი ან სესია გაითიშება.
-შენახული ინფორმაცია წაიშლება მაშინ როგორც კი სესია დამთავრდება. სესიაში იგულისხმება ვებგვერდის ტაბში გახსნა. ერთ ტაბში გახსნაში იგულისხმება ერთი სესია.
+ინფორმაცია ინახება კლიენტის მხარეს. თითოეული შენახული ინფორმაცია საჯაროა მომხარებლისთვის და თავისფულად შეუძლია მისი
+დამატება, დარედაქტირება ან წაშლა. მასში შენახული ინფორმაცია ინახება ლოკალურად მანამ, სანამ მას მომხარებელი ან დეველოპერი არ წაშლის, ან სანამ სესია არ გაითიშება.
+შენახული ინფორმაცია წაიშლება მაშინ, როგორც კი სესია დამთავრდება. სესიაში იგულისხმება ვებგვერდის ტაბში გახსნა. ერთ ტაბში გახსნაში იგულისხმება ერთი სესია.
+შესაბამისად, თითოეულ ტაბს თავისი უნიკალური სესიის საცავი აქვს.
 
-თითქმის ყველა ბრაუზერს გააჩნია ინტერფეისი, რომ იხილოთ სესიური საცავის ინფორმაცია.
+თითქმის ყველა ბრაუზერს გააჩნია ინტერფეისი, რომ ვიხილოთ სესიური საცავის ინფორმაცია.
 
 გახსენით inspect, შემდგომ application და მარცხენა მხარეს ჩამოშალეთ **sessionStorage**.
 
@@ -21,12 +22,12 @@ keywords: 'sessionStorage'
 
 ## მეთოდები და თვისებები
 
-`sessionStorage`-ს გააჩნია რამდენიმე მეთოდი, რომელიც დაგვეხმარება CRUD-ს ტიპის ოპერაციების შესრულებაში.
+`sessionStorage`-ს გააჩნია რამდენიმე მეთოდი, რომელიც დაგვეხმარება CRUD-ის ტიპის ოპერაციების შესრულებაში.
 
 ### sessionStorage
 
-`sessionStorage` (ან `window.sessionStorage`) ცარიელი ობიექტის სახით გამოძახება, გვიბურნებს ყოველ შენახულ ინფორმაციას, რაც იმყოფება `sessionStorage`-ში.
-დაბრუნებული მნიშვნელობა არის [`Storage`](https://developer.mozilla.org/en-US/docs/Web/API/Storage)-ს ტიპის.
+`sessionStorage` (ან `window.sessionStorage`) ცარიელი ობიექტის სახით გამოძახება და გვიბურნებს ყოველ შენახულ ინფორმაციას, რაც იმყოფება `sessionStorage`-ში.
+დაბრუნებული მნიშვნელობა არის [`Storage`](https://developer.mozilla.org/en-US/docs/Web/API/Storage) ტიპის.
 
 ```js
 console.log(sessionStorage);
@@ -54,7 +55,7 @@ sessionStorage.setItem('incorrectWay', data); // [object Object]
 sessionStorage.setItem('correctWay', JSON.stringify(data)); // {"name":"educata","age":1,"isActive":true}
 ```
 
-დამატებული ინფორმაციები გამოიყურება შემდგომ ნაირად:
+დამატებული ინფორმაცია შემდეგნაირად გამოიყურება:
 
 | Key          | Value                                        |
 | ------------ | -------------------------------------------- |
@@ -66,19 +67,19 @@ sessionStorage.setItem('correctWay', JSON.stringify(data)); // {"name":"educata"
 | nothing      | `null`                                       |
 
 თუ მნიშვნელობა არ არის ტექსტური ტიპის, `setItem` ავტომატურად შეეცდება მის გადაკეთებას ტექსტურ მნიშვნელობაში, რადგანაც პირდაპირ ობიექტის შენახვა ვცადეთ,
-ის გადააკეთა, როგორც `[object Object]`.
+ის გადააკეთა, როგორც `[object Object]`. თუ ობიექტის ან მასივის ტიპის ინფორმაციის შენახვა გვსურს, შეგვიძლია ისინი დავაკონვერტიროთ [`JSON`-ით](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON).
 
 ### getItem
 
-[`getItem`](https://developer.mozilla.org/en-US/docs/Web/API/Storage/getItem) არის მეთოდი, რომელიც ინფორმაციას აბრუნებს სესიური საცავიდან,
-ის ღებულობს ერთ პარამეტრს. `key` დასახელებას, რომელიც იქნება ტექსტური ტიპის.
+[`getItem`](https://developer.mozilla.org/en-US/docs/Web/API/Storage/getItem) არის მეთოდი, რომელიც ინფორმაციას აბრუნებს სესიური საცავიდან.
+ის ღებულობს ერთ პარამეტრს, `key` დასახელებით, რომელიც იქნება ტექსტური ტიპის.
 
 ```js
 console.log(sessionStorage.getItem('name')); // 'educata'
 console.log(sessionStorage.getItem('text')); // null
 ```
 
-თუ ინფორმაცია ვერ მოიძებნა აბრუნებს `null`-ს.
+თუ ინფორმაცია ვერ მოიძებნა, აბრუნებს `null`-ს.
 
 :::info
 რადგან `sessionStorage` არის ობიექტი, პირდაპირაც შეგიძლიათ არსებული მნიშვნელობის ამოღება `getItem` მეთოდის გარეშე.
@@ -87,7 +88,7 @@ console.log(sessionStorage.getItem('text')); // null
 
 ### length
 
-[`length`](https://developer.mozilla.org/en-US/docs/Web/API/Storage/length) არის თვისება, რომელიც აბრუნებს საცავში არსებული ინფორმაციების რაოდენობას.
+[`length`](https://developer.mozilla.org/en-US/docs/Web/API/Storage/length) არის თვისება, რომელიც აბრუნებს საცავში არსებული ველების რაოდენობას.
 
 ```js
 console.log(sessionStorage.length); // 6
@@ -95,14 +96,14 @@ console.log(sessionStorage.length); // 6
 
 ### key
 
-[`key`](https://developer.mozilla.org/en-US/docs/Web/API/Storage/key) არის მეთოდი, რომელიც ღებულობს ინდექს და აბრუნებს იმ ინდექსზე მდგომ ინფორმაციის სახელს (key) საცავიდან.
+[`key`](https://developer.mozilla.org/en-US/docs/Web/API/Storage/key) არის მეთოდი, რომელიც ღებულობს ინდექსს და აბრუნებს ამ ინდექსზე მდგომ ველის სახელს (key) საცავიდან.
 
 ```js
 console.log(sessionStorage.key(0)); // 'correcrtWay'
 console.log(sessionStorage.key(10)); // null
 ```
 
-თუ იმ ინდექსზე არაფერი არ არის მაშინ დააბრუნებს `null`-ს.
+თუ ინდექსზე არაფერი არ არის, მაშინ დააბრუნებს `null`-ს.
 
 ### removeItem
 
@@ -122,6 +123,6 @@ console.log(sessionStorage.clear());
 
 ## შეჯამება
 
-`sessionStorage` არის `window` ობიექტის თვისება, რომელიც გვთავაზობს სესიურ საცავს კლიენტის მხარეს. ინფორმაცია ინახება მანამ სანამ მას კლიენტი არ წაშლის ან გათიშავს სესიას.
-`sessionStorage` გვთავაზობს სრულფასოვან CRUD-ს ტიპის ოპერაციების მეთოდებს. სესიური საცავის ხილვა შეუძლია ყველას, ამიტომ მასში სენსიტიური ტიპის ინფორმაცია
+`sessionStorage` არის `window` ობიექტის თვისება, რომელიც გვთავაზობს სესიურ საცავს კლიენტის მხარეს. ინფორმაცია ინახება მანამ, სანამ მას კლიენტი არ წაშლის, ან გათიშავს სესიას.
+`sessionStorage` გვთავაზობს სრულფასოვან CRUD-ის ტიპის ოპერაციების მეთოდებს. სესიური საცავის ხილვა შეუძლია ყველას, ამიტომ მასში სენსიტიური ტიპის ინფორმაცია
 არ უნდა შევინახოთ.

@@ -4,9 +4,9 @@ description: 'Window ობიექტი JavaScript-ში'
 keywords: 'window, namespace, dialogs, დიალოგური ფანჯრები, საცავები, storages, localStorage, sessionStorage, cookie, location, audio, navigator, commonly used functions in window, ხშირად გამოყენებული ფუნქციები window ობიექტი'
 ---
 
-[`Window`](https://developer.mozilla.org/en-US/docs/Web/API/Window) ობიექტი ეს არის გლობალური ცვლადი, რომელიც ინახავს მთლიან დოკუმენტს, მეთოდებს და მნიშვნელობებს. ყოველი მეთოდი და მნიშვნელობა, რომელსაც ვიყენებთ ობიექტის გარეშე, რეალურად ისინი აღწერილია `window` ობიექტში.
+[`Window`](https://developer.mozilla.org/en-US/docs/Web/API/Window) ობიექტი არის გლობალური ცვლადი, რომელიც ინახავს მთლიან დოკუმენტს, მეთოდებს და მნიშვნელობებს. ყოველი მეთოდი და მნიშვნელობა, რომელსაც ვიყენებთ ობიექტის გარეშე, რეალურად აღწერილია `window` ობიექტში.
 
-`window` ობიექტში აღწერილ ფუნქციებსა და მნიშვნელობებს არ სჭირდებათ [namespace-ს](./doc/guides/javascript/object-basics#Dot_notation) გამოყენება.
+`window` ობიექტში აღწერილ ფუნქციებსა და მნიშვნელობებს არ სჭირდებათ [namespace-ის](./doc/guides/javascript/object-basics#Dot_notation) გამოყენება.
 
 მაგალითისთვის:
 
@@ -15,9 +15,9 @@ alert('რაღაც პირველი შეტყობინება!'
 window.alert('რაღაც მეორე შეტყობინება!');
 ```
 
-ყოველი მეთოდის ან თვისების გამოყენება შეიძლება ანალოგიურად namespace-ს გარეშე.
+ყოველი მეთოდის ან თვისების გამოყენება შეიძლება ანალოგიურად namespace-ის გარეშე.
 
-`window` ობიექტს გააჩნია ბევრი გამოსადეგი მნიშვნელობა და მეთოდი, შემდგომ სტატიებში განვიხილავთ თითოეულ მათგანს:
+`window` ობიექტს გააჩნია ბევრი გამოსადეგი მნიშვნელობა და მეთოდი. შემდგომ სტატიებში განვიხილავთ თითოეულ მათგანს:
 
 - [დიალოგური ფანჯრები](./doc/guides/javascript/window/dialogs)
 - [საცავები](./doc/guides/javascript/window/storages)
