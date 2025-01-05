@@ -629,7 +629,7 @@ userService.greetUser('');
 ```
 
 :::info
-გაეცანით [Map-ის](./doc/guides/javascript/data-structures/built-in-data-structures.md#map) გამოყენების სტატიას.
+გაეცანით [Map-ის](./doc/guides/javascript/data-structures#map) გამოყენების სტატიას.
 :::
 
 ამ კონტეინერში ჩვენ შეგვიძლია დავარეგისტრიროთ კლასები სახელებით
