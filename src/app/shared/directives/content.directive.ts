@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_ICONS } from '@app-shared/consts';
 import { DocContent } from '@app-shared/interfaces';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
-import { SanitizerService } from '@app-shared/services';
+import { SanitizerService, CodeUtilService } from '@app-shared/services';
 
 @Directive({
   selector: '[swContent]',
@@ -34,6 +34,7 @@ export class ContentDirective implements OnChanges {
   private readonly sanitizer = inject(SanitizerService);
   private readonly environment = inject(ENVIRONMENT);
   private readonly document = inject(DOCUMENT);
+  private readonly codeUtilService = inject(CodeUtilService);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   private unlistenFn = () => {};
@@ -105,13 +106,10 @@ export class ContentDirective implements OnChanges {
       },
     );
 
-    if (content.attributes.codes) {
-      const codeWrappers =
-        contentContainer.querySelectorAll('div.code-wrapper');
-      codeWrappers.forEach((code: HTMLElement, index: number) => {
-        this.handleCopy(code, (content.attributes.codes || [])[index]);
-      });
-    }
+    const codeWrappers = contentContainer.querySelectorAll('div.code-wrapper');
+    codeWrappers.forEach((code: HTMLElement) => {
+      this.handleCopy(code);
+    });
   }
 
   handleAnchorClick(event: Event) {
@@ -125,10 +123,20 @@ export class ContentDirective implements OnChanges {
     this.viewport.scrollToPosition([0, 0]);
   }
 
-  handleCopy(codeWrapper: HTMLElement, code: string) {
+  handleCopy(codeWrapper: HTMLElement) {
     const button = codeWrapper.querySelector('button');
-    if (code && button) {
+    if (button) {
       button.addEventListener('click', () => {
+        const codeBlock = codeWrapper.querySelector('code');
+
+        if (!codeBlock) {
+          return;
+        }
+
+        const code = this.codeUtilService.extractCodeFromHTML(
+          codeBlock.outerHTML,
+        );
+
         navigator.clipboard.writeText(code);
         button.innerHTML = CUSTOM_ICONS['check'];
         button.disabled = true;
