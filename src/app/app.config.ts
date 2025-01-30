@@ -10,8 +10,16 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import ka from '@angular/common/locales/ka';
 import { SwTitleStrategy } from '@app-shared/services';
+import { provideNzIcons } from 'ng-zorro-antd/icon';
+import { IconDefinition } from '@ant-design/icons-angular';
+import {
+  GithubOutline,
+  BgColorsOutline,
+  MenuOutline,
+} from '@ant-design/icons-angular/icons';
 
 registerLocaleData(ka);
+const icons: IconDefinition[] = [GithubOutline, BgColorsOutline, MenuOutline];
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +27,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(withFetch()),
     provideNzI18n(ka_GE),
+    provideNzIcons(icons),
     importProvidersFrom(FormsModule),
     provideAnimations(),
     {
