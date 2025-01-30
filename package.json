@@ -134,5 +134,8 @@
         }
       }
     }
+  },
+  "patchedDependencies": {
+    "@webcontainer/api@1.5.1": "patches/@webcontainer%2Fapi@1.5.1.patch"
   }
 }
