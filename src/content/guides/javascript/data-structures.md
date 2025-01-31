@@ -1,5 +1,5 @@
 ---
-title: 'მონაცემთა სტრუქტურები'
+title: 'ჩაშენებული მონაცემთა სტრუქტურები'
 description: 'მონაცემთა სტრუქტურები JavaScript-ში'
 keywords: 'advanced, ჩაშენებული მონაცემთა სტრუქტურები'
 ---
@@ -7,18 +7,10 @@ keywords: 'advanced, ჩაშენებული მონაცემთა 
 ## Object
 
 [Object](./doc/guides/javascript/object-basics) არის JavaScript-ის ფუნდამენტური მონაცემთა სტრუქტურა,
-რომელიც key-value წყვილებს ინახავს. ობიექტის გასაღებები შეიძლება იყოს სიმბოლო ან სტრინგი, ხოლო მნიშვნელობები
-ნებისმიერი ტიპის.
-
-```js
-const project = {
-  name: 'educata',
-  website: 'educata.dev',
-};
-```
+რომელიც გამმოიყენება სხვადასხვა key-value წყვილებზე დაფუძნებული კოლექციებისა და კიმპლექსური ერთეულების შესანახად.
 
 ობიექტის ერთ-ერთი ძირითადი მახასიათებელი არის მისი **პროტოტიპის** მექანიზმი.
-ობიექტი შეიძლება მოიცავდეს სხვა ობიექტს როგორც პროტოტიპს.
+ობიექტი შეიძლება მოიცავდეს სხვა ობიექტს, როგორც პროტოტიპს.
 
 ```js
 const person = {
@@ -30,9 +22,9 @@ console.log(me.isHuman); // true
 ```
 
 მაგალითში გამოვიყენეთ [Object.create](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create) მეთოდი,
-რომელიც ქმნის ახალ ობიექტს სახელად `me`, და ამ ობიექტს პროტოტიპად აქვს მითითებული `person` ობიექტი.
+რომელიც ქმნის ახალ ობიექტს `me` ცვლადში და ამ ობიექტს პროტოტიპად აქვს მითითებული `person` ობიექტი.
 
-ობიექტს კიდევ ბევრი საინტერესო მეთოდი გააჩნია, როგორებიცაა:
+ობიექტს კიდევ ბევრი საინტერესო მეთოდი გააჩნია, როგორიცაა:
 
 - [Object.keys](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys) - სტატიკური მეთოდი,
   რომელიც დააბრუნებს გადაცემული ობიექტის გასაღებებს მასივის სახით.
@@ -59,17 +51,18 @@ for (const [student, grade] of Object.entries(students)) {
 ```
 
 :::info
-JavaScript-ში ჩაშენებული მონაცემთა სტრუქტურების უკან ობიექტები გამოიყენება.
+JavaScript-ში ჩაშენებული მონაცემთა სტრუქტურების მიღმა ობიექტები გამოიყენება.
 :::
 
 ## Map
 
 [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) არის ჩაშენებული მონაცემთა სტრუქტურა JavaScript-ში,
-რომელიც ობიექტის მსგავსად ინახავს key-value წყვილის მიხედვით, ოღონდ `Map`-ის შემთხვევაში შესაძლებელია ნებისმიერი ტიპის გამოყენება გასაღებისთვის.
+რომელიც ობიექტის მსგავსად ინახავს key-value წყვილებს, ოღონდ `Map`-ის შემთხვევაში შესაძლებელია ნებისმიერი ტიპის გამოყენება გასაღებისთვის,
+თუნდაც ობიექტების.
 key (გასაღების მნიშვნელობა) `Map`-ში შესაძელბელია აღმოჩნდეს მხოლოდ ერთხელ, ის ყოველთვის შეიცავს **უნიკალურ** გასაღებებს.
 
 [`set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/set) მეთოდი გამოიყენება მნიშვნელობის დასამატებლად `Map`-ში, ხოლო
-[`get`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/get) მნიშნველობისთვის ამოღებისთვის.
+[`get`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/get) მნიშნველობისთვის ამოსაღებად.
 
 ```js
 const students = new Map();
@@ -81,7 +74,7 @@ students.set('studentD', 51);
 console.log(students.get('studentC')); // 100
 ```
 
-[`has`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/has) მეთოდი ამოწმებს მნიშვნელობა არსებობს თუ არა `Map`-ში.
+[`has`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/has) მეთოდი ამოწმებს, მნიშვნელობა არსებობს თუ არა `Map`-ში.
 
 ```js
 console.log(students.has('studentA')); // true
@@ -94,8 +87,8 @@ console.log(students.has('studentE')); // false
 console.log(students.size); // 4
 ```
 
-[`delete`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/delete) მეთოდი გამოიყენება **ერთი** მნიშვნელობის წასაშლელად `Map`-დან, ხოლო
-[`clear`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear) **ყოველი** ელემენტის წასაშლელად.
+[`delete`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/delete) მეთოდი გამოიყენება `Map`-დან **ერთი** მნიშვნელობის წასაშლელად, ხოლო
+[`clear`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear) **ყველა** ელემენტის წასაშლელად.
 
 ```js
 console.log(students.delete('studentA')); // true (გულიხსმობს წარმატებულად წაშლას)
@@ -104,7 +97,7 @@ students.clear();
 console.log(students.size); // 0
 ```
 
-[`forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/forEach) მეთოდი მსგავსია [მასივის `forEach`](./doc/guides/javascript/array#forEach) მეთოდისა.
+[`forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/forEach) მეთოდი [მასივის `forEach`](./doc/guides/javascript/array#forEach) მეთოდის მსგავსია.
 
 ```js
 const students = new Map();
@@ -119,10 +112,10 @@ students.forEach((key, value) => {
 ```
 
 :::info
-ობიექტის რამდენიმე მეთოდი, ანალოგიურად მუშაობს `Map`-შიც. ესენია: `keys`, `values`, `entries`.
+ობიექტის რამდენიმე მეთოდი ანალოგიურად მუშაობს `Map`-შიც. ესენია: `keys`, `values`, `entries`.
 :::
 
-`Map`-თან მიმართებაში შესაძებელია ობიექტის მსგავსად მუშაობა თუმცა ეს მიდგომა **არასწორია** პრაქტიკაში.
+`Map`-თან მიმართებაში შესაძებელია ობიექტის მსგავსად მუშაობა, თუმცა ეს მიდგომა **არასწორია** პრაქტიკაში.
 
 ```js
 const wrongMap = new Map();
@@ -132,7 +125,7 @@ wrongMap['bla2'] = 'blaaa2';
 console.log(wrongMap); // Map { bla: 'blaa', bla2: 'blaaa2' }
 ```
 
-მაგრამ მსგავსად დამატება არ იყენებს `Map`-ის მონაცემთა სტრუქტურას. ის იყენებს სტანდარტულ ობიექტის მახასიათებლებს.
+მსგავსი მანიპულაციები არ ეყრდნობა `Map`-ის მეთოდებს და არასასურველ შედეგებს მოგვცემს.
 თვისება `bla` არ არის შენახული `Map`-ში, ამიტომ ზოგი მეთოდი არ დააბრუნებს სწორ მნიშვნელობას:
 
 ```js
@@ -155,7 +148,7 @@ for (const [key, value] of students) {
 }
 ```
 
-### ობიექტი vs Map
+### `Object` vs `Map`
 
 `Object` და `Map` ერთმანეთის მსგავსია. ორივე სტრუქტურა იყენებს key-value-ს მიდგომას თვისებების შესანახად.
 თუმცა, არსებობს მნიშვნელოვანი განსხვავებები, რომლებიც ზოგიერთ შემთხვევაში `Map`-ს უფრო უპირატესობას ანიჭებს:
@@ -173,7 +166,7 @@ for (const [key, value] of students) {
 ## Set
 
 [`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) არის ჩაშენებული მონაცემთა სტრუქტურა, რომელიც
-ინახავს პრიმიტიულ მნიშვნელობებს ან ობიექტებს. ასევე მასში შენახული **მნიშვნელობები** არის უნიკალური.
+ინახავს პრიმიტიულ მნიშვნელობებს ან ობიექტებს. ასევე მასში შენახული მნიშვნელობები არის **უნიკალური**, ანუ `Set`-ში არ ინახება იდენტური მნიშვნელობები. 
 
 ელემენტების დამატება შესაძლებელია [`add`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/add) მეთოდის გამოყენებით.
 
@@ -204,7 +197,7 @@ console.log(set2.has(10)); // false
 
 ### Set შემადგენლობა
 
-`Set` ობიექტი გვთავაზობს რამდენიმე მეთოდს, რომლებიც საშუალებას გვაძლევს შევასრულოთ ოპერაციები, როგორც მათემატიკურ სიმრავლეებზე. ეს მეთოდები მოიცავს:
+`Set` ობიექტი გვთავაზობს რამდენიმე მეთოდს, რომელიც საშუალებას გვაძლევს, შევასრულოთ ოპერაციები მათემატიკურ სიმრავლეებზე:
 
 | მეთოდი                                                                                                                                 | დაბრუნებული მნიშვნელობა | მათემატიკური ჩაწერა | ვენის დიაგრამა                                                                                                                                                                                   |
 | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -216,10 +209,10 @@ console.log(set2.has(10)); // false
 | [`A.isSubsetOf(B)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSubsetOf)                   | `Boolean`               | A ⊆ B               | <img src="./assets/images/venn-subset.png" alt="ვენის დიაგრამა, სადაც ორი წრეა. A არის B-ს ქვეჯგუფი, რადგან A სრულიად შედის B-ში." style="width: 130px">                                         |
 | [`A.isSupersetOf(B)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSupersetOf)               | `Boolean`               | A ⊇ B               | <img src="./assets/images/venn-superset.png" alt="ვენის დიაგრამა,  სადაც ორი წრეა. A არის B-ს superset, რადგან B მთლიანად შედის A-ში." style="width: 130px">                                     |
 
-ეს მეთოდები პარამეტრად ღებულობენ, როგორც `Set`-ს ასევე [set-like](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set#set-like_objects)-ის ობიექტებს.
+ეს მეთოდები პარამეტრად ღებულობენ როგორც `Set`-ს, ასევე [set-like](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set#set-like_objects)-ის ობიექტებს.
 
 :::info
-`Map`-ის რამდენიმე მეთოდი, ანალოგიურად მუშაობს `Set`-შიც. ესენია: `clear`, `delete`, `forEach`, `keys`, `values`, `entries`.
+`Map`-ის რამდენიმე მეთოდი ანალოგიურად მუშაობს `Set`-შიც. ესენია: `clear`, `delete`, `forEach`, `keys`, `values`, `entries`.
 :::
 
 ## შეჯამება
