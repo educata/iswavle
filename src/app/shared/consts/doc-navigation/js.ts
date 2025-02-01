@@ -115,5 +115,143 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
         },
       ],
     },
+    {
+      title: 'კანვასი',
+      path: 'canvas',
+      children: [
+        {
+          title: 'ძირითადი გამოყენება',
+          path: 'basic-usage',
+        },
+        {
+          title: 'ფიგურების დახატვა',
+          path: 'drawing-figures',
+        },
+        {
+          title: 'სტილიზაციების და ფერების მინიჭება',
+          path: 'style-and-colors',
+        },
+        {
+          title: 'ტექსტების დახატვა',
+          path: 'drawing-text',
+        },
+        {
+          title: 'სურათების გამოყენება',
+          path: 'using-images',
+        },
+        {
+          title: 'ტრანსფორმაციები',
+          path: 'transformations',
+        },
+        {
+          title: 'მარტივი ანიმაციები',
+          path: 'basic-animations',
+        },
+        {
+          title: 'რთული ანიმაციები',
+          path: 'advanced-animations',
+        },
+        {
+          title: 'კანვასის ოპტიმიზირება',
+          path: 'optimization',
+        },
+        {
+          title: 'Breakout თამაში',
+          path: 'breakout',
+        },
+        {
+          title: 'Stickman თამაში',
+          path: 'stickman',
+        },
+        {
+          title: 'შეჯამება',
+          path: 'summary',
+        },
+      ],
+    },
+    {
+      title: 'ასინქრონული პროგრამირება',
+      path: 'async-programming',
+      children: [
+        {
+          title: 'Promise',
+          path: 'promise',
+        },
+        {
+          title: 'Async & Await',
+          path: 'async-await',
+        },
+      ],
+    },
+    {
+      title: 'REST API',
+      path: 'rest-api',
+      children: [
+        {
+          title: 'JSON & XML',
+          path: 'json-xml',
+        },
+        {
+          title: 'XMLHttpRequest',
+          path: 'xhr',
+        },
+        {
+          title: 'fetch',
+          path: 'fetch',
+        },
+        {
+          title: 'პრაქტიკა',
+          path: 'practice',
+        },
+        {
+          title: 'შეჯამება',
+          path: 'summary',
+        },
+      ],
+    },
+    {
+      title: 'Window',
+      path: 'window',
+      children: [
+        {
+          title: 'დიალოგური ფანჯრები',
+          path: 'dialogs',
+        },
+        {
+          title: 'საცავები',
+          path: 'storages',
+          children: [
+            {
+              title: 'ლოკალური საცავი',
+              path: 'local',
+            },
+            {
+              title: 'სესიური საცავი',
+              path: 'session',
+            },
+            {
+              title: 'Cookie',
+              path: 'cookie',
+            },
+            {
+              title: 'შეჯამება',
+              path: 'summary',
+            },
+          ],
+        },
+        {
+          title: 'Audio',
+          path: 'audio',
+        },
+        {
+          title: 'Location',
+          path: 'location',
+        },
+        {
+          title: 'Navigator',
+          path: 'navigator',
+        },
+      ],
+    },
   ],
 };
