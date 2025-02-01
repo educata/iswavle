@@ -14,7 +14,6 @@ import {
   inject,
 } from '@angular/core';
 import {
-  AsyncPipe,
   CommonModule,
   ViewportScroller,
   isPlatformBrowser,
@@ -64,7 +63,6 @@ import {
     NzButtonModule,
     NzIconModule,
     NzBackTopModule,
-    AsyncPipe,
     NzToolTipModule,
     DocContributorsComponent,
     CommentsComponent,
