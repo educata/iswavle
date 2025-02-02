@@ -22,7 +22,8 @@
     "paths": {
       "@app-shared/*": ["./src/app/shared/*"],
       "@global-shared/*": ["./shared/*"]
-    }
+    },
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
