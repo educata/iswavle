@@ -7,7 +7,7 @@ const STYLE_ATTRIBUTE_VALUE = 'data-style-value';
 const STYLE_PROPERTY = extractDataFromLocation().style;
 const data = extractDataFromLocation().values;
 
-data.forEach((style, index) => {
+data.forEach((style, index, self) => {
   const row = document.createElement('div');
   row.classList.add('list-item');
   row.innerHTML = `<span style="color: #00f">${STYLE_PROPERTY}</span>: <span style="color: #a31515">${style}</span>;`;
@@ -17,6 +17,9 @@ data.forEach((style, index) => {
     row.click();
   }
   items.appendChild(row);
+  if (index + 1 === self.length) {
+    result.style.maxHeight = items.clientHeight + 'px';
+  }
 });
 
 if (data.length === 0) {

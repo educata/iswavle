@@ -25,8 +25,8 @@
 
 .container .list {
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   row-gap: 16px;
   padding: 25px;
   box-sizing: border-box;
@@ -48,11 +48,9 @@
 }
 
 p {
-  margin: 0;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: auto 0;
+  text-align: center;
+  overflow-y: auto;
   text-align: center;
   padding: 25px;
 }
@@ -65,4 +63,21 @@ p {
     border-right: none;
     border-bottom: 1px solid #cdcdcd;
   }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #e1e9ec;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(168, 168, 182);
 }
