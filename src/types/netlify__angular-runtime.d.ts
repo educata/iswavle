@@ -2,3 +2,7 @@
 declare module '@netlify/angular-runtime/common-engine' {
   export function render(engine: any): Promise<Response>;
 }
+
+declare module '@netlify/angular-runtime/context' {
+  export function getContext(): any;
+}
