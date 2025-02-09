@@ -11,6 +11,10 @@
     monospace;
 }
 
+body {
+  direction: ltr;
+}
+
 .container {
   width: 100%;
   max-width: 800px;
@@ -25,6 +29,7 @@
 
 .container .list {
   width: 100%;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   row-gap: 16px;
@@ -47,12 +52,44 @@
   border: 1px solid #1890ff;
 }
 
-p {
+.container .result {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 56px;
+}
+
+.container .result .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.container .result p {
   margin: auto 0;
   text-align: center;
   overflow-y: auto;
   text-align: center;
   padding: 25px;
+  font-family: system-ui;
+  font-size: 22px;
+}
+
+.container .controls .direction {
+  width: 100%;
+  border: 0;
+  font-size: 16px;
+  text-align: center;
+  padding: 15px;
+  cursor: pointer;
+  line-height: 1.5715;
+  background-color: transparent;
+  box-sizing: border-box;
+  transition: 0.5s ease;
+}
+
+.container .controls .direction:hover {
+  color: #1890ff;
 }
 
 @media screen and (max-width: 450px) {

@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui;
+}
+
+main {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid #cdcdcd;
+}
+
+main form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 15px;
+  border-right: 1px solid #cdcdcd;
+  padding: 15px;
+}
+
+main form div h3 {
+  margin: 0 0 15px;
+}
+
+main form div textarea {
+  width: 100%;
+  height: 250px;
+  border: 1px solid #cdcdcd;
+  resize: none;
+  font-family: monospace;
+  transition: 0.5s ease;
+}
+
+main form button {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #cdcdcd;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+
+main form div textarea:focus,
+main form div textarea:focus-visible,
+main form div textarea:active,
+main form button:focus,
+main form button:active,
+main form button:hover {
+  border: 1px solid #1890ff;
+  outline: none;
+}
+
+main iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 450px;
+}
+
+@media screen and (max-width: 450px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+  main form {
+    border-right: none;
+    border-bottom: 1px solid #cdcdcd;
+  }
+}
