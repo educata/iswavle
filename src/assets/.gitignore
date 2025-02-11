@@ -1,13 +1,19 @@
+# rendered folders
+
 guides
 references
 dev
 examples/guides
 examples/references
-empty-hyperlinks.json
-README.html
-README.json
-references.html
-references.json
-guides.html
-guides.json
+
+# ignore base md content
+
+references.*
+guides.*
+kitchen-sink.*
+README.*
+
+# indexing
+
 index-map.json
+empty-hyperlinks.json
