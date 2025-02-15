@@ -9,6 +9,7 @@ export const HTML_CSS_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'ცხრილები', path: 'table' },
     { title: 'ტექსტის გასტილვა', path: 'styling-text' },
     { title: 'Box Model (ყუთის მოდელი)', path: 'box-model' },
+    { title: 'ფერის მნიშვნელობები', path: 'color-values' },
   ],
 };
 
