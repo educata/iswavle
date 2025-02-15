@@ -1,0 +1,284 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #1890ff;
+  --primary-text-color: rgba(0, 0, 0, 0.85);
+  --secondary-color: #fafafa;
+  --border-color: #cdcdcd;
+  --bg-color: #fff;
+  --code-property-color: #00f;
+  --code-value-color: #a31515;
+  --thumb-color: rgb(168, 168, 182);
+  --thumb-color-hover: #e1e9ec;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui;
+  color: var(--primary-text-color);
+  background-color: var(--bg-color);
+  direction: ltr;
+}
+
+body.dark {
+  --primary-text-color: rgba(255, 255, 255, 0.85);
+  --bg-color: #1f1f1f;
+  --secondary-color: #2a2a2a;
+  --code-property-color: #9cdcfe;
+  --code-value-color: #d69d85;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--thumb-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--thumb-hover-color);
+}
+
+.black-color {
+  color: #000;
+}
+
+.white-color {
+  color: #fff;
+}
+
+h3,
+h4 {
+  font-weight: 400;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  position: relative;
+}
+
+main div.color-picker {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 50px;
+}
+
+main div.color-picker div.column {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+main div.color-picker div.polygonPreview {
+  width: 100px;
+  padding: 25px;
+  transition: 0.2s ease;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  margin: auto;
+  border-radius: 4px;
+}
+
+main div.color-picker div.polygonContainer {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+main div.color-picker div.polygonContainer div.polygon {
+  position: absolute;
+  width: 30px;
+  height: 35px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: transform 0.5s ease;
+  user-select: none;
+}
+
+main div.color-picker div.polygonContainer div.polygon:hover,
+main div.color-picker div.polygonContainer div.polygon.active {
+  z-index: 2;
+  box-shadow: inset rgba(0, 0, 0, 0.1) 0px -79px 40px 0px;
+  cursor: pointer;
+}
+
+main div.color-picker div.polygonContainer div.polygon:hover {
+  transform: scale(1.2);
+}
+
+main div.color-picker form {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 1rem;
+}
+
+main div.color-picker form div.row {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 5px;
+  place-items: center;
+}
+
+main div.color-picker form div.row div.group {
+  display: flex;
+}
+
+main div.color-picker form div.row div.group input {
+  border: 1px solid var(--border-color);
+  flex-grow: 1;
+  padding: 0 5px;
+  background-color: transparent;
+  color: var(--primary-text-color);
+}
+
+main div.color-picker form div.row div.group button {
+  border: 1px solid var(--border-color);
+  border-left: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 10px;
+  color: var(--primary-text-color);
+}
+
+main div.color-picker form div.row div.group input:active,
+main div.color-picker form div.row div.group input:focus-within {
+  outline: none;
+}
+
+main div.color-picker div.previewBox {
+  width: 100%;
+  max-width: 250px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 0;
+  border-radius: 12px;
+  gap: 10px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+main div.color-picker .colorValues {
+  font-size: 18px;
+  font-family: monospace;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+main div.color-picker div.shadesContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 10px;
+  padding: 25px;
+}
+
+main div.color-picker div.shadesContainer div.shade-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+main div.color-picker div.shadesContainer div.shade-container.active {
+  font-weight: 900;
+}
+
+main div.color-picker div.shadesContainer div.shade-container span:first-child {
+  width: 40px;
+}
+
+main div.color-picker div.shadesContainer div.shade-container span:last-child {
+  width: 60px;
+  font-family: monospace;
+}
+
+main div.color-picker div.shadesContainer div.shade-container div.shade {
+  height: 25px;
+  border-radius: 4px;
+  transition: 0.2s ease;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+main div.tables {
+  width: 100%;
+  max-width: 90%;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 1rem;
+  margin: 0 auto;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+}
+
+main div.tables table,
+main div.tables table thead,
+main div.tables tbody tr {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-collapse: collapse;
+}
+
+main div.tables tbody tr.active {
+  background-color: var(--primary-color) !important;
+}
+
+main div.tables tbody tr:nth-child(even) {
+  background-color: var(--secondary-color);
+}
+
+main div.tables table td {
+  font-family: monospace;
+  font-size: 16px;
+}
+
+main div.tables table td:first-child {
+  padding: 15px 20px;
+}
+
+@media screen and (max-width: 950px) {
+  main div.color-picker {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  main div.color-picker div.column:first-child {
+    grid-column: span 2;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  main div.color-picker {
+    grid-template-columns: 1fr;
+  }
+
+  main div.color-picker div.column:first-child {
+    grid-column: span 1;
+  }
+
+  main div.tables table td {
+    font-size: 13px;
+  }
+
+  main div.tables table td:first-child {
+    padding: 0;
+  }
+}
