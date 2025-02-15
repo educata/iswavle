@@ -29,7 +29,6 @@ keywords: 'CSS, Text Styling, Font Styling, ტექსტებთან მ�
 2. RGB და RGBA (მაგ: `rgb(255, 0, 0)`, `rgb(0, 255, 0)`, `rgb(0, 0, 255)`).
 3. HEX და HEXA (მაგ: `#ff0000`, `#00ff00`, `#0000ff`).
 4. HSL და HSLA (მაგ: `hsl(0, 100%, 50%)`, `hsl(120, 100%, 50%)`, `hsl(240,100%, 50%)`).
-5. HWB (მაგ: `hwb(0 0% 0%)`, `hwb(120 0% 0%)`, `hwb(240 0% 0%)`).
 
 <iframe data-url="guides/html-css-text" data-search-params="style=color&data=%5B%22purple%22%2C%22%231890ff%22%2C%22rgb(83%2C%20170%2C%2056)%22%2C%22hsl(240%2C%20100%25%2C%2050%25)%22%2C%22hwb(45%200%25%200%25)%22%5D" data-title="CSS ფერების მაგალითი" data-height="400"></iframe>
 
@@ -106,7 +105,7 @@ p {
 მიუხედავად ბევრი ერთეულისა მეტწილადად გამოიყენება შემდგომი მნიშვნელობები: `px`, `rem`, `em`, `vw`.
 :::
 
-<iframe data-url="guides/html-css-text" data-search-params="style=font-size&data=%5B%2212px%22,%2218px%22,%22x-large%22,%222rem%22,%221.5em%22,%222rem%22,%224vw%22,%2260%25%22%5D" data-title="CSS ფონტის ზომის მაგალითი" data-height="580"></iframe>
+<iframe data-url="guides/html-css-text" data-search-params="style=font-size&data=%5B%2212px%22,%2218px%22,%22x-large%22,%222rem%22,%221.5em%22,%222rem%22,%224vw%22,%2260%25%22%5D" data-title="CSS ფონტის ზომის მაგალითი" data-height="600"></iframe>
 
 ### ფონტის სტილი, ფონტის სიმუქე, ტექსტის ტრანსოფრმაცია და ტექსტის დეკორაცია
 
@@ -121,7 +120,7 @@ CSS-ში გვაქვს ოთხი ძირითადი თვის
 - `italic`: ტექსტს დახრის italic-ის სტილში.
 - `oblique`: ტექსტს დახრის italic-ის მსგავსად ოღონდ მცირედი განსხვავებით.
 
-<iframe data-url="guides/html-css-text" data-search-params="style=font-style&data=%5B%22normal%22,%22italic%22,%22oblique%22,%22oblique%2040deg%22%5D" data-title="CSS ფონტის სტილის მაგალითი" data-height="350"></iframe>
+<iframe data-url="guides/html-css-text" data-search-params="style=font-style&data=%5B%22normal%22,%22italic%22,%22oblique%22,%22oblique%2040deg%22%5D" data-title="CSS ფონტის სტილის მაგალითი" data-height="360"></iframe>
 
 [`font-weight`](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight): განსაზღვრავს, რამდენად მუქია ტექსტი.
 მას აქვს მრავალი შესაძლო მნიშვნელობა, განსაკუთრებით მაშინ, თუ ფონტს აქვს სხვადასხვა ვარიაციები (მაგალითად, `light`, `normal`, `bold`, `extrabold`, `black` და სხვა).
@@ -131,7 +130,7 @@ CSS-ში გვაქვს ოთხი ძირითადი თვის
 - `lighter`, `bolder`: აყენებს ელემენტის ტექსტის სიმუქეს ერთი დონით უფრო ღია (`lighter`) ან მუქ (`bolder`) ვარიანტში.
 - `100` - `900`: რიცხობრივი მნიშვნელობა, რომელიც მნიშვნელობას მიანიჭებს.
 
-<iframe data-url="guides/html-css-text" data-search-params="style=font-weight&data=%5B100,200,300,400,500,600,700,800,900%5D" data-title="CSS ფონტის სისქის მაგალითი" data-height="640"></iframe>
+<iframe data-url="guides/html-css-text" data-search-params="style=font-weight&data=%5B100,200,300,400,500,600,700,800,900%5D" data-title="CSS ფონტის სისქის მაგალითი" data-height="660"></iframe>
 
 [`text-transform`](https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform) საშუალებას გაძლევთ შეცვალოთ ტექსტის ფორმატი.
 
@@ -143,7 +142,7 @@ CSS-ში გვაქვს ოთხი ძირითადი თვის
   მაგალითად: ლათინურ სიმბოლოებს ეძლევა შესაძლებლობა, სწორად მოთავსდნენ ჩინურ, იაპონურ, კორეულ და მსგავს ენებთან.
 - `math-auto`: ტექსტი ავტომატურად იღებს [მათემატიკური italic](https://www.unicode.org/charts/PDF/U1D400.pdf) სტილს საჭირო ადგილებში.
 
-<iframe data-url="guides/html-css-text" data-search-params="style=text-transform&data=%5B%22none%22,%22uppercase%22,%22lowercase%22,%22capitalize%22,%22full-width%22,%22math-auto%22%5D&text=LONDON.%20Michaelmas%20term%20lately%20over,%20and%20the%20Lord%20Chancellor%20sitting%20in%20Lincoln's%20Inn%20Hall.%0A%0A%CE%A3%20is%20a%20Greek%20letter%20and%20appears%20in%20%CE%9F%CE%94%CE%A5%CE%A3%CE%A3%CE%95%CE%A5%CE%A3.%20%CE%98%CE%B1%20%CF%80%CE%AC%CE%BC%CE%B5%20%CF%83%CF%84%CE%BF%20'%CE%98%CE%B5%CF%8A%CE%BA%CF%8C%20%CF%86%CE%B1%CE%90'%20%CE%AE%20%CF%83%CF%84%CE%B7%20'%CE%9D%CE%B5%CF%81%CE%AC%CE%B9%CE%B4%CE%B1'%0A%0A%E3%82%A1%E3%82%A3%E3%82%A5%E3%82%A7%20%E3%82%A9%E3%83%B5%E3%87%B0%E3%83%B6" data-title="CSS ფონტის ტრანსფორმაციის მაგალითი" data-height="440"></iframe>
+<iframe data-url="guides/html-css-text" data-search-params="style=text-transform&data=%5B%22none%22,%22uppercase%22,%22lowercase%22,%22capitalize%22,%22full-width%22,%22math-auto%22%5D&text=LONDON.%20Michaelmas%20term%20lately%20over,%20and%20the%20Lord%20Chancellor%20sitting%20in%20Lincoln's%20Inn%20Hall.%0A%0A%CE%A3%20is%20a%20Greek%20letter%20and%20appears%20in%20%CE%9F%CE%94%CE%A5%CE%A3%CE%A3%CE%95%CE%A5%CE%A3.%20%CE%98%CE%B1%20%CF%80%CE%AC%CE%BC%CE%B5%20%CF%83%CF%84%CE%BF%20'%CE%98%CE%B5%CF%8A%CE%BA%CF%8C%20%CF%86%CE%B1%CE%90'%20%CE%AE%20%CF%83%CF%84%CE%B7%20'%CE%9D%CE%B5%CF%81%CE%AC%CE%B9%CE%B4%CE%B1'%0A%0A%E3%82%A1%E3%82%A3%E3%82%A5%E3%82%A7%20%E3%82%A9%E3%83%B5%E3%87%B0%E3%83%B6" data-title="CSS ფონტის ტრანსფორმაციის მაგალითი" data-height="460"></iframe>
 
 :::info
 `full-width` მუშაობს მხოლოდ შემდგომ ბრაუზერებში: [firefix](https://www.mozilla.org/en-US/firefox/new/), [safari](https://www.apple.com/safari/) და IOS WebView.
@@ -174,7 +173,7 @@ p {
 }
 ```
 
-<iframe data-url="guides/html-css-text" data-search-params="style=text-decoration&data=%5B%22none%22,%22underline%22,%22overline%22,%22line-through%22,%22line-through%20red%20wavy%22,%22underline%20overline%22%5D" data-title="CSS ფონტის დეკორაციის მაგალითი" data-height="490"></iframe>
+<iframe data-url="guides/html-css-text" data-search-params="style=text-decoration&data=%5B%22none%22,%22underline%22,%22overline%22,%22line-through%22,%22line-through%20red%20wavy%22,%22underline%20overline%22%5D" data-title="CSS ფონტის დეკორაციის მაგალითი" data-height="510"></iframe>
 
 ## ტექსტი
 
@@ -192,7 +191,7 @@ p {
 - `center`: ყოველთვის ცენტრში მოთავსდება.
 - `justify`: ყოველთვის ტექსტს ისე ანაწილებს, რომ ყველა ხაზი ერთნაირი სიგანის იყოს.
 
-<iframe data-url="guides/html-css-text" data-search-params="style=text-align&showDirection=true&data=%5B%22left%22,%22start%22,%22right%22,%22end%22,%22center%22,%22justify%22%5D" data-title="CSS ტექსტის განლაგების მაგალითი" data-height="440"></iframe>
+<iframe data-url="guides/html-css-text" data-search-params="style=text-align&showDirection=true&data=%5B%22left%22,%22start%22,%22right%22,%22end%22,%22center%22,%22justify%22%5D" data-title="CSS ტექსტის განლაგების მაგალითი" data-height="460"></iframe>
 
 ### ხაზის სიმაღლე
 
@@ -215,7 +214,7 @@ font-size * line-height
 რეკომენდირებულია `line-height` თვისებაზე 1.5-2 მდე მნიშვნელობის გადაცემა.
 :::
 
-<iframe data-url="guides/html-css-text" data-search-params="style=line-height&data=%5B1,1.2,1.4,1.6,1.8,2%5D" data-title="CSS line-height-ის მაგალითი" data-height="440"></iframe>
+<iframe data-url="guides/html-css-text" data-search-params="style=line-height&data=%5B1,1.2,1.4,1.6,1.8,2%5D" data-title="CSS line-height-ის მაგალითი" data-height="460"></iframe>
 
 ### სიმბოლოსა და სიტყვის დაშორება
 

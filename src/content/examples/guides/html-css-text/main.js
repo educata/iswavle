@@ -13,7 +13,7 @@ function init() {
   extractedData.values.forEach((style, index, self) => {
     const row = document.createElement('div');
     row.classList.add('list-item');
-    row.innerHTML = `<span style="color: #00f">${extractedData.style}</span>: <span style="color: #a31515">${style}</span>;`;
+    row.innerHTML = `<span style="color: var(--code-property-color)">${extractedData.style}</span>: <span style="color: var(--code-value-color)">${style}</span>;`;
     row.setAttribute(STYLE_ATTRIBUTE_VALUE, style);
     row.addEventListener('click', selectRow);
     if (index === 0) {
@@ -45,6 +45,7 @@ function init() {
     button.innerHTML = 'მიმართულება LTR';
     button.setAttribute('data-direction', 'ltr');
     button.addEventListener('click', toggleDirection);
+    button.style.color = 'var(--primary-text-color)';
     controls.appendChild(button);
     controls.style.borderTop = '1px solid #cdcdcd';
   } else {
@@ -108,3 +109,14 @@ function extractDataFromLocation() {
 
   return data;
 }
+
+/*
+  Theme instalation from parent window
+*/
+(function initThemeFromParentContext() {
+  window.addEventListener('message', (event) => {
+    const currentTheme = document.body.classList[0] || 'light';
+    document.body.classList.remove(currentTheme);
+    document.body.classList.add(event.data);
+  });
+})();

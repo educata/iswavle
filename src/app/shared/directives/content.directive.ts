@@ -9,11 +9,17 @@ import {
   ViewContainerRef,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_ICONS } from '@app-shared/consts';
 import { DocContent } from '@app-shared/interfaces';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
-import { SanitizerService, CodeUtilService } from '@app-shared/services';
+import {
+  SanitizerService,
+  CodeUtilService,
+  ThemeService,
+} from '@app-shared/services';
+import { combineLatest, delay, map, Subject, tap } from 'rxjs';
 
 @Directive({
   selector: '[swContent]',
@@ -35,9 +41,34 @@ export class ContentDirective implements OnChanges {
   private readonly environment = inject(ENVIRONMENT);
   private readonly document = inject(DOCUMENT);
   private readonly codeUtilService = inject(CodeUtilService);
+  private readonly themeService = inject(ThemeService);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
+  private readonly postIframeMessage$ = new Subject<
+    NodeListOf<HTMLIFrameElement>
+  >();
+
   private unlistenFn = () => {};
+
+  constructor() {
+    if (this.isBrowser) {
+      // Effect to render iframe content theme
+      combineLatest([
+        this.postIframeMessage$.pipe(delay(500)),
+        this.themeService.theme$,
+      ])
+        .pipe(
+          map(([iframes, theme]) => ({ iframes, theme })),
+          takeUntilDestroyed(),
+          tap((data) => {
+            data.iframes.forEach((iframe: HTMLIFrameElement) => {
+              iframe.contentWindow?.postMessage(data.theme);
+            });
+          }),
+        )
+        .subscribe();
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if ('content' in changes || 'searchKey' in changes) {
@@ -110,6 +141,8 @@ export class ContentDirective implements OnChanges {
     codeWrappers.forEach((code: HTMLElement) => {
       this.handleCopy(code);
     });
+
+    this.postIframeMessage$.next(contentContainer.querySelectorAll('iframe'));
   }
 
   handleAnchorClick(event: Event) {
