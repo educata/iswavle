@@ -1,0 +1,16 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: monospace;
+  font-size: 2rem;
+}
+.clock {
+  text-align: center;
+}
+
+.clock__time {
+  font-size: 3rem;
+  font-weight: bold;
+}
