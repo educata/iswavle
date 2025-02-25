@@ -160,7 +160,7 @@ console.log(javaScriptRelease); //818035920000
 
 მარტივი ციფრული საათი:
 
-<iframe data-url="guides/javascript-date-clock" data-title="ციფრული საათი" data-height="154"></iframe>
+<iframe data-url="guides/javascript-date-clock" data-title="ციფრული საათი" data-height="200"></iframe>
 
 ## შეჯამება
 
