@@ -7,7 +7,6 @@ export interface ArticleAttributes {
   keywords?: string;
   depricated?: boolean;
   headings?: string[];
-  codes?: string[];
   image?: string;
 }
 

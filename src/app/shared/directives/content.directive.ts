@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_ICONS } from '@app-shared/consts';
 import { DocContent } from '@app-shared/interfaces';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
-import { SanitizerService } from '@app-shared/services';
+import { SanitizerService, CodeUtilService } from '@app-shared/services';
 
 @Directive({
   selector: '[swContent]',
@@ -34,6 +34,7 @@ export class ContentDirective implements OnChanges {
   private readonly sanitizer = inject(SanitizerService);
   private readonly environment = inject(ENVIRONMENT);
   private readonly document = inject(DOCUMENT);
+  private readonly codeUtilService = inject(CodeUtilService);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   private unlistenFn = () => {};
@@ -105,13 +106,10 @@ export class ContentDirective implements OnChanges {
       },
     );
 
-    if (content.attributes.codes) {
-      const codeWrappers =
-        contentContainer.querySelectorAll('div.code-wrapper');
-      codeWrappers.forEach((code: HTMLElement, index: number) => {
-        this.handleCopy(code, (content.attributes.codes || [])[index]);
-      });
-    }
+    const codeWrappers = contentContainer.querySelectorAll('div.code-wrapper');
+    codeWrappers.forEach((code: HTMLElement) => {
+      this.handleCopy(code);
+    });
   }
 
   handleAnchorClick(event: Event) {
@@ -125,10 +123,20 @@ export class ContentDirective implements OnChanges {
     this.viewport.scrollToPosition([0, 0]);
   }
 
-  handleCopy(codeWrapper: HTMLElement, code: string) {
+  handleCopy(codeWrapper: HTMLElement) {
     const button = codeWrapper.querySelector('button');
-    if (code && button) {
+    if (button) {
       button.addEventListener('click', () => {
+        const codeBlock = codeWrapper.querySelector('code');
+
+        if (!codeBlock) {
+          return;
+        }
+
+        const code = this.codeUtilService.extractCodeFromHTML(
+          codeBlock.outerHTML,
+        );
+
         navigator.clipboard.writeText(code);
         button.innerHTML = CUSTOM_ICONS['check'];
         button.disabled = true;
@@ -173,13 +181,22 @@ export class ContentDirective implements OnChanges {
         const title = iframe.getAttribute('data-title') || '';
         const isComplexPlayground =
           iframe.getAttribute('data-is-complex-playground') || false;
+        const searchParams = iframe.getAttribute('data-search-params') || '';
         const height = iframe.getAttribute('data-height') || 200;
 
         const newFrame = this.renderer.createElement('div') as HTMLDivElement;
         newFrame.classList.add('frame-wrapper');
 
-        let source = `${this.environment.examplesURL}/${url}`;
+        const source = `${this.environment.examplesURL}/${url}`;
         const shouldHavePlaygroundLink = !iframe.src && url;
+
+        const preloadLink = document.createElement('link');
+        preloadLink.rel = 'preload';
+        preloadLink.href = source;
+        preloadLink.as = 'document';
+        preloadLink.crossOrigin = 'anonymous';
+
+        this.document.head.appendChild(preloadLink);
 
         newFrame.innerHTML = `
           <div class="title-frame">
@@ -192,7 +209,7 @@ export class ContentDirective implements OnChanges {
             </div>
           </div>
           <div class="body-frame">
-            <iframe src="${source}/index.html" height="${height}" frameborder="0" crossorigin="anonymous"></iframe>
+            <iframe src="${source}/index.html${!searchParams ? '' : `?${searchParams}`}" height="${height}" frameborder="0" crossorigin="anonymous" loading="eager"></iframe>
           </div>
         `;
 

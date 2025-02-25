@@ -10,3 +10,4 @@ export * from './contributors.service';
 export * from './layout.service';
 export * from './sanitizer.service';
 export * from './download.service';
+export * from './code-util.service';
