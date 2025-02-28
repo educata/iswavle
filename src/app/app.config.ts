@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import ka from '@angular/common/locales/ka';
 import { SwTitleStrategy } from '@app-shared/services';
+import { provideIcons } from '@app-shared/providers/icons';
 
 registerLocaleData(ka);
 
@@ -21,6 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideNzI18n(ka_GE),
     importProvidersFrom(FormsModule),
     provideAnimations(),
+    provideIcons(),
     {
       provide: TitleStrategy,
       useClass: SwTitleStrategy,

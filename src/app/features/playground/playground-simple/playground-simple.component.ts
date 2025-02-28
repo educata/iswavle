@@ -44,7 +44,6 @@ declare const monaco: any;
 
 @Component({
   selector: 'sw-playground-simple',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

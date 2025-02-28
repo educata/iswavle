@@ -5,97 +5,89 @@
     nzCloseable
     nzBanner
     [nzMessage]="banner"
-    (nzOnClose)="burgerTopDistance$.next('66px')"
+    (nzOnClose)="burgerTopDistance.set('66px')"
   ></nz-alert>
 </div>
 <nz-layout class="root-layout">
   <ng-template #banner>
     <div class="banner">საიტი არის დეველოპმენტის ადრეულ ეტაპზე</div>
   </ng-template>
-  @if (vm$ | async; as vm) {
-    <header
-      [class.home-header]="vm.isHomePage"
-      [ngStyle]="{
-        backgroundColor: vm.isMenuOpen
-          ? 'transparent'
-          : vm.isHomePage
-            ? '#e6f7ff'
-            : 'transparent'
-      }"
-    >
-      <div class="brand">
-        <a routerLink="/">ისწავლე</a>
-        <sw-search
-          (searchCompleted)="isMenuOpenedByUser$.next(false)"
-        ></sw-search>
-      </div>
-      <nav>
-        <ul
-          nz-menu
-          [nzMode]="vm.menuMode || 'horizontal'"
-          [class.is-open]="vm.isMenuOpen"
-          [ngStyle]="{ top: vm.burgerTopDistance }"
-        >
-          @for (nav of vm.headerNavigation; track nav.routerLink) {
-            <li
-              nz-menu-item
-              [nzMatchRouter]="$index === 0"
-              [nzMatchRouterExact]="$index === 0"
-              [nzSelected]="nav.isActive"
+
+  <header
+    [class.home-header]="isHomePage()"
+    [ngStyle]="{
+      backgroundColor: isMenuOpen()
+        ? 'transparent'
+        : isHomePage()
+          ? '#e6f7ff'
+          : 'transparent',
+    }"
+  >
+    <div class="brand">
+      <a routerLink="/">ისწავლე</a>
+      <sw-search (searchCompleted)="closeMenu()"></sw-search>
+    </div>
+    <nav>
+      <ul
+        nz-menu
+        [nzMode]="menuMode()"
+        [class.is-open]="isMenuOpen()"
+        [ngStyle]="{ top: burgerTopDistance() }"
+      >
+        @for (nav of headerNavigationItems(); track nav.routerLink) {
+          <li
+            nz-menu-item
+            [nzMatchRouter]="$index === 0"
+            [nzMatchRouterExact]="$index === 0"
+            [nzSelected]="nav.isActive"
+          >
+            <a [routerLink]="nav.routerLink" (click)="closeMenu()">
+              {{ nav.title }}</a
             >
-              <a
-                [routerLink]="nav.routerLink"
-                (click)="isMenuOpenedByUser$.next(false)"
-              >
-                {{ nav.title }}</a
-              >
-            </li>
-          }
-          <li nz-menu-item class="without-border">
-            <div class="grouped">
-              <a href="https://github.com/educata/iswavle" target="_blank">
-                <span nz-icon nzType="github" nzTheme="outline"></span>
-              </a>
-              <button
-                nz-button
-                nz-dropdown
-                nzType="text"
-                nzPlacement="bottomRight"
-                aria-label="დიზაინის ფერის შეცვლა"
-                [nzDropdownMenu]="themeMenu"
-              >
-                <span nz-icon nzType="bg-colors" nzTheme="outline"></span>
-              </button>
-              <nz-dropdown-menu #themeMenu="nzDropdownMenu">
-                <ul nz-menu>
-                  @for (theme of themeOptions; track theme.value) {
-                    <li nz-menu-item (click)="changeTheme(theme.value)">
-                      {{ theme.title }}
-                    </li>
-                  }
-                </ul>
-              </nz-dropdown-menu>
-            </div>
           </li>
-        </ul>
-        <button
-          nz-button
-          class="burger"
-          aria-label="გამოაჩინე სანავიგაციო ველი"
-          [attr.aria-expanded]="vm.isMenuOpen"
-          (click)="isMenuOpenedByUser$.next(!isMenuOpenedByUser$.value)"
-        >
-          <span
-            nz-icon
-            [nzType]="vm.isMenuOpen ? 'close' : 'menu'"
-            [attr.aria-label]="
-              vm.isMenuOpen ? 'მენიუს გახსნა' : 'მენიუს დახურვა'
-            "
-          ></span>
-        </button>
-      </nav>
-    </header>
-  }
+        }
+        <li nz-menu-item class="without-border">
+          <div class="grouped">
+            <a href="https://github.com/educata/iswavle" target="_blank">
+              <span nz-icon nzType="github" nzTheme="outline"></span>
+            </a>
+            <button
+              nz-button
+              nz-dropdown
+              nzType="text"
+              nzPlacement="bottomRight"
+              aria-label="დიზაინის ფერის შეცვლა"
+              [nzDropdownMenu]="themeMenu"
+            >
+              <span nz-icon nzType="bg-colors" nzTheme="outline"></span>
+            </button>
+            <nz-dropdown-menu #themeMenu="nzDropdownMenu">
+              <ul nz-menu>
+                @for (theme of themeOptions; track theme.value) {
+                  <li nz-menu-item (click)="changeTheme(theme.value)">
+                    {{ theme.title }}
+                  </li>
+                }
+              </ul>
+            </nz-dropdown-menu>
+          </div>
+        </li>
+      </ul>
+      <button
+        nz-button
+        class="burger"
+        aria-label="გამოაჩინე სანავიგაციო ველი"
+        [attr.aria-expanded]="isMenuOpen()"
+        (click)="toggleMenu()"
+      >
+        <span
+          nz-icon
+          [nzType]="isMenuOpen() ? 'close' : 'menu'"
+          [attr.aria-label]="isMenuOpen() ? 'მენიუს გახსნა' : 'მენიუს დახურვა'"
+        ></span>
+      </button>
+    </nav>
+  </header>
   <nz-layout>
     <router-outlet></router-outlet>
   </nz-layout>

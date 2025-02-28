@@ -1,6 +1,8 @@
 [build]
   command = "bun run build"
   publish = "dist/iswavle/browser"
+[build.environment]
+  NODE_VERSION = "20"
 [[redirects]]
   from = "/*"
   to = "/index.html"

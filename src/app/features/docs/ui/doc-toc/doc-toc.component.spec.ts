@@ -8,10 +8,9 @@ describe('DocTocComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DocTocComponent]
-    })
-    .compileComponents();
-    
+      imports: [DocTocComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(DocTocComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

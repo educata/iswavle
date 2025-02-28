@@ -8,10 +8,9 @@ describe('AutoBreadcrumbsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AutoBreadcrumbsComponent]
-    })
-    .compileComponents();
-    
+      imports: [AutoBreadcrumbsComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(AutoBreadcrumbsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,0 +1,8 @@
+diff --git a/dist/utils/file-system.d.ts b/dist/utils/file-system.d.ts
+index cb0ff5c3b541f646105198ee23ac0fc3d805023e..4911f83f5a401d23dbd3209cc9ee247256c614a3 100644
+--- a/dist/utils/file-system.d.ts
++++ b/dist/utils/file-system.d.ts
+@@ -1 +1,2 @@
+-export {};
++export declare function toInternalFileSystemTree(tree: any): any;
++export declare function toExternalFileSystemTree(tree: any): any;
