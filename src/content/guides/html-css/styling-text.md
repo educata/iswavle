@@ -1,5 +1,5 @@
 ---
-title: ტექსტის გასტილვა
+title: 'ტექსტის გასტილვა'
 description: 'ტექსტებთან მუშაობა CSS-ში'
 keywords: 'CSS, Text Styling, Font Styling, ტექსტებთან მუშაობა, ტექსტის გასტილვა, ფონტის გასტილვა'
 ---
