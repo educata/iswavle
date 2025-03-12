@@ -11,6 +11,7 @@ export const HTML_CSS_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'Box Model (ყუთის მოდელი)', path: 'box-model' },
     { title: 'ფერის მნიშვნელობები', path: 'color-values' },
     { title: 'ნავიგაცია', path: 'navigation' },
+    { title: 'სემანტიკური ელემენტები', path: 'semantics' },
   ],
 };
 

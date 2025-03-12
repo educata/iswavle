@@ -85,7 +85,7 @@ export class ContentDirective implements OnChanges {
     title.textContent = content.attributes.title;
     body.innerHTML = content.content;
 
-    const headings = body.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    const headings = body.querySelectorAll('h1, h2, h3, h4, h5');
 
     headings.forEach((heading) => {
       heading.id = this.sanitizer.sanitizeTocID(heading.id);
