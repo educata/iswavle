@@ -116,13 +116,15 @@ html {
     overflow-x: auto;
   }
 
-  .code-wrapper {
+  .code-wrapper,
+  .preview-wrapper {
     display: grid;
     grid-template-columns: 1fr;
     border: 1px solid var(--border-color);
     margin-bottom: 1rem;
 
-    .language-header {
+    .language-header,
+    .preview-wrapper-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -149,6 +151,10 @@ html {
           }
         }
       }
+    }
+
+    .preview-wrapper-body {
+      padding: 16px;
     }
 
     pre {

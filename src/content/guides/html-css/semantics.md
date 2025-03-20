@@ -232,10 +232,10 @@ Accebility-ის გამოყენება დეტალურად ა
 | [`<h1>` - `<h6>`](./doc/guides/html-css/introduction#სათაურები)                        | სათაურები                                         |
 | [`<p>`](./doc/guides/html-css/introduction#პარაგრაფები)                                | პარაგრაფი                                         |
 | [`<blockquote>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote) | ციტატა                                            |
-| [`cite`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/cite)               | ციტირების ან წყაროს აღსაწერად                     |
-| [`strong`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong)           | ხაზგასმული ტექსტი (მნიშვნელოვანია შინაარსობრივად) |
-| [`em`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/em)                   | დახრილი ტექსტი (აქცენტის ელემენტი)                |
-| [`mark`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark)               | ტექსტის მონიშვნისთვის                             |
+| [`<cite>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/cite)             | ციტირების ან წყაროს აღსაწერად                     |
+| [`<strong>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong)         | ხაზგასმული ტექსტი (მნიშვნელოვანია შინაარსობრივად) |
+| [`<em>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/em)                 | დახრილი ტექსტი (აქცენტის ელემენტი)                |
+| [`<mark>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark)             | ტექსტის მონიშვნისთვის                             |
 | [`<abbr>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/abbr)             | აბრევიატურა ან აკრონიმის გამოტანა                 |
 | [`<dfn>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dfn)               | ტერმინის ან განსაზღვრების აღსანიშნავად            |
 | [`<time>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time)             | თარიღებისა და დროის გამოტანა                      |
@@ -246,8 +246,9 @@ Accebility-ის გამოყენება დეტალურად ა
 `cite` ატრიბუტის გამოყენება შეიძლება ასევე `blockquote`-თან ერთად.
 :::
 
-:::preview
-<h6>(h6) ყველაზე პატარა სათაური</h6>
+```preview
+<h1 data-linkifier-ignore="true">(h1) ყველაზე დიდი სათაური</h1>
+<h6 data-linkifier-ignore="true">(h6) ყველაზე პატარა სათაური</h6>
 <p>(p) ჩვეულებრივი პარაგრაფი</p>
 <blockquote cite="https://www.sas.upenn.edu/~cavitch/pdf-library/Freud_SE_Ego_Id_complete.pdf">
   (blockquote) Often a rider, if he is not to be parted from his horse, is obliged to guide it where it wants to go
@@ -269,9 +270,11 @@ Accebility-ის გამოყენება დეტალურად ა
 <p>(code) ეს არის კოდის მაგალითი: <code>console.log("Hello, world!");</code></p>
 <pre>
   (pre)
-  <h6>ყველაზე პატარა სათაური</h6>
+  h1 {
+    color: #1890ff;
+  }
 </pre>
-:::
+```
 
 ### რატომ არის `strong` ან `em` სემანტიკური ელემენტი და `b` ან `i` არა?
 

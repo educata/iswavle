@@ -26,7 +26,7 @@ const dataMap: Record<string, { title: string; content: string }> = {};
 const render = new Renderer();
 
 render.code = (code, language) => {
-  if (language === 'mermaid') {
+  if (language === 'mermaid' || language === 'preview') {
     return code;
   }
 

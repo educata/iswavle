@@ -88,6 +88,9 @@ export class ContentDirective implements OnChanges {
     const headings = body.querySelectorAll('h1, h2, h3, h4, h5');
 
     headings.forEach((heading) => {
+      if (heading.getAttribute('data-linkifier-ignore')) {
+        return;
+      }
       heading.id = this.sanitizer.sanitizeTocID(heading.id);
       heading.innerHTML = `<a class="anchor-fragment" href="doc/${this.activatedRoute.snapshot.url.map((url) => url.path).join('/')}#${this.sanitizer.sanitizeTocID(heading.id)}">${heading.innerHTML}</a>`;
     });
@@ -138,8 +141,17 @@ export class ContentDirective implements OnChanges {
     );
 
     const codeWrappers = contentContainer.querySelectorAll('div.code-wrapper');
+
     codeWrappers.forEach((code: HTMLElement) => {
-      this.handleCopy(code);
+      this.handleCopy(code, 'code');
+    });
+
+    const previewWrappers = contentContainer.querySelectorAll(
+      'div.preview-wrapper',
+    );
+
+    previewWrappers.forEach((element: HTMLElement) => {
+      this.handleCopy(element, 'div.preview-wrapper-body');
     });
 
     this.postIframeMessage$.next(contentContainer.querySelectorAll('iframe'));
@@ -156,11 +168,11 @@ export class ContentDirective implements OnChanges {
     this.viewport.scrollToPosition([0, 0]);
   }
 
-  handleCopy(codeWrapper: HTMLElement) {
+  handleCopy(codeWrapper: HTMLElement, selector: string) {
     const button = codeWrapper.querySelector('button');
     if (button) {
       button.addEventListener('click', () => {
-        const codeBlock = codeWrapper.querySelector('code');
+        const codeBlock = codeWrapper.querySelector(selector);
 
         if (!codeBlock) {
           return;
