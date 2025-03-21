@@ -153,8 +153,15 @@ html {
       }
     }
 
+    .preview-wrapper-header {
+      .preview-wrapper-header-title::after {
+        content: 'მაგალითი';
+      }
+    }
+
     .preview-wrapper-body {
       padding: 16px;
+      overflow-x: auto;
 
       a {
         color: var(--text-color);
@@ -177,6 +184,19 @@ html {
       margin-bottom: 0;
       code {
         padding: 0;
+      }
+    }
+  }
+
+  .code-wrapper:has(+ .preview-wrapper) {
+    margin-bottom: 0;
+    border-bottom: none;
+
+    & + .preview-wrapper {
+      .preview-wrapper-header {
+        .preview-wrapper-header-title::after {
+          content: 'მიღებული შედეგი';
+        }
       }
     }
   }

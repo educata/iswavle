@@ -146,14 +146,6 @@ export class ContentDirective implements OnChanges {
       this.handleCopy(code, 'code');
     });
 
-    const previewWrappers = contentContainer.querySelectorAll(
-      'div.preview-wrapper',
-    );
-
-    previewWrappers.forEach((element: HTMLElement) => {
-      this.handleCopy(element, 'div.preview-wrapper-body');
-    });
-
     this.postIframeMessage$.next(contentContainer.querySelectorAll('iframe'));
   }
 
