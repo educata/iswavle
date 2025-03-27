@@ -13,6 +13,7 @@ export const HTML_CSS_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'ნავიგაცია', path: 'navigation' },
     { title: 'სემანტიკური ელემენტები', path: 'semantics' },
     { title: 'ფორმები', path: 'form' },
+    { title: 'ხელმისაწვდომობა (a11y)', path: 'a11y' },
   ],
 };
 
