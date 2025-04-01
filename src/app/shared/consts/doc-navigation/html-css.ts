@@ -14,6 +14,7 @@ export const HTML_CSS_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'სემანტიკური ელემენტები', path: 'semantics' },
     { title: 'ფორმები', path: 'form' },
     { title: 'ხელმისაწვდომობა (a11y)', path: 'a11y' },
+    { title: 'სელექტორები და ფსევდო კლასები', path: 'selector-pseudo-classes' },
   ],
 };
 

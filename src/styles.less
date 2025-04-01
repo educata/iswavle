@@ -188,16 +188,24 @@ html {
     }
   }
 
-  .code-wrapper:has(+ .preview-wrapper) {
-    margin-bottom: 0;
-    border-bottom: none;
+  .code-wrapper {
+    &:has(+ .preview-wrapper) {
+      margin-bottom: 0;
+      border-bottom: none;
 
-    & + .preview-wrapper {
-      .preview-wrapper-header {
-        .preview-wrapper-header-title::after {
-          content: 'მიღებული შედეგი';
+      & + .preview-wrapper {
+        .preview-wrapper-header {
+          .preview-wrapper-header-title::after {
+            content: 'მიღებული შედეგი';
+          }
         }
       }
+    }
+
+    &:nth-of-type(n):has(+ .preview-wrapper),
+    &:has(+ .code-wrapper) {
+      margin-bottom: 0;
+      border-bottom: none;
     }
   }
 
