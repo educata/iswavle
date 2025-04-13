@@ -1,0 +1,460 @@
+---
+title: 'პოზიციები'
+description: 'პოზიციების გამოყენება CSS-ში'
+keywords: 'პოზიციები, პოზიცირება, position, top, right, bottom, left, z-index'
+---
+
+[პოზიციონირება](https://developer.mozilla.org/en-US/docs/Web/CSS/position) საშუალებას გაძლევთ, გამოაცალკევოთ
+ელემენტები დოკუმენტის ნორმალური ნაკადიდან და მიანიჭოთ მათ განსხვავებული მდებარეობა. მაგალითად ელემენტი მოვათავსოთ
+სხვა ელემენტის ზემოთ ან ყოველთვის ერთ ადგილას იყოს მოთავსებული.
+
+## სტატიკური პოზიცირება
+
+ნაგულისხმევად ყოველი ელემენტი სტატიკურად არის მოთავსებული დოკუმენტის ნაკადში. ყოველი ელემენტი მოთავსდება ხისებრი
+სტრუქტურიდან ზემოდან ქვემოთ სწორი თანმიმდევრობით.
+
+```css
+.element {
+  position: static;
+}
+```
+
+:::info
+პოზიცირების გამოყენება შეგვიძლია ნებისმიერ HTML-ის ელემენტზე.
+:::
+
+## რელაციური პოზიცირება
+
+რელაციური პოზიცირება მსგავსია სტატიკური პოზიცირების თუმცა რელაციური პოზიცირების დროს შეგვიძლია განვსაზღვროთ
+ელემენტის მდებარეობა.
+
+```css
+.element {
+  position: relative;
+}
+```
+
+თუ ელემენტს მივანიჭებთ `position`-ის (გარდა `static`-ის) თვისებას შეგვიძლია მასზე დამატებითი პოზიცირების სტილების გამოყენება:
+
+- `top` - განსაზღვრავს ელემენტის ზემოდან დაშორებას მისი მშობელი ელემენტის ან ხედვის არიდან (viewport), იმის მიხედვით, თუ როგორი `position` აქვს ელემენტს.
+- `right` – განსაზღვრავს ელემენტის მარჯვენიდან დაშორებას.
+- `bottom` – განსაზღვრავს ქვემოდან დაშორებას.
+- `left` – განსაზღვრავს მარცხნიდან დაშორებას.
+
+ეს სტილები საშუალებას გვაძლევს ზუსტად გავაკონტროლოთ, სად უნდა გამოჩნდეს ელემენტი გვერდზე, როცა ის ჩვეულებრივი დოკუმენტის ნაკადიდან ამოღებულია.
+
+```html
+<div class="normal">
+  <span>სტატიკური პოზიცირება</span>
+</div>
+<div class="relative">
+  <span>რელაციური პოზიცირება</span>
+</div>
+<div class="normal">
+  <span>სტატიკური პოზიცირება</span>
+</div>
+```
+
+```css
+div {
+  width: 50%;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+div.normal {
+  position: static; /* არ არის საჭირო თუმცა მაგალითისთვის */
+}
+
+div.relative {
+  position: relative;
+  top: 10px;
+  left: 20px;
+  background-color: steelblue;
+  color: white;
+}
+```
+
+```preview
+<style>
+  .preview-example-relative {
+    div {
+      width: 50%;
+      border: 1px solid black;
+      padding: 10px;
+    }
+    .normal {
+      position: static; /* არ არის საჭირო თუმცა მაგალითისთვის */
+    }
+    .relative {
+      position: relative;
+      top: 10px;
+      left: 20px;
+      background-color: steelblue;
+      color: white;
+    }
+  }
+</style>
+<div class="preview-example-relative">
+  <div class="normal">
+    <span>სტატიკური პოზიცირება</span>
+  </div>
+  <div class="relative">
+    <span>რელაციური პოზიცირება</span>
+  </div>
+  <div class="normal">
+    <span>სტატიკური პოზიცირება</span>
+  </div>
+</div>
+```
+
+:::info
+თუ inspect-ს გამოიყენებთ შეამჩნევთ, რომ რელაციური პოზიცირების ელემენტი, არც `margin`-ით და არც `padding`-ით
+არ არის გასწორებული, ის ჩამოშორდა არსებული ნაკადის პოზიციიდან `10px`-ით ზემოდან ხოლო მარცხენა მხრიდან `20px`-ით.
+:::
+
+პოზიცირების ელემენტის გასწორებაზე შეგიძლიათ ნებისმიერი [საზომი ერთეული](./doc/guides/html-css/styling-text#ზომა) გამოიყენოთ.
+
+## აბსოლიტური პოზიცირება
+
+აბსოლიტური პოზიცირების დროს ელემენტი ნებისმიერ ადგილას შეიძლება მოვათავსოთ.
+ის აღარ ემორჩილება სტანდარტულ ნაკადს თუმცა შეიძლება რელაციური ელემენტის გამოყენებით სხვანაირად მოვათავსოთ.
+
+შევცვალოთ იგივე მაგალითში `relative` მნიშვნელობა `absolute`-ით.
+
+```html
+<div class="normal">
+  <span>სტატიკური პოზიცირება</span>
+</div>
+<div class="absolute">
+  <span>აბსოლიტური პოზიცირება</span>
+</div>
+<div class="normal">
+  <span>სტატიკური პოზიცირება</span>
+</div>
+```
+
+```css
+div {
+  width: 50%;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+div.absolute {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  background-color: steelblue;
+  color: white;
+}
+```
+
+```preview
+<style>
+  .preview-example-absolute {
+    div {
+      width: 50%;
+      border: 1px solid black;
+      padding: 10px;
+    }
+
+    div.absolute {
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      background-color: steelblue;
+      color: white;
+    }
+  }
+</style>
+<div class="preview-example-absolute">
+  <div class="normal">
+    <span>სტატიკური პოზიცირება</span>
+  </div>
+  <div class="absolute">
+    <span>აბსოლიტური პოზიცირება</span>
+  </div>
+  <div class="normal">
+    <span>სტატიკური პოზიცირება</span>
+  </div>
+</div>
+```
+
+მიღებულ შედეგში ჩანს სტატიკური პოზიცირების ელემენტები, სწორად არიან დალაგებული ნაკადში ხოლო აბსოლიტური პოზიცირების ელემენტი
+მათ თავზე მოთავსდა.
+
+თუ მის მშობელ ელემენტებში სადმე იქნება გამოყენებული რელაციური პოზიცირება, აბსოლიტური მნიშვნელობა მასთან მიმართებაში იქნება მოთავსებული.
+პოზიცირების სტილებს `top`, `right`, `bottom` და `left`-ის მნიშვნელობებს, მსგავსი მშობელი ელემენტიდან იანგარიშებს.
+
+განვიხილოთ მეორე მაგალითი რელაციური პოზიცირების გამოყენებით:
+
+```html
+<div class="parent">
+  <div class="square"></div>
+  <div class="circle"></div>
+</div>
+```
+
+```css
+div {
+  padding: 10px;
+  border: 1px solid black;
+}
+
+div.parent {
+  position: relative;
+  background-color: yellow;
+}
+
+div.parent div.square {
+  width: 100px;
+  height: 100px;
+  background-color: green;
+}
+
+div.parent div.circle {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  border-radius: 50%;
+  background-color: red;
+}
+```
+
+```preview
+<style>
+  .preview-example-absolute-2 {
+   div {
+      padding: 10px;
+      border: 1px solid black;
+    }
+
+    div.parent {
+      position: relative;
+      background-color: yellow;
+    }
+
+    div.parent div.square {
+      width: 100px;
+      height: 100px;
+      background-color: green;
+    }
+
+    div.parent div.circle {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      border-radius: 50%;
+      background-color: red;
+    }
+  }
+</style>
+<div class="preview-example-absolute-2">
+  <div class="parent">
+    <div class="square"></div>
+    <div class="circle"></div>
+  </div>
+</div>
+```
+
+ამ შემთხვევაში წითელი წრე მოთავსდა ყვითელ ყუთში, დაშორებებიც `top: 50px` და `left: 50px`
+ზუსტად ამ მშობელი ელემენტისგან მიიღო, რადგან მას ეწერა `position: relative`.
+
+:::info
+თუ inspect-ით გაუთიშავთ მის მშობელ ელემენტებს `position: relative`-ის შეამჩნევთ, რომ აბსოლიტური ელემენტები
+მოთავსდება `<body>` ელემენტიდან გამომდინარე. წაუშალეთ რელაციური პოზიცირება, `div.parent`-ს და `div.preview-wrapper-body`-ის
+(ამ ელემენტს iswavle იყენებს მაგალითების გამოსატანად). წაშლის შემდგომ ელემენტების შესამჩნევად ასქროლეთ ზემოთ.
+არ დაგავიწყდეთ სტილიზაციების დაბრუნება ან ვებგვერდის დარეფრეშება სტილების დასაბრუნებლად.
+:::
+
+## z-index
+
+როდესაც ელემენტები ერთმანეთს ფარავენ, რა განსაზღვრავს, რომელი ელემენტი გამოჩნდება ზემოდან და რომელი ქვემოდან?
+ამ დრომდე განხილულ მაგალითებში მხოლოდ ერთი პოზიცირებული ელემენტი გვქონდა პოზიცირების კონტექსტში და ის მათ ზემოდან ჩანდა,
+რადგან პოზიცირებული ელემენტები უპირატესობას ფლობენ არაპოზიცირებულ ელემენტებზე, მაგრამ რა ხდება მაშინ, როცა რამდენიმე
+პოზიცირებული ელემენტი გვაქვს?
+
+გავარჩიოთ იგივე მაგალითი, ოღონდ კვადრატიც გავხადოთ აბსოლიტური მნიშვნელობის:
+
+```html
+<div class="parent">
+  <div class="square"></div>
+  <div class="circle"></div>
+</div>
+```
+
+```css
+div {
+  padding: 10px;
+  border: 1px solid black;
+}
+
+div.parent {
+  height: 150px;
+  position: relative;
+  background-color: yellow;
+}
+
+div.parent div.square {
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  position: absolute;
+}
+
+div.parent div.circle {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  border-radius: 50%;
+  background-color: red;
+}
+```
+
+```preview
+<style>
+  .preview-example-absolute-3 {
+    div {
+      padding: 10px;
+      border: 1px solid black;
+    }
+
+    div.parent {
+      height: 150px;
+      position: relative;
+      background-color: yellow;
+    }
+
+    div.parent div.square {
+      width: 100px;
+      height: 100px;
+      background-color: green;
+      position: absolute;
+    }
+
+    div.parent div.circle {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      border-radius: 50%;
+      background-color: red;
+    }
+  }
+</style>
+<div class="preview-example-absolute-3">
+  <div class="parent">
+    <div class="square"></div>
+    <div class="circle"></div>
+  </div>
+</div>
+```
+
+თითქოს არაფერი შეცვლილა ვიზუალზე თუმცა თუ ელემენტს დაამატებთ შეამჩნევთ, რომ ის მოთავსდება ოთხკუთხედის უკან, რადგან
+სტანდარტული ნაკადი ამ შემთხვევაში მანდ იწყება. ოთხკუთხედიც და წრეც აბსოლიტური მნიშვნელობის არის, ამ შემთხვევაში ვიზუალზე ზემოდან გამოჩნდება ის ელემენტი,
+რომელსაც უფრო მეტი `z-index` გააჩნია. თუ არცეთ ელემენტს არ გააჩნია `z-index` მაშინ სტრუქტურულად, რომელიც ბოლოს წერია, ანალოგიურად დალაგდება
+ელემენტები თუ `z-index` თანაბარია.
+
+შევცვალოთ `z-index` ოთხკუთხედის `1`-ზე:
+
+```css
+div.parent div.square {
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  position: absolute;
+  z-index: 1;
+}
+
+div.parent div.circle {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 50px;
+  left: 85px;
+  border-radius: 50%;
+  background-color: red;
+}
+```
+
+```preview
+<style>
+  .preview-example-absolute-4 {
+    div {
+      padding: 10px;
+      border: 1px solid black;
+    }
+
+    div.parent {
+      height: 150px;
+      position: relative;
+      background-color: yellow;
+    }
+
+    div.parent div.square {
+      width: 100px;
+      height: 100px;
+      background-color: green;
+      position: absolute;
+      z-index: 1;
+    }
+
+    div.parent div.circle {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      top: 50px;
+      left: 85px;
+      border-radius: 50%;
+      background-color: red;
+    }
+  }
+</style>
+<div class="preview-example-absolute-4">
+  <div class="parent">
+    <div class="square"></div>
+    <div class="circle"></div>
+  </div>
+</div>
+```
+
+ასე მივიღეთ ოთხკუთხედის ელემენტი წრეზე ზემოთ. `z-index`-ის გამოყენების დროს შეიძლება ნებისმიერი მთელი (1, 2, 3 და ა.შ) რიცხვის გამოყენება.
+ნაგულისხმევად პოზიცირებულ ელემენტების `z-index` არის `0`.
+
+თუ გამოვიყენებთ `-1`-ს ელემენტი მოთავსედება ნაკადის უკანა მხარეს.
+
+## ფიქსირებული პოზიცია
+
+ფიქსირებული პოზიცია მუშაობს ზუსტად იგივე პრინციპით, როგორც აბსოლიუტრი პოზიცია, ერთ მნიშვნელოვანი განსხვავებით:
+ფიქსირებული პოზიცია ყოველთვის ერთ ადგილას იქნება მოთავსებული, რომელიც სულ გაყვება სქროლს.
+
+<iframe data-url="guides/html-css-position-fixed" data-title="ფიქსირებული პოზციის მაგალითი" data-height="300"></iframe>
+
+ამ მაგალითში `header` ელემენტს გააჩნია `position: fixed`, `z-index: 10`-ით.
+
+## Sticky პოზიცია
+
+არსებობს კიდევ ერთი პოზციის მნიშვნელობა, სახელად `position: sticky`, რომელიც შედარებით ახალია სხვა პოზიციებთან შედარებით.
+ეს ფაქტობრივად ჰიბრიდია `relative` და `fixed` პოზიციონირებებს შორის. იგი საშუალებას აძლევს ელემენტს, თავდაპირველად მოიქცეს,
+როგორც შედარებით პოზიციონირებული (`relative`), მაგრამ როცა ის მიაღწევს გარკვეულ ზღვარს (მაგალითად, ხედვის არიდან 10 პიქსელამდე დაშორებას ზემოდან),
+მაშინ გადაიქცევა ფიქსირებულად (`fixed`).
+
+<iframe data-url="guides/html-css-position-sticky" data-title="Sticky პოზციის მაგალითი" data-height="250"></iframe>
+
+:::info
+აუცილებელია `sticky` პოზიციასთან `top` მნიშვნელობის გამოყენება, თუნდაც `0`.
+:::
+
+## შეჯამება
+
+ამ თავში ჩვენ განვიხილეთ CSS-ის პოზიციონირების მექანიზმები, როგორიცაა `static`, `relative`, `absolute`, `fixed` და `sticky` პოზიციები.
+ვისწავლეთ, როგორ გამოვიყენოთ `top`, `right`, `bottom` და `left` სტილები ელემენტების ზუსტი განლაგებისთვის, როგორ მოქმედებს `z-index` გადაფარვის
+თანმიმდევრობაზე და როგორ ავირჩიოთ სწორი პოზიციონირების სტრატეგია კონკრეტული სიტუაციისთვის.
