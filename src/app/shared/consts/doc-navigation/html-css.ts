@@ -18,6 +18,7 @@ export const HTML_CSS_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'ფსევდო ელემენტები', path: 'pseudo-elements' },
     { title: 'მულტიმედია', path: 'multimedia' },
     { title: 'პოზიცირება', path: 'position' },
+    { title: 'flexbox', path: 'flexbox' },
   ],
 };
 
