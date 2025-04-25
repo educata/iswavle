@@ -38,7 +38,7 @@ Grid კონტეინერის შესაქმნელად შე�
 
 მაგალითისთვის შევქმნათ მშობელი ელემენტი `.box-wrapper` კლასით.
 
-```html
+```html preview
 <div class="box-wrapper">
   <div class="box">ერთი</div>
   <div class="box">ორი</div>
@@ -48,29 +48,14 @@ Grid კონტეინერის შესაქმნელად შე�
 </div>
 ```
 
-```css
+```css preview
 .box-wrapper {
   display: grid;
 }
 ```
 
-```preview
-<style>
-  .example-grid-wrapper {
-    .box-wrapper {
-      display: grid;
-    }
-  }
-</style>
-<div class="example-grid-wrapper">
-  <div class="box-wrapper">
-    <div class="box">ერთი</div>
-    <div class="box">ორი</div>
-    <div class="box">სამი</div>
-    <div class="box">ოთხი</div>
-    <div class="box">ხუთი</div>
-  </div>
-</div>
+```js
+console.log('preview');
 ```
 
 მასში არსებული პირველი დონის შვილობილი ელემენტები გადაკეთდნენ გრიდის ელემენტებად.
@@ -91,7 +76,7 @@ Grid კონტეინერის შესაქმნელად შე�
 ამით შევქმენით `grid`, რომელიც შეიცავს სამ 200 პიქსელიან სვეტურ ბილიკს. შვილობილი ელემენტები განთავსდება
 `grid`-ის თითოეულ უჯრაში თითო ელემენტი თითო უჯრაში.
 
-```html
+```html preview
 <div class="box-wrapper">
   <div class="box">ერთი</div>
   <div class="box">ორი</div>
@@ -101,31 +86,11 @@ Grid კონტეინერის შესაქმნელად შე�
 </div>
 ```
 
-```css
+```css preview
 .box-wrapper {
   display: grid;
   grid-template-columns: 200px 200px 200px;
 }
-```
-
-```preview
-<style>
-  .example-grid-template-columns-wrapper {
-    .box-wrapper {
-      display: grid;
-      grid-template-columns: 200px 200px 200px;
-    }
-  }
-</style>
-<div class="example-grid-template-columns-wrapper">
-  <div class="box-wrapper">
-    <div class="box">ერთი</div>
-    <div class="box">ორი</div>
-    <div class="box">სამი</div>
-    <div class="box">ოთხი</div>
-    <div class="box">ხუთი</div>
-  </div>
-</div>
 ```
 
 ### fr მნიშვნელობა
@@ -135,7 +100,7 @@ Grid კონტეინერის შესაქმნელად შე�
 
 მოდით განვათავსოთ გრიდის 3 ელემენტი თანაბრად ერთ ხაზში.
 
-```html
+```html preview
 <div class="box-wrapper">
   <div class="box">ერთი</div>
   <div class="box">ორი</div>
@@ -145,31 +110,11 @@ Grid კონტეინერის შესაქმნელად შე�
 </div>
 ```
 
-```css
+```css preview
 .box-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
-```
-
-```preview
-<style>
-  .example-grid-template-columns-wrapper-2 {
-    .box-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-  }
-</style>
-<div class="example-grid-template-columns-wrapper-2">
-  <div class="box-wrapper">
-    <div class="box">ერთი</div>
-    <div class="box">ორი</div>
-    <div class="box">სამი</div>
-    <div class="box">ოთხი</div>
-    <div class="box">ხუთი</div>
-  </div>
-</div>
 ```
 
 `fr`-ის გამოყენებით მივიღეთ პროპორციულად განაწილებული ელემენტები. შეგვეძლო `fr`-ის ნაცვლად
@@ -179,7 +124,7 @@ Grid კონტეინერის შესაქმნელად შე�
 
 `1`-ის ნაცვლად შეგვიძლია გამოვიყენოთ სხვა ნებისმიერი დადებითი რიცხვი:
 
-```html
+```html preview
 <div class="box-wrapper">
   <div class="box">ერთი</div>
   <div class="box">ორი</div>
@@ -189,31 +134,11 @@ Grid კონტეინერის შესაქმნელად შე�
 </div>
 ```
 
-```css
+```css preview
 .box-wrapper {
   display: grid;
   grid-template-columns: 1.5fr 2fr 1fr;
 }
-```
-
-```preview
-<style>
-  .example-grid-template-columns-wrapper-3 {
-    .box-wrapper {
-      display: grid;
-      grid-template-columns: 1.5fr 2fr 1fr;
-    }
-  }
-</style>
-<div class="example-grid-template-columns-wrapper-3">
-  <div class="box-wrapper">
-    <div class="box">ერთი</div>
-    <div class="box">ორი</div>
-    <div class="box">სამი</div>
-    <div class="box">ოთხი</div>
-    <div class="box">ხუთი</div>
-  </div>
-</div>
 ```
 
 ასე მივიღეთ პირველმა ელემენტმა მიიღო `1.5` ნაწილი, მეორემ `2` ხოლო მესამემ `1`.
@@ -228,7 +153,7 @@ Grid კონტეინერის შესაქმნელად შე�
 ასევე შეგვიძლია ფრაქციასთან ერთად შეგვიძლია სხვა მნიშვნელობები გამოყენებაც.
 მაგალითად გვსურს, რომ პირველი სვეტი ყოველთვის `100px` იყოს ხოლო დანარჩენი თანაბარი.
 
-```html
+```html preview
 <div class="box-wrapper">
   <div class="box">ერთი</div>
   <div class="box">ორი</div>
@@ -238,38 +163,18 @@ Grid კონტეინერის შესაქმნელად შე�
 </div>
 ```
 
-```css
+```css preview
 .box-wrapper {
   display: grid;
   grid-template-columns: 100px 1fr 1fr;
 }
 ```
 
-```preview
-<style>
-  .example-grid-template-columns-wrapper-4 {
-    .box-wrapper {
-      display: grid;
-      grid-template-columns: 100px 1fr 1fr;
-    }
-  }
-</style>
-<div class="example-grid-template-columns-wrapper-4">
-  <div class="box-wrapper">
-    <div class="box">ერთი</div>
-    <div class="box">ორი</div>
-    <div class="box">სამი</div>
-    <div class="box">ოთხი</div>
-    <div class="box">ხუთი</div>
-  </div>
-</div>
-```
-
 ### განმეორებადი მნიშვნელობები
 
 როცა მინიჭებლი მნიშვნელობები მეორდება შეგვიძლია გამოვიყენოთ [`repeat()`](https://developer.mozilla.org/en-US/docs/Web/CSS/repeat) თვისება:
 
-```html
+```html preview
 <div class="box-wrapper">
   <div class="box">ერთი</div>
   <div class="box">ორი</div>
@@ -279,38 +184,28 @@ Grid კონტეინერის შესაქმნელად შე�
 </div>
 ```
 
-```css
+```css preview
 .box-wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
 ```
 
-```preview
-<style>
-  .example-grid-template-columns-wrapper-5 {
-    .box-wrapper {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-</style>
-<div class="example-grid-template-columns-wrapper-5">
-  <div class="box-wrapper">
-    <div class="box">ერთი</div>
-    <div class="box">ორი</div>
-    <div class="box">სამი</div>
-    <div class="box">ოთხი</div>
-    <div class="box">ხუთი</div>
-  </div>
-</div>
-```
-
 ასე ვღებულობთ შემდეგ ჩანაწერს: `grid-template-columns: 1fr 1fr 1fr`.
 
 შეგვიძლია `repeat` სხვა მნიშვნელობებთან ერთადაც გამოვიყენოთ, მაგალითად:
 
-```css
+```html preview
+<div class="box-wrapper">
+  <div class="box">ერთი</div>
+  <div class="box">ორი</div>
+  <div class="box">სამი</div>
+  <div class="box">ოთხი</div>
+  <div class="box">ხუთი</div>
+</div>
+```
+
+```css preview
 .box-wrapper {
   display: grid;
   grid-template-columns: 100px repeat(2, 1fr);
@@ -334,7 +229,7 @@ Grid კონტეინერის შესაქმნელად შე�
 
 განვიხილოთ იმპლიციტურ გრიდში ბილიკების ზომა `200px`-ზე:
 
-```html
+```html preview
 <div class="box-wrapper">
   <div class="box">ერთი</div>
   <div class="box">ორი</div>
@@ -344,33 +239,12 @@ Grid კონტეინერის შესაქმნელად შე�
 </div>
 ```
 
-```css
+```css prview
 .box-wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 200px;
 }
-```
-
-```preview
-<style>
-  .example-grid-template-columns-wrapper-6 {
-    .box-wrapper {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 200px;
-    }
-  }
-</style>
-<div class="example-grid-template-columns-wrapper-6">
-  <div class="box-wrapper">
-    <div class="box">ერთი</div>
-    <div class="box">ორი</div>
-    <div class="box">სამი</div>
-    <div class="box">ოთხი</div>
-    <div class="box">ხუთი</div>
-  </div>
-</div>
 ```
 
 ## გრიდის ხაზები
@@ -426,40 +300,6 @@ Grid კონტეინერის შესაქმნელად შე�
   grid-row-start: 3;
   grid-row-end: 5;
 }
-```
-
-```preview
-<style>
-  .example-grid-template-columns-wrapper-7 {
-    .box-wrapper {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 100px;
-    }
-
-    .box-wrapper .box:nth-child(1) {
-      grid-column-start: 1;
-      grid-column-end: 4;
-      grid-row-start: 1;
-      grid-row-end: 3;
-    }
-
-    .box-wrapper .box:nth-child(2) {
-      grid-column-start: 1;
-      grid-row-start: 3;
-      grid-row-end: 5;
-    }
-  }
-</style>
-<div class="example-grid-template-columns-wrapper-7">
-  <div class="box-wrapper">
-    <div class="box">ერთი</div>
-    <div class="box">ორი</div>
-    <div class="box">სამი</div>
-    <div class="box">ოთხი</div>
-    <div class="box">ხუთი</div>
-  </div>
-</div>
 ```
 
 პირველი ელემენტი იწყება სვეტის ხაზზე 1 და გადაჭიმულია სვეტის ხაზამდე 4, რაც ამ შემთხვევაში grid-ის ყველაზე მარჯვენა ხაზია.

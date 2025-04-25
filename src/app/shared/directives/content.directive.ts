@@ -12,6 +12,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_ICONS } from '@app-shared/consts';
+import { SupportedPreviewLanguages } from '@app-shared/enums';
 import { DocContent } from '@app-shared/interfaces';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
 import {
@@ -49,6 +50,11 @@ export class ContentDirective implements OnChanges {
   >();
 
   private unlistenFn = () => {};
+
+  private readonly codePreviews: {
+    language: SupportedPreviewLanguages;
+    code: string;
+  }[] = [];
 
   constructor() {
     if (this.isBrowser) {
@@ -144,6 +150,7 @@ export class ContentDirective implements OnChanges {
 
     codeWrappers.forEach((code: HTMLElement) => {
       this.handleCopy(code, 'code');
+      this.handlePreview(code);
     });
 
     this.postIframeMessage$.next(contentContainer.querySelectorAll('iframe'));
@@ -268,5 +275,100 @@ export class ContentDirective implements OnChanges {
         }
       });
     }
+  }
+
+  private handlePreview(codeWrapper: HTMLElement) {
+    if (!this.isBrowser) {
+      return;
+    }
+
+    const hasPreview = codeWrapper.getAttribute('data-show-preview') !== null;
+
+    if (!hasPreview) {
+      return;
+    }
+
+    const language = codeWrapper.getAttribute('data-language') || '';
+
+    if (!language) {
+      return;
+    }
+
+    this.codePreviews.push({
+      language: language as SupportedPreviewLanguages,
+      code: codeWrapper.querySelector('code')?.innerHTML || '',
+    });
+
+    const nextSibling = codeWrapper.nextElementSibling;
+    const shouldRenderPreview =
+      nextSibling?.getAttribute('data-show-preview') === null;
+
+    if (shouldRenderPreview) {
+      this.renderPreview(codeWrapper);
+      return;
+    }
+  }
+
+  private renderPreview(codeWrapper: HTMLElement) {
+    const uniquieId = Math.random().toString(36).substring(2, 15);
+    let code = '';
+    this.codePreviews.forEach((preview) => {
+      switch (preview.language) {
+        case SupportedPreviewLanguages.HTML:
+          code += `
+            <div class="preview-${uniquieId}">
+              ${this.codeUtilService.extractCodeFromHTML(preview.code)}
+            </div>
+          `;
+          break;
+        case SupportedPreviewLanguages.CSS:
+          code += `
+            <style>
+              div.preview-${uniquieId} {
+                ${this.codeUtilService.extractCodeFromHTML(preview.code)}
+              }
+            </style>
+          `;
+          break;
+        case SupportedPreviewLanguages.JS:
+          code += `
+            <script id="preview-${uniquieId}">
+              ${this.codeUtilService.extractCodeFromHTML(preview.code)}
+            </script>
+          `;
+          try {
+            // Using an IIFE to create a clean scope
+            new Function(
+              this.codeUtilService.extractCodeFromHTML(preview.code),
+            )();
+          } catch (error) {
+            console.error('Error in preview code:', error);
+          }
+          break;
+        default:
+          code += `<div class="preview-${uniquieId}">${preview.language} isn't supported. Supported languages for preview are: ${Object.values({ ...SupportedPreviewLanguages })}</div>
+        `;
+      }
+    });
+    codeWrapper.parentNode?.insertBefore(
+      this.getPreviewElement(code),
+      codeWrapper.nextSibling,
+    );
+    this.codePreviews.splice(0);
+  }
+
+  private getPreviewElement(code: string) {
+    const div = this.renderer.createElement('div') as HTMLDivElement;
+    div.classList.add('preview-wrapper');
+    div.setAttribute('data-search-ignore', 'true');
+    div.innerHTML = `
+      <div class="preview-wrapper-header">
+        <span class="preview-wrapper-header-title"></span>
+      </div>
+      <div class="preview-wrapper-body">
+        ${code}
+      </div>
+    `;
+    return div;
   }
 }

@@ -43,7 +43,7 @@ keywords: 'პოზიციები, პოზიცირება, position
 
 ეს სტილები საშუალებას გვაძლევს ზუსტად გავაკონტროლოთ, სად უნდა გამოჩნდეს ელემენტი გვერდზე, როცა ის ჩვეულებრივი დოკუმენტის ნაკადიდან ამოღებულია.
 
-```html
+```html preview
 <div class="normal">
   <span>სტატიკური პოზიცირება</span>
 </div>
@@ -55,7 +55,7 @@ keywords: 'პოზიციები, პოზიცირება, position
 </div>
 ```
 
-```css
+```css preview
 div {
   width: 50%;
   border: 1px solid black;
@@ -75,39 +75,6 @@ div.relative {
 }
 ```
 
-```preview
-<style>
-  .preview-example-relative {
-    div {
-      width: 50%;
-      border: 1px solid black;
-      padding: 10px;
-    }
-    .normal {
-      position: static; /* არ არის საჭირო თუმცა მაგალითისთვის */
-    }
-    .relative {
-      position: relative;
-      top: 10px;
-      left: 20px;
-      background-color: steelblue;
-      color: white;
-    }
-  }
-</style>
-<div class="preview-example-relative">
-  <div class="normal">
-    <span>სტატიკური პოზიცირება</span>
-  </div>
-  <div class="relative">
-    <span>რელაციური პოზიცირება</span>
-  </div>
-  <div class="normal">
-    <span>სტატიკური პოზიცირება</span>
-  </div>
-</div>
-```
-
 :::info
 თუ inspect-ს გამოიყენებთ შეამჩნევთ, რომ რელაციური პოზიცირების ელემენტი, არც `margin`-ით და არც `padding`-ით
 არ არის გასწორებული, ის ჩამოშორდა არსებული ნაკადის პოზიციიდან `10px`-ით ზემოდან ხოლო მარცხენა მხრიდან `20px`-ით.
@@ -122,7 +89,7 @@ div.relative {
 
 შევცვალოთ იგივე მაგალითში `relative` მნიშვნელობა `absolute`-ით.
 
-```html
+```html preview
 <div class="normal">
   <span>სტატიკური პოზიცირება</span>
 </div>
@@ -134,7 +101,7 @@ div.relative {
 </div>
 ```
 
-```css
+```css preview
 div {
   width: 50%;
   border: 1px solid black;
@@ -150,37 +117,6 @@ div.absolute {
 }
 ```
 
-```preview
-<style>
-  .preview-example-absolute {
-    div {
-      width: 50%;
-      border: 1px solid black;
-      padding: 10px;
-    }
-
-    div.absolute {
-      position: absolute;
-      top: 50px;
-      left: 50px;
-      background-color: steelblue;
-      color: white;
-    }
-  }
-</style>
-<div class="preview-example-absolute">
-  <div class="normal">
-    <span>სტატიკური პოზიცირება</span>
-  </div>
-  <div class="absolute">
-    <span>აბსოლიტური პოზიცირება</span>
-  </div>
-  <div class="normal">
-    <span>სტატიკური პოზიცირება</span>
-  </div>
-</div>
-```
-
 მიღებულ შედეგში ჩანს სტატიკური პოზიცირების ელემენტები, სწორად არიან დალაგებული ნაკადში ხოლო აბსოლიტური პოზიცირების ელემენტი
 მათ თავზე მოთავსდა.
 
@@ -189,14 +125,14 @@ div.absolute {
 
 განვიხილოთ მეორე მაგალითი რელაციური პოზიცირების გამოყენებით:
 
-```html
+```html preview
 <div class="parent">
   <div class="square"></div>
   <div class="circle"></div>
 </div>
 ```
 
-```css
+```css preview
 div {
   padding: 10px;
   border: 1px solid black;
@@ -224,44 +160,6 @@ div.parent div.circle {
 }
 ```
 
-```preview
-<style>
-  .preview-example-absolute-2 {
-   div {
-      padding: 10px;
-      border: 1px solid black;
-    }
-
-    div.parent {
-      position: relative;
-      background-color: yellow;
-    }
-
-    div.parent div.square {
-      width: 100px;
-      height: 100px;
-      background-color: green;
-    }
-
-    div.parent div.circle {
-      width: 50px;
-      height: 50px;
-      position: absolute;
-      top: 50px;
-      left: 50px;
-      border-radius: 50%;
-      background-color: red;
-    }
-  }
-</style>
-<div class="preview-example-absolute-2">
-  <div class="parent">
-    <div class="square"></div>
-    <div class="circle"></div>
-  </div>
-</div>
-```
-
 ამ შემთხვევაში წითელი წრე მოთავსდა ყვითელ ყუთში, დაშორებებიც `top: 50px` და `left: 50px`
 ზუსტად ამ მშობელი ელემენტისგან მიიღო, რადგან მას ეწერა `position: relative`.
 
@@ -281,14 +179,14 @@ div.parent div.circle {
 
 გავარჩიოთ იგივე მაგალითი, ოღონდ კვადრატიც გავხადოთ აბსოლიტური მნიშვნელობის:
 
-```html
+```html preview
 <div class="parent">
   <div class="square"></div>
   <div class="circle"></div>
 </div>
 ```
 
-```css
+```css preview
 div {
   padding: 10px;
   border: 1px solid black;
@@ -318,46 +216,6 @@ div.parent div.circle {
 }
 ```
 
-```preview
-<style>
-  .preview-example-absolute-3 {
-    div {
-      padding: 10px;
-      border: 1px solid black;
-    }
-
-    div.parent {
-      height: 150px;
-      position: relative;
-      background-color: yellow;
-    }
-
-    div.parent div.square {
-      width: 100px;
-      height: 100px;
-      background-color: green;
-      position: absolute;
-    }
-
-    div.parent div.circle {
-      width: 50px;
-      height: 50px;
-      position: absolute;
-      top: 50px;
-      left: 50px;
-      border-radius: 50%;
-      background-color: red;
-    }
-  }
-</style>
-<div class="preview-example-absolute-3">
-  <div class="parent">
-    <div class="square"></div>
-    <div class="circle"></div>
-  </div>
-</div>
-```
-
 თითქოს არაფერი შეცვლილა ვიზუალზე თუმცა თუ ელემენტს დაამატებთ შეამჩნევთ, რომ ის მოთავსდება ოთხკუთხედის უკან, რადგან
 სტანდარტული ნაკადი ამ შემთხვევაში მანდ იწყება. ოთხკუთხედიც და წრეც აბსოლიტური მნიშვნელობის არის, ამ შემთხვევაში ვიზუალზე ზემოდან გამოჩნდება ის ელემენტი,
 რომელსაც უფრო მეტი `z-index` გააჩნია. თუ არცეთ ელემენტს არ გააჩნია `z-index` მაშინ სტრუქტურულად, რომელიც ბოლოს წერია, ანალოგიურად დალაგდება
@@ -365,7 +223,25 @@ div.parent div.circle {
 
 შევცვალოთ `z-index` ოთხკუთხედის `1`-ზე:
 
-```css
+```html preview
+<div class="parent">
+  <div class="square"></div>
+  <div class="circle"></div>
+</div>
+```
+
+```css preview
+div {
+  padding: 10px;
+  border: 1px solid black;
+}
+
+div.parent {
+  height: 150px;
+  position: relative;
+  background-color: yellow;
+}
+
 div.parent div.square {
   width: 100px;
   height: 100px;
@@ -383,47 +259,6 @@ div.parent div.circle {
   border-radius: 50%;
   background-color: red;
 }
-```
-
-```preview
-<style>
-  .preview-example-absolute-4 {
-    div {
-      padding: 10px;
-      border: 1px solid black;
-    }
-
-    div.parent {
-      height: 150px;
-      position: relative;
-      background-color: yellow;
-    }
-
-    div.parent div.square {
-      width: 100px;
-      height: 100px;
-      background-color: green;
-      position: absolute;
-      z-index: 1;
-    }
-
-    div.parent div.circle {
-      width: 50px;
-      height: 50px;
-      position: absolute;
-      top: 50px;
-      left: 85px;
-      border-radius: 50%;
-      background-color: red;
-    }
-  }
-</style>
-<div class="preview-example-absolute-4">
-  <div class="parent">
-    <div class="square"></div>
-    <div class="circle"></div>
-  </div>
-</div>
 ```
 
 ასე მივიღეთ ოთხკუთხედის ელემენტი წრეზე ზემოთ. `z-index`-ის გამოყენების დროს შეიძლება ნებისმიერი მთელი (1, 2, 3 და ა.შ) რიცხვის გამოყენება.

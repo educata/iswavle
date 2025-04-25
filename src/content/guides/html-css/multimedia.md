@@ -9,11 +9,7 @@ keywords: 'მულტიმედია, მულტიმედიის ე
 
 ## სურათის ჩასმა
 
-```html
-<img src="./assets/educata.png" alt="ედუკატას ლოგო" />
-```
-
-```preview
+```html preview
 <img src="./assets/icons/educata.png" alt="ედუკატას ლოგო" height="400" />
 ```
 
@@ -22,17 +18,13 @@ keywords: 'მულტიმედია, მულტიმედიის ე
 
 ასევე შეგვიძლია `img` თეგით ანიმირებული სურათის გამოტანაც:
 
-```html
-<img src="./assets/pendulum.gif" alt="ჩატვირთვის ანიმაცია" />
-```
-
-```preview
+```html preview
 <img src="./assets/images/pendulum.gif" alt="ჩატვირთვის ანიმაცია" />
 ```
 
 `src`-მა შეიძლება მიიღოს შემდგომი ტიპები:
 
-<!-- გადათარგმნე აღწერის ნაწილი -->
+<!-- TODO: გადათარგმნე აღწერის ნაწილი -->
 
 - [APNG](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types#apng_animated_portable_network_graphics) - Animated Portable Network Graphics (`.apng`, `.png`) - Good choice for lossless animation sequences (GIF is less performant)
 - [AVIF](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types#avif_image) - AV1 Image File Format (`.avif`) - Good choice for both images and animated images due to high performance.
@@ -46,13 +38,7 @@ keywords: 'მულტიმედია, მულტიმედიის ე
 
 ვიდეოს ვებში ჩასასმელად გამოიყენება [`video`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video) ელემენტი.
 
-```html
-<video controls>
-  <source src="./assets/5-sec-loading.mp4" type="video/mp4" />
-</video>
-```
-
-```preview
+```html preview
 <video controls>
   <source src="./assets/videos/5-sec-loading.mp4" type="video/mp4" />
 </video>
@@ -62,7 +48,7 @@ keywords: 'მულტიმედია, მულტიმედიის ე
 შესაძლებელია `source` თეგის ნაცვლად პირდაპირ `video`-ს ელემენტზე ატრიბუტის სახით დავამატოთ მისამართი, მაგალითად:
 
 ```html
-<video controls src="./assets/5-sec-loading.mp4"></video>
+<video controls src="./assets/videos/5-sec-loading.mp4"></video>
 ```
 
 ეს მიდგომაც მისაღებია თუმცა უმჯობესია `source`-ის გამოყენება, რადგან შეგვიძლია ერთზე მეტი `source` მივუთითოთ.
@@ -89,13 +75,7 @@ keywords: 'მულტიმედია, მულტიმედიის ე
 
 აუდიოს ვებში გამოსახვისთვის გამოიყენება [`audio`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/audio) ელემენტი.
 
-```html
-<audio controls>
-  <source src="./assets/5-sec-loading.mp4" />
-</audio>
-```
-
-```preview
+```html preview
 <audio controls>
   <source src="./assets/videos/5-sec-loading.mp4" />
 </audio>
@@ -117,7 +97,7 @@ keywords: 'მულტიმედია, მულტიმედიის ე
 
 <iframe data-url="guides/html-css-iframe-map" data-title="რუკის გამალითი" data-height="460"></iframe>
 
-:::danger
+:::error
 ყოველი `iframe` იყენებს მომხარებლის მონაცემებს, რაც უფრო დავტვირთავთ ვებგვერდს მძიმე `iframe`-ებით
 მით უფრო გაძლიერდება ჩვენი ვებგვერდის გამოყენების რესურსები. თეორიულად უსასრულო რაოდენობის `iframe`-ის მოთავსება
 შეგიძლიათ მაგრამ გაითვალისწინეთ მომხარებლის მონაცემებიც.
