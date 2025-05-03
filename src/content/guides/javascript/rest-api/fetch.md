@@ -4,11 +4,12 @@ description: 'როგორ გამოვიყენოთ fetch-ი JavaSc
 keywords: 'XMLHttpRequest, fetch, response, requset, api, rest api, get, post, put, patch, delete, მოთხოვნებთან მუშაობა, მოთხოვნის გაგზავნა'
 ---
 
-[`XMLHttpRequest`](./doc/guides/javascript/rest-api/xhr)-ს არის კარგი ალტერნატივა არის [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+[`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) არის ჯავასკრიპტის ფუნქცია,
+რომელიც გამოიყენება HTTP მოთხოვნების გასაგზავნად.
 
 ## fetch მეთოდი
 
-`fetch` გამოყენება საკმაოდ მარტივია. წინა სტატიაში, როცა ვიყენებდით `XMLHttpRequest`-ს დავწერეთ, ფუნქცია სადაც დაბრუნებული მნიშვნელობა შევფუთეთ პრომისში. `fetch` ამ ყოველივეს მისით ასრულებს.
+`fetch` გამოყენება საკმაოდ მარტივია, გარკვეულწილად იმიტომ, რომ იგი ფრომისს გვიბრუნებს.
 
 ```js
 fetch('https://api.everrest.educata.dev/quote/random')
@@ -26,30 +27,38 @@ fetch('https://api.everrest.educata.dev/quote/random')
 
 <iframe data-url="guides/javascript-random-quote" data-title="შემთხვევითი ციტატა" data-height="280"></iframe>
 
-როდესაც `GET` მოთხოვნას ვიყენებთ, არ არის სავალდებულო `fetch`-ში მისი დაზუსტება. პირველი დაბრუნებული მნიშვნელობა არის ზოგადი ინფორმაცია, რომელიც არის [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response)-ს ტიპის. პირველი `then` აუცილებლად შესრულდება დადებითად ან ცუდად წამოღების შემთხვევაში, ხოლო მეორე `then` გაშვება დამოკიდებულია იმაზე თუ მოთხოვნა წარმატებული იყო თუ არა.
+როდესაც `GET` მოთხოვნას ვიყენებთ, არ არის სავალდებულო `fetch`-ში მისი დაზუსტება.
+პირველი დაბრუნებული მნიშვნელობა არის პასუხის შესახებ ინფორმაცია, რომელიც არის [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) ტიპის.
+პირველი `then` აუცილებლად შესრულდება, თუნდაც სერვერმა შეცდომა დაგვიბრუნოს.
+აქ ჩვენ `Response`-ზე არსებულ `json()` მეთოდს დავუძახეთ და მისი შედეგი დავაბრუნეთ,
+რომელიც ასევე ფრომისია, შესაბამისად შეგვიძლია ერთ `then`-ს მეორე გადავაბათ.
+მეორე `then`-ის გაშვება დამოკიდებულია იმაზე, მოთხოვნა წარმატებული იყო თუ არა.
+`catch` ბლოკით დავიჭერთ ნებისმიერ წინა `then` ბლოკში არსებულ შეცდომას და მას კონსოლში გამოვიტანთ.
 
 ## როგორ გამოვიყენოთ სხვა მოთხოვნები?
 
-რეალურად `fetch` მეთოდი ღებულობს ორ პარამეტრს:
+`fetch` მეთოდი ღებულობს ორ პარამეტრს:
 
-- სერვერის მისამართი ტექსტური სახით.
-- მოთხოვნის დამატებითი პარამეტრები [ობიექტის](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit) სახით.
+- სერვერის მისამართს, როგორც სტრინგს,
+- მოთხოვნის დამატებით პარამეტრებს [ობიექტის](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit) სახით.
 
-მაგალითისთვის დავაგენერიროთ QR კოდი `fetch`-ს გამოყენებით:
+მაგალითისთვის, გავაგზავნოთ POST მოთხოვნა REST API-ზე, რომელიც QR კოდს აგენერირებს.
 
 ```js
 try {
   const text = 'https://iswavle.com';
-  const response = await (
+  const response = 
     await fetch('https://api.everrest.educata.dev/qrcode/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ text }),
-    })
-  ).json();
+    });
   console.log(response);
+
+  const result = response.json();
+  console.log(result);
 } catch (error) {
   console.log(error);
 }
@@ -57,8 +66,12 @@ try {
 
 <iframe data-url="guides/javascript-generate-qr" data-title="QR კოდის დაგენერირება" data-height="650"></iframe>
 
-ასე მარტივად შეგვიძლია `fetch` მეთოდს, გავაყოლოთ მეორე პარამეტრი სადაც იქნება დამატებითი დეტალები აღწერილი ობიექტის სახით: მეთოდი ტიპი, ჰედერები, body ობიექტი და სხვა. [`try..catch`](./doc/guides/javascript/error-handling#try-catch)-ს ბლოკში მოვათავსეთ კოდი შეცდომის დასაჭერად ხოლო ორი [`await`](./doc/guides/javascript/async-programming/async-await) სწორი მნიშვნელობის დასაბრუნებლად.
+ასე მარტივად შეგვიძლია `fetch` ფუნქციას გავაყოლოთ მეორე პარამეტრი, სადაც იქნება დამატებითი დეტალები აღწერილი ობიექტის სახით:
+მეთოდი ტიპი, ჰედერები, body ობიექტი და სხვა.
+ამ შემთხვევაში ჩვენ გამოვიყენეთ [`async` და `await`](./doc/guides/javascript/async-programming/async-await)
+და ლოგიკა შევკარით [`try..catch`](./doc/guides/javascript/error-handling#try-catch) ბლოკში.
 
 ## შეჯამება
 
-`XMLHttpRequest` არ არის ერთადერთი ობიექტი, რომლის გამოყენებითაც შეიძლება მოთხოვნის გაგზავნა შეგვიძლია გამოვიყენოთ ასევე `fetch` მეთოდი. `fetch` უფრო სწრაფი და მარტივი გამოსაყენებელია.
+ჯავასკრიპტში HTTP მოთხოვნებთან მუშაობისას, `fetch` არის ყველაზე პოპულარული ფუნქცია,
+რომელიც დაშენებულია ფრომისებზე და მისი გამოყენება ძალიან მარტივია.
