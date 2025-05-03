@@ -181,6 +181,7 @@ export class ContentDirective implements OnChanges {
         const title = iframe.getAttribute('data-title') || '';
         const isComplexPlayground =
           iframe.getAttribute('data-is-complex-playground') || false;
+        const searchParams = iframe.getAttribute('data-search-params') || '';
         const height = iframe.getAttribute('data-height') || 200;
 
         const newFrame = this.renderer.createElement('div') as HTMLDivElement;
@@ -208,7 +209,7 @@ export class ContentDirective implements OnChanges {
             </div>
           </div>
           <div class="body-frame">
-            <iframe src="${source}/index.html" height="${height}" frameborder="0" crossorigin="anonymous" loading="eager"></iframe>
+            <iframe src="${source}/index.html${!searchParams ? '' : `?${searchParams}`}" height="${height}" frameborder="0" crossorigin="anonymous" loading="eager"></iframe>
           </div>
         `;
 

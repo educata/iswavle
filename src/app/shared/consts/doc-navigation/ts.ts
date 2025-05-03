@@ -5,8 +5,10 @@ export const TYPESCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
   path: 'typescript',
   children: [
     { title: 'შესავალი', path: 'introduction' },
-    { title: 'ინსტალაცია და გამოყენება', path: 'tsc' },
+    { title: 'tsc', path: 'tsc' },
     { title: 'ტიპები', path: 'types' },
-    { title: 'კლასები TypeScript-ში', path: 'classes' },
+    { title: 'ჯენერიკი', path: 'generic' },
+    { title: 'კლასი', path: 'class' },
+    { title: 'სასარგებლო ტიპები', path: 'utility-types' },
   ],
 };
