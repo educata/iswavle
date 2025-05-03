@@ -6,7 +6,6 @@ import { BypassSanitizePipe } from '@app-shared/pipes';
 
 @Component({
   selector: 'sw-home',
-  standalone: true,
   imports: [NzButtonModule, RouterLink, BypassSanitizePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.less',

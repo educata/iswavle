@@ -27,7 +27,6 @@ import 'xterm/css/xterm.css'; // terminal styles
 
 @Component({
   selector: 'sw-terminal',
-  standalone: true,
   imports: [],
   templateUrl: './terminal.component.html',
   styleUrl: './terminal.component.less',

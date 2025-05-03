@@ -39,36 +39,38 @@
     "release": "release-it",
     "release:minor": "release-it minor",
     "release:patch": "release-it patch",
-    "release:major": "release-it major"
+    "release:major": "release-it major",
+    "format": "prettier --write ."
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^17.1.2",
-    "@angular/common": "^17.1.2",
-    "@angular/compiler": "^17.1.2",
-    "@angular/core": "^17.1.2",
-    "@angular/forms": "^17.1.2",
-    "@angular/platform-browser": "^17.1.2",
-    "@angular/platform-browser-dynamic": "^17.1.2",
-    "@angular/platform-server": "^17.1.2",
-    "@angular/router": "^17.1.2",
-    "@angular/ssr": "^17.1.2",
-    "@webcontainer/api": "^1.1.9",
+    "@angular/animations": "^19.2.0",
+    "@angular/common": "^19.2.0",
+    "@angular/compiler": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "@angular/forms": "^19.2.0",
+    "@angular/platform-browser": "^19.2.0",
+    "@angular/platform-browser-dynamic": "^19.2.0",
+    "@angular/platform-server": "^19.2.0",
+    "@angular/router": "^19.2.0",
+    "@angular/ssr": "^19.2.0",
+    "@netlify/angular-runtime": "^2.2.1",
+    "@webcontainer/api": "^1.5.0",
     "express": "^4.18.2",
     "file-saver": "^2.0.5",
     "jszip": "^3.10.1",
     "monaco-editor": "^0.45.0",
-    "ng-zorro-antd": "17.2.0",
+    "ng-zorro-antd": "19.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "xterm": "^5.3.0",
     "xterm-addon-fit": "^0.8.0",
-    "zone.js": "~0.14.2"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.1.2",
-    "@angular/cli": "^17.1.2",
-    "@angular/compiler-cli": "^17.1.2",
+    "@angular-devkit/build-angular": "^19.2.0",
+    "@angular/cli": "^19.2.0",
+    "@angular/compiler-cli": "^19.2.0",
     "@commitlint/cli": "^18.4.1",
     "@commitlint/config-conventional": "^18.4.0",
     "@mermaid-js/mermaid-cli": "^10.9.1",
@@ -95,7 +97,7 @@
     "prettier": "^3.2.4",
     "release-it": "^17.0.0",
     "ts-node": "^10.9.1",
-    "typescript": "~5.2.2"
+    "typescript": "~5.5.4"
   },
   "release-it": {
     "git": {
@@ -133,5 +135,8 @@
         }
       }
     }
+  },
+  "patchedDependencies": {
+    "@webcontainer/api@1.5.1": "patches/@webcontainer%2Fapi@1.5.1.patch"
   }
 }

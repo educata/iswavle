@@ -48,7 +48,6 @@ import {
 
 @Component({
   selector: 'sw-docs',
-  standalone: true,
   imports: [
     CommonModule,
     RouterModule,
@@ -120,9 +119,7 @@ export default class DocsComponent {
     ),
   );
 
-  private readonly windowWidth = toSignal(
-    this.layoutServie.windowWidthDebounced(100),
-  );
+  private readonly windowWidth = this.layoutServie.windowWidth;
 
   readonly isXLarge = computed(
     () => this.windowWidth()! >= this.layoutServie.sizes.xLargeForDoc,

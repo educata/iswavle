@@ -8,7 +8,6 @@ import { NavigationTreeNode } from '@app-shared/interfaces';
 
 @Component({
   selector: 'sw-auto-breadcrumbs',
-  standalone: true,
   imports: [NzBreadCrumbModule, RouterLink],
   templateUrl: './auto-breadcrumbs.component.html',
   styleUrl: './auto-breadcrumbs.component.less',

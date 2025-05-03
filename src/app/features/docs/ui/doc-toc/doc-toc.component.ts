@@ -11,7 +11,6 @@ import { TocItem } from '@app-shared/interfaces';
 
 @Component({
   selector: 'sw-doc-toc',
-  standalone: true,
   imports: [NzAnchorModule, SanitizeIdPipe],
   templateUrl: './doc-toc.component.html',
   styleUrl: './doc-toc.component.less',
