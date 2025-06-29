@@ -8,5 +8,9 @@ export const CLIENT_SIDE_TOOLS_NAV: BaseNavigationTreeNode = {
       title: 'მიმოხილვა',
       path: 'overview',
     },
+    {
+      title: 'პაკეტების მენეჯმენტი',
+      path: 'package-management'
+    }
   ],
 };
