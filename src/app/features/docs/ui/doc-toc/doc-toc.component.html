@@ -1,4 +1,5 @@
 <nz-anchor [nzAffix]="isFixed" (nzClick)="onClick.emit($event)">
+  <nz-divider nzText="სარჩევი" />
   @for (attr of docAttrs; track attr.id) {
     @if (attr.sub) {
       <nz-link nzHref="#{{ attr.id | sanitizeId }}" [nzTitle]="attr.title">
@@ -16,4 +17,32 @@
       ></nz-link>
     }
   }
+  <nz-divider nzText="მეტი" />
+  @if (articleEditUrl(); as url) {
+    <ng-container
+      *ngTemplateOutlet="
+        externalLinkTemplate;
+        context: {
+          link: { href: url, label: 'დაარედაქტირე სტატია' },
+        }
+      "
+    ></ng-container>
+  }
+  @for (link of staticAdditionalLinks; track link.href) {
+    @if (link.isExternal) {
+      <ng-container
+        *ngTemplateOutlet="externalLinkTemplate; context: { link }"
+      ></ng-container>
+    } @else {
+      <nz-link nzHref="#{{ link.href }}" [nzTitle]="link.label"></nz-link>
+    }
+  }
 </nz-anchor>
+
+<ng-template #externalLinkTemplate let-link="link">
+  <div class="ant-anchor-link">
+    <a class="ant-anchor-link-title" target="_blank" [href]="link.href">
+      <span>{{ link.label }}</span>
+    </a>
+  </div>
+</ng-template>
