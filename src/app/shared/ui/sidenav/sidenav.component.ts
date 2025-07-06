@@ -6,6 +6,7 @@ import {
   Input,
   Output,
   TemplateRef,
+  ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -34,6 +35,7 @@ import { NavItemDirective } from './nav-item.directive';
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class SidenavComponent {
   @Input() navItems: NavigationTreeNode[] = [];
@@ -42,6 +44,8 @@ export class SidenavComponent {
   menuTpl?: TemplateRef<unknown>;
 
   @Output() onClick = new EventEmitter<NzMenuItemComponent>();
+
+  readonly paddingSize = 24;
 
   click(event: NzMenuItemComponent) {
     this.onClick.emit(event);
