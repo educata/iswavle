@@ -9,6 +9,7 @@ import {
   inject,
 } from '@angular/core';
 import { Theme } from '@app-shared/enums';
+import { ENVIRONMENT } from '@app-shared/providers/environment';
 import { ThemeService } from '@app-shared/services';
 import { tap } from 'rxjs';
 
@@ -23,6 +24,7 @@ import { tap } from 'rxjs';
 export class CommentsComponent {
   private readonly renderer = inject(Renderer2);
   private readonly vcr = inject(ViewContainerRef);
+  private readonly environment = inject(ENVIRONMENT);
   private readonly themeService = inject(ThemeService);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
@@ -37,12 +39,12 @@ export class CommentsComponent {
             this.renderer.setAttribute(
               script,
               'src',
-              'https://utteranc.es/client.js',
+              this.environment.utterancClientCDN,
             );
             this.renderer.setAttribute(
               script,
               'repo',
-              'educata/iswavle-comments',
+              this.environment.commentsRepo,
             );
             this.renderer.setAttribute(script, 'issue-term', 'title');
             this.renderer.setAttribute(script, 'label', 'კომენტარი 💬');
