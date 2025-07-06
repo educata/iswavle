@@ -19,7 +19,7 @@
                   menuTpl;
                   context: {
                     $implicit: menu.children,
-                    level: level + 1
+                    level: level + 1,
                   }
                 "
               ></ng-container>
@@ -33,7 +33,7 @@
                   menuTpl;
                   context: {
                     $implicit: menu.children,
-                    level: level + 1
+                    level: level + 1,
                   }
                 "
               ></ng-container>
@@ -49,7 +49,11 @@
           </ng-template>
         }
       } @else {
-        <li nz-menu-item nzMatchRouter [nzPaddingLeft]="24 * level">
+        <li
+          nz-menu-item
+          nzMatchRouter
+          [nzPaddingLeft]="calculatePadding(level)"
+        >
           <a [routerLink]="menu.routerLink">{{ menu.title }}</a>
         </li>
       }

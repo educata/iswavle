@@ -43,7 +43,14 @@ export class SidenavComponent {
 
   @Output() onClick = new EventEmitter<NzMenuItemComponent>();
 
+  readonly basePadding = 8;
+  readonly paddingIncrement = 16;
+
   click(event: NzMenuItemComponent) {
     this.onClick.emit(event);
+  }
+
+  calculatePadding(level: number): number {
+    return this.basePadding + this.paddingIncrement * (level - 1);
   }
 }
