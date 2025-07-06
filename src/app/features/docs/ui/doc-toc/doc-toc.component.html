@@ -1,47 +1,59 @@
 <nz-anchor [nzAffix]="isFixed" (nzClick)="onClick.emit($event)">
-  <nz-divider nzText="სარჩევი" />
-  @for (attr of docAttrs; track attr.id) {
-    @if (attr.sub) {
-      <nz-link nzHref="#{{ attr.id | sanitizeId }}" [nzTitle]="attr.title">
-        @for (childAttr of attr.sub; track childAttr.id) {
-          <nz-link
-            nzHref="#{{ childAttr.id }}"
-            [nzTitle]="childAttr.title"
-          ></nz-link>
-        }
-      </nz-link>
-    } @else {
-      <nz-link
-        nzHref="#{{ attr.id | sanitizeId }}"
-        [nzTitle]="attr.title"
-      ></nz-link>
+  <div class="toc-container" [class.with-padding]="!isFixed">
+    <p class="divider">სარჩევი</p>
+    @for (attr of docAttrs; track attr.id) {
+      @if (attr.sub) {
+        <nz-link nzHref="#{{ attr.id | sanitizeId }}" [nzTitle]="attr.title">
+          @for (childAttr of attr.sub; track childAttr.id) {
+            <nz-link
+              nzHref="#{{ childAttr.id }}"
+              [nzTitle]="childAttr.title"
+            ></nz-link>
+          }
+        </nz-link>
+      } @else {
+        <nz-link
+          nzHref="#{{ attr.id | sanitizeId }}"
+          [nzTitle]="attr.title"
+        ></nz-link>
+      }
     }
-  }
-  <nz-divider nzText="მეტი" />
-  @if (articleEditUrl(); as url) {
-    <ng-container
-      *ngTemplateOutlet="
-        externalLinkTemplate;
-        context: {
-          link: { href: url, label: 'დაარედაქტირე სტატია' },
-        }
-      "
-    ></ng-container>
-  }
-  @for (link of staticAdditionalLinks; track link.href) {
-    @if (link.isExternal) {
+    <p class="divider">მეტი</p>
+    @if (articleEditUrl(); as url) {
       <ng-container
-        *ngTemplateOutlet="externalLinkTemplate; context: { link }"
+        *ngTemplateOutlet="
+          externalLinkTemplate;
+          context: {
+            link: { href: url, label: 'დაარედაქტირე', icon: 'edit' },
+          }
+        "
       ></ng-container>
-    } @else {
-      <nz-link nzHref="#{{ link.href }}" [nzTitle]="link.label"></nz-link>
     }
-  }
+    @for (link of staticAdditionalLinks; track link.href) {
+      @if (link.isExternal) {
+        <ng-container
+          *ngTemplateOutlet="externalLinkTemplate; context: { link }"
+        ></ng-container>
+      } @else {
+        <div class="ant-anchor-link">
+          <a
+            class="ant-anchor-link-title"
+            routerLink="."
+            [fragment]="link.href"
+          >
+            <span nz-icon [nzType]="link.icon" nzTheme="outline"></span>
+            <span>{{ link.label }}</span>
+          </a>
+        </div>
+      }
+    }
+  </div>
 </nz-anchor>
 
 <ng-template #externalLinkTemplate let-link="link">
   <div class="ant-anchor-link">
     <a class="ant-anchor-link-title" target="_blank" [href]="link.href">
+      <span nz-icon [nzType]="link.icon" nzTheme="outline"></span>
       <span>{{ link.label }}</span>
     </a>
   </div>

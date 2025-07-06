@@ -7,8 +7,7 @@ import {
   inject,
   computed,
 } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { map } from 'rxjs';
+import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 import { SanitizeIdPipe } from './sanitize-id.pipe';
 import { TocItem } from '@app-shared/interfaces';
@@ -16,11 +15,19 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NgTemplateOutlet } from '@angular/common';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'sw-doc-toc',
   standalone: true,
-  imports: [NzAnchorModule, SanitizeIdPipe, NzDividerModule, NgTemplateOutlet],
+  imports: [
+    NzAnchorModule,
+    SanitizeIdPipe,
+    NzDividerModule,
+    NgTemplateOutlet,
+    NzIconModule,
+    RouterLink,
+  ],
   templateUrl: './doc-toc.component.html',
   styleUrl: './doc-toc.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,16 +55,19 @@ export class DocTocComponent {
   readonly staticAdditionalLinks: Array<{
     label: string;
     href: string | undefined;
+    icon: string;
     isExternal?: boolean;
   }> = [
     {
-      label: 'გახსენი იშუ (შეცვალე)',
+      label: 'გახსენი Issue',
       href: `${this.environment.githubRepoURL}/issues/new/choose`,
       isExternal: true,
+      icon: 'exclamation-circle',
     },
     {
       label: 'დატოვე კომენტარი',
       href: 'comments',
+      icon: 'comment',
     },
   ];
 }
