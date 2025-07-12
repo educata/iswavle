@@ -9,6 +9,18 @@ export const HTML_CSS_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'ცხრილები', path: 'table' },
     { title: 'ტექსტის გასტილვა', path: 'styling-text' },
     { title: 'Box Model (ყუთის მოდელი)', path: 'box-model' },
+    { title: 'ფერის მნიშვნელობები', path: 'color-values' },
+    { title: 'ნავიგაცია', path: 'navigation' },
+    { title: 'სემანტიკური ელემენტები', path: 'semantics' },
+    { title: 'ფორმები', path: 'form' },
+    { title: 'ხელმისაწვდომობა (a11y)', path: 'a11y' },
+    { title: 'სელექტორები და ფსევდო კლასები', path: 'selector-pseudo-classes' },
+    { title: 'ფსევდო ელემენტები', path: 'pseudo-elements' },
+    { title: 'მულტიმედია', path: 'multimedia' },
+    { title: 'პოზიცირება', path: 'position' },
+    { title: 'Flexbox', path: 'flexbox' },
+    { title: 'Grid', path: 'grid' },
+    { title: 'რესპონსიული ვებ დიზაინი', path: 'responsive' },
   ],
 };
 
