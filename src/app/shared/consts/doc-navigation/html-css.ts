@@ -20,6 +20,7 @@ export const HTML_CSS_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'პოზიცირება', path: 'position' },
     { title: 'Flexbox', path: 'flexbox' },
     { title: 'Grid', path: 'grid' },
+    { title: 'რესპონსიული ვებ დიზაინი', path: 'responsive' },
   ],
 };
 

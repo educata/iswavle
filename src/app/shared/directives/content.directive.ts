@@ -301,7 +301,8 @@ export class ContentDirective implements OnChanges {
 
     const nextSibling = codeWrapper.nextElementSibling;
     const shouldRenderPreview =
-      nextSibling?.getAttribute('data-show-preview') === null;
+      nextSibling?.getAttribute('data-show-preview') === null ||
+      nextSibling?.getAttribute('data-show-preview') === undefined;
 
     if (shouldRenderPreview) {
       this.renderPreview(codeWrapper);
