@@ -323,13 +323,22 @@ export class ContentDirective implements OnChanges {
           `;
           break;
         case SupportedPreviewLanguages.CSS:
+          const extractedCode = this.codeUtilService.extractCodeFromHTML(
+            preview.code,
+          );
+          let normalCSSCode = extractedCode;
+          let keyframesCSSCode = '';
+          if (extractedCode.includes('@keyframes')) {
+            normalCSSCode = extractedCode.split('@keyframes')[0];
+            keyframesCSSCode = `@keyframes ${extractedCode.split('@keyframes')[1]}`;
+          }
           code += `
             <style>
               div.preview-${uniquieId} {
-                ${this.codeUtilService.extractCodeFromHTML(preview.code)}
+                ${normalCSSCode}
               }
-            </style>
-          `;
+              ${keyframesCSSCode}
+            </style>`;
           break;
         case SupportedPreviewLanguages.JS:
           code += `
