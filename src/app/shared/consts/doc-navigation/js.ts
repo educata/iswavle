@@ -25,6 +25,7 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
       title: 'ჩაშენებული მონაცემთა სტრუქტურები',
       path: 'data-structures',
     },
+    { title: 'Date', path: 'date' },
     {
       title: 'შესავალი DOM-ში',
       path: 'dom',
