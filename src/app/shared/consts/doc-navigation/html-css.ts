@@ -22,6 +22,7 @@ export const HTML_CSS_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'Grid', path: 'grid' },
     { title: 'ანიმაცია', path: 'animations' },
     { title: 'რესპონსიული ვებ დიზაინი', path: 'responsive' },
+    { title: 'ცვლადები', path: 'variables' },
     { title: 'UI ფრეიმვორკები', path: 'ui-frameworks' },
   ],
 };
