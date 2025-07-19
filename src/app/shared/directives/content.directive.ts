@@ -227,9 +227,15 @@ export class ContentDirective implements OnChanges {
           iframe.getAttribute('data-is-complex-playground') || false;
         const searchParams = iframe.getAttribute('data-search-params') || '';
         const height = iframe.getAttribute('data-height') || 200;
+        const isStikyToWrapper =
+          iframe.getAttribute('data-sticky-example') === '' || false;
 
         const newFrame = this.renderer.createElement('div') as HTMLDivElement;
         newFrame.classList.add('frame-wrapper');
+
+        if (isStikyToWrapper) {
+          newFrame.classList.add('frame-wrapper-sticky');
+        }
 
         const source = `${this.environment.examplesURL}/${url}`;
         const shouldHavePlaygroundLink = !iframe.src && url;

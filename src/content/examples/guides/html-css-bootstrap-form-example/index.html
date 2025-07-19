@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML & CSS Bootstrap form example</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <form
+      class="p-4"
+      action="https://api.everrest.educata.dev/echo/html"
+      method="post"
+    >
+      <div class="mb-3">
+        <label for="email" class="form-label">იმეილი</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">პაროლი</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">ავტორიზაცია</button>
+    </form>
+  </body>
+</html>
