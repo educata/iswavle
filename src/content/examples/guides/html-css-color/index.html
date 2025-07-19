@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML & CSS Color</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <div class="color-picker">
+        <div class="column">
+          <h3>აირჩიე ფერი</h3>
+          <div class="polygonContainer"></div>
+          <div class="polygonPreview"></div>
+          <form>
+            <div class="row">
+              <h4>ან ჩაწერე ფერი:</h4>
+              <div class="group">
+                <input type="text" name="color-name" />
+                <button type="submit">OK</button>
+              </div>
+            </div>
+            <div class="row">
+              <h4>ან გამოიყენე ჩაშენებული ფერის ასარჩევი</h4>
+              <input type="color" name="color-picker" />
+            </div>
+          </form>
+        </div>
+        <div class="column">
+          <h3>არჩეული ფერი</h3>
+          <div class="previewBox">
+            <span class="black-color">შავი ტექსტი</span>
+            <span class="black-color">Black text</span>
+            <span class="white-color">თეთრი ტექსტი</span>
+            <span class="white-color">White text</span>
+          </div>
+          <p class="colorValues"></p>
+        </div>
+        <div class="column">
+          <h3>ღია / მუქი</h3>
+          <div class="shadesContainer"></div>
+        </div>
+      </div>
+      <div class="tables">
+        <div class="hue">
+          <h3>Hue</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>ფერი</th>
+                <th>Hue</th>
+                <th>Hex</th>
+                <th>Rgb</th>
+                <th>Hsl</th>
+              </tr>
+            </thead>
+            <tbody id="hueTableTbody"></tbody>
+          </table>
+        </div>
+        <div class="saturation">
+          <h3>Saturation</h3>
+          <table class="saturation-table">
+            <thead>
+              <tr>
+                <th>ფერი</th>
+                <th>Sat</th>
+                <th>Hex</th>
+                <th>RGB</th>
+                <th>HSL</th>
+              </tr>
+            </thead>
+            <tbody id="saturationTableTbody"></tbody>
+          </table>
+        </div>
+        <div class="lightness">
+          <h3>Lightness</h3>
+          <table class="lightness-table">
+            <thead>
+              <tr>
+                <th>ფერი</th>
+                <th>Light</th>
+                <th>Hex</th>
+                <th>RGB</th>
+                <th>HSL</th>
+              </tr>
+            </thead>
+            <tbody id="lightnessTableTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+    <script src="./main.js"></script>
+  </body>
+</html>
