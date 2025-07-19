@@ -202,7 +202,7 @@ export class ContentDirective implements OnChanges {
       iframes.forEach((iframe: HTMLIFrameElement) => {
         iframe.setAttribute('crossorigin', 'anonymous');
         const isExternalSource =
-          iframe.getAttribute('data-is-external-source') || false;
+          iframe.getAttribute('data-is-external-source') === '' || false;
         const url = iframe.getAttribute('data-url') || '';
 
         const shouldNotRender = !url && !iframe.src;

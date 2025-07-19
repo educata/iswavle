@@ -12,6 +12,7 @@ export const HTML_CSS_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'ფერის მნიშვნელობები', path: 'color-values' },
     { title: 'ნავიგაცია', path: 'navigation' },
     { title: 'სემანტიკური ელემენტები', path: 'semantics' },
+    { title: 'SEO', path: 'seo' },
     { title: 'ფორმები', path: 'form' },
     { title: 'ხელმისაწვდომობა (a11y)', path: 'a11y' },
     { title: 'სელექტორები და ფსევდო კლასები', path: 'selector-pseudo-classes' },
