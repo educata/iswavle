@@ -191,7 +191,6 @@ export class ContentDirective implements OnChanges {
         const shouldHavePlaygroundLink = !iframe.src && url;
 
         const preloadLink = document.createElement('link');
-        preloadLink.rel = 'preload';
         preloadLink.href = source;
         preloadLink.as = 'document';
         preloadLink.crossOrigin = 'anonymous';
@@ -209,7 +208,7 @@ export class ContentDirective implements OnChanges {
             </div>
           </div>
           <div class="body-frame">
-            <iframe src="${source}/index.html${!searchParams ? '' : `?${searchParams}`}" height="${height}" frameborder="0" crossorigin="anonymous" loading="eager"></iframe>
+            <iframe src="${source}/index.html${!searchParams ? '' : `?${searchParams}`}" height="${height}" frameborder="0" crossorigin="anonymous" loading="lazy"></iframe>
           </div>
         `;
 
