@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+form {
+  width: max-content;
+  padding: 16px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+form h2 {
+  margin: 0 0 10px;
+  text-align: center;
+}
+
+form div.form-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 8px;
+}
+
+form div.form-group label,
+form div p {
+  font-size: 18px;
+}
+
+form div p {
+  margin: 0 0 8px;
+}
+
+form input[type='text'],
+form input[type='email'],
+form input[type='number'] {
+  display: block;
+  padding: 0.3em 0.7em;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
+  border: 1px solid #ccc;
+  transition: 0.5s ease;
+}
+
+form input[type='text']:focus,
+form input[type='text']:hover,
+form input[type='email']:focus,
+form input[type='email']:hover,
+form input[type='number']:focus,
+form input[type='number']:hover {
+  outline: none;
+  border-color: #007bff;
+}
+
+form button {
+  padding: 0.5em 1em;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}

@@ -48,88 +48,69 @@ body.dark {
   background-color: var(--thumb-hover-color);
 }
 
-.container {
+main {
   width: 100%;
-  max-width: 800px;
+  max-width: 1200px;
   margin: auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   border: 1px solid var(--border-color);
-  place-items: center;
-  overflow-y: auto;
-  align-items: stretch;
 }
 
-.container .list {
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  row-gap: 16px;
-  padding: 25px;
-  box-sizing: border-box;
-  border-right: 1px solid var(--border-color);
-}
-
-.container .list .list-item {
-  width: 100%;
-  padding: 15px 10px;
-  cursor: pointer;
-  transition: 1s ease;
-  border: 1px solid var(--border-color);
-  background-color: var(--secondary-color);
-}
-
-.container .list .list-item.active,
-.container .list .list-item:hover {
-  border: 1px solid var(--primary-color);
-}
-
-.container .result {
+main form {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 56px;
-}
-
-.container .result .text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-y: auto;
-}
-
-.container .result p {
-  margin: auto 0;
-  text-align: center;
-  overflow-y: auto;
-  text-align: center;
-  padding: 25px;
-  font-family: system-ui;
-  font-size: 22px;
-}
-
-.container .controls .direction {
-  width: 100%;
-  border: 0;
-  font-size: 16px;
-  text-align: center;
+  grid-gap: 15px;
+  border-right: 1px solid var(--border-color);
   padding: 15px;
-  cursor: pointer;
-  line-height: 1.5715;
-  background-color: transparent;
-  box-sizing: border-box;
-  transition: 0.5s ease;
 }
 
-.container .controls .direction:hover {
-  color: #1890ff;
+main form div h3 {
+  margin: 0 0 15px;
+}
+
+main form div textarea {
+  width: 100%;
+  height: 250px;
+  border: 1px solid var(--border-color);
+  resize: none;
+  font-family: monospace;
+  transition: 0.5s ease;
+  background-color: transparent;
+  color: var(--primary-text-color);
+}
+
+main form button {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.5s ease;
+  color: var(--primary-text-color);
+}
+
+main form div textarea:focus,
+main form div textarea:focus-visible,
+main form div textarea:active,
+main form button:focus,
+main form button:active,
+main form button:hover {
+  border: 1px solid var(--primary-color);
+  outline: none;
+}
+
+main iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 450px;
 }
 
 @media screen and (max-width: 450px) {
-  .container {
+  main {
     grid-template-columns: 1fr;
   }
-  .container .list {
+  main form {
     border-right: none;
     border-bottom: 1px solid var(--border-color);
   }
