@@ -31,7 +31,6 @@
     "prepare": "husky install",
     "prerender:content": "bun ./prerender/render-content.ts",
     "prerender:examples": "bun ./prerender/render-examples.ts",
-    "prerender": "bun prerender:content && bun prerender:examples && bun prerender/clean-up.ts",
     "prerender:watch": "bun ./prerender/watch.ts",
     "dev-example-assets": "bun ./prerender/local-examples.ts",
     "lint:md": "markdownlint **/*.md",
@@ -43,16 +42,16 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^17.1.2",
-    "@angular/common": "^17.1.2",
-    "@angular/compiler": "^17.1.2",
-    "@angular/core": "^17.1.2",
-    "@angular/forms": "^17.1.2",
-    "@angular/platform-browser": "^17.1.2",
-    "@angular/platform-browser-dynamic": "^17.1.2",
-    "@angular/platform-server": "^17.1.2",
-    "@angular/router": "^17.1.2",
-    "@angular/ssr": "^17.1.2",
+    "@angular/animations": "^18.2.13",
+    "@angular/common": "^18.2.13",
+    "@angular/compiler": "^18.2.13",
+    "@angular/core": "^18.2.13",
+    "@angular/forms": "^18.2.13",
+    "@angular/platform-browser": "^18.2.13",
+    "@angular/platform-browser-dynamic": "^18.2.13",
+    "@angular/platform-server": "^18.2.13",
+    "@angular/router": "^18.2.13",
+    "@angular/ssr": "^18.2.20",
     "@webcontainer/api": "^1.1.9",
     "express": "^4.18.2",
     "file-saver": "^2.0.5",
@@ -66,9 +65,9 @@
     "zone.js": "~0.14.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.1.2",
-    "@angular/cli": "^17.1.2",
-    "@angular/compiler-cli": "^17.1.2",
+    "@angular-devkit/build-angular": "^18.2.20",
+    "@angular/cli": "^18.2.20",
+    "@angular/compiler-cli": "^18.2.13",
     "@commitlint/cli": "^18.4.1",
     "@commitlint/config-conventional": "^18.4.0",
     "@mermaid-js/mermaid-cli": "^10.9.1",
@@ -95,7 +94,7 @@
     "prettier": "^3.2.4",
     "release-it": "^17.0.0",
     "ts-node": "^10.9.1",
-    "typescript": "~5.2.2"
+    "typescript": "~5.5.4"
   },
   "release-it": {
     "git": {
