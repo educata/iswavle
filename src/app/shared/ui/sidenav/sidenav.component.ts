@@ -19,23 +19,22 @@ import { NavigationTreeNode } from '@app-shared/interfaces';
 import { NavItemDirective } from './nav-item.directive';
 
 @Component({
-  selector: 'sw-sidenav',
-  standalone: true,
-  imports: [
-    CommonModule,
-    NzMenuModule,
-    NzIconModule,
-    NzTreeModule,
-    NzInputModule,
-    FormsModule,
-    NavItemDirective,
-    RouterLink,
-    RouterLinkActive,
-  ],
-  templateUrl: './sidenav.component.html',
-  styleUrl: './sidenav.component.less',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+    selector: 'sw-sidenav',
+    imports: [
+        CommonModule,
+        NzMenuModule,
+        NzIconModule,
+        NzTreeModule,
+        NzInputModule,
+        FormsModule,
+        NavItemDirective,
+        RouterLink,
+        RouterLinkActive,
+    ],
+    templateUrl: './sidenav.component.html',
+    styleUrl: './sidenav.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
 export class SidenavComponent {
   @Input() navItems: NavigationTreeNode[] = [];

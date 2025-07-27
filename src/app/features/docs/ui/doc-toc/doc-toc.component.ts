@@ -18,19 +18,18 @@ import { ENVIRONMENT } from '@app-shared/providers/environment';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
-  selector: 'sw-doc-toc',
-  standalone: true,
-  imports: [
-    NzAnchorModule,
-    SanitizeIdPipe,
-    NzDividerModule,
-    NgTemplateOutlet,
-    NzIconModule,
-    RouterLink,
-  ],
-  templateUrl: './doc-toc.component.html',
-  styleUrl: './doc-toc.component.less',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sw-doc-toc',
+    imports: [
+        NzAnchorModule,
+        SanitizeIdPipe,
+        NzDividerModule,
+        NgTemplateOutlet,
+        NzIconModule,
+        RouterLink,
+    ],
+    templateUrl: './doc-toc.component.html',
+    styleUrl: './doc-toc.component.less',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DocTocComponent {
   @Input() isFixed = true;
