@@ -20,7 +20,7 @@
       "prefix": "sw",
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/iswavle",
             "index": "src/index.html",
