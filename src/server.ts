@@ -1,11 +1,12 @@
 import {
   AngularNodeAppEngine,
-  createNodeRequestHandler,
   isMainModule,
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import { getContext } from '@netlify/angular-runtime/context';
+import { createRequestHandler } from '@angular/ssr';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -36,4 +37,12 @@ if (isMainModule(import.meta.url)) {
   });
 }
 
-export const reqHandler = createNodeRequestHandler(app);
+export const reqHandler = createRequestHandler(netlifyAppEngineHandler);
+
+export async function netlifyAppEngineHandler(
+  request: Request,
+): Promise<Response> {
+  const context = getContext();
+  const result = await angularApp.handle(request as any, context);
+  return result || new Response('Not found', { status: 404 });
+}
