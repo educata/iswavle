@@ -20,6 +20,12 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'რიცხვი', path: 'number' },
     { title: 'კონსოლის ობიექტი', path: 'console' },
     { title: 'შეცდომების კონტროლი', path: 'error-handling' },
+    { title: 'OOP', path: 'oop' },
+    {
+      title: 'ჩაშენებული მონაცემთა სტრუქტურები',
+      path: 'data-structures',
+    },
+    { title: 'Date', path: 'date' },
     {
       title: 'შესავალი DOM-ში',
       path: 'dom',
@@ -107,6 +113,50 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
         {
           title: 'Async & Await',
           path: 'async-await',
+        },
+      ],
+    },
+    {
+      title: 'Window',
+      path: 'window',
+      children: [
+        {
+          title: 'დიალოგური ფანჯრები',
+          path: 'dialogs',
+        },
+        {
+          title: 'საცავები',
+          path: 'storages',
+          children: [
+            {
+              title: 'ლოკალური საცავი',
+              path: 'local',
+            },
+            {
+              title: 'სესიური საცავი',
+              path: 'session',
+            },
+            {
+              title: 'Cookie',
+              path: 'cookie',
+            },
+            {
+              title: 'შეჯამება',
+              path: 'summary',
+            },
+          ],
+        },
+        {
+          title: 'Audio',
+          path: 'audio',
+        },
+        {
+          title: 'Location',
+          path: 'location',
+        },
+        {
+          title: 'Navigator',
+          path: 'navigator',
         },
       ],
     },

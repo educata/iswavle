@@ -26,7 +26,13 @@
             </ul>
           </li>
         } @else {
-          <li nz-menu-group [nzTitle]="menuGroupTitle">
+          <li
+            nz-menu-group
+            [nzTitle]="menuGroupTitle"
+            [style.padding-left.px]="
+              level > 2 ? paddingSize : paddingSize * level
+            "
+          >
             <ul>
               <ng-container
                 *ngTemplateOutlet="
@@ -49,7 +55,11 @@
           </ng-template>
         }
       } @else {
-        <li nz-menu-item nzMatchRouter [nzPaddingLeft]="24 * level">
+        <li
+          nz-menu-item
+          nzMatchRouter
+          [nzPaddingLeft]="level === 2 ? paddingSize * level : 0"
+        >
           <a [routerLink]="menu.routerLink">{{ menu.title }}</a>
         </li>
       }

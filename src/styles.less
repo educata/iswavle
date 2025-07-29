@@ -275,6 +275,13 @@ html {
     }
     .ant-anchor-link-title {
       white-space: wrap;
+
+      &:has(> .anticon) {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: underline;
+      }
     }
   }
 
