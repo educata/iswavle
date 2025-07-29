@@ -10,14 +10,10 @@ import {
   inject,
   signal,
   viewChild,
+  DOCUMENT
 } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import {
-  CommonModule,
-  DOCUMENT,
-  ViewportScroller,
-  isPlatformBrowser,
-} from '@angular/common';
+import { CommonModule, ViewportScroller, isPlatformBrowser } from '@angular/common';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModeType } from 'ng-zorro-antd/menu';
 import { NzButtonComponent } from 'ng-zorro-antd/button';

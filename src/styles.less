@@ -14,6 +14,17 @@ html {
     padding: 0.105rem 0.25rem;
   }
 
+  div.button-group {
+    display: inline-flex;
+
+    button.ant-btn {
+      &:not(:first-child):not(:last-child) {
+        border-right: 0;
+        border-left: 0;
+      }
+    }
+  }
+
   .home-header {
     background-color: #e6f7ff;
   }

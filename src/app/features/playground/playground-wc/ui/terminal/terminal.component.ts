@@ -8,9 +8,10 @@ import {
   PLATFORM_ID,
   ViewChild,
   inject,
+  DOCUMENT
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { WebContainerProcess } from '@webcontainer/api';
 import {
   Observable,

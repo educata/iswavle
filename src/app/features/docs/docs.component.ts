@@ -13,11 +13,7 @@ import {
   effect,
   inject,
 } from '@angular/core';
-import {
-  CommonModule,
-  ViewportScroller,
-  isPlatformBrowser,
-} from '@angular/common';
+import { ViewportScroller, isPlatformBrowser } from '@angular/common';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -49,7 +45,6 @@ import {
 @Component({
   selector: 'sw-docs',
   imports: [
-    CommonModule,
     RouterModule,
     DocViewerComponent,
     DocTocComponent,
@@ -64,8 +59,8 @@ import {
     NzBackTopModule,
     NzToolTipModule,
     DocContributorsComponent,
-    CommentsComponent,
-  ],
+    CommentsComponent
+],
   templateUrl: './docs.component.html',
   styleUrl: './docs.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
