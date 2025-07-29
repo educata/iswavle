@@ -1,24 +1,14 @@
-import { APP_BASE_HREF } from '@angular/common';
-import { CommonEngine, isMainModule } from '@angular/ssr/node';
+import {
+  AngularNodeAppEngine,
+  createNodeRequestHandler,
+  isMainModule,
+  writeResponseToNodeResponse,
+} from '@angular/ssr/node';
 import express from 'express';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import bootstrap from './main.server';
-import { render } from '@netlify/angular-runtime/common-engine';
-
-const serverDistFolder = dirname(fileURLToPath(import.meta.url));
-const browserDistFolder = resolve(serverDistFolder, '../browser');
-const indexHtml = join(serverDistFolder, 'index.server.html');
 
 const app = express();
-const commonEngine = new CommonEngine();
-
-export async function netlifyCommonEngineHandler(
-  request: Request,
-  context: any,
-): Promise<Response> {
-  return await render(commonEngine);
-}
+const angularAppEngine = new AngularNodeAppEngine();
 
 /**
  * Example Express Rest API endpoints can be defined here.
@@ -33,32 +23,19 @@ export async function netlifyCommonEngineHandler(
  */
 
 /**
- * Serve static files from /browser
+ * Handle all requests with Angular SSR
  */
-app.get(
-  '**',
-  express.static(browserDistFolder, {
-    maxAge: '1y',
-    index: 'index.html',
-  }),
-);
-
-/**
- * Handle all other requests by rendering the Angular application.
- */
-app.get('**', (req, res, next) => {
-  const { protocol, originalUrl, baseUrl, headers } = req;
-
-  commonEngine
-    .render({
-      bootstrap,
-      documentFilePath: indexHtml,
-      url: `${protocol}://${headers.host}${originalUrl}`,
-      publicPath: browserDistFolder,
-      providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
+app.use('/**', (req, res, next) => {
+  angularAppEngine
+    .handle(req)
+    .then((response) => {
+      if (response) {
+        writeResponseToNodeResponse(response, res);
+      } else {
+        next();
+      }
     })
-    .then((html) => res.send(html))
-    .catch((err) => next(err));
+    .catch(next);
 });
 
 /**
@@ -71,3 +48,5 @@ if (isMainModule(import.meta.url)) {
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
 }
+
+export const reqHandler = createNodeRequestHandler(app);

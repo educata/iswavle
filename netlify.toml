@@ -1,8 +1,19 @@
 [build]
   command = "bun run build"
   publish = "dist/iswavle/browser"
+
 [build.environment]
   NODE_VERSION = "20"
+
+# Add Angular runtime plugin for proper SSR support
+[[plugins]]
+  package = "@netlify/angular-runtime"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]
