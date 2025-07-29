@@ -49,13 +49,6 @@ app.get(
 app.get('**', (req, res, next) => {
   const { protocol, originalUrl, baseUrl, headers } = req;
 
-  console.log('Rendering request:', {
-    protocol,
-    originalUrl,
-    baseUrl,
-    headers,
-  });
-
   commonEngine
     .render({
       bootstrap,
