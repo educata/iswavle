@@ -1,52 +1,18 @@
-import {
-  AngularNodeAppEngine,
-  createNodeRequestHandler,
-  isMainModule,
-  writeResponseToNodeResponse,
-} from '@angular/ssr/node';
-import express from 'express';
-import bootstrap from './main.server';
+import { AngularAppEngine, createRequestHandler } from '@angular/ssr';
+import { getContext } from '@netlify/angular-runtime/context';
 
-const app = express();
-const angularAppEngine = new AngularNodeAppEngine();
+const angularAppEngine = new AngularAppEngine();
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/**', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+export async function netlifyAppEngineHandler(
+  request: Request,
+): Promise<Response> {
+  const context = getContext();
 
-/**
- * Handle all requests with Angular SSR
- */
-app.use('/**', (req, res, next) => {
-  angularAppEngine
-    .handle(req)
-    .then((response) => {
-      if (response) {
-        writeResponseToNodeResponse(response, res);
-      } else {
-        next();
-      }
-    })
-    .catch(next);
-});
-
-/**
- * Start the server if this module is the main entry point.
- * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
- */
-if (isMainModule(import.meta.url)) {
-  const port = process.env['PORT'] || 4000;
-  app.listen(port, () => {
-    console.log(`Node Express server listening on http://localhost:${port}`);
-  });
+  const result = await angularAppEngine.handle(request, context);
+  return result || new Response('Not found', { status: 404 });
 }
 
-export const reqHandler = createNodeRequestHandler(app);
+/**
+ * The request handler used by the Angular CLI (dev-server and during build).
+ */
+export const reqHandler = createRequestHandler(netlifyAppEngineHandler);
