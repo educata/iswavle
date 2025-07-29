@@ -3,8 +3,6 @@
   publish = "dist/iswavle/browser"
 [build.environment]
   NODE_VERSION = "20"
-[[plugins]]
-  package = "@netlify/plugin-angular"
 [[headers]]
   for = "/*"
   [headers.values]
