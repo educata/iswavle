@@ -1,4 +1,3 @@
-@import '../node_modules/ng-zorro-antd/ng-zorro-antd.less';
 @import './styles/highlight-light.less';
 @import './styles/variables.less';
 @import './styles/mermaid.less';
@@ -13,6 +12,17 @@ html {
   code {
     background-color: #f0efef;
     padding: 0.105rem 0.25rem;
+  }
+
+  div.button-group {
+    display: inline-flex;
+
+    button.ant-btn {
+      &:not(:first-child):not(:last-child) {
+        border-right: 0;
+        border-left: 0;
+      }
+    }
   }
 
   .home-header {

@@ -8,10 +8,9 @@ describe('PlaygroundWcComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PlaygroundWcComponent]
-    })
-    .compileComponents();
-    
+      imports: [PlaygroundWcComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(PlaygroundWcComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

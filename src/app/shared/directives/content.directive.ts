@@ -1,4 +1,4 @@
-import { DOCUMENT, ViewportScroller, isPlatformBrowser } from '@angular/common';
+import { ViewportScroller, isPlatformBrowser } from '@angular/common';
 import {
   Directive,
   Input,
@@ -8,6 +8,7 @@ import {
   SimpleChanges,
   ViewContainerRef,
   inject,
+  DOCUMENT
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_ICONS } from '@app-shared/consts';

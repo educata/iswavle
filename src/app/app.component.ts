@@ -5,26 +5,15 @@ import {
   ElementRef,
   PLATFORM_ID,
   ViewChild,
+  computed,
+  effect,
   inject,
+  signal,
+  viewChild,
+  DOCUMENT
 } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import {
-  AsyncPipe,
-  CommonModule,
-  DOCUMENT,
-  TitleCasePipe,
-  ViewportScroller,
-  isPlatformBrowser,
-} from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {
-  BehaviorSubject,
-  Observable,
-  combineLatest,
-  filter,
-  map,
-  tap,
-} from 'rxjs';
+import { CommonModule, ViewportScroller, isPlatformBrowser } from '@angular/common';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModeType } from 'ng-zorro-antd/menu';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
@@ -37,10 +26,10 @@ import { LOG_GREETER, NAVIGATION } from './shared/providers';
 import { SearchComponent } from '@app-shared/ui';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
 import { DISPLAY_THEMES } from '@app-shared/consts/theme';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'sw-root',
-  standalone: true,
   imports: [
     RouterModule,
     NzLayoutModule,
@@ -49,8 +38,6 @@ import { DISPLAY_THEMES } from '@app-shared/consts/theme';
     NzDropDownModule,
     NzAlertModule,
     SearchComponent,
-    TitleCasePipe,
-    AsyncPipe,
     CommonModule,
   ],
   templateUrl: './app.component.html',
@@ -58,7 +45,8 @@ import { DISPLAY_THEMES } from '@app-shared/consts/theme';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements AfterViewInit {
-  @ViewChild('alert') alertRef!: ElementRef<HTMLDivElement>;
+  private readonly alertRef = viewChild<ElementRef<HTMLDivElement>>('alert');
+
   private readonly platform = inject(PLATFORM_ID);
   private readonly defaultDataLog = inject(LOG_GREETER);
   private readonly environment = inject(ENVIRONMENT);
@@ -67,94 +55,67 @@ export class AppComponent implements AfterViewInit {
   private readonly layoutService = inject(LayoutService);
   private readonly viewport = inject(ViewportScroller);
   private readonly document = inject(DOCUMENT);
+
   readonly headerNavigation = inject(NAVIGATION);
   readonly themeOptions = DISPLAY_THEMES;
   readonly isBrowser = isPlatformBrowser(this.platform);
 
-  readonly isMenuOpenedByUser$ = new BehaviorSubject<boolean>(false);
-  readonly burgerTopDistance$ = new BehaviorSubject<string>('66px');
+  // Signals
+  readonly isMenuOpenedByUser = signal(false);
+  readonly burgerTopDistance = signal('66px');
+  readonly currentPath = signal(this.router.url);
 
-  readonly isWideScreen$ = this.layoutService.isNarrowerThan(
-    this.layoutService.sizes.header,
-    100,
+  readonly isWideScreen = computed(
+    () => this.layoutService.windowWidth() > this.layoutService.sizes.header,
   );
 
-  readonly isMenuOpen$ = combineLatest([
-    this.isWideScreen$,
-    this.isMenuOpenedByUser$,
-  ]).pipe(map(([isWideScreen, isOpenByUser]) => !isWideScreen && isOpenByUser));
-
-  readonly menuMode$: Observable<NzMenuModeType> = this.isWideScreen$.pipe(
-    map((isWide) => (isWide ? 'horizontal' : 'vertical')),
+  readonly isMenuOpen = computed(
+    () => !this.isWideScreen() && this.isMenuOpenedByUser(),
   );
 
-  readonly activePath$ = this.router.events.pipe(
-    filter((event) => event instanceof NavigationEnd),
-    map(() => this.router.url),
+  readonly menuMode = computed<NzMenuModeType>(() =>
+    this.isWideScreen() ? 'horizontal' : 'vertical',
   );
 
-  readonly headerNavigation$ = this.activePath$.pipe(
-    map((path) =>
-      this.headerNavigation.map((nav) => ({
-        ...nav,
-        isActive: this.isActivePath(path, nav.routerLink),
-      })),
-    ),
+  readonly headerNavigationItems = computed(() =>
+    this.headerNavigation.map((nav) => ({
+      ...nav,
+      isActive: this.isActivePath(this.currentPath(), nav.routerLink),
+    })),
   );
 
-  readonly isHomePage$ = this.activePath$.pipe(map((path) => path === '/'));
-
-  readonly vm$ = combineLatest([
-    this.isMenuOpen$,
-    this.menuMode$,
-    this.activePath$,
-    this.headerNavigation$,
-    this.burgerTopDistance$,
-    this.isHomePage$,
-  ]).pipe(
-    map(
-      ([
-        isMenuOpen,
-        menuMode,
-        activePath,
-        headerNavigation,
-        burgerTopDistance,
-        isHomePage,
-      ]) => ({
-        isMenuOpen,
-        menuMode,
-        activePath,
-        headerNavigation,
-        burgerTopDistance,
-        isHomePage,
-      }),
-    ),
-  );
+  readonly isHomePage = computed(() => this.currentPath() === '/');
 
   constructor() {
     if (this.isBrowser && this.environment.production) {
       this.initDefaultLog();
     }
+
     if (this.isBrowser) {
       this.themeService.init().pipe(takeUntilDestroyed()).subscribe();
     }
-    this.isMenuOpen$
-      .pipe(
-        takeUntilDestroyed(),
-        tap((isOpen) => {
-          this.document.body.style.overflow = isOpen ? 'hidden' : 'visible';
-          if (isOpen) {
-            this.viewport.scrollToPosition([0, 0]);
-          }
-        }),
-      )
-      .subscribe();
+
+    // Router events
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentPath.set(this.router.url);
+      }
+    });
+
+    // Menu open effect
+    effect(() => {
+      const isOpen = this.isMenuOpen();
+      this.document.body.style.overflow = isOpen ? 'hidden' : 'visible';
+      if (isOpen) {
+        this.viewport.scrollToPosition([0, 0]);
+      }
+    });
   }
 
   ngAfterViewInit(): void {
     if (this.isBrowser) {
-      this.burgerTopDistance$.next(
-        `${66 + this.alertRef.nativeElement.clientHeight}px`,
+      this.burgerTopDistance.set(
+        `${66 + (this.alertRef()?.nativeElement?.clientHeight || 0)}px`,
       );
     }
   }
@@ -174,5 +135,13 @@ export class AppComponent implements AfterViewInit {
       routerLink = routerLink.join('/');
     }
     return currentPath ? currentPath.includes(routerLink) : false;
+  }
+
+  toggleMenu() {
+    this.isMenuOpenedByUser.update((value) => !value);
+  }
+
+  closeMenu() {
+    this.isMenuOpenedByUser.set(false);
   }
 }
