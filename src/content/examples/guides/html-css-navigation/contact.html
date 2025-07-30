@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navigation Example - Contact</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>ნავიგაციის მაგალითი</h1>
+        <div class="url-info">
+          <p><strong>Current URL:</strong> <span id="current-url"></span></p>
+          <p><strong>Pathname:</strong> <span id="pathname"></span></p>
+        </div>
+      </header>
+
+      <div class="content">
+        <nav class="main-nav">
+          <h2>ნავიგაციის მენიუ</h2>
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./products.html">Products</a></li>
+            <li>
+              <a href="./contact.html" class="current">Contact</a>
+            </li>
+            <li><a href="./nested/page.html">Nested Page</a></li>
+          </ul>
+        </nav>
+
+        <section class="file-tree">
+          <h2>პროექტის ფაილების სტრუქტურა</h2>
+          <div class="tree">
+            <div class="folder">📁 html-css-navigation/</div>
+            <div class="file">📄 index.html</div>
+            <div class="file">📄 about.html</div>
+            <div class="file">📄 products.html</div>
+            <div class="file current">📄 contact.html ← შენ ხარ აქ</div>
+            <div class="file">📄 style.css</div>
+            <div class="file">📄 main.js</div>
+            <div class="folder nested">📁 nested/</div>
+            <div class="file nested">📄 page.html</div>
+          </div>
+        </section>
+
+        <section class="path-examples">
+          <h2>ბმულები აბსოლუტური და რელატიური მისამართებით</h2>
+
+          <div class="example">
+            <h3>Relative Path Navigation</h3>
+            <div class="nav-links">
+              <a href="./index.html" class="nav-link">
+                <span class="href-value">href="./index.html"</span>
+                <span class="link-text">Home Page</span>
+              </a>
+              <a href="./about.html" class="nav-link">
+                <span class="href-value">href="./about.html"</span>
+                <span class="link-text">About Page</span>
+              </a>
+              <a href="./products.html" class="nav-link">
+                <span class="href-value">href="./products.html"</span>
+                <span class="link-text">Products Page</span>
+              </a>
+              <a href="./contact.html" class="nav-link">
+                <span class="href-value">href="./contact.html"</span>
+                <span class="link-text">Contact (Current)</span>
+              </a>
+              <a href="./nested/page.html" class="nav-link">
+                <span class="href-value">href="./nested/page.html"</span>
+                <span class="link-text">Nested Page</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="example">
+            <h3>Absolute Path Navigation</h3>
+            <div class="nav-links">
+              <a href="/guides/html-css-navigation/index.html" class="nav-link">
+                <span class="href-value"
+                  >href="/guides/html-css-navigation/index.html"</span
+                >
+                <span class="link-text">Home Page (Absolute)</span>
+              </a>
+              <a href="/guides/html-css-navigation/about.html" class="nav-link">
+                <span class="href-value"
+                  >href="/guides/html-css-navigation/about.html"</span
+                >
+                <span class="link-text">About Page (Absolute)</span>
+              </a>
+              <a
+                href="/guides/html-css-navigation/products.html"
+                class="nav-link"
+              >
+                <span class="href-value"
+                  >href="/guides/html-css-navigation/products.html"</span
+                >
+                <span class="link-text">Products Page (Absolute)</span>
+              </a>
+              <a
+                href="/guides/html-css-navigation/contact.html"
+                class="nav-link"
+              >
+                <span class="href-value"
+                  >href="/guides/html-css-navigation/contact.html"</span
+                >
+                <span class="link-text">Contact Page (Absolute)</span>
+              </a>
+              <a
+                href="/guides/html-css-navigation/nested/page.html"
+                class="nav-link"
+              >
+                <span class="href-value"
+                  >href="/guides/html-css-navigation/nested/page.html"</span
+                >
+                <span class="link-text">Nested Page (Absolute)</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script src="./main.js"></script>
+  </body>
+</html>
