@@ -20,10 +20,16 @@ import {
   GithubOutline,
   BgColorsOutline,
   MenuOutline,
+  CommentOutline,
 } from '@ant-design/icons-angular/icons';
 
 registerLocaleData(ka);
-const icons: IconDefinition[] = [GithubOutline, BgColorsOutline, MenuOutline];
+const icons: IconDefinition[] = [
+  GithubOutline,
+  BgColorsOutline,
+  MenuOutline,
+  CommentOutline,
+];
 
 export const appConfig: ApplicationConfig = {
   providers: [
