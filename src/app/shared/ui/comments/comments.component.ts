@@ -15,7 +15,6 @@ import { tap } from 'rxjs';
 
 @Component({
   selector: 'sw-comments',
-  standalone: true,
   imports: [],
   templateUrl: './comments.component.html',
   styleUrl: './comments.component.less',

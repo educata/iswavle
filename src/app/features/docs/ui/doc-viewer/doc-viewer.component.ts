@@ -4,7 +4,6 @@ import { ContentDirective } from '@app-shared/directives';
 
 @Component({
   selector: 'sw-doc-viewer',
-  standalone: true,
   imports: [ContentDirective],
   templateUrl: './doc-viewer.component.html',
   styleUrl: './doc-viewer.component.less',
