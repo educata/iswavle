@@ -10,7 +10,7 @@ export const HTML_CSS_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'ტექსტის გასტილვა', path: 'styling-text' },
     { title: 'Box Model (ყუთის მოდელი)', path: 'box-model' },
     { title: 'ფერის მნიშვნელობები', path: 'color-values' },
-    { title: 'ნავიგაცია', path: 'navigation' },
+    { title: 'ჰიპერბმულები', path: 'hyperlinks' },
     { title: 'სემანტიკური ელემენტები', path: 'semantics' },
     { title: 'SEO', path: 'seo' },
     { title: 'ფორმები', path: 'form' },
