@@ -23,6 +23,37 @@ body {
       font-size: var(--h5-font-size);
     }
 
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      line-height: 1.5;
+
+      a.anchor-fragment {
+        color: var(--text-color);
+        position: relative;
+
+        &::after {
+          content: '#';
+          position: absolute;
+          right: -1em;
+          top: -1px;
+          transition: color 0.3s;
+          opacity: 0;
+        }
+
+        &:hover {
+          color: @primary-color;
+
+          &::after {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
     p {
       font-size: var(--base-font-size-rem);
     }
@@ -30,7 +61,7 @@ body {
     code {
       background-color: #f0efef;
       padding: 0.105rem 0.25rem;
-      font-size: 1em;
+      font-size: 0.9em;
     }
 
     pre code {
@@ -41,27 +72,6 @@ body {
     ol {
       li {
         margin: 1rem 0;
-      }
-    }
-  }
-
-  a.anchor-fragment {
-    color: var(--text-color);
-    position: relative;
-
-    &::after {
-      content: '#';
-      position: absolute;
-      right: -1em;
-      transition: color 0.3s;
-      opacity: 0;
-    }
-
-    &:hover {
-      color: @primary-color;
-
-      &::after {
-        opacity: 1;
       }
     }
   }
