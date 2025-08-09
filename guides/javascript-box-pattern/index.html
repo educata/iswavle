@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Javascript colored box pattern</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="container-fluid m-auto">
+      <form class="mb-3">
+        <div>
+          <label for="box" class="form-label">ყუთების რაოდენობა</label>
+          <input
+            required
+            type="number"
+            name="box"
+            id="box"
+            class="form-control"
+            placeholder="ყუთების რაოდენობა"
+            min="5"
+            max="25"
+          />
+        </div>
+        <button class="btn btn-primary mt-3" data-action="generate">
+          ყუთების დაგენერირება
+        </button>
+        <button
+          class="btn btn-primary mt-3"
+          data-action="random-fill"
+          data-show-after-submit="true"
+        >
+          შემთხვევითი გაფერადება
+        </button>
+        <button
+          class="btn btn-primary mt-3"
+          data-action="column-fill"
+          data-show-after-submit="true"
+        >
+          სვეტებად გაფერადება
+        </button>
+        <button
+          class="btn btn-primary mt-3"
+          data-action="row-fill"
+          data-show-after-submit="true"
+        >
+          სტრიქონებად გაფერადება
+        </button>
+        <button
+          class="btn btn-primary mt-3"
+          data-action="spiral-fill"
+          data-show-after-submit="true"
+        >
+          სპირალისებურად გაფერადება 1 ფერით
+        </button>
+        <button
+          class="btn btn-primary mt-3"
+          data-action="spiral-fill-2"
+          data-show-after-submit="true"
+        >
+          სპირალისებურად გაფერადება სხვადასხვა ფერებით
+        </button>
+      </form>
+      <div class="m-auto" id="display"></div>
+    </main>
+    <script src="./main.js"></script>
+  </body>
+</html>
