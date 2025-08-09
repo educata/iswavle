@@ -1,0 +1,68 @@
+body {
+  font-size: 16px;
+  article {
+    line-height: 1.8;
+
+    h1 {
+      font-size: var(--h1-font-size);
+    }
+
+    h2 {
+      font-size: var(--h2-font-size);
+    }
+
+    h3 {
+      font-size: var(--h3-font-size);
+    }
+
+    h4 {
+      font-size: var(--h4-font-size);
+    }
+
+    h5 {
+      font-size: var(--h5-font-size);
+    }
+
+    p {
+      font-size: var(--base-font-size-rem);
+    }
+
+    code {
+      background-color: #f0efef;
+      padding: 0.105rem 0.25rem;
+      font-size: 1em;
+    }
+
+    pre code {
+      font-size: 0.85em;
+    }
+
+    ul,
+    ol {
+      li {
+        margin: 1rem 0;
+      }
+    }
+  }
+
+  a.anchor-fragment {
+    color: var(--text-color);
+    position: relative;
+
+    &::after {
+      content: '#';
+      position: absolute;
+      right: -1em;
+      transition: color 0.3s;
+      opacity: 0;
+    }
+
+    &:hover {
+      color: @primary-color;
+
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+}
