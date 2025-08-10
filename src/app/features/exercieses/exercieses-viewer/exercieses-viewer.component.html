@@ -20,12 +20,30 @@
               nz-button
               nz-tooltip
               nzTooltipTitle="კოდის გაშვება"
-              nzSize="small"
               aria-label="კოდის გაშვება"
+              nzTooltipPlacement="bottom"
               (click)="runCode()"
             >
-              <span nz-icon nzType="caret-right" nzTheme="outline"></span>
+              <span nz-icon nzType="sw:play" nzTheme="outline"></span>
             </button>
+            <button
+              nz-button
+              nz-dropdown
+              nzPlacement="bottomLeft"
+              [nzDropdownMenu]="theme"
+            >
+              <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
+            </button>
+            <nz-dropdown-menu #theme="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
+                @for (theme of editorThemeOptions; track theme) {
+                  <li nz-menu-item (click)="changeTheme(theme)">
+                    {{ theme }}
+                  </li>
+                }
+              </ul>
+            </nz-dropdown-menu>
           </div>
           <article [swContent]="exercieses"></article>
         </aside>
@@ -44,7 +62,7 @@
                 formControlName="code"
                 [nzEditorOption]="{
                   language: 'javascript',
-                  theme: 'vs-dark',
+                  theme: editorTheme(),
                   minimap: {
                     enabled: false,
                   },

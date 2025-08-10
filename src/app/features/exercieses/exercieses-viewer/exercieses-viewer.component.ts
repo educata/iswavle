@@ -5,7 +5,9 @@ import {
   inject,
   signal,
   ViewChild,
+  PLATFORM_ID,
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { LayoutService } from '@app-shared/services';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -30,6 +32,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
+import { ThemeService } from '@app-shared/services/theme.service';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 @Component({
   selector: 'sw-exercieses-viewer',
@@ -46,6 +50,7 @@ import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
     NzButtonComponent,
     NzIconModule,
     NzTooltipModule,
+    NzDropDownModule,
   ],
   templateUrl: './exercieses-viewer.component.html',
   styleUrl: './exercieses-viewer.component.less',
@@ -57,6 +62,9 @@ export default class ExerciesesViewerComponent {
   private readonly fb = inject(FormBuilder);
   private readonly layoutService = inject(LayoutService);
   private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly platformId = inject(PLATFORM_ID);
+  readonly isBrowser = isPlatformBrowser(this.platformId);
+  private readonly themeService = inject(ThemeService);
 
   private readonly exerciesesContent$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as ExerciesesContent),
@@ -73,6 +81,9 @@ export default class ExerciesesViewerComponent {
   >(null);
   readonly isWideScreen = this.layoutService.isWideScreen;
   readonly exerciesesContent = toSignal(this.exerciesesContent$);
+  readonly editorTheme = toSignal(this.themeService.editorTheme$);
+
+  readonly editorThemeOptions = this.themeService.editorThemeOptions;
 
   constructor() {
     effect(() => {
@@ -132,5 +143,9 @@ export default class ExerciesesViewerComponent {
     if (typeof this.editor?.layout === 'function') {
       this.editor.layout();
     }
+  }
+
+  changeTheme(theme: string) {
+    this.themeService.changeEditorTheme(theme);
   }
 }

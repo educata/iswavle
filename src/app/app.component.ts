@@ -4,7 +4,6 @@ import {
   Component,
   ElementRef,
   PLATFORM_ID,
-  ViewChild,
   computed,
   effect,
   inject,
@@ -21,7 +20,7 @@ import {
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModeType } from 'ng-zorro-antd/menu';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { ThemeOptions } from '@app-shared/enums';
@@ -31,6 +30,7 @@ import { SearchComponent } from '@app-shared/ui';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
 import { DISPLAY_THEMES } from '@app-shared/consts/theme';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CUSTOM_ICONS, ICON_PREFIX } from '@app-shared/consts';
 
 @Component({
   selector: 'sw-root',
@@ -57,6 +57,7 @@ export class AppComponent implements AfterViewInit {
   private readonly router = inject(Router);
   private readonly themeService = inject(ThemeService);
   private readonly layoutService = inject(LayoutService);
+  private readonly iconService = inject(NzIconService);
   private readonly viewport = inject(ViewportScroller);
   private readonly document = inject(DOCUMENT);
 
@@ -95,6 +96,10 @@ export class AppComponent implements AfterViewInit {
 
     if (this.isBrowser) {
       this.themeService.init().pipe(takeUntilDestroyed()).subscribe();
+    }
+
+    for (const key in CUSTOM_ICONS) {
+      this.iconService.addIconLiteral(ICON_PREFIX + key, CUSTOM_ICONS[key]);
     }
 
     // Router events
