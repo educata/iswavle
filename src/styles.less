@@ -2,17 +2,13 @@
 @import './styles/variables.less';
 @import './styles/mermaid.less';
 @import './styles/resizable.less';
+@import './styles/typography.less';
 
 html {
   scroll-behavior: smooth;
 
   iframe {
     border: 0;
-  }
-
-  code {
-    background-color: #f0efef;
-    padding: 0.105rem 0.25rem;
   }
 
   div.button-group {
@@ -325,28 +321,6 @@ html {
 
     .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
       background-color: @primary-2;
-    }
-  }
-
-  a.anchor-fragment {
-    color: var(--text-color);
-    position: relative;
-
-    &::after {
-      content: '#';
-      position: absolute;
-      top: -1px;
-      right: -20px;
-      transition: color 0.3s;
-      opacity: 0;
-    }
-
-    &:hover {
-      color: @primary-color;
-
-      &::after {
-        opacity: 1;
-      }
     }
   }
 }
