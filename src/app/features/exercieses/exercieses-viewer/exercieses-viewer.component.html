@@ -17,13 +17,26 @@
         @if (isDesktop) {
           <nz-resize-handles [nzDirections]="directions"></nz-resize-handles>
         }
+        <button (click)="runCode()">test run</button>
         <article [swContent]="exercieses"></article>
       </aside>
-      <aside
-        class="code-runner"
-        nz-col
-        [nzSpan]="isMobile ? 24 : 24 - col()"
-      ></aside>
+      <aside class="code-runner" nz-col [nzSpan]="isMobile ? 24 : 24 - col()">
+        <form [formGroup]="codeGroup">
+          <nz-code-editor
+            #editor
+            formControlName="code"
+            [nzEditorOption]="{
+              language: 'javascript',
+              theme: 'vs-dark',
+              minimap: {
+                enabled: false,
+              },
+            }"
+            (nzEditorInitialized)="formatCode()"
+          ></nz-code-editor>
+        </form>
+        <div class="results"></div>
+      </aside>
     </main>
   } @else {
     <sw-loader [isFullSize]="true"></sw-loader>

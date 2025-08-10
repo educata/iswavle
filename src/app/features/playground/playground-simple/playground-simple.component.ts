@@ -145,7 +145,7 @@ export default class PlaygroundSimpleComponent
       tap(() => {
         // It's hack to format document this way becouse ng-zorro decided to make editor instance private
         // @ts-ignore
-        this.editor.editorInstance._actions
+        this.editor?.editorInstance?._actions
           .get('editor.action.formatDocument')
           .run();
       }),

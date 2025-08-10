@@ -1,6 +1,11 @@
+@import '../../../../../node_modules/ng-zorro-antd/ng-zorro-antd.less';
+@import '../../../../../node_modules/ng-zorro-antd/code-editor/style/entry.less';
+
 nz-layout.base {
+  background-color: transparent;
   main {
     width: 100%;
+    background-color: transparent;
     min-height: calc(100vh - 66px);
 
     &.is-mobile {
@@ -11,24 +16,49 @@ nz-layout.base {
           border-right: none;
           border-bottom: 5px solid var(--border-color);
         }
+        &.code-runner {
+          grid-template-rows: 1fr 1fr;
+        }
       }
     }
 
     aside {
       &.task-description {
-        border-right: 5px solid var(--border-color);
         padding: 20px;
+
+        border-right: 5px solid var(--border-color);
 
         article {
           margin: auto;
           max-width: 800px;
+          max-height: calc(100vh - 66px);
+          overflow: hidden;
+          overflow-y: auto;
+
+          --h1-font-size: 2rem;
+          --h2-font-size: 1.7rem;
+          --h3-font-size: 1.5rem;
+          --h4-font-size: 1.3rem;
+          --h5-font-size: 1.1rem;
         }
       }
 
       &.code-runner {
-        background-color: green;
-        // TODO: remove later
-        padding: 20px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 250px;
+        min-height: 400px;
+
+        .code-editor {
+          nz-code-editor {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        .results {
+          background-color: red;
+        }
       }
     }
   }
