@@ -1,6 +1,7 @@
 @let isDesktop = isWideScreen();
 @let isMobile = !isDesktop;
 @let exercieses = exerciesesContent();
+@let executionResult = lastExecutionResult();
 <nz-layout class="base exercieses-viewer">
   @if (exercieses) {
     <nz-splitter
@@ -14,9 +15,18 @@
         [nzResizable]="isDesktop"
       >
         <aside class="task-description">
-          <button [disabled]="isButtonDisabled()" (click)="runCode()">
-            test run
-          </button>
+          <div class="button-group">
+            <button
+              nz-button
+              nz-tooltip
+              nzTooltipTitle="კოდის გაშვება"
+              nzSize="small"
+              aria-label="კოდის გაშვება"
+              (click)="runCode()"
+            >
+              <span nz-icon nzType="caret-right" nzTheme="outline"></span>
+            </button>
+          </div>
           <article [swContent]="exercieses"></article>
         </aside>
       </nz-splitter-panel>
@@ -43,11 +53,69 @@
               ></nz-code-editor>
             </form>
           </nz-splitter-panel>
-          <nz-splitter-panel [nzMin]="200" [nzResizable]="isDesktop">
-            <div class="results">
-              @let executionResult = lastExecutionResult();
-              {{ executionResult | json }}
-            </div>
+          <nz-splitter-panel [nzMin]="350" [nzResizable]="isDesktop">
+            <nz-tabs
+              [nzSelectedIndex]="selectedTabIndex()"
+              (nzSelectedIndexChange)="selectedTabIndex.set($event)"
+            >
+              @if (executionResult) {
+                <nz-tab nzTitle="ბოლო გაშვება">
+                  @if ('criticalError' in executionResult) {
+                    <div class="test-case-item">
+                      <span class="test-case-item-label">
+                        კრიტიკული შეცდომა
+                      </span>
+                      <div class="test-case-item-box error">
+                        {{ executionResult.criticalError }}
+                      </div>
+                    </div>
+                  } @else {
+                    @for (result of executionResult; track $index) {
+                      <nz-divider
+                        nzText="ტესტი {{ $index + 1 }}"
+                        nzOrientation="left"
+                      ></nz-divider>
+                      <div class="test-case-item">
+                        <p class="test-case-item-label">
+                          ტესტი
+                          {{
+                            result.passed
+                              ? 'წარმატებულია ✔️'
+                              : 'წარუმატებელია ❌'
+                          }}
+                        </p>
+                        <p class="test-case-item-label">
+                          გაშვების დრო: {{ result.runtime }} მილიწამი
+                        </p>
+                      </div>
+                      <ng-container
+                        *ngTemplateOutlet="
+                          testCaseTemplate;
+                          context: {
+                            displayOutput: true,
+                            output: result.output,
+                            testCase: {
+                              input: result.inputs,
+                              expected: result.expected,
+                            },
+                          }
+                        "
+                      ></ng-container>
+                    }
+                  }
+                </nz-tab>
+              }
+              @for (testCase of exercieses.data.testCases; track $index) {
+                <nz-tab nzTitle="ტესტი {{ $index + 1 }}">
+                  <ng-container
+                    *ngTemplateOutlet="
+                      testCaseTemplate;
+                      context: { testCase, displayOutput: false }
+                    "
+                  ></ng-container>
+                </nz-tab>
+              }
+            </nz-tabs>
           </nz-splitter-panel>
         </nz-splitter>
       </nz-splitter-panel>
@@ -56,3 +124,36 @@
     <sw-loader [isFullSize]="true"></sw-loader>
   }
 </nz-layout>
+
+<ng-template
+  #testCaseTemplate
+  let-output="output"
+  let-testCase="testCase"
+  let-displayOutput="displayOutput"
+>
+  <div class="test-case-item">
+    <aside class="test-case-item-inputs">
+      <span class="test-case-item-label">პარამეტრები</span>
+      @for (input of testCase.input; track $index) {
+        <div class="test-case-item-box">
+          <span class="test-case-item-label">{{ input.name }} = </span>
+          <span class="test-case-item-value">{{ input.value }}</span>
+        </div>
+      }
+    </aside>
+    @if (displayOutput) {
+      <aside class="test-case-item-expected-result">
+        <span class="test-case-item-label">მიღებული შედეგი</span>
+        <div class="test-case-item-box">
+          <span class="test-case-item-value">{{ output || 'undefined' }}</span>
+        </div>
+      </aside>
+    }
+    <aside class="test-case-item-expected-result">
+      <span class="test-case-item-label">მოსალოდნელი შედეგი</span>
+      <div class="test-case-item-box">
+        <span class="test-case-item-value">{{ testCase.expected }}</span>
+      </div>
+    </aside>
+  </div>
+</ng-template>

@@ -7,12 +7,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { LayoutService } from '@app-shared/services';
-import { NzGridModule } from 'ng-zorro-antd/grid';
-import {
-  NzResizableModule,
-  NzResizeEvent,
-  NzResizeHandleOption,
-} from 'ng-zorro-antd/resizable';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
@@ -22,7 +16,7 @@ import {
 } from '@app-shared/interfaces/exercieses';
 import { LoaderComponent } from '@app-shared/ui';
 import { ContentDirective } from '@app-shared/directives';
-import { map } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import {
   NzCodeEditorComponent,
@@ -30,17 +24,28 @@ import {
 } from 'ng-zorro-antd/code-editor';
 import { NzSplitterModule } from 'ng-zorro-antd/splitter';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NgTemplateOutlet } from '@angular/common';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
+
 @Component({
   selector: 'sw-exercieses-viewer',
   imports: [
+    NgTemplateOutlet,
     ReactiveFormsModule,
     ContentDirective,
     LoaderComponent,
     NzLayoutModule,
     NzCodeEditorModule,
     NzSplitterModule,
-    JsonPipe,
+    NzTabsModule,
+    NzDividerModule,
+    NzButtonComponent,
+    NzIconModule,
+    NzTooltipModule,
   ],
   templateUrl: './exercieses-viewer.component.html',
   styleUrl: './exercieses-viewer.component.less',
@@ -61,21 +66,13 @@ export default class ExerciesesViewerComponent {
     code: this.fb.control(''),
   });
 
-  readonly col = signal(8);
-  readonly id = signal(-1);
+  readonly selectedTabIndex = signal(0);
   readonly isButtonDisabled = signal(false);
   readonly lastExecutionResult = signal<
     ExerciesesExecutionResult[] | ExerciesesExecutionResultError | null
   >(null);
   readonly isWideScreen = this.layoutService.isWideScreen;
   readonly exerciesesContent = toSignal(this.exerciesesContent$);
-
-  readonly directions: NzResizeHandleOption[] = [
-    {
-      direction: 'right',
-      cursorType: 'grid',
-    },
-  ];
 
   constructor() {
     effect(() => {
@@ -85,9 +82,6 @@ export default class ExerciesesViewerComponent {
         this.updateEditorLayout();
         // TODO: add page metadata
       }
-    });
-    effect(() => {
-      console.log(this.lastExecutionResult());
     });
   }
 
@@ -111,11 +105,12 @@ export default class ExerciesesViewerComponent {
     const testCases = exerciesesContent?.data.testCases;
     const starter = exerciesesContent?.data.starter;
     const worker = new Worker(new URL('./code-runner.worker', import.meta.url));
-    // TODO: loading ui
+    this.selectedTabIndex.set(1);
 
     const timeOut = setTimeout(() => {
       worker.terminate();
       this.isButtonDisabled.set(false);
+      this.selectedTabIndex.set(0);
       this.lastExecutionResult.set({
         criticalError:
           'შეიძლება კოდი გაილუპა ან საჭიროებს 10 წამზე მეტს. სცადეთ თავიდან განსხვავებული კოდით.',
@@ -127,6 +122,7 @@ export default class ExerciesesViewerComponent {
       worker.terminate();
       this.isButtonDisabled.set(false);
       this.lastExecutionResult.set(data?.criticalError ? data : data.results);
+      this.selectedTabIndex.set(0);
     };
 
     worker.postMessage({ code, starter, testCases });

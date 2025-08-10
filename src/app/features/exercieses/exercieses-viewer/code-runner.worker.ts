@@ -24,7 +24,7 @@ addEventListener('message', ({ data }) => {
     }
 
     for (const testCase of testCases) {
-      const start = performance.now();
+      const start = Date.now();
       let output: unknown = null;
       let error: string | null = null;
 
@@ -35,14 +35,14 @@ addEventListener('message', ({ data }) => {
         error = error instanceof Error ? error.message : String(error);
       }
 
-      const end = performance.now();
+      const end = Date.now();
       const runtime = end - start;
 
       results.push({
         error,
+        output,
         runtime,
         inputs: testCase.input,
-        output,
         expected: testCase.expected,
         passed: passed(output, testCase.expected),
       });
@@ -52,7 +52,7 @@ addEventListener('message', ({ data }) => {
     });
   } catch (error) {
     postMessage({
-      criticalError: error,
+      criticalError: error instanceof Error ? error.message : String(error),
     });
   }
 });

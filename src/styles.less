@@ -29,6 +29,12 @@ html {
     background-color: @body-background;
   }
 
+  .ant-divider,
+  .ant-divider-inner-text {
+    color: var(--text-color);
+    border-top-color: rgba(0, 0, 0, 0.04) !important;
+  }
+
   .ant-menu {
     background-color: transparent;
   }
@@ -328,6 +334,10 @@ html {
 
     .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
       background-color: @primary-2;
+    }
+
+    .ant-divider {
+      border-top-color: rgba(255, 255, 255, 0.08) !important;
     }
   }
 }

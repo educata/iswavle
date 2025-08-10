@@ -3,6 +3,7 @@
 
 nz-layout.base {
   background-color: transparent;
+  position: relative;
 
   nz-splitter {
     width: 100%;
@@ -28,12 +29,35 @@ nz-layout.base {
     }
 
     form {
+      height: 100%;
       overflow: hidden;
     }
 
-    .results,
-    form {
-      height: 100%;
+    .test-case-item {
+      padding: 8px;
+
+      p {
+        margin: 0;
+      }
+
+      .test-case-item-box {
+        padding: 8px;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin: 8px 0;
+        border: 1px solid var(--primary-color);
+        background-color: color-mix(
+          in srgb,
+          var(--primary-color) 25%,
+          transparent
+        );
+
+        .test-case-item-label {
+          font-size: 12px;
+        }
+      }
     }
   }
 }
