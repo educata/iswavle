@@ -1,0 +1,35 @@
+nz-layout.base {
+  main {
+    width: 100%;
+    min-height: calc(100vh - 66px);
+
+    &.is-mobile {
+      display: grid;
+
+      aside {
+        &.task-description {
+          border-right: none;
+          border-bottom: 5px solid var(--border-color);
+        }
+      }
+    }
+
+    aside {
+      &.task-description {
+        border-right: 5px solid var(--border-color);
+        padding: 20px;
+
+        article {
+          margin: auto;
+          max-width: 800px;
+        }
+      }
+
+      &.code-runner {
+        background-color: green;
+        // TODO: remove later
+        padding: 20px;
+      }
+    }
+  }
+}

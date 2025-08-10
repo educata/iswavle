@@ -13,3 +13,4 @@ export * from './file';
 export * from './toc';
 export * from './environment';
 export * from './theme';
+export * from './exercieses';

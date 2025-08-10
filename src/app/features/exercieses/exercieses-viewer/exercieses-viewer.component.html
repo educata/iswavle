@@ -1,0 +1,31 @@
+@let isDesktop = isWideScreen();
+@let isMobile = !isDesktop;
+@let exercieses = exerciesesContent();
+<nz-layout class="base">
+  @if (exercieses) {
+    <main nz-row [class.is-mobile]="isMobile">
+      <aside
+        class="task-description"
+        nz-col
+        nz-resizable
+        [nzMinColumn]="4"
+        [nzMaxColumn]="16"
+        [nzGridColumnCount]="24"
+        [nzSpan]="isMobile ? 24 : col()"
+        (nzResize)="onResize($event)"
+      >
+        @if (isDesktop) {
+          <nz-resize-handles [nzDirections]="directions"></nz-resize-handles>
+        }
+        <article [swContent]="exercieses"></article>
+      </aside>
+      <aside
+        class="code-runner"
+        nz-col
+        [nzSpan]="isMobile ? 24 : 24 - col()"
+      ></aside>
+    </main>
+  } @else {
+    <sw-loader [isFullSize]="true"></sw-loader>
+  }
+</nz-layout>
