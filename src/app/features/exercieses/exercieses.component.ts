@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { LoaderComponent } from '@app-shared/ui';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ExerciesesViewerComponent } from './ui/exercieses-viewer/exercieses-viewer.component';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 @Component({
   selector: 'sw-exercieses',
-  imports: [LoaderComponent],
+  imports: [NzLayoutModule, ExerciesesViewerComponent],
   templateUrl: './exercieses.component.html',
   styleUrl: './exercieses.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,

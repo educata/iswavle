@@ -1,0 +1,23 @@
+@let isDesktop = isWideScreen();
+@let isMobile = !isDesktop;
+<section nz-row [class.is-mobile]="isMobile">
+  <aside
+    class="task-description"
+    nz-col
+    nz-resizable
+    [nzMinColumn]="4"
+    [nzMaxColumn]="20"
+    [nzGridColumnCount]="24"
+    [nzSpan]="isMobile ? 24 : col()"
+    (nzResize)="onResize($event)"
+  >
+    @if (isDesktop) {
+      <nz-resize-handles [nzDirections]="directions"></nz-resize-handles>
+    }
+  </aside>
+  <aside
+    class="code-runner"
+    nz-col
+    [nzSpan]="isMobile ? 24 : 24 - col()"
+  ></aside>
+</section>

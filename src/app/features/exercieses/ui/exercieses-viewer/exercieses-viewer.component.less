@@ -1,0 +1,23 @@
+section {
+  width: 100%;
+  height: 100%;
+  background-color: red;
+
+  &.is-mobile {
+    display: grid;
+  }
+
+  aside {
+    height: 100%;
+    padding: 16px;
+    min-height: 50px;
+
+    &:first-child {
+      background-color: blue;
+    }
+
+    &:last-child {
+      background-color: green;
+    }
+  }
+}

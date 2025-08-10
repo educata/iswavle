@@ -10,10 +10,14 @@ import {
   inject,
   signal,
   viewChild,
-  DOCUMENT
+  DOCUMENT,
 } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { CommonModule, ViewportScroller, isPlatformBrowser } from '@angular/common';
+import {
+  CommonModule,
+  ViewportScroller,
+  isPlatformBrowser,
+} from '@angular/common';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModeType } from 'ng-zorro-antd/menu';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
@@ -65,9 +69,7 @@ export class AppComponent implements AfterViewInit {
   readonly burgerTopDistance = signal('66px');
   readonly currentPath = signal(this.router.url);
 
-  readonly isWideScreen = computed(
-    () => this.layoutService.windowWidth() > this.layoutService.sizes.header,
-  );
+  readonly isWideScreen = this.layoutService.isWideScreen;
 
   readonly isMenuOpen = computed(
     () => !this.isWideScreen() && this.isMenuOpenedByUser(),
