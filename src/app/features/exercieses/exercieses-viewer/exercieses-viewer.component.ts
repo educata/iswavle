@@ -15,7 +15,11 @@ import {
 } from 'ng-zorro-antd/resizable';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ExerciesesContent } from '@app-shared/interfaces/exercieses';
+import {
+  ExerciesesContent,
+  ExerciesesExecutionResult,
+  ExerciesesExecutionResultError,
+} from '@app-shared/interfaces/exercieses';
 import { LoaderComponent } from '@app-shared/ui';
 import { ContentDirective } from '@app-shared/directives';
 import { map } from 'rxjs';
@@ -24,17 +28,19 @@ import {
   NzCodeEditorComponent,
   NzCodeEditorModule,
 } from 'ng-zorro-antd/code-editor';
+import { NzSplitterModule } from 'ng-zorro-antd/splitter';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'sw-exercieses-viewer',
   imports: [
     ReactiveFormsModule,
     ContentDirective,
     LoaderComponent,
-    NzGridModule,
-    NzResizableModule,
     NzLayoutModule,
     NzCodeEditorModule,
+    NzSplitterModule,
+    JsonPipe,
   ],
   templateUrl: './exercieses-viewer.component.html',
   styleUrl: './exercieses-viewer.component.less',
@@ -57,6 +63,10 @@ export default class ExerciesesViewerComponent {
 
   readonly col = signal(8);
   readonly id = signal(-1);
+  readonly isButtonDisabled = signal(false);
+  readonly lastExecutionResult = signal<
+    ExerciesesExecutionResult[] | ExerciesesExecutionResultError | null
+  >(null);
   readonly isWideScreen = this.layoutService.isWideScreen;
   readonly exerciesesContent = toSignal(this.exerciesesContent$);
 
@@ -76,17 +86,9 @@ export default class ExerciesesViewerComponent {
         // TODO: add page metadata
       }
     });
-  }
-
-  onResize(event: NzResizeEvent): void {
-    const { col } = event;
-    cancelAnimationFrame(this.id());
-    this.updateEditorLayout();
-    this.id.set(
-      requestAnimationFrame(() => {
-        this.col.set(col!);
-      }),
-    );
+    effect(() => {
+      console.log(this.lastExecutionResult());
+    });
   }
 
   formatCode(): void {
@@ -97,9 +99,37 @@ export default class ExerciesesViewerComponent {
       .run();
   }
 
+  onResize(): void {
+    this.updateEditorLayout();
+  }
+
   runCode(): void {
+    this.isButtonDisabled.set(true);
+    this.lastExecutionResult.set(null);
+    const exerciesesContent = this.exerciesesContent();
     const code = this.codeGroup.controls.code.value;
-    console.log(code);
+    const testCases = exerciesesContent?.data.testCases;
+    const starter = exerciesesContent?.data.starter;
+    const worker = new Worker(new URL('./code-runner.worker', import.meta.url));
+    // TODO: loading ui
+
+    const timeOut = setTimeout(() => {
+      worker.terminate();
+      this.isButtonDisabled.set(false);
+      this.lastExecutionResult.set({
+        criticalError:
+          'შეიძლება კოდი გაილუპა ან საჭიროებს 10 წამზე მეტს. სცადეთ თავიდან განსხვავებული კოდით.',
+      });
+    }, 10000);
+
+    worker.onmessage = ({ data }) => {
+      clearTimeout(timeOut);
+      worker.terminate();
+      this.isButtonDisabled.set(false);
+      this.lastExecutionResult.set(data?.criticalError ? data : data.results);
+    };
+
+    worker.postMessage({ code, starter, testCases });
   }
 
   private updateEditorLayout(): void {

@@ -1,43 +1,57 @@
 @let isDesktop = isWideScreen();
 @let isMobile = !isDesktop;
 @let exercieses = exerciesesContent();
-<nz-layout class="base">
+<nz-layout class="base exercieses-viewer">
   @if (exercieses) {
-    <main nz-row [class.is-mobile]="isMobile">
-      <aside
-        class="task-description"
-        nz-col
-        nz-resizable
-        [nzMinColumn]="4"
-        [nzMaxColumn]="16"
-        [nzGridColumnCount]="24"
-        [nzSpan]="isMobile ? 24 : col()"
-        (nzResize)="onResize($event)"
+    <nz-splitter
+      [nzLayout]="isMobile ? 'vertical' : 'horizontal'"
+      (nzResizeEnd)="onResize()"
+    >
+      <nz-splitter-panel
+        nzDefaultSize="30%"
+        nzMin="10%"
+        [nzMax]="1000"
+        [nzResizable]="isDesktop"
       >
-        @if (isDesktop) {
-          <nz-resize-handles [nzDirections]="directions"></nz-resize-handles>
-        }
-        <button (click)="runCode()">test run</button>
-        <article [swContent]="exercieses"></article>
-      </aside>
-      <aside class="code-runner" nz-col [nzSpan]="isMobile ? 24 : 24 - col()">
-        <form [formGroup]="codeGroup">
-          <nz-code-editor
-            #editor
-            formControlName="code"
-            [nzEditorOption]="{
-              language: 'javascript',
-              theme: 'vs-dark',
-              minimap: {
-                enabled: false,
-              },
-            }"
-            (nzEditorInitialized)="formatCode()"
-          ></nz-code-editor>
-        </form>
-        <div class="results"></div>
-      </aside>
-    </main>
+        <aside class="task-description">
+          <button [disabled]="isButtonDisabled()" (click)="runCode()">
+            test run
+          </button>
+          <article [swContent]="exercieses"></article>
+        </aside>
+      </nz-splitter-panel>
+      <nz-splitter-panel (nzResizeEnd)="onResize()" [nzResizable]="isDesktop">
+        <nz-splitter nzLayout="vertical">
+          <nz-splitter-panel
+            nzDefaultSize="70%"
+            nzMin="20%"
+            nzMax="90%"
+            [nzResizable]="isDesktop"
+          >
+            <form [formGroup]="codeGroup">
+              <nz-code-editor
+                #editor
+                formControlName="code"
+                [nzEditorOption]="{
+                  language: 'javascript',
+                  theme: 'vs-dark',
+                  minimap: {
+                    enabled: false,
+                  },
+                }"
+                (nzEditorInitialized)="formatCode()"
+              ></nz-code-editor>
+            </form>
+          </nz-splitter-panel>
+          <nz-splitter-panel [nzMin]="200" [nzResizable]="isDesktop">
+            <div class="results">
+              @let executionResult = lastExecutionResult();
+              {{ executionResult | json }}
+            </div>
+          </nz-splitter-panel>
+        </nz-splitter>
+      </nz-splitter-panel>
+    </nz-splitter>
   } @else {
     <sw-loader [isFullSize]="true"></sw-loader>
   }

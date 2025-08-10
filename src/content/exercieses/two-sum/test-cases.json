@@ -10,10 +10,7 @@
         "value": 9
       }
     ],
-    "expected": {
-      "type": "string",
-      "value": ""
-    }
+    "expected": [0, 1]
   },
   {
     "input": [

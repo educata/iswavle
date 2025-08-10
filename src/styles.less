@@ -1,7 +1,6 @@
 @import './styles/highlight-light.less';
 @import './styles/variables.less';
 @import './styles/mermaid.less';
-@import './styles/resizable.less';
 @import './styles/typography.less';
 
 html {
@@ -263,6 +262,14 @@ html {
       iframe {
         width: 100%;
       }
+    }
+  }
+
+  .exercieses-viewer {
+    .monaco-editor {
+      // Little hack to make editor full width always for exercieses page
+      width: 100% !important;
+      height: 100% !important;
     }
   }
 

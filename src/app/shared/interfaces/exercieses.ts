@@ -5,14 +5,9 @@ export interface ExerciesesInput {
   value: unknown;
 }
 
-export interface ExerciesesExpectedResult {
-  type: string;
-  value: string;
-}
-
 export interface ExerciesesTestCase {
-  input: ExerciesesInput;
-  expectedResult: ExerciesesExpectedResult;
+  input: ExerciesesInput[];
+  expected: unknown;
 }
 
 export interface ExerciesesContent {
@@ -22,4 +17,23 @@ export interface ExerciesesContent {
     testCases: ExerciesesTestCase[];
     attributes: ExerciesesAttributes;
   };
+}
+
+export interface ExerciesesExecutionData {
+  code: string;
+  testCases: ExerciesesTestCase[];
+  starter: string;
+}
+
+export interface ExerciesesExecutionResult {
+  inputs: ExerciesesInput[];
+  output: unknown;
+  expected: unknown;
+  runtime: number;
+  passed: boolean;
+  error: string | null;
+}
+
+export interface ExerciesesExecutionResultError {
+  criticalError: string;
 }
