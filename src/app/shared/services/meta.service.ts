@@ -3,6 +3,7 @@ import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { DEFAULT_KEYWORDS, DEFAULT_META_CONFIG } from '@app-shared/consts';
 import { MetaTags } from '@app-shared/enums';
 import { DocContent } from '@app-shared/interfaces';
+import { ArticleToc } from '@global-shared/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -42,11 +43,18 @@ export class MetaService {
     });
   }
 
-  updateContentMetaTags(content: DocContent, section: string) {
-    const attributes = content.attributes;
-
-    if (attributes.description) {
-      this.updateMediaMetaTags(MetaTags.Description, attributes.description);
+  updateContentMetaTags(
+    content: {
+      title: string;
+      description: string;
+      keywords?: string;
+      image?: string;
+      toc?: ArticleToc[];
+    },
+    section: string,
+  ) {
+    if (content.description) {
+      this.updateMediaMetaTags(MetaTags.Description, content.description);
     }
 
     const keywords = [
@@ -55,17 +63,15 @@ export class MetaService {
         []),
     ];
 
-    if (attributes.keywords) {
-      keywords.push(...attributes.keywords.split(', '));
+    if (content.keywords) {
+      keywords.push(...content.keywords.split(', '));
     }
 
-    if (attributes.toc) {
-      attributes.toc.forEach((toc) => {
+    if (content.toc) {
+      content.toc.forEach((toc) => {
         if (!keywords.includes(toc.title)) {
           keywords.push(
-            toc.title === 'შეჯამება'
-              ? `${attributes.title} შეჯამება`
-              : toc.title,
+            toc.title === 'შეჯამება' ? `${content.title} შეჯამება` : toc.title,
           );
         }
         if (toc.sub) {
@@ -84,8 +90,8 @@ export class MetaService {
       this.updateMetaTagName(MetaTags.Keywords, uniqueKeywords.join(', '));
     }
 
-    if (attributes.image) {
-      this.updateMediaMetaTags(MetaTags.Image, attributes.image);
+    if (content?.image) {
+      this.updateMediaMetaTags(MetaTags.Image, content.image);
     } else {
       const language = DEFAULT_META_CONFIG.find(
         (lang) => lang.name === section,

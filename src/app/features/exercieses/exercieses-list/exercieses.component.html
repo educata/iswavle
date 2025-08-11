@@ -1,3 +1,52 @@
 <main>
-  <p>test</p>
+  <nz-layout class="base">
+    <article class="hero">
+      <h1>შეამოწმე შენი ცოდნა</h1>
+    </article>
+    <section class="table-container">
+      <nz-table
+        #nzTable
+        nzTableLayout="fixed"
+        [nzData]="listOfDisplayData()"
+        ngSkipHydration
+      >
+        <thead>
+          <tr>
+            <th>სახელი</th>
+            <th>აღწერა</th>
+            <th>სირთულე</th>
+            <th>თეგები</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (data of nzTable.data; track data) {
+            <tr>
+              <td>
+                <a [routerLink]="data.routerLink">{{ data.title }}</a>
+              </td>
+              <td>{{ data.description }}</td>
+              <td>
+                <nz-tag [nzColor]="colors[data.difficulty]">
+                  {{ data.difficulty | exerciseDifficulty }}
+                </nz-tag>
+              </td>
+              <td>
+                @for (tag of data.tags; track tag) {
+                  <nz-tag nzColor="blue">
+                    <a
+                      routerLink="/doc/guides/{{
+                        exercieseTagPathMap[tag].path
+                      }}"
+                    >
+                      {{ exercieseTagPathMap[tag].title }}
+                    </a>
+                  </nz-tag>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </nz-table>
+    </section>
+  </nz-layout>
 </main>

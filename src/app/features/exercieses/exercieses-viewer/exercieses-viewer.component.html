@@ -45,6 +45,18 @@
               </ul>
             </nz-dropdown-menu>
           </div>
+          <div class="attributes">
+            <nz-tag [nzColor]="colors[exercieses.data.attributes.difficulty]">
+              {{ exercieses.data.attributes.difficulty | exerciseDifficulty }}
+            </nz-tag>
+            @for (tag of exercieses.data.attributes.tags; track tag) {
+              <nz-tag nzColor="blue">
+                <a routerLink="/doc/guides/{{ exercieseTagPathMap[tag].path }}">
+                  {{ exercieseTagPathMap[tag].title }}
+                </a>
+              </nz-tag>
+            }
+          </div>
           <article [swContent]="exercieses"></article>
         </aside>
       </nz-splitter-panel>
@@ -155,7 +167,7 @@
       @for (input of testCase.input; track $index) {
         <div class="test-case-item-box">
           <span class="test-case-item-label">{{ input.name }} = </span>
-          <span class="test-case-item-value">{{ input.value }}</span>
+          <span class="test-case-item-value">{{ input.value | json }}</span>
         </div>
       }
     </aside>
@@ -163,14 +175,16 @@
       <aside class="test-case-item-expected-result">
         <span class="test-case-item-label">მიღებული შედეგი</span>
         <div class="test-case-item-box">
-          <span class="test-case-item-value">{{ output || 'undefined' }}</span>
+          <span class="test-case-item-value">
+            {{ output || 'undefined' | json }}
+          </span>
         </div>
       </aside>
     }
     <aside class="test-case-item-expected-result">
       <span class="test-case-item-label">მოსალოდნელი შედეგი</span>
       <div class="test-case-item-box">
-        <span class="test-case-item-value">{{ testCase.expected }}</span>
+        <span class="test-case-item-value">{{ testCase.expected | json }}</span>
       </div>
     </aside>
   </div>

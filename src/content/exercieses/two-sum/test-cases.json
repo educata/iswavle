@@ -3,7 +3,7 @@
     "input": [
       {
         "name": "nums",
-        "value": [2,7,11,15]
+        "value": [2, 7, 11, 15]
       },
       {
         "name": "target",
@@ -16,7 +16,7 @@
     "input": [
       {
         "name": "nums",
-        "value": [3,2,4]
+        "value": [3, 2, 4]
       },
       {
         "name": "target",
@@ -24,5 +24,31 @@
       }
     ],
     "expected": [1, 2]
+  },
+  {
+    "input": [
+      {
+        "name": "nums",
+        "value": [3, 3]
+      },
+      {
+        "name": "target",
+        "value": 6
+      }
+    ],
+    "expected": [0, 1]
+  },
+  {
+    "input": [
+      {
+        "name": "nums",
+        "value": [1, 2, 3]
+      },
+      {
+        "name": "target",
+        "value": 7
+      }
+    ],
+    "expected": []
   }
 ]

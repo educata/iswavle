@@ -1,31 +1,43 @@
 ---
-title: 'Two sum'
-description: 'Example from leetcode'
-difficulty: 'easy'
-tags: ['array', 'loop']
-image: 'sheilzdeba-iyos.com'
-keywords: 'bla bla bla'
+title: 'ორი რიცხვის ჯამი'
+description: 'მოცემული მასივიდან იპოვეთ ორი განსხვავებული ელემენტი, რომელთა ჯამიც უდრის მოცემულ რიცხვს'
+difficulty: 'medium'
+tags: ['loop', 'array', 'dataStructures']
+keywords: 'ციკლი, მასივი'
 ---
 
-Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.
+მოცემულია მთელი რიცხვების მასივი `nums` და მთელი რიცხვი `target`.
+თქვენი დავალება დააბრუნოთ **პიორველი** ორი ისეთი ელემენტის ინდექსი, რომელთა ჯამიც იქნება `target`-ის ტოლი.
 
-You may assume that each input would have **exactly one solution**, and you may not use the same element twice.
+გადაცემული პარამეტრებიდან გამომდინარე ამოცანას აუცილებლად ექნება **ერთი პასუხი**.
 
-You can return the answer in any order.
+არ შეიძლება ერთიდაიგივე ელემენტის ორჯერ გამოყენება.
 
-## Example 1:
+თუ ვერცეთი კომბინაციით ვერ ვღებულობთ ჯამს მაშინ დააბრუნეთ ცარიელი მასივი.
 
-Input: `nums = [2,7,11,15]`, `target = 9`
-Output: `[0,1]`
-Explanation: Because `nums[0] + nums[1] == 9`, we return `[0, 1]`.
+### პირველი მაგალითი
 
-## Example 2:
+- პარამეტრები: `nums = [2, 7, 11, 15], target = 9`
+- შედეგი: `[0, 1]`
+- განმარტება: რადგან `nums[0]` დამატებული `nums[1]` ტოლია `9`-ის, ამიტომაც ვაბრუნებთ `[0, 1]`
 
-Input: `nums = [3,2,4]`, `target = 6`
-Output: `[1,2]`
+### მეორე მაგალითი
 
+- პარამეტრები: `nums = [3, 2, 4], target = 6`
+- შედეგი: `[1, 2]`
+- განმარტება: რადგან `nums[1]` დამატებული `nums[2]` ტოლია `6`-ის, ამიტომ ვაბრუნებთ `[1, 2]`.
 
-## Example 3:
+### მესამე მაგალითი
 
-Input: `nums = [3,3]`, `target = 6`
-Output: `[0,1]`
+- პარამეტრები: `nums = [3, 3], target = 6`
+- შედეგი: `[0, 1]`
+- განმარტება: რადგან `nums[0]` დამატებული `nums[1]` ტოლია `6`-ის, ამიტომ ვაბრუნებთ `[0, 1]`.
+
+### მეოთხე მაგალითი
+
+- პარამეტრები: `nums = [1, 2, 3], target = 7`
+- შედეგი: `[]`
+- განმარტება: მასივი ცარიელია რადგან ვერცეთი კომბინაციით ვერ ვღებულობთ შედეგს.
+
+ამოცანის ამოხსნა შესაძლებელია ბევრი გზით,
+ცადეთ ისეთი ალგორითმის მოფიქრება, რომელიც `O(n²)`-ზე სწრაფია.

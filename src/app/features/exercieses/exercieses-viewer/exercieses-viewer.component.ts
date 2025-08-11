@@ -7,9 +7,9 @@ import {
   ViewChild,
   PLATFORM_ID,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { LayoutService } from '@app-shared/services';
-import { ActivatedRoute } from '@angular/router';
+import { isPlatformBrowser, JsonPipe } from '@angular/common';
+import { LayoutService, MetaService } from '@app-shared/services';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
   ExerciesesContent,
@@ -34,23 +34,31 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { ThemeService } from '@app-shared/services/theme.service';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzTagModule } from 'ng-zorro-antd/tag';
+import { presetColors } from 'ng-zorro-antd/core/color';
+import { ExerciseDifficultyPipe } from '@app-shared/pipes';
+import { EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
 
 @Component({
   selector: 'sw-exercieses-viewer',
   imports: [
+    JsonPipe,
+    RouterLink,
     NgTemplateOutlet,
     ReactiveFormsModule,
-    ContentDirective,
     LoaderComponent,
-    NzLayoutModule,
-    NzCodeEditorModule,
-    NzSplitterModule,
-    NzTabsModule,
-    NzDividerModule,
-    NzButtonComponent,
+    ContentDirective,
+    ExerciseDifficultyPipe,
+    NzTagModule,
     NzIconModule,
+    NzTabsModule,
+    NzLayoutModule,
+    NzDividerModule,
     NzTooltipModule,
     NzDropDownModule,
+    NzSplitterModule,
+    NzButtonComponent,
+    NzCodeEditorModule,
   ],
   templateUrl: './exercieses-viewer.component.html',
   styleUrl: './exercieses-viewer.component.less',
@@ -60,11 +68,10 @@ export default class ExerciesesViewerComponent {
   @ViewChild(NzCodeEditorComponent) editor!: NzCodeEditorComponent;
 
   private readonly fb = inject(FormBuilder);
-  private readonly layoutService = inject(LayoutService);
   private readonly activatedRoute = inject(ActivatedRoute);
-  private readonly platformId = inject(PLATFORM_ID);
-  readonly isBrowser = isPlatformBrowser(this.platformId);
+  private readonly metaService = inject(MetaService);
   private readonly themeService = inject(ThemeService);
+  private readonly layoutService = inject(LayoutService);
 
   private readonly exerciesesContent$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as ExerciesesContent),
@@ -84,6 +91,12 @@ export default class ExerciesesViewerComponent {
   readonly editorTheme = toSignal(this.themeService.editorTheme$);
 
   readonly editorThemeOptions = this.themeService.editorThemeOptions;
+  readonly exercieseTagPathMap = EXERCISE_TAG_PATH_MAP;
+  readonly colors = {
+    easy: presetColors[5],
+    medium: presetColors[3],
+    hard: presetColors[1],
+  };
 
   constructor() {
     effect(() => {
@@ -91,7 +104,15 @@ export default class ExerciesesViewerComponent {
       if (exerciesesContent) {
         this.codeGroup.controls.code.setValue(exerciesesContent.data.starter);
         this.updateEditorLayout();
-        // TODO: add page metadata
+        this.metaService.updateContentMetaTags(
+          {
+            title: exerciesesContent.data.attributes?.title,
+            description: exerciesesContent.data.attributes?.description,
+            image: exerciesesContent.data.attributes?.image,
+            keywords: exerciesesContent.data.attributes?.keywords,
+          },
+          this.activatedRoute.snapshot.params[1],
+        );
       }
     });
   }
@@ -139,13 +160,13 @@ export default class ExerciesesViewerComponent {
     worker.postMessage({ code, starter, testCases });
   }
 
+  changeTheme(theme: string) {
+    this.themeService.changeEditorTheme(theme);
+  }
+
   private updateEditorLayout(): void {
     if (typeof this.editor?.layout === 'function') {
       this.editor.layout();
     }
-  }
-
-  changeTheme(theme: string) {
-    this.themeService.changeEditorTheme(theme);
   }
 }

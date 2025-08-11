@@ -59,8 +59,8 @@ import {
     NzBackTopModule,
     NzToolTipModule,
     DocContributorsComponent,
-    CommentsComponent
-],
+    CommentsComponent,
+  ],
   templateUrl: './docs.component.html',
   styleUrl: './docs.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -133,7 +133,13 @@ export default class DocsComponent {
       const content = this.article();
       if (!content) return;
       this.metaService.updateContentMetaTags(
-        content,
+        {
+          title: content.attributes?.title,
+          keywords: content.attributes?.keywords,
+          description: content.attributes?.description,
+          toc: content.attributes?.toc,
+          image: content.attributes?.image,
+        },
         this.activatedRoute.snapshot.params[1],
       );
     });

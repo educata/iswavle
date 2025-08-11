@@ -12,3 +12,4 @@ export * from './sanitizer.service';
 export * from './download.service';
 export * from './code-util.service';
 export * from './exercieses-loader.service';
+export * from './exercieses-map.service';

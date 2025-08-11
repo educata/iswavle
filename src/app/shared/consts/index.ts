@@ -8,3 +8,4 @@ export * from './editor-themes';
 export * from './meta';
 export * from './api';
 export * from './authors';
+export * from './exerciese-tag';

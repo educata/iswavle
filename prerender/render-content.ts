@@ -26,6 +26,7 @@ const hyperLinks: {
 };
 
 const dataMap: Record<string, { title: string; content: string }> = {};
+const exercisesDataMap: Record<string, ExerciesesAttributes> = {};
 
 const render = new Renderer();
 
@@ -236,6 +237,11 @@ async function processMarkdownFiles(directory: string) {
         ['starter']: starterCode,
       };
 
+      const parentDirName = path.basename(path.dirname(filePath));
+
+      exercisesDataMap[parentDirName] =
+        data.frontMatter as ExerciesesAttributes;
+
       fs.writeFileSync(
         outputPath.replace('.md', '.json'),
         JSON.stringify(out),
@@ -283,6 +289,12 @@ function createFileFromConnetion() {
   fs.writeFileSync(
     'src/assets/index-map.json',
     JSON.stringify(dataMap),
+    'utf-8',
+  );
+
+  fs.writeFileSync(
+    'src/assets/exercieses-map.json',
+    JSON.stringify(exercisesDataMap),
     'utf-8',
   );
 

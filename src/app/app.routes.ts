@@ -2,6 +2,7 @@ import { Route, Routes, UrlSegment } from '@angular/router';
 import {
   codeResolver,
   contentResolver,
+  exerciesesMapResolver,
   exerciesesResolver,
 } from './shared/resolvers';
 
@@ -40,6 +41,7 @@ export const routes: Routes = [
         path: '',
         loadComponent: () =>
           import('./features/exercieses/exercieses-list/exercieses.component'),
+        resolve: { data: exerciesesMapResolver },
       },
       {
         path: ':exercieses_name',

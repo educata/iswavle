@@ -10,7 +10,7 @@ import {
   TITLE_SEPARATOR,
   TITLE_SUFFIX_SEPARATOR,
 } from '@app-shared/consts';
-import { DocContent } from '@app-shared/interfaces';
+import { DocContent, ExerciesesContent } from '@app-shared/interfaces';
 import { MetaTags } from '@app-shared/enums';
 import { MetaService } from './meta.service';
 
@@ -43,17 +43,23 @@ export class SwTitleStrategy extends TitleStrategy {
 
   buildPageTitle(route: ActivatedRouteSnapshot) {
     const isMatcher = typeof route.routeConfig?.matcher === 'function';
+    const routeData = route.data['data'];
     if (!isMatcher) {
-      return route.title;
+      if (!route.params['exercieses_name']) {
+        return route.title;
+      }
+
+      return `${this.capitalise(routeData.data.attributes.title)} ${TITLE_SEPARATOR} სავარჯიშო`;
     }
 
-    const isEditor = !route.data['data'].content;
+    const isEditor = !routeData.content;
 
     if (isEditor) {
-      return this.capitalise(route.data['data'].title);
+      return this.capitalise(routeData.title);
     }
 
-    const content = route.data['data'] as DocContent;
+    const content = routeData as DocContent;
+
     const params: string[] = [];
     for (const param in route.params) {
       params.push(route.params[param]);

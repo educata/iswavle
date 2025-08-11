@@ -1,5 +1,12 @@
 import { ExerciesesAttributes } from '@global-shared/interfaces';
 
+export type ExerciesesMap = Record<string, ExerciesesAttributes>;
+
+export interface ExerciesesTableData extends ExerciesesAttributes {
+  fileName: string;
+  routerLink: string;
+}
+
 export interface ExerciesesInput {
   name: string;
   value: unknown;
