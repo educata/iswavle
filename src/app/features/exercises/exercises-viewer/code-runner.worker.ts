@@ -1,13 +1,13 @@
 /// <reference lib="webworker" />
 
 import {
-  ExerciesesExecutionData,
-  ExerciesesExecutionResult,
+  ExercisesExecutionData,
+  ExercisesExecutionResult,
 } from '@app-shared/interfaces';
 
 addEventListener('message', ({ data }) => {
-  const { code, testCases, starter } = data as ExerciesesExecutionData;
-  const results: ExerciesesExecutionResult[] = [];
+  const { code, testCases, starter } = data as ExercisesExecutionData;
+  const results: ExercisesExecutionResult[] = [];
 
   try {
     const match = starter.match(/^[\s\S]*?function\s+([a-zA-Z0-9_$]+)\s*\(/m);

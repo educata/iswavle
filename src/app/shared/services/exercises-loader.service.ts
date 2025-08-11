@@ -3,19 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { combineLatest, firstValueFrom, catchError, EMPTY, map } from 'rxjs';
 import { ContentLoader, Params } from '@app-shared/interfaces';
-import { ExerciesesContent } from '@app-shared/interfaces/exercieses';
+import { ExercisesContent } from '@app-shared/interfaces';
 
 @Injectable()
-export class ExerciesesLoaderService
-  implements ContentLoader<ExerciesesContent>
-{
-  private readonly cache = new Map<string, Promise<ExerciesesContent | null>>();
+export class ExercisesLoaderService implements ContentLoader<ExercisesContent> {
+  private readonly cache = new Map<string, Promise<ExercisesContent | null>>();
   private readonly httpClient = inject(HttpClient);
   private readonly router = inject(Router);
 
-  getContent(params: Params): Promise<ExerciesesContent | null> {
-    const exerciesesName = params['exercieses_name'];
-    const path = `/assets/exercieses/${exerciesesName}`;
+  getContent(params: Params): Promise<ExercisesContent | null> {
+    const exercisesName = params['exercises_name'];
+    const path = `/assets/exercises/${exercisesName}`;
     if (!this.cache.has(path)) {
       this.cache.set(
         path,

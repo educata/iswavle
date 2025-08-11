@@ -5,7 +5,7 @@ import {
   computed,
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ExerciesesMap, ExerciesesTableData } from '@app-shared/interfaces';
+import { ExercisesMap, ExercisesTableData } from '@app-shared/interfaces';
 import { map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -16,7 +16,7 @@ import { ExerciseDifficultyPipe } from '@app-shared/pipes';
 import { EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
 
 @Component({
-  selector: 'sw-exercieses',
+  selector: 'sw-exercises',
   imports: [
     RouterLink,
     ExerciseDifficultyPipe,
@@ -24,19 +24,19 @@ import { EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
     NzTableModule,
     NzTagModule,
   ],
-  templateUrl: './exercieses.component.html',
-  styleUrl: './exercieses.component.less',
+  templateUrl: './exercises.component.html',
+  styleUrl: './exercises.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class ExerciesesComponent {
+export default class ExercisesComponent {
   private readonly activatedRoute = inject(ActivatedRoute);
-  private readonly exerciesesMap$ = this.activatedRoute.data.pipe(
-    map((response) => response['data'] as ExerciesesMap),
+  private readonly exercisesMap$ = this.activatedRoute.data.pipe(
+    map((response) => response['data'] as ExercisesMap),
   );
-  private readonly exerciesesMap = toSignal(this.exerciesesMap$);
+  private readonly exercisesMap = toSignal(this.exercisesMap$);
 
   readonly listOfDisplayData = computed(() =>
-    this.buildTableData(this.exerciesesMap()),
+    this.buildTableData(this.exercisesMap()),
   );
 
   readonly colors = {
@@ -45,17 +45,17 @@ export default class ExerciesesComponent {
     hard: presetColors[1],
   };
 
-  readonly exercieseTagPathMap = EXERCISE_TAG_PATH_MAP;
+  readonly exerciseTagPathMap = EXERCISE_TAG_PATH_MAP;
 
   private buildTableData(
-    exerciesesMap: ExerciesesMap | undefined,
-  ): ExerciesesTableData[] {
-    if (!exerciesesMap) return [];
+    exercisesMap: ExercisesMap | undefined,
+  ): ExercisesTableData[] {
+    if (!exercisesMap) return [];
 
-    return Object.entries(exerciesesMap).map(([key, value]) => ({
+    return Object.entries(exercisesMap).map(([key, value]) => ({
       ...value,
       fileName: key,
-      routerLink: `/exercieses/${key}`,
+      routerLink: `/exercises/${key}`,
     }));
   }
 }

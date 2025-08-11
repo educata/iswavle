@@ -5,17 +5,16 @@ import {
   inject,
   signal,
   ViewChild,
-  PLATFORM_ID,
 } from '@angular/core';
-import { isPlatformBrowser, JsonPipe } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { LayoutService, MetaService } from '@app-shared/services';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
-  ExerciesesContent,
-  ExerciesesExecutionResult,
-  ExerciesesExecutionResultError,
-} from '@app-shared/interfaces/exercieses';
+  ExercisesContent,
+  ExercisesExecutionResult,
+  ExercisesExecutionResultError,
+} from '@app-shared/interfaces';
 import { LoaderComponent } from '@app-shared/ui';
 import { ContentDirective } from '@app-shared/directives';
 import { map } from 'rxjs/operators';
@@ -40,7 +39,7 @@ import { ExerciseDifficultyPipe } from '@app-shared/pipes';
 import { EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
 
 @Component({
-  selector: 'sw-exercieses-viewer',
+  selector: 'sw-exercises-viewer',
   imports: [
     JsonPipe,
     RouterLink,
@@ -60,11 +59,11 @@ import { EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
     NzButtonComponent,
     NzCodeEditorModule,
   ],
-  templateUrl: './exercieses-viewer.component.html',
-  styleUrl: './exercieses-viewer.component.less',
+  templateUrl: './exercises-viewer.component.html',
+  styleUrl: './exercises-viewer.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class ExerciesesViewerComponent {
+export default class ExercisesViewerComponent {
   @ViewChild(NzCodeEditorComponent) editor!: NzCodeEditorComponent;
 
   private readonly fb = inject(FormBuilder);
@@ -73,8 +72,8 @@ export default class ExerciesesViewerComponent {
   private readonly themeService = inject(ThemeService);
   private readonly layoutService = inject(LayoutService);
 
-  private readonly exerciesesContent$ = this.activatedRoute.data.pipe(
-    map((response) => response['data'] as ExerciesesContent),
+  private readonly exercisesContent$ = this.activatedRoute.data.pipe(
+    map((response) => response['data'] as ExercisesContent),
   );
 
   readonly codeGroup = this.fb.group({
@@ -84,14 +83,14 @@ export default class ExerciesesViewerComponent {
   readonly selectedTabIndex = signal(0);
   readonly isButtonDisabled = signal(false);
   readonly lastExecutionResult = signal<
-    ExerciesesExecutionResult[] | ExerciesesExecutionResultError | null
+    ExercisesExecutionResult[] | ExercisesExecutionResultError | null
   >(null);
   readonly isWideScreen = this.layoutService.isWideScreen;
-  readonly exerciesesContent = toSignal(this.exerciesesContent$);
+  readonly exercisesContent = toSignal(this.exercisesContent$);
   readonly editorTheme = toSignal(this.themeService.editorTheme$);
 
   readonly editorThemeOptions = this.themeService.editorThemeOptions;
-  readonly exercieseTagPathMap = EXERCISE_TAG_PATH_MAP;
+  readonly exerciseTagPathMap = EXERCISE_TAG_PATH_MAP;
   readonly colors = {
     easy: presetColors[5],
     medium: presetColors[3],
@@ -100,16 +99,16 @@ export default class ExerciesesViewerComponent {
 
   constructor() {
     effect(() => {
-      const exerciesesContent = this.exerciesesContent();
-      if (exerciesesContent) {
-        this.codeGroup.controls.code.setValue(exerciesesContent.data.starter);
+      const exercisesContent = this.exercisesContent();
+      if (exercisesContent) {
+        this.codeGroup.controls.code.setValue(exercisesContent.data.starter);
         this.updateEditorLayout();
         this.metaService.updateContentMetaTags(
           {
-            title: exerciesesContent.data.attributes?.title,
-            description: exerciesesContent.data.attributes?.description,
-            image: exerciesesContent.data.attributes?.image,
-            keywords: exerciesesContent.data.attributes?.keywords,
+            title: exercisesContent.data.attributes?.title,
+            description: exercisesContent.data.attributes?.description,
+            image: exercisesContent.data.attributes?.image,
+            keywords: exercisesContent.data.attributes?.keywords,
           },
           this.activatedRoute.snapshot.params[1],
         );
@@ -132,10 +131,10 @@ export default class ExerciesesViewerComponent {
   runCode(): void {
     this.isButtonDisabled.set(true);
     this.lastExecutionResult.set(null);
-    const exerciesesContent = this.exerciesesContent();
+    const exercisesContent = this.exercisesContent();
     const code = this.codeGroup.controls.code.value;
-    const testCases = exerciesesContent?.data.testCases;
-    const starter = exerciesesContent?.data.starter;
+    const testCases = exercisesContent?.data.testCases;
+    const starter = exercisesContent?.data.starter;
     const worker = new Worker(new URL('./code-runner.worker', import.meta.url));
     this.selectedTabIndex.set(1);
 

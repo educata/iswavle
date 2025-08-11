@@ -10,7 +10,7 @@ import {
   TITLE_SEPARATOR,
   TITLE_SUFFIX_SEPARATOR,
 } from '@app-shared/consts';
-import { DocContent, ExerciesesContent } from '@app-shared/interfaces';
+import { DocContent } from '@app-shared/interfaces';
 import { MetaTags } from '@app-shared/enums';
 import { MetaService } from './meta.service';
 
@@ -45,7 +45,7 @@ export class SwTitleStrategy extends TitleStrategy {
     const isMatcher = typeof route.routeConfig?.matcher === 'function';
     const routeData = route.data['data'];
     if (!isMatcher) {
-      if (!route.params['exercieses_name']) {
+      if (!route.params['exercises_name']) {
         return route.title;
       }
 

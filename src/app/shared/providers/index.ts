@@ -5,5 +5,5 @@ export * from './code-loader';
 export * from './webcontainer-state';
 export * from './doc-navigation';
 export * from './layout-sizes';
-export * from './exercieses-loader';
-export * from './exercieses-map';
+export * from './exercises-map';
+export * from './exercises-loader';

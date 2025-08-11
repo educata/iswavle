@@ -11,5 +11,5 @@ export * from './layout.service';
 export * from './sanitizer.service';
 export * from './download.service';
 export * from './code-util.service';
-export * from './exercieses-loader.service';
-export * from './exercieses-map.service';
+export * from './exercises-loader.service';
+export * from './exercises-map.service';

@@ -7,7 +7,7 @@ export const HEADER_NAVIGATION: Navigation[] = [
   },
   {
     title: 'სავარჯიშოები',
-    routerLink: '/exercieses',
+    routerLink: '/exercises',
   },
   {
     title: 'ედიტორი',

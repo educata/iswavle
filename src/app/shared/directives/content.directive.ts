@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_ICONS } from '@app-shared/consts';
-import { DocContent, ExerciesesContent } from '@app-shared/interfaces';
+import { DocContent, ExercisesContent } from '@app-shared/interfaces';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
 import { SanitizerService, CodeUtilService } from '@app-shared/services';
 
@@ -22,7 +22,7 @@ import { SanitizerService, CodeUtilService } from '@app-shared/services';
 })
 export class ContentDirective implements OnChanges {
   // Might consider passing templateRef to allow custom rendering
-  @Input('swContent') content!: DocContent | ExerciesesContent;
+  @Input('swContent') content!: DocContent | ExercisesContent;
   @Input('swContentSearch') searchKey: string | null = null;
   @Input() highlightBgColor = '#1890ff';
   @Input() highlightColor = '#fff';
@@ -46,10 +46,7 @@ export class ContentDirective implements OnChanges {
     }
   }
 
-  renderPage(
-    content: DocContent | ExerciesesContent,
-    searchKey: string | null,
-  ) {
+  renderPage(content: DocContent | ExercisesContent, searchKey: string | null) {
     const isDocContent = 'attributes' in content;
     const contentContainer = this.vcr.element.nativeElement;
     contentContainer.innerHTML = '';

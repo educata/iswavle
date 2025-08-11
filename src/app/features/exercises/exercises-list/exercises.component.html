@@ -31,17 +31,19 @@
                 </nz-tag>
               </td>
               <td>
-                @for (tag of data.tags; track tag) {
-                  <nz-tag nzColor="blue">
-                    <a
-                      routerLink="/doc/guides/{{
-                        exercieseTagPathMap[tag].path
-                      }}"
-                    >
-                      {{ exercieseTagPathMap[tag].title }}
-                    </a>
-                  </nz-tag>
-                }
+                <div class="tags">
+                  @for (tag of data.tags; track tag) {
+                    <nz-tag nzColor="blue">
+                      <a
+                        routerLink="/doc/guides/{{
+                          exerciseTagPathMap[tag].path
+                        }}"
+                      >
+                        {{ exerciseTagPathMap[tag].title }}
+                      </a>
+                    </nz-tag>
+                  }
+                </div>
               </td>
             </tr>
           }

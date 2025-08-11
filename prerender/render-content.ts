@@ -7,7 +7,7 @@ import { docsWalkTokens } from './docs-walk-tokens';
 import {
   ArticleAttributes,
   ArticleToc,
-  ExerciesesAttributes,
+  ExercisesAttributes,
 } from '@global-shared/interfaces';
 
 const srcContentDir = './src/content';
@@ -26,7 +26,7 @@ const hyperLinks: {
 };
 
 const dataMap: Record<string, { title: string; content: string }> = {};
-const exercisesDataMap: Record<string, ExerciesesAttributes> = {};
+const exercisesDataMap: Record<string, ExercisesAttributes> = {};
 
 const render = new Renderer();
 
@@ -123,7 +123,7 @@ function extractHeaders(htmlString: string): ArticleToc[] {
 
 function isExercises(filePath: string): boolean {
   const relative = path.relative(srcContentDir, filePath).replaceAll('\\', '/');
-  return relative.split('/')[0] === 'exercieses';
+  return relative.split('/')[0] === 'exercises';
 }
 
 async function renderMarkdownFile(filePath: string) {
@@ -132,7 +132,7 @@ async function renderMarkdownFile(filePath: string) {
     markdown.replace(/^---$.*^---$/ms, ''),
   );
   if (isExercises(filePath)) {
-    const data = frontMatter<ExerciesesAttributes>(markdown);
+    const data = frontMatter<ExercisesAttributes>(markdown);
     return {
       content: parsedMarkdown,
       frontMatter: data.attributes,
@@ -238,9 +238,7 @@ async function processMarkdownFiles(directory: string) {
       };
 
       const parentDirName = path.basename(path.dirname(filePath));
-
-      exercisesDataMap[parentDirName] =
-        data.frontMatter as ExerciesesAttributes;
+      exercisesDataMap[parentDirName] = data.frontMatter as ExercisesAttributes;
 
       fs.writeFileSync(
         outputPath.replace('.md', '.json'),
@@ -293,7 +291,7 @@ function createFileFromConnetion() {
   );
 
   fs.writeFileSync(
-    'src/assets/exercieses-map.json',
+    'src/assets/exercises-map.json',
     JSON.stringify(exercisesDataMap),
     'utf-8',
   );

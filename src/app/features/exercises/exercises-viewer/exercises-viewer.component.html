@@ -1,9 +1,9 @@
 @let isDesktop = isWideScreen();
 @let isMobile = !isDesktop;
-@let exercieses = exerciesesContent();
+@let exercises = exercisesContent();
 @let executionResult = lastExecutionResult();
-<nz-layout class="base exercieses-viewer">
-  @if (exercieses) {
+<nz-layout class="base exercises-viewer">
+  @if (exercises) {
     <nz-splitter
       [nzLayout]="isMobile ? 'vertical' : 'horizontal'"
       (nzResizeEnd)="onResize()"
@@ -46,18 +46,18 @@
             </nz-dropdown-menu>
           </div>
           <div class="attributes">
-            <nz-tag [nzColor]="colors[exercieses.data.attributes.difficulty]">
-              {{ exercieses.data.attributes.difficulty | exerciseDifficulty }}
+            <nz-tag [nzColor]="colors[exercises.data.attributes.difficulty]">
+              {{ exercises.data.attributes.difficulty | exerciseDifficulty }}
             </nz-tag>
-            @for (tag of exercieses.data.attributes.tags; track tag) {
+            @for (tag of exercises.data.attributes.tags; track tag) {
               <nz-tag nzColor="blue">
-                <a routerLink="/doc/guides/{{ exercieseTagPathMap[tag].path }}">
-                  {{ exercieseTagPathMap[tag].title }}
+                <a routerLink="/doc/guides/{{ exerciseTagPathMap[tag].path }}">
+                  {{ exerciseTagPathMap[tag].title }}
                 </a>
               </nz-tag>
             }
           </div>
-          <article [swContent]="exercieses"></article>
+          <article [swContent]="exercises"></article>
         </aside>
       </nz-splitter-panel>
       <nz-splitter-panel (nzResizeEnd)="onResize()" [nzResizable]="isDesktop">
@@ -135,7 +135,7 @@
                   }
                 </nz-tab>
               }
-              @for (testCase of exercieses.data.testCases; track $index) {
+              @for (testCase of exercises.data.testCases; track $index) {
                 <nz-tab nzTitle="ტესტი {{ $index + 1 }}">
                   <ng-container
                     *ngTemplateOutlet="
