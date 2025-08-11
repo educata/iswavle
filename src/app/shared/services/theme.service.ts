@@ -1,5 +1,5 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Injectable, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Injectable, PLATFORM_ID, inject, DOCUMENT } from '@angular/core';
 import { LocalStorageKeys, Theme, ThemeOptions } from '@app-shared/enums';
 import {
   BehaviorSubject,

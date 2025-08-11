@@ -20,7 +20,6 @@ import { NavItemDirective } from './nav-item.directive';
 
 @Component({
   selector: 'sw-sidenav',
-  standalone: true,
   imports: [
     CommonModule,
     NzMenuModule,

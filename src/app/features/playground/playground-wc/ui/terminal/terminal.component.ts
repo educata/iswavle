@@ -8,9 +8,10 @@ import {
   PLATFORM_ID,
   ViewChild,
   inject,
+  DOCUMENT
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { WebContainerProcess } from '@webcontainer/api';
 import {
   Observable,
@@ -27,7 +28,6 @@ import 'xterm/css/xterm.css'; // terminal styles
 
 @Component({
   selector: 'sw-terminal',
-  standalone: true,
   imports: [],
   templateUrl: './terminal.component.html',
   styleUrl: './terminal.component.less',

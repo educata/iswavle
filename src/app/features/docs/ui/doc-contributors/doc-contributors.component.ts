@@ -5,7 +5,6 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 
 @Component({
   selector: 'sw-doc-contributors',
-  standalone: true,
   imports: [NzToolTipModule, NzAvatarModule],
   templateUrl: './doc-contributors.component.html',
   styleUrl: './doc-contributors.component.less',

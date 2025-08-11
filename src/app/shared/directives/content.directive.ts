@@ -1,4 +1,4 @@
-import { DOCUMENT, ViewportScroller, isPlatformBrowser } from '@angular/common';
+import { ViewportScroller, isPlatformBrowser } from '@angular/common';
 import {
   Directive,
   Input,
@@ -8,6 +8,7 @@ import {
   SimpleChanges,
   ViewContainerRef,
   inject,
+  DOCUMENT
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -241,7 +242,6 @@ export class ContentDirective implements OnChanges {
         const shouldHavePlaygroundLink = !iframe.src && url;
 
         const preloadLink = document.createElement('link');
-        preloadLink.rel = 'preload';
         preloadLink.href = source;
         preloadLink.as = 'document';
         preloadLink.crossOrigin = 'anonymous';
@@ -259,7 +259,7 @@ export class ContentDirective implements OnChanges {
             </div>
           </div>
           <div class="body-frame">
-            <iframe src="${source}/index.html${!searchParams ? '' : `?${searchParams}`}" height="${height}" frameborder="0" crossorigin="anonymous" loading="eager"></iframe>
+            <iframe src="${source}/index.html${!searchParams ? '' : `?${searchParams}`}" height="${height}" frameborder="0" crossorigin="anonymous" loading="lazy"></iframe>
           </div>
         `;
 
