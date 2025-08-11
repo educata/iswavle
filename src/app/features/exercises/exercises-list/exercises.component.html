@@ -1,3 +1,4 @@
+@let isMobile = !isWideScreen();
 <main>
   <nz-layout class="base">
     <article class="hero">
@@ -13,9 +14,13 @@
         <thead>
           <tr>
             <th>სახელი</th>
-            <th>აღწერა</th>
-            <th>სირთულე</th>
-            <th>თეგები</th>
+            @if (!isMobile) {
+              <th>აღწერა</th>
+            }
+            <th [nzAlign]="isMobile ? 'right' : 'left'">სირთულე</th>
+            @if (!isMobile) {
+              <th>თეგები</th>
+            }
           </tr>
         </thead>
         <tbody>
@@ -24,27 +29,31 @@
               <td>
                 <a [routerLink]="data.routerLink">{{ data.title }}</a>
               </td>
-              <td>{{ data.description }}</td>
-              <td>
+              @if (!isMobile) {
+                <td>{{ data.description }}</td>
+              }
+              <td [nzAlign]="isMobile ? 'right' : 'left'">
                 <nz-tag [nzColor]="colors[data.difficulty]">
                   {{ data.difficulty | exerciseDifficulty }}
                 </nz-tag>
               </td>
-              <td>
-                <div class="tags">
-                  @for (tag of data.tags; track tag) {
-                    <nz-tag nzColor="blue">
-                      <a
-                        routerLink="/doc/guides/{{
-                          exerciseTagPathMap[tag].path
-                        }}"
-                      >
-                        {{ exerciseTagPathMap[tag].title }}
-                      </a>
-                    </nz-tag>
-                  }
-                </div>
-              </td>
+              @if (!isMobile) {
+                <td>
+                  <div class="tags">
+                    @for (tag of data.tags; track tag) {
+                      <nz-tag nzColor="blue">
+                        <a
+                          routerLink="/doc/guides/{{
+                            exerciseTagPathMap[tag].path
+                          }}"
+                        >
+                          {{ exerciseTagPathMap[tag].title }}
+                        </a>
+                      </nz-tag>
+                    }
+                  </div>
+                </td>
+              }
             </tr>
           }
         </tbody>

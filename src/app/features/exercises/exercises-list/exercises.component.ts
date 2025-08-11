@@ -14,6 +14,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { ExerciseDifficultyPipe } from '@app-shared/pipes';
 import { EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
+import { LayoutService } from '@app-shared/services';
 
 @Component({
   selector: 'sw-exercises',
@@ -29,12 +30,12 @@ import { EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ExercisesComponent {
+  private readonly layoutService = inject(LayoutService);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly exercisesMap$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as ExercisesMap),
   );
   private readonly exercisesMap = toSignal(this.exercisesMap$);
-
   readonly listOfDisplayData = computed(() =>
     this.buildTableData(this.exercisesMap()),
   );
@@ -45,6 +46,7 @@ export default class ExercisesComponent {
     hard: presetColors[1],
   };
 
+  readonly isWideScreen = this.layoutService.isWideScreen;
   readonly exerciseTagPathMap = EXERCISE_TAG_PATH_MAP;
 
   private buildTableData(
