@@ -1,6 +1,8 @@
 @import '../../../../../node_modules/ng-zorro-antd/ng-zorro-antd.less';
 @import '../../../../../node_modules/ng-zorro-antd/code-editor/style/entry.less';
 
+@header-height: 66px;
+
 nz-layout.base {
   background-color: transparent;
   position: relative;
@@ -8,67 +10,71 @@ nz-layout.base {
   nz-splitter {
     width: 100%;
     background-color: transparent;
-    min-height: calc(100vh - 66px);
+    min-height: calc(100vh - @header-height);
+  }
 
-    .task-description {
-      padding: 20px;
+  .task-description {
+    padding: 20px;
 
-      .button-group,
-      .attributes {
-        margin-bottom: 20px;
-      }
-
-      .attributes {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 5px;
-      }
-
-      article {
-        margin: auto;
-        max-width: 800px;
-        max-height: calc(100vh - 66px);
-        overflow: hidden;
-        overflow-y: auto;
-
-        --h1-font-size: 2rem;
-        --h2-font-size: 1.7rem;
-        --h3-font-size: 1.5rem;
-        --h4-font-size: 1.3rem;
-        --h5-font-size: 1.1rem;
-      }
+    .button-group,
+    .attributes {
+      margin-bottom: 20px;
     }
 
-    form {
-      height: 100%;
+    .attributes {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+    }
+
+    article {
+      margin: auto;
+      max-width: 800px;
+      max-height: calc(100vh - @header-height);
       overflow: hidden;
-    }
+      overflow-y: auto;
 
-    .test-case-item {
-      padding: 8px;
-
-      p {
-        margin: 0;
+      &.is-mobile {
+        max-height: 100%;
       }
 
-      .test-case-item-box {
-        padding: 8px;
-        border-radius: 4px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin: 8px 0;
-        border: 1px solid var(--primary-color);
-        background-color: color-mix(
-          in srgb,
-          var(--primary-color) 25%,
-          transparent
-        );
+      --h1-font-size: 2rem;
+      --h2-font-size: 1.7rem;
+      --h3-font-size: 1.5rem;
+      --h4-font-size: 1.3rem;
+      --h5-font-size: 1.1rem;
+    }
+  }
 
-        .test-case-item-label {
-          font-size: 12px;
-        }
+  form {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .test-case-item {
+    padding: 8px;
+
+    p {
+      margin: 0;
+    }
+
+    .test-case-item-box {
+      padding: 8px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 8px 0;
+      border: 1px solid var(--primary-color);
+      background-color: color-mix(
+        in srgb,
+        var(--primary-color) 25%,
+        transparent
+      );
+
+      .test-case-item-label {
+        font-size: 12px;
       }
     }
   }

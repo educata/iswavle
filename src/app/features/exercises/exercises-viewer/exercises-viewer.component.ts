@@ -37,6 +37,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { presetColors } from 'ng-zorro-antd/core/color';
 import { ExerciseDifficultyPipe } from '@app-shared/pipes';
 import { EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
+import { NzResultModule } from 'ng-zorro-antd/result';
 
 @Component({
   selector: 'sw-exercises-viewer',
@@ -51,6 +52,7 @@ import { EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
     NzTagModule,
     NzIconModule,
     NzTabsModule,
+    NzResultModule,
     NzLayoutModule,
     NzDividerModule,
     NzTooltipModule,

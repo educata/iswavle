@@ -3,153 +3,61 @@
 @let exercises = exercisesContent();
 @let executionResult = lastExecutionResult();
 <nz-layout class="base exercises-viewer">
-  @if (exercises) {
-    <nz-splitter
-      [nzLayout]="isMobile ? 'vertical' : 'horizontal'"
-      (nzResizeEnd)="onResize()"
-    >
-      <nz-splitter-panel
-        nzDefaultSize="30%"
-        nzMin="10%"
-        [nzMax]="1000"
-        [nzResizable]="isDesktop"
-      >
-        <aside class="task-description">
-          <div class="button-group">
-            <button
-              nz-button
-              nz-tooltip
-              nzTooltipTitle="კოდის გაშვება"
-              aria-label="კოდის გაშვება"
-              nzTooltipPlacement="bottom"
-              (click)="runCode()"
-            >
-              <span nz-icon nzType="sw:play" nzTheme="outline"></span>
-            </button>
-            <button
-              nz-button
-              nz-dropdown
-              nzPlacement="bottomLeft"
-              [nzDropdownMenu]="theme"
-            >
-              <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
-            </button>
-            <nz-dropdown-menu #theme="nzDropdownMenu">
-              <ul nz-menu>
-                <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
-                @for (theme of editorThemeOptions; track theme) {
-                  <li nz-menu-item (click)="changeTheme(theme)">
-                    {{ theme }}
-                  </li>
-                }
-              </ul>
-            </nz-dropdown-menu>
-          </div>
-          <div class="attributes">
-            <nz-tag [nzColor]="colors[exercises.data.attributes.difficulty]">
-              {{ exercises.data.attributes.difficulty | exerciseDifficulty }}
-            </nz-tag>
-            @for (tag of exercises.data.attributes.tags; track tag) {
-              <nz-tag nzColor="blue">
-                <a routerLink="/doc/guides/{{ exerciseTagPathMap[tag].path }}">
-                  {{ exerciseTagPathMap[tag].title }}
-                </a>
-              </nz-tag>
-            }
-          </div>
-          <article [swContent]="exercises"></article>
-        </aside>
-      </nz-splitter-panel>
-      <nz-splitter-panel (nzResizeEnd)="onResize()" [nzResizable]="isDesktop">
-        <nz-splitter nzLayout="vertical">
-          <nz-splitter-panel
-            nzDefaultSize="70%"
-            nzMin="20%"
-            nzMax="90%"
-            [nzResizable]="isDesktop"
+  @if (exercises; as exercise) {
+    @if (isMobile) {
+      <nz-tabs>
+        <nz-tab nzTitle="აღწერა">
+          <ng-container
+            *ngTemplateOutlet="
+              taskDescriptionTpl;
+              context: { exercise, isMobile }
+            "
+          ></ng-container>
+        </nz-tab>
+        <nz-tab nzTitle="ედიტორი">
+          <nz-result
+            nzStatus="500"
+            nzSubTitle="კოდის ედიტორის გაშვება მხოლოდ დესკტოპზეა შესაძლებელი"
           >
-            <form [formGroup]="codeGroup">
-              <nz-code-editor
-                #editor
-                formControlName="code"
-                [nzEditorOption]="{
-                  language: 'javascript',
-                  theme: editorTheme(),
-                  minimap: {
-                    enabled: false,
-                  },
-                }"
-                (nzEditorInitialized)="formatCode()"
-              ></nz-code-editor>
-            </form>
-          </nz-splitter-panel>
-          <nz-splitter-panel [nzMin]="350" [nzResizable]="isDesktop">
-            <nz-tabs
-              [nzSelectedIndex]="selectedTabIndex()"
-              (nzSelectedIndexChange)="selectedTabIndex.set($event)"
+          </nz-result>
+        </nz-tab>
+        <nz-tab nzTitle="ტესტები">
+          <ng-container
+            *ngTemplateOutlet="testsTabsTpl; context: { exercise }"
+          ></ng-container>
+        </nz-tab>
+      </nz-tabs>
+    } @else {
+      <nz-splitter [nzLayout]="'horizontal'" (nzResizeEnd)="onResize()">
+        <nz-splitter-panel
+          nzDefaultSize="30%"
+          nzMin="10%"
+          [nzMax]="1000"
+          nzResizable
+        >
+          <ng-container
+            *ngTemplateOutlet="taskDescriptionTpl; context: { exercise }"
+          ></ng-container>
+        </nz-splitter-panel>
+        <nz-splitter-panel (nzResizeEnd)="onResize()" nzResizable>
+          <nz-splitter nzLayout="vertical">
+            <nz-splitter-panel
+              nzDefaultSize="70%"
+              nzMin="20%"
+              nzMax="90%"
+              nzResizable
             >
-              @if (executionResult) {
-                <nz-tab nzTitle="ბოლო გაშვება">
-                  @if ('criticalError' in executionResult) {
-                    <div class="test-case-item">
-                      <span class="test-case-item-label">
-                        კრიტიკული შეცდომა
-                      </span>
-                      <div class="test-case-item-box error">
-                        {{ executionResult.criticalError }}
-                      </div>
-                    </div>
-                  } @else {
-                    @for (result of executionResult; track $index) {
-                      <nz-divider
-                        nzText="ტესტი {{ $index + 1 }}"
-                        nzOrientation="left"
-                      ></nz-divider>
-                      <div class="test-case-item">
-                        <p class="test-case-item-label">
-                          ტესტი
-                          {{
-                            result.passed
-                              ? 'წარმატებულია ✔️'
-                              : 'წარუმატებელია ❌'
-                          }}
-                        </p>
-                        <p class="test-case-item-label">
-                          გაშვების დრო: {{ result.runtime }} მილიწამი
-                        </p>
-                      </div>
-                      <ng-container
-                        *ngTemplateOutlet="
-                          testCaseTemplate;
-                          context: {
-                            displayOutput: true,
-                            output: result.output,
-                            testCase: {
-                              input: result.inputs,
-                              expected: result.expected,
-                            },
-                          }
-                        "
-                      ></ng-container>
-                    }
-                  }
-                </nz-tab>
-              }
-              @for (testCase of exercises.data.testCases; track $index) {
-                <nz-tab nzTitle="ტესტი {{ $index + 1 }}">
-                  <ng-container
-                    *ngTemplateOutlet="
-                      testCaseTemplate;
-                      context: { testCase, displayOutput: false }
-                    "
-                  ></ng-container>
-                </nz-tab>
-              }
-            </nz-tabs>
-          </nz-splitter-panel>
-        </nz-splitter>
-      </nz-splitter-panel>
-    </nz-splitter>
+              <ng-container *ngTemplateOutlet="codeEditorTpl"></ng-container>
+            </nz-splitter-panel>
+            <nz-splitter-panel [nzMin]="350" nzResizable>
+              <ng-container
+                *ngTemplateOutlet="testsTabsTpl; context: { exercise }"
+              ></ng-container>
+            </nz-splitter-panel>
+          </nz-splitter>
+        </nz-splitter-panel>
+      </nz-splitter>
+    }
   } @else {
     <sw-loader [isFullSize]="true"></sw-loader>
   }
@@ -188,4 +96,132 @@
       </div>
     </aside>
   </div>
+</ng-template>
+
+<ng-template
+  #taskDescriptionTpl
+  let-exercise="exercise"
+  let-isMobile="isMobile"
+>
+  <aside class="task-description">
+    <div class="button-group">
+      <button
+        nz-button
+        nz-tooltip
+        nzTooltipTitle="კოდის გაშვება"
+        aria-label="კოდის გაშვება"
+        nzTooltipPlacement="bottom"
+        (click)="runCode()"
+      >
+        <span nz-icon nzType="sw:play" nzTheme="outline"></span>
+      </button>
+      <button
+        nz-button
+        nz-dropdown
+        nzPlacement="bottomLeft"
+        [nzDropdownMenu]="theme"
+      >
+        <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
+      </button>
+      <nz-dropdown-menu #theme="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
+          @for (theme of editorThemeOptions; track theme) {
+            <li nz-menu-item (click)="changeTheme(theme)">
+              {{ theme }}
+            </li>
+          }
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+    <div class="attributes">
+      <nz-tag [nzColor]="$any(colors)[exercise.data.attributes.difficulty]">
+        {{ exercise.data.attributes.difficulty | exerciseDifficulty }}
+      </nz-tag>
+      @for (tag of exercise.data.attributes.tags; track tag) {
+        <nz-tag nzColor="blue">
+          <a routerLink="/doc/guides/{{ exerciseTagPathMap[tag].path }}">
+            {{ exerciseTagPathMap[tag].title }}
+          </a>
+        </nz-tag>
+      }
+    </div>
+    <article [swContent]="exercise" [class.is-mobile]="isMobile"></article>
+  </aside>
+</ng-template>
+
+<ng-template #codeEditorTpl>
+  <form [formGroup]="codeGroup">
+    <nz-code-editor
+      #editor
+      formControlName="code"
+      [nzEditorOption]="{
+        language: 'javascript',
+        theme: editorTheme(),
+        minimap: {
+          enabled: false,
+        },
+      }"
+      (nzEditorInitialized)="formatCode()"
+    ></nz-code-editor>
+  </form>
+</ng-template>
+
+<ng-template #testsTabsTpl let-exercise="exercise">
+  <nz-tabs
+    [nzSelectedIndex]="selectedTabIndex()"
+    (nzSelectedIndexChange)="selectedTabIndex.set($event)"
+  >
+    @if (executionResult) {
+      <nz-tab nzTitle="ბოლო გაშვება">
+        @if ('criticalError' in executionResult) {
+          <div class="test-case-item">
+            <span class="test-case-item-label"> კრიტიკული შეცდომა </span>
+            <div class="test-case-item-box error">
+              {{ executionResult.criticalError }}
+            </div>
+          </div>
+        } @else {
+          @for (result of executionResult; track $index) {
+            <nz-divider
+              nzText="ტესტი {{ $index + 1 }}"
+              nzOrientation="left"
+            ></nz-divider>
+            <div class="test-case-item">
+              <p class="test-case-item-label">
+                ტესტი
+                {{ result.passed ? 'წარმატებულია ✔️' : 'წარუმატებელია ❌' }}
+              </p>
+              <p class="test-case-item-label">
+                გაშვების დრო: {{ result.runtime }} მილიწამი
+              </p>
+            </div>
+            <ng-container
+              *ngTemplateOutlet="
+                testCaseTemplate;
+                context: {
+                  displayOutput: true,
+                  output: result.output,
+                  testCase: {
+                    input: result.inputs,
+                    expected: result.expected,
+                  },
+                }
+              "
+            ></ng-container>
+          }
+        }
+      </nz-tab>
+    }
+    @for (testCase of exercise.data.testCases; track $index) {
+      <nz-tab nzTitle="ტესტი {{ $index + 1 }}">
+        <ng-container
+          *ngTemplateOutlet="
+            testCaseTemplate;
+            context: { testCase, displayOutput: false }
+          "
+        ></ng-container>
+      </nz-tab>
+    }
+  </nz-tabs>
 </ng-template>
