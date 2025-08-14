@@ -38,6 +38,7 @@ import { presetColors } from 'ng-zorro-antd/core/color';
 import { ExerciseDifficultyPipe } from '@app-shared/pipes';
 import { EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
 import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'sw-exercises-viewer',
@@ -52,6 +53,7 @@ import { NzResultModule } from 'ng-zorro-antd/result';
     NzTagModule,
     NzIconModule,
     NzTabsModule,
+    NzModalModule,
     NzResultModule,
     NzLayoutModule,
     NzDividerModule,
@@ -73,6 +75,7 @@ export default class ExercisesViewerComponent {
   private readonly metaService = inject(MetaService);
   private readonly themeService = inject(ThemeService);
   private readonly layoutService = inject(LayoutService);
+  private readonly nzModalService = inject(NzModalService);
 
   private readonly exercisesContent$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as ExercisesContent),
@@ -156,6 +159,15 @@ export default class ExercisesViewerComponent {
       this.isButtonDisabled.set(false);
       this.lastExecutionResult.set(data?.criticalError ? data : data.results);
       this.selectedTabIndex.set(0);
+
+      if (!data?.criticalError) {
+        const passedEveryTestCase = data.results.every(
+          (result: ExercisesExecutionResult) => result.passed,
+        );
+        if (passedEveryTestCase) {
+          this.openCompletionModal();
+        }
+      }
     };
 
     worker.postMessage({ code, starter, testCases });
@@ -169,5 +181,14 @@ export default class ExercisesViewerComponent {
     if (typeof this.editor?.layout === 'function') {
       this.editor.layout();
     }
+  }
+
+  private openCompletionModal(): void {
+    this.nzModalService.create({
+      nzTitle: 'გილოცავთ 🎉',
+      nzContent: 'თქვენ წარმატებით შეასრულეთ ამოცანა',
+      nzOkText: 'დახურვა',
+      nzCancelText: null,
+    });
   }
 }
