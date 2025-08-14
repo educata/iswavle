@@ -75,7 +75,7 @@ async function main(
       .join('');
   }
 
-  console.log('Params example: nums:number, target:number');
+  console.log('Params example: nums:number[], target:number');
   const paramsRaw = await ask('Params (comma separated, name:type): ');
   const params: Param[] = paramsRaw
     .split(',')
