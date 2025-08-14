@@ -9,3 +9,4 @@ export * from './meta';
 export * from './api';
 export * from './authors';
 export * from './exercise-tag';
+export * from './difficulty-text';

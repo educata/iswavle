@@ -1,9 +1,9 @@
 @let isMobile = !isWideScreen();
 <main>
   <nz-layout class="base">
-    <article class="hero">
+    <section class="hero">
       <h1>შეამოწმე შენი ცოდნა</h1>
-    </article>
+    </section>
     <section class="table-container">
       <nz-table
         #nzTable
@@ -24,7 +24,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (data of nzTable.data; track data) {
+          @for (data of nzTable.data; track data.fileName) {
             <tr>
               <td>
                 <a [routerLink]="data.routerLink">{{ data.title }}</a>

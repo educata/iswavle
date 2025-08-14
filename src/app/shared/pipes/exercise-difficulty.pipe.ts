@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { DIFFICULTY_TEXT } from '@app-shared/consts';
 
 @Pipe({
   name: 'exerciseDifficulty',
@@ -6,10 +7,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ExerciseDifficultyPipe implements PipeTransform {
   transform(difficulty: string): string {
-    return difficulty === 'easy'
-      ? 'მარტივი'
-      : difficulty === 'medium'
-        ? 'საშუალო'
-        : 'რთული';
+    return DIFFICULTY_TEXT[difficulty as keyof typeof DIFFICULTY_TEXT];
   }
 }
