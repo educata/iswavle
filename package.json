@@ -34,6 +34,7 @@
     "prerender": "bun prerender:content && bun prerender:examples && bun prerender/clean-up.ts",
     "prerender:watch": "bun ./prerender/watch.ts",
     "dev-example-assets": "bun ./prerender/local-examples.ts",
+    "exercise-generator": "bun ./tools/exercise-generator/script.ts",
     "lint:md": "markdownlint **/*.md",
     "lint:md:fix": "markdownlint --fix **/*.md",
     "release": "release-it",
