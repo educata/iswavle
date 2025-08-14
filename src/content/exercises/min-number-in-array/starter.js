@@ -1,6 +1,6 @@
 /**
  * @param {number[]} nums
- * @return {number}
+ * @return {number | null}
  */
 function minNumberInArray(nums) {
 

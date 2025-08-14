@@ -75,7 +75,9 @@
       @for (input of testCase.input; track $index) {
         <div class="test-case-item-box">
           <span class="test-case-item-label">{{ input.name }} = </span>
-          <span class="test-case-item-value">{{ input.value | json }}</span>
+          <span class="test-case-item-value">
+            {{ input.value | json }}
+          </span>
         </div>
       }
     </aside>
@@ -84,7 +86,7 @@
         <span class="test-case-item-label">მიღებული შედეგი</span>
         <div class="test-case-item-box">
           <span class="test-case-item-value">
-            {{ output | json }}
+            {{ (output | json) || 'undefined' }}
           </span>
         </div>
       </aside>
@@ -114,6 +116,16 @@
         (click)="runCode()"
       >
         <span nz-icon nzType="sw:play" nzTheme="outline"></span>
+      </button>
+      <button
+        nz-button
+        nz-tooltip
+        nzTooltipTitle="კოდის გასუფთავება"
+        aria-label="კოდის გასუფთავება"
+        nzTooltipPlacement="bottom"
+        (click)="resetCode(exercise)"
+      >
+        <span nz-icon nzType="sw:reset" nzTheme="outline"></span>
       </button>
       <button
         nz-button
