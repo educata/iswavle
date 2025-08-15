@@ -6,7 +6,7 @@ import { DIFFICULTY_TEXT } from '@app-shared/consts';
   standalone: true,
 })
 export class ExerciseDifficultyPipe implements PipeTransform {
-  transform(difficulty: string): string {
-    return DIFFICULTY_TEXT[difficulty as keyof typeof DIFFICULTY_TEXT];
+  transform(difficulty: keyof typeof DIFFICULTY_TEXT): string {
+    return DIFFICULTY_TEXT[difficulty];
   }
 }
