@@ -152,7 +152,10 @@
       </nz-tag>
       @for (tag of exercise.data.attributes.tags; track tag) {
         <nz-tag nzColor="blue">
-          <a routerLink="/doc/guides/{{ exerciseTagPathMap[tag].path }}">
+          <a
+            href="/doc/guides/{{ exerciseTagPathMap[tag].path }}"
+            target="_blank"
+          >
             {{ exerciseTagPathMap[tag].title }}
           </a>
         </nz-tag>

@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser, JsonPipe, NgTemplateOutlet } from '@angular/common';
 import { LayoutService, MetaService } from '@app-shared/services';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ThemeService } from '@app-shared/services/theme.service';
@@ -45,7 +45,6 @@ import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
   selector: 'sw-exercises-viewer',
   imports: [
     JsonPipe,
-    RouterLink,
     NgTemplateOutlet,
     ReactiveFormsModule,
     LoaderComponent,
@@ -216,7 +215,7 @@ export default class ExercisesViewerComponent {
   private openCompletionModal(): void {
     this.nzModalService.create({
       nzTitle: 'გილოცავთ 🎉',
-      nzContent: 'თქვენ წარმატებით შეასრულეთ ამოცანა',
+      nzContent: 'თქვენ წარმატებით ამოხსენით ამოცანა',
       nzOkText: 'დახურვა',
       nzCancelText: null,
     });

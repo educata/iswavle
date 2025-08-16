@@ -15,11 +15,11 @@ nz-layout.base {
 
   .task-description {
     padding: 20px;
-
-    .button-group,
-    .attributes {
-      margin-bottom: 20px;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
 
     .attributes {
       display: flex;
@@ -29,9 +29,10 @@ nz-layout.base {
     }
 
     article {
+      flex: 1;
+      max-height: calc(100vh - @header-height - 150px);
       margin: auto;
       max-width: 800px;
-      max-height: calc(100vh - @header-height);
       overflow: hidden;
       overflow-y: auto;
 
