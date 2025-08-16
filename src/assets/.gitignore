@@ -1,6 +1,7 @@
 guides
 references
 dev
+exercises
 examples/guides
 examples/references
 empty-hyperlinks.json
@@ -11,3 +12,4 @@ references.json
 guides.html
 guides.json
 index-map.json
+exercises-map.json

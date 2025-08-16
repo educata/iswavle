@@ -31,7 +31,7 @@
               <nz-dropdown-menu #theme="nzDropdownMenu">
                 <ul nz-menu>
                   <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
-                  @for (theme of editorThemes; track theme) {
+                  @for (theme of editorThemeOptions; track theme) {
                     <li nz-menu-item (click)="changeTheme(theme)">
                       {{ theme }}
                     </li>

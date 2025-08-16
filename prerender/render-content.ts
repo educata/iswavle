@@ -3,8 +3,12 @@ import * as path from 'path';
 import { Renderer, marked } from 'marked';
 import frontMatter from 'front-matter';
 import hljs from 'highlight.js';
-import { ArticleAttributes, ArticleToc } from '@global-shared/interfaces';
 import { docsWalkTokens } from './docs-walk-tokens';
+import {
+  ArticleAttributes,
+  ArticleToc,
+  ExercisesAttributes,
+} from '@global-shared/interfaces';
 
 const srcContentDir = './src/content';
 const srcAssetsDir = './src/assets';
@@ -22,6 +26,7 @@ const hyperLinks: {
 };
 
 const dataMap: Record<string, { title: string; content: string }> = {};
+const exercisesDataMap: Record<string, ExercisesAttributes> = {};
 
 const render = new Renderer();
 
@@ -116,11 +121,23 @@ function extractHeaders(htmlString: string): ArticleToc[] {
   return result;
 }
 
+function isExercises(filePath: string): boolean {
+  const relative = path.relative(srcContentDir, filePath).replaceAll('\\', '/');
+  return relative.split('/')[0] === 'exercises';
+}
+
 async function renderMarkdownFile(filePath: string) {
   const markdown = fs.readFileSync(filePath, 'utf8');
   const parsedMarkdown = await marked.parse(
     markdown.replace(/^---$.*^---$/ms, ''),
   );
+  if (isExercises(filePath)) {
+    const data = frontMatter<ExercisesAttributes>(markdown);
+    return {
+      content: parsedMarkdown,
+      frontMatter: data.attributes,
+    };
+  }
   const data = frontMatter<ArticleAttributes>(markdown);
   if (data?.attributes) {
     data.attributes.toc = extractHeaders(parsedMarkdown);
@@ -181,14 +198,51 @@ async function processMarkdownFiles(directory: string) {
         'utf-8',
       );
 
-      dataMap[normalizePath(outputPath)] = {
-        title: data.frontMatter.title,
-        content: removePreAndHtmlTags(data.content),
+      const isFileExercises = isExercises(filePath);
+
+      if (!isFileExercises) {
+        dataMap[normalizePath(outputPath)] = {
+          title: data.frontMatter.title,
+          content: removePreAndHtmlTags(data.content),
+        };
+        fs.writeFileSync(
+          outputPath.replace('.md', '.json'),
+          JSON.stringify(data.frontMatter),
+          'utf-8',
+        );
+        return;
+      }
+
+      const srcDir = path.dirname(filePath);
+      let testCases: unknown = null;
+      let starterCode = '';
+
+      try {
+        const tcPath = path.join(srcDir, 'test-cases.json');
+        if (fs.existsSync(tcPath)) {
+          testCases = JSON.parse(fs.readFileSync(tcPath, 'utf-8'));
+        }
+      } catch {}
+
+      try {
+        const starterPath = path.join(srcDir, 'starter.js');
+        if (fs.existsSync(starterPath)) {
+          starterCode = fs.readFileSync(starterPath, 'utf-8');
+        }
+      } catch {}
+
+      const out = {
+        ['attributes']: data.frontMatter,
+        ['testCases']: testCases,
+        ['starter']: starterCode,
       };
+
+      const parentDirName = path.basename(path.dirname(filePath));
+      exercisesDataMap[parentDirName] = data.frontMatter as ExercisesAttributes;
 
       fs.writeFileSync(
         outputPath.replace('.md', '.json'),
-        JSON.stringify(data.frontMatter),
+        JSON.stringify(out),
         'utf-8',
       );
     }
@@ -234,6 +288,12 @@ function createFileFromConnetion() {
   fs.writeFileSync(
     'src/assets/index-map.json',
     JSON.stringify(dataMap),
+    'utf-8',
+  );
+
+  fs.writeFileSync(
+    'src/assets/exercises-map.json',
+    JSON.stringify(exercisesDataMap),
     'utf-8',
   );
 

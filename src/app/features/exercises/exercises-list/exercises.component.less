@@ -1,0 +1,37 @@
+main {
+  width: 100%;
+
+  nz-layout.base {
+    min-height: calc(100vh - 66px);
+    padding: 0 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+
+    .hero {
+      text-align: center;
+    }
+
+    .table-container {
+      max-width: 1200px;
+
+      nz-table {
+        width: 100%;
+
+        nz-tag {
+          margin: 0;
+        }
+
+        .tags {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 5px;
+        }
+      }
+    }
+  }
+}
