@@ -1,8 +1,9 @@
-@if (currentNode(); as currentNode) {
+@let node = currentNode();
+@if (node && node.breadCrumb.length > 1) {
   <nz-breadcrumb>
-    @for (title of currentNode.breadCrumb; track title) {
+    @for (title of node.breadCrumb; track title) {
       <nz-breadcrumb-item>
-        <a [routerLink]="currentNode.routerLink[$index]">
+        <a [routerLink]="node.routerLink[$index]">
           {{ title }}
         </a>
       </nz-breadcrumb-item>

@@ -24,7 +24,7 @@ title: 'ხელსაწყოები კლიენტის მხარ�
 ## ატრიბუცია
 
 - **ავტორი**: [ფრიდონ თეთრაძე](https://pridontetradze.com)
-- **თანაავტორი**: [კონსტანტინე დათუნიშვილი](https://konstantinedatunishvili.com)
+- **რედაქტორი**: [კონსტანტინე დათუნიშვილი](https://konstantinedatunishvili.com)
 
 <div style="text-align: center; margin-top: 100px;">
   This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
