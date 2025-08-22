@@ -1,0 +1,29 @@
+[
+  {
+    "input": [
+      {
+        "name": "nums",
+        "value": [2, 1, 4, 3, 5]
+      }
+    ],
+    "expected": [1, 2, 3, 4, 5]
+  },
+  {
+    "input": [
+      {
+        "name": "nums",
+        "value": [11, 50, 1, 5, 100]
+      }
+    ],
+    "expected": [1, 5, 11, 50, 100]
+  },
+  {
+    "input": [
+      {
+        "name": "nums",
+        "value": []
+      }
+    ],
+    "expected": []
+  }
+]
