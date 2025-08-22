@@ -1,0 +1,144 @@
+[
+  {
+    "input": [
+      {
+        "name": "items",
+        "value": [
+          {
+            "name": "Fanta",
+            "price": 1.9
+          },
+          {
+            "name": "Coca-Cola",
+            "price": 1.8
+          },
+          {
+            "name": "Sprite",
+            "price": 2
+          },
+          {
+            "name": "Pepsi",
+            "price": 1.6
+          }
+        ]
+      },
+      {
+        "name": "key",
+        "value": "price"
+      }
+    ],
+    "expected": [
+      {
+        "name": "Pepsi",
+        "price": 1.6
+      },
+
+      {
+        "name": "Coca-Cola",
+        "price": 1.8
+      },
+      {
+        "name": "Fanta",
+        "price": 1.9
+      },
+      {
+        "name": "Sprite",
+        "price": 2
+      }
+    ]
+  },
+  {
+    "input": [
+      {
+        "name": "items",
+        "value": [
+          {
+            "name": "Fanta",
+            "price": 1.9
+          },
+          {
+            "name": "Coca-Cola",
+            "price": 1.8
+          },
+          {
+            "name": "Sprite",
+            "price": 2
+          },
+          {
+            "name": "Pepsi",
+            "price": 1.6
+          }
+        ]
+      },
+      {
+        "name": "key",
+        "value": "name"
+      }
+    ],
+    "expected": [
+      {
+        "name": "Coca-Cola",
+        "price": 1.8
+      },
+      {
+        "name": "Fanta",
+        "price": 1.9
+      },
+      {
+        "name": "Pepsi",
+        "price": 1.6
+      },
+      {
+        "name": "Sprite",
+        "price": 2
+      }
+    ]
+  },
+  {
+    "input": [
+      {
+        "name": "items",
+        "value": [
+          {
+            "name": "Fanta",
+            "price": 1.9
+          },
+          {
+            "name": "Coca-Cola",
+            "price": 1.8
+          },
+          {
+            "name": "Sprite",
+            "price": 2
+          },
+          {
+            "name": "Pepsi",
+            "price": 1.6
+          }
+        ]
+      },
+      {
+        "name": "key",
+        "value": "tax"
+      }
+    ],
+    "expected": [
+      {
+        "name": "Fanta",
+        "price": 1.9
+      },
+      {
+        "name": "Coca-Cola",
+        "price": 1.8
+      },
+      {
+        "name": "Sprite",
+        "price": 2
+      },
+      {
+        "name": "Pepsi",
+        "price": 1.6
+      }
+    ]
+  }
+]

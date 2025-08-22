@@ -1,7 +1,7 @@
 /**
  * @param {number[]} nums
- * @return UPDATE_ME
+ * @return {number[]}
  */
-function sortArrayNumberAscending(nums) {
+function sortArrayNumberDescending(nums) {
 
 }
