@@ -1,7 +1,7 @@
 ---
 title: 'ობიექტების მასივის დალაგება კლებადობით'
 description: 'ობიექტების მასივის კლებადობით დალაგება, გადაცემული პარამეტრიდან გამომდინარე'
-difficulty: 'medium'
+difficulty: 'easy'
 tags: ['loop', 'array']
 keywords: 'loop, array, sort'
 ---

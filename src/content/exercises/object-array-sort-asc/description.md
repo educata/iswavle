@@ -1,7 +1,7 @@
 ---
 title: 'ობიექტების მასივის დალაგება ზრდადობით'
 description: 'ობიექტების მასივის ზრდადობით დალაგება, გადაცემული პარამეტრიდან გამომდინარე'
-difficulty: 'medium'
+difficulty: 'easy'
 tags: ['loop', 'array']
 keywords: 'loop, array, sort'
 ---

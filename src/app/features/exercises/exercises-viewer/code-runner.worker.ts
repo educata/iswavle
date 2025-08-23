@@ -32,7 +32,10 @@ addEventListener('message', ({ data }) => {
         const args = testCase.input.map((i) => i.value);
         output = userFunction(...args);
       } catch (error) {
-        error = error instanceof Error ? error.message : String(error);
+        postMessage({
+          criticalError: error instanceof Error ? error.message : String(error),
+        });
+        return;
       }
 
       const end = Date.now();

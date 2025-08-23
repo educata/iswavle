@@ -68,12 +68,13 @@
   let-output="output"
   let-testCase="testCase"
   let-displayOutput="displayOutput"
+  let-passed="passed"
 >
   <div class="test-case-item">
     <aside class="test-case-item-inputs">
       <span class="test-case-item-label">პარამეტრები</span>
       @for (input of testCase.input; track $index) {
-        <div class="test-case-item-box">
+        <div class="test-case-item-box ant-alert-info">
           <span class="test-case-item-label">{{ input.name }} = </span>
           <span class="test-case-item-value">
             {{ input.value | json }}
@@ -81,22 +82,26 @@
         </div>
       }
     </aside>
+    <aside class="test-case-item-expected-result">
+      <span class="test-case-item-label">მოსალოდნელი შედეგი</span>
+      <div class="test-case-item-box ant-alert-info">
+        <span class="test-case-item-value">{{ testCase.expected | json }}</span>
+      </div>
+    </aside>
     @if (displayOutput) {
       <aside class="test-case-item-expected-result">
         <span class="test-case-item-label">მიღებული შედეგი</span>
-        <div class="test-case-item-box">
+        <div
+          class="test-case-item-box"
+          [class.ant-alert-success]="passed"
+          [class.ant-alert-warning]="!passed"
+        >
           <span class="test-case-item-value">
             {{ (output | json) || 'undefined' }}
           </span>
         </div>
       </aside>
     }
-    <aside class="test-case-item-expected-result">
-      <span class="test-case-item-label">მოსალოდნელი შედეგი</span>
-      <div class="test-case-item-box">
-        <span class="test-case-item-value">{{ testCase.expected | json }}</span>
-      </div>
-    </aside>
   </div>
 </ng-template>
 
@@ -192,7 +197,7 @@
         @if ('criticalError' in executionResult) {
           <div class="test-case-item">
             <span class="test-case-item-label"> კრიტიკული შეცდომა </span>
-            <div class="test-case-item-box error">
+            <div class="test-case-item-box ant-alert-error">
               {{ executionResult.criticalError }}
             </div>
           </div>
@@ -217,6 +222,7 @@
                 context: {
                   displayOutput: true,
                   output: result.output,
+                  passed: result.passed,
                   testCase: {
                     input: result.inputs,
                     expected: result.expected,
