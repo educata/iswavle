@@ -173,6 +173,7 @@ export default class ExercisesViewerComponent {
       this.isButtonDisabled.set(false);
       this.selectedTabIndex.set(0);
       this.lastExecutionResult.set({
+        logs: [],
         criticalError:
           'შეიძლება კოდი გაილუპა ან საჭიროებს 10 წამზე მეტს. სცადეთ თავიდან განსხვავებული კოდით.',
       });

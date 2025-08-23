@@ -39,8 +39,10 @@ export interface ExercisesExecutionResult {
   runtime: number;
   passed: boolean;
   error: string | null;
+  logs: string[];
 }
 
 export interface ExercisesExecutionResultError {
   criticalError: string;
+  logs: string[];
 }

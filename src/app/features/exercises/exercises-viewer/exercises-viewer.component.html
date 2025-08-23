@@ -65,10 +65,11 @@
 
 <ng-template
   #testCaseTemplate
+  let-logs="logs"
   let-output="output"
+  let-passed="passed"
   let-testCase="testCase"
   let-displayOutput="displayOutput"
-  let-passed="passed"
 >
   <div class="test-case-item">
     <aside class="test-case-item-inputs">
@@ -88,6 +89,7 @@
         <span class="test-case-item-value">{{ testCase.expected | json }}</span>
       </div>
     </aside>
+    <ng-container *ngTemplateOutlet="logsTpl; context: { logs }"></ng-container>
     @if (displayOutput) {
       <aside class="test-case-item-expected-result">
         <span class="test-case-item-label">მიღებული შედეგი</span>
@@ -196,10 +198,18 @@
       <nz-tab nzTitle="ბოლო გაშვება">
         @if ('criticalError' in executionResult) {
           <div class="test-case-item">
-            <span class="test-case-item-label"> კრიტიკული შეცდომა </span>
-            <div class="test-case-item-box ant-alert-error">
-              {{ executionResult.criticalError }}
-            </div>
+            <aside class="test-case-item-expected-result">
+              <span class="test-case-item-label"> კრიტიკული შეცდომა </span>
+              <div class="test-case-item-box ant-alert-error">
+                {{ executionResult.criticalError }}
+              </div>
+            </aside>
+            <ng-container
+              *ngTemplateOutlet="
+                logsTpl;
+                context: { logs: executionResult.logs }
+              "
+            ></ng-container>
           </div>
         } @else {
           @for (result of executionResult; track $index) {
@@ -223,6 +233,7 @@
                   displayOutput: true,
                   output: result.output,
                   passed: result.passed,
+                  logs: result.logs,
                   testCase: {
                     input: result.inputs,
                     expected: result.expected,
@@ -245,4 +256,19 @@
       </nz-tab>
     }
   </nz-tabs>
+</ng-template>
+
+<ng-template #logsTpl let-logs="logs">
+  @if (logs?.length > 0) {
+    <aside class="test-case-item-expected-result">
+      <span class="test-case-item-label">
+        ლოგ{{ logs.length === 1 ? 'ი' : 'ები' }} (<code>console.log</code>)
+      </span>
+      <div class="test-case-item-box ant-alert-info">
+        @for (log of logs; track $index) {
+          <span class="test-case-item-value"> {{ log }}</span>
+        }
+      </div>
+    </aside>
+  }
 </ng-template>
