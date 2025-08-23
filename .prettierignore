@@ -6,5 +6,6 @@
 *.md
 *.lock
 
-src/content
+src/content/**/*.md
+src/content/**/*.js
 src/assets

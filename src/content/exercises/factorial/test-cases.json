@@ -1,0 +1,38 @@
+[
+  {
+    "input": [
+      {
+        "name": "n",
+        "value": 5
+      }
+    ],
+    "expected": 120
+  },
+  {
+    "input": [
+      {
+        "name": "n",
+        "value": 0
+      }
+    ],
+    "expected": 1
+  },
+  {
+    "input": [
+      {
+        "name": "n",
+        "value": 1
+      }
+    ],
+    "expected": 1
+  },
+  {
+    "input": [
+      {
+        "name": "n",
+        "value": 7
+      }
+    ],
+    "expected": 5040
+  }
+]

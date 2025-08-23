@@ -5,7 +5,7 @@ This generator will generate exercise base folder & files.
 Run following command:
 
 ```
-bun exercise-generator
+bun exercise:generate
 ```
 
 You will be prompted to enter:

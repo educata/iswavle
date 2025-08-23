@@ -36,6 +36,10 @@ nz-layout.base {
       overflow: hidden;
       overflow-y: auto;
 
+      &:has(:not(.is-mobile)) {
+        padding-right: 16px;
+      }
+
       &.is-mobile {
         max-height: 100%;
       }
@@ -67,12 +71,6 @@ nz-layout.base {
       flex-direction: column;
       gap: 8px;
       margin: 8px 0;
-      border: 1px solid var(--primary-color);
-      background-color: color-mix(
-        in srgb,
-        var(--primary-color) 25%,
-        transparent
-      );
 
       .test-case-item-label {
         font-size: 12px;
