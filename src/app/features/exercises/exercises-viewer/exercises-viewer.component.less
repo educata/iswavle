@@ -36,6 +36,10 @@ nz-layout.base {
       overflow: hidden;
       overflow-y: auto;
 
+      &:has(:not(.is-mobile)) {
+        padding-right: 16px;
+      }
+
       &.is-mobile {
         max-height: 100%;
       }
