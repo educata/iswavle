@@ -1,7 +1,7 @@
 ---
 title: 'ორი რიცხვის ჯამი'
 description: 'მოცემული მასივიდან იპოვეთ ორი განსხვავებული ელემენტი, რომელთა ჯამიც უდრის მოცემულ რიცხვს'
-difficulty: 'medium'
+difficulty: 'easy'
 tags: ['loop', 'array', 'dataStructures']
 keywords: 'ციკლი, მასივი'
 ---
