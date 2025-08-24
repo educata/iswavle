@@ -2,8 +2,8 @@
 title: 'Integer to Roman'
 description: 'მთელი რიცხვის რომაულ ფორმატში გადაყვანა'
 difficulty: 'medium'
-tags: ['number', 'string', 'loop', 'array']
-keywords: 'math, number, string, loop, array'
+tags: ['number', 'string', 'loop', 'array', 'hashtable', 'math']
+keywords: 'math, number, string, loop, array, math'
 ---
 
 მოცემულია მთელი რიცხვი `num`, რომელიც შეიძლება იყოს 1-დან 3999-მდე.
