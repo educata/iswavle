@@ -1,5 +1,6 @@
 ---
 title: 'შესავალი HTML-ში'
+keywords: 'HTML, CSS, მარკაპი, ელემენტები, თეგები, tags, markup, hypertext markup language'
 ---
 
 ## რა არის HTML?

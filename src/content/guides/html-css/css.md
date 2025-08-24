@@ -1,5 +1,7 @@
 ---
 title: 'შესავალი CSS-ში'
+description: 'რა არის CSS?'
+keywords: 'CSS, HTML, Cascading Style Sheets'
 ---
 
 ## რა არის CSS?

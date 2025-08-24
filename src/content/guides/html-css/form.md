@@ -1,7 +1,7 @@
 ---
 title: 'ფორმები'
 description: 'HTML ფორმების გამოყენება'
-keywords: 'input, working with input, post, get'
+keywords: 'input, working with input, post, get, ფორმები, ფორმა'
 ---
 
 ვებსაიტებზე ფორმები ერთ-ერთ ყველაზე მნიშვნელოვან როლს თამაშობენ: ისინი მომხარებელს საშუალებას აძლევენ,
