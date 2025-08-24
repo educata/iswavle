@@ -102,7 +102,7 @@ p {
 | `%`     | დამოკიდებულია მშობელი ელემენტის შესაბამისი თვისების მნიშვნელობის პროცენტზე.                                                              | 'PARENT_VALUE' \* ('მნიშვნელობა' / 100)    |
 
 :::info
-მიუხედავად ბევრი ერთეულისა მეტწილადად გამოიყენება შემდგომი მნიშვნელობები: `px`, `rem`, `em`, `vw`.
+მიუხედავად ბევრი ერთეულისა მეტწილადად გამოიყენება შემდეგი მნიშვნელობები: `px`, `rem`, `em`, `vw`.
 :::
 
 <iframe data-url="guides/html-css-text" data-search-params="style=font-size&data=%5B%2212px%22,%2218px%22,%22x-large%22,%222rem%22,%221.5em%22,%222rem%22,%224vw%22,%2260%25%22%5D" data-title="CSS ფონტის ზომის მაგალითი" data-height="600"></iframe>
@@ -145,7 +145,7 @@ CSS-ში გვაქვს ოთხი ძირითადი თვის
 <iframe data-url="guides/html-css-text" data-search-params="style=text-transform&data=%5B%22none%22,%22uppercase%22,%22lowercase%22,%22capitalize%22,%22full-width%22,%22math-auto%22%5D&text=LONDON.%20Michaelmas%20term%20lately%20over,%20and%20the%20Lord%20Chancellor%20sitting%20in%20Lincoln's%20Inn%20Hall.%0A%0A%CE%A3%20is%20a%20Greek%20letter%20and%20appears%20in%20%CE%9F%CE%94%CE%A5%CE%A3%CE%A3%CE%95%CE%A5%CE%A3.%20%CE%98%CE%B1%20%CF%80%CE%AC%CE%BC%CE%B5%20%CF%83%CF%84%CE%BF%20'%CE%98%CE%B5%CF%8A%CE%BA%CF%8C%20%CF%86%CE%B1%CE%90'%20%CE%AE%20%CF%83%CF%84%CE%B7%20'%CE%9D%CE%B5%CF%81%CE%AC%CE%B9%CE%B4%CE%B1'%0A%0A%E3%82%A1%E3%82%A3%E3%82%A5%E3%82%A7%20%E3%82%A9%E3%83%B5%E3%87%B0%E3%83%B6" data-title="CSS ფონტის ტრანსფორმაციის მაგალითი" data-height="460"></iframe>
 
 :::info
-`full-width` მუშაობს მხოლოდ შემდგომ ბრაუზერებში: [firefix](https://www.mozilla.org/en-US/firefox/new/), [safari](https://www.apple.com/safari/) და IOS WebView.
+`full-width` მუშაობს მხოლოდ შემდეგ ბრაუზერებში: [firefix](https://www.mozilla.org/en-US/firefox/new/), [safari](https://www.apple.com/safari/) და IOS WebView.
 `math-auto` არ მუშაობს safari ბრაუზერში.
 :::
 
@@ -204,7 +204,7 @@ p {
 }
 ```
 
-თუ მხოლოდ რიცხვს გადავცემთ მაშინ თვისება მიიღებს მნიშვნელობას შემდგომი ფორმულით:
+თუ მხოლოდ რიცხვს გადავცემთ მაშინ თვისება მიიღებს მნიშვნელობას შემდეგი ფორმულით:
 
 ```
 font-size * line-height
@@ -234,7 +234,7 @@ p {
 }
 ```
 
-ეს კოდი აერთიანებს შემდგომ თვისებებს: [`font-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/font-style),
+ეს კოდი აერთიანებს შემდეგ თვისებებს: [`font-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/font-style),
 [`font-variant`](https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant),
 [`font-weight`](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight),
 [`font-stretch`](https://developer.mozilla.org/en-US/docs/Web/CSS/font-stretch),

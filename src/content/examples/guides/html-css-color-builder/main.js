@@ -125,7 +125,7 @@ function initType(defaultModel) {
   }
 
   console.warn(
-    `არასწორი მოდელის ტიპი, აირჩიეთ შემდგომი ტიპებიდან: ${Object.keys(MODEL_CONFIG).join(', ')}`,
+    `არასწორი მოდელის ტიპი, აირჩიეთ შემდეგი ტიპებიდან: ${Object.keys(MODEL_CONFIG).join(', ')}`,
   );
 
   return defaultModel;

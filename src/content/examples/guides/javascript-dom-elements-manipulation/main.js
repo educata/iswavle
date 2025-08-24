@@ -49,7 +49,7 @@ colorSelect.addEventListener('change', function () {
 });
 
 function getRandomColor() {
-  // დავაგენერიროთ შემთხვევითი რიცხვი 0 - 256, შემდგომ კი შევფუთოთ rgb ფორმატში
+  // დავაგენერიროთ შემთხვევითი რიცხვი 0 - 256, შემდეგ კი შევფუთოთ rgb ფორმატში
   const r = Math.floor(Math.random() * 256);
   const g = Math.floor(Math.random() * 256);
   const b = Math.floor(Math.random() * 256);

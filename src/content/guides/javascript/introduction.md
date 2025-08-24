@@ -17,7 +17,7 @@ JavasScript არის პროგრამირების ინტერ
 
 ## სად გამოიყენება JavaScript
 
-JavaScript შესაძლებელია გამოვიყენოთ, როგორც კლიენტის მხარეს ასევე სერვერის მხარესაც. კლიენტის მხარეს სხვადასხვა ტიპის ინფორმაციის დამუშავებისათვის შეგვიძლია გამოვიყენოთ [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model), ასევე [Web APIs](https://developer.mozilla.org/en-US/docs/Web/API) და სერვერთან დაკავშირებისთვის [API](https://developer.mozilla.org/en-US/docs/Glossary/API). JavaScript-ზე დაყრდნობით შეიქმნა, არაერთი ბიბლიოთეკა([Library](<https://en.wikipedia.org/wiki/Library_(computing)>)) და ფრეიმვორკი([Framework](https://en.wikipedia.org/wiki/Software_framework)), რაც დეველოპერებს ეხმარება სხვადასხვა ტიპის ვებ-გვერდების აწყობაში. სერვერის მხარეს Node.js დაყრდნობით, შესაძლებელი გახდა სხვადასხვა ტიპის API სერვისების აწყობა, რაც შემდგომ ისევ გამოიყენება კლიენტის მხარეს.
+JavaScript შესაძლებელია გამოვიყენოთ, როგორც კლიენტის მხარეს ასევე სერვერის მხარესაც. კლიენტის მხარეს სხვადასხვა ტიპის ინფორმაციის დამუშავებისათვის შეგვიძლია გამოვიყენოთ [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model), ასევე [Web APIs](https://developer.mozilla.org/en-US/docs/Web/API) და სერვერთან დაკავშირებისთვის [API](https://developer.mozilla.org/en-US/docs/Glossary/API). JavaScript-ზე დაყრდნობით შეიქმნა, არაერთი ბიბლიოთეკა([Library](<https://en.wikipedia.org/wiki/Library_(computing)>)) და ფრეიმვორკი([Framework](https://en.wikipedia.org/wiki/Software_framework)), რაც დეველოპერებს ეხმარება სხვადასხვა ტიპის ვებ-გვერდების აწყობაში. სერვერის მხარეს Node.js დაყრდნობით, შესაძლებელი გახდა სხვადასხვა ტიპის API სერვისების აწყობა, რაც შემდეგ ისევ გამოიყენება კლიენტის მხარეს.
 
 ## JavaScript-ის სტანდარტი
 

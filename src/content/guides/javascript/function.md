@@ -19,7 +19,7 @@ keywords: 'functions, return, default params, void functions, scope, hoisting, h
 
 ## ფუნქციის აღწერა
 
-ფუნქციის აღსაწერად გამოიყენება `function` ქივორდი (keyword), რომლის შემდგომაც კეთდება შემდომგი ჩანაწერი:
+ფუნქციის აღსაწერად გამოიყენება `function` ქივორდი (keyword), რომლის შემდეგაც კეთდება შემდომგი ჩანაწერი:
 
 - ფუნქციის სახელი ([Camel case-ს სტილს](./doc/guides/javascript/variable#ცვლადის_სახელის_სტილი))
 - პარამეტრების სია, რომელიც ჩაწერილი იქნება `()` ფრჩხილებში, თითოეული პარამეტრის განსაცალკევებლად გამოიყენება `,` (მძიმე).
@@ -80,7 +80,7 @@ console.log(sum(2, 2)); // 4
 ## ფუნქციის ექსპრეშენები
 
 ფუნქციის აღწერა არამხოლოდ იმ გზით არის შესაძლებელი, რაც მანამდე განვიხილეთ, არამედ შესაძლოა შეიქმნას ასევე ფუნქციის ექსფრეშენებით (გამოსახულებები).
-ფუნქცია შესაძლოა იყოს [ანონიმური](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions), როცა მას არ გააჩნია სახელი. მაგალითისთვის შესაძლოა ჩვენი ფუნქცია აგვეღწერა შემდგომ ნაირად:
+ფუნქცია შესაძლოა იყოს [ანონიმური](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions), როცა მას არ გააჩნია სახელი. მაგალითისთვის შესაძლოა ჩვენი ფუნქცია აგვეღწერა შემდეგ ნაირად:
 
 ```js
 const square = function (number) {
@@ -167,7 +167,7 @@ pow ფუნქცია რეკურსიულად იძახებ�
 ## ჰანოის კოშკი რეკურსიულად
 
 ალბათ ერთხელ მაინც ყველას გვითამაშია [ჰანოის კოშკი](https://en.wikipedia.org/wiki/Tower_of_Hanoi). მისი იდეა მარტივია ერთი საყრდენი ჯოხიდან უნდა გადავიტანოთ
-რგოლები მეორე საყრდენ ჯოხზე ისე, რომ რამოდენიმე წესი არ დავარღვიოთ. წესები შემდგომია:
+რგოლები მეორე საყრდენ ჯოხზე ისე, რომ რამოდენიმე წესი არ დავარღვიოთ. წესები შემდეგია:
 
 - ერთ გადატანაზე გადაგვაქვს მხოლოდ ერთი რგოლი.
 - დიდ რგოლს, პატარა რგოლზე ვერ დავდებთ.
@@ -181,7 +181,7 @@ pow ფუნქცია რეკურსიულად იძახებ�
 
 `arrow` ფუნქცია არის ალტერნატივა ჩვეულებრივი [ფუნქციის](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions), მცირედი მოდიფიცირებებით. მისი სინტაქსი შემოკლდა და შეიცვალა მცირედადა გამოყენებების სტანდარტები:
 
-- `arrow` ფუნქციას არ გააჩნია თავიანთი: [`this`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) (განხილული არის შემდგომ თავშიც), [`arguments`](https://developer.mozilla.org/en-US/docs/Glossary/Argument), [`super`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super) და არ შეიძლება მათი გამოყენება, როგორც [მეთოდების](./doc/guides/javascript/object-basics#ობიეტქის_მეთოდები) სახით.
+- `arrow` ფუნქციას არ გააჩნია თავიანთი: [`this`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) (განხილული არის შემდეგ თავშიც), [`arguments`](https://developer.mozilla.org/en-US/docs/Glossary/Argument), [`super`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super) და არ შეიძლება მათი გამოყენება, როგორც [მეთოდების](./doc/guides/javascript/object-basics#ობიეტქის_მეთოდები) სახით.
 - `arrow` ფუნქციას ვერ გამოვიყენებთ, როგორც [`constructor`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor). მათი გამოძახება [`new`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new) თანხლებით გამოიტანს [`TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError)-ს.
 - `arrow` ფუნქცია არ შეიძლება იყოს გამოყენებული [`yield`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield) შიგნით და არ შეიძლება მათი გამოყენება, როგორც გენერატორი ფუნქცია.
 
@@ -217,7 +217,7 @@ const printHere = () => {
 };
 
 printHere(); // დაილოგება "Here"
-// შემდგომ სტატიებში იქნება უფრო მეტი მაგალითი განხილული
+// შემდეგ სტატიებში იქნება უფრო მეტი მაგალითი განხილული
 ```
 
 ## ასინქრონული ფუნქციები
