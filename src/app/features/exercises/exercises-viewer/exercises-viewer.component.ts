@@ -20,6 +20,7 @@ import {
   ExercisesContent,
   ExercisesExecutionResult,
   ExercisesExecutionResultError,
+  ExerciseStorageContent,
 } from '@app-shared/interfaces';
 import { LoaderComponent } from '@app-shared/ui';
 import { ContentDirective } from '@app-shared/directives';
@@ -86,11 +87,11 @@ export default class ExercisesViewerComponent {
     code: this.fb.control(''),
   });
 
-  readonly selectedTabIndex = signal(0);
+  readonly hasSolved = signal(false);
   readonly isButtonDisabled = signal(false);
-  readonly lastExecutionResult = signal<
-    ExercisesExecutionResult[] | ExercisesExecutionResultError | null
-  >(null);
+  readonly lastExecutionResult = signal<ExercisesExecutionResult[] | null>(
+    null,
+  );
   readonly isWideScreen = this.layoutService.isWideScreen;
   readonly exercisesContent = toSignal(this.exercisesContent$);
   readonly editorTheme = toSignal(this.themeService.editorTheme$);
@@ -112,9 +113,12 @@ export default class ExercisesViewerComponent {
       const exercisesContent = this.exercisesContent();
       if (exercisesContent) {
         if (this.isBrowser) {
-          const localStorageCode = localStorage.getItem(
+          const storageData = localStorage.getItem(
             `${LocalStorageKeys.ExercisePrefix}${this.exerciseName}`,
           );
+          const localStorageCode = storageData
+            ? JSON.parse(storageData)?.code
+            : null;
           const code = localStorageCode || exercisesContent.data.starter;
           this.codeGroup.controls.code.setValue(code);
         }
@@ -135,12 +139,7 @@ export default class ExercisesViewerComponent {
         .pipe(
           debounceTime(500),
           distinctUntilChanged(),
-          tap((value) => {
-            localStorage.setItem(
-              `${LocalStorageKeys.ExercisePrefix}${this.exerciseName}`,
-              value || '',
-            );
-          }),
+          tap((value) => this.updateStorageData(value)),
         )
         .subscribe();
     }
@@ -166,33 +165,37 @@ export default class ExercisesViewerComponent {
     const testCases = exercisesContent?.data.testCases;
     const starter = exercisesContent?.data.starter;
     const worker = new Worker(new URL('./code-runner.worker', import.meta.url));
-    this.selectedTabIndex.set(1);
 
     const timeOut = setTimeout(() => {
       worker.terminate();
       this.isButtonDisabled.set(false);
-      this.selectedTabIndex.set(0);
-      this.lastExecutionResult.set({
-        logs: [],
-        criticalError:
-          'შეიძლება კოდი გაილუპა ან საჭიროებს 10 წამზე მეტს. სცადეთ თავიდან განსხვავებული კოდით.',
-      });
+      const lastExecution =
+        testCases?.map((testCase) => ({
+          inputs: [],
+          output: undefined,
+          expected: testCase.expected,
+          runtime: 0,
+          passed: false,
+          logs: [],
+          error:
+            'შეიძლება კოდი გაილუპა ან საჭიროებს 10 წამზე მეტს. სცადეთ თავიდან განსხვავებული კოდით.',
+        })) || null;
+      this.lastExecutionResult.set(lastExecution);
+      this.updateStorageData(code);
     }, 10000);
 
     worker.onmessage = ({ data }) => {
       clearTimeout(timeOut);
       worker.terminate();
       this.isButtonDisabled.set(false);
-      this.lastExecutionResult.set(data?.criticalError ? data : data.results);
-      this.selectedTabIndex.set(0);
+      this.lastExecutionResult.set(data.results);
 
-      if (!data?.criticalError) {
-        const passedEveryTestCase = data.results.every(
-          (result: ExercisesExecutionResult) => result.passed,
-        );
-        if (passedEveryTestCase) {
-          this.openCompletionModal();
-        }
+      const passedEveryTestCase = data.results.every(
+        (result: ExercisesExecutionResult) => result.passed,
+      );
+      if (passedEveryTestCase && data.results.length > 0) {
+        this.openCompletionModal();
+        this.updateStorageData(code, true);
       }
     };
 
@@ -205,6 +208,30 @@ export default class ExercisesViewerComponent {
 
   resetCode(exercise: ExercisesContent): void {
     this.codeGroup.controls.code.setValue(exercise.data.starter);
+    this.updateStorageData(exercise.data.starter, false);
+    this.lastExecutionResult.set(null);
+  }
+
+  private updateStorageData(
+    code: string | null,
+    solved: boolean | null = null,
+  ): void {
+    const storageKey = `${LocalStorageKeys.ExercisePrefix}${this.exerciseName}`;
+
+    let hasSolved =
+      JSON.parse(localStorage.getItem(storageKey) || '')?.hasSolved || false;
+
+    if (solved !== null) {
+      hasSolved = solved;
+    }
+
+    const result: ExerciseStorageContent = {
+      hasSolved,
+      code: code || '',
+    };
+
+    localStorage.setItem(storageKey, JSON.stringify(result));
+    this.hasSolved.set(hasSolved);
   }
 
   private updateEditorLayout(): void {

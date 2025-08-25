@@ -68,6 +68,7 @@
   let-logs="logs"
   let-output="output"
   let-passed="passed"
+  let-error="error"
   let-testCase="testCase"
   let-displayOutput="displayOutput"
 >
@@ -104,6 +105,14 @@
         </div>
       </aside>
     }
+    @if (error) {
+      <aside class="test-case-item-expected-result">
+        <span class="test-case-item-label">კრიტიკული შეცდომა</span>
+        <div class="test-case-item-box ant-alert-error">
+          <span class="test-case-item-value">{{ error }}</span>
+        </div>
+      </aside>
+    }
   </div>
 </ng-template>
 
@@ -113,45 +122,53 @@
   let-isMobile="isMobile"
 >
   <aside class="task-description">
-    <div class="button-group">
-      <button
-        nz-button
-        nz-tooltip
-        nzTooltipTitle="კოდის გაშვება"
-        aria-label="კოდის გაშვება"
-        nzTooltipPlacement="bottom"
-        (click)="runCode()"
-      >
-        <span nz-icon nzType="sw:play" nzTheme="outline"></span>
-      </button>
-      <button
-        nz-button
-        nz-tooltip
-        nzTooltipTitle="კოდის გასუფთავება"
-        aria-label="კოდის გასუფთავება"
-        nzTooltipPlacement="bottom"
-        (click)="resetCode(exercise)"
-      >
-        <span nz-icon nzType="sw:reset" nzTheme="outline"></span>
-      </button>
-      <button
-        nz-button
-        nz-dropdown
-        nzPlacement="bottomLeft"
-        [nzDropdownMenu]="theme"
-      >
-        <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
-      </button>
-      <nz-dropdown-menu #theme="nzDropdownMenu">
-        <ul nz-menu>
-          <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
-          @for (theme of editorThemeOptions; track theme) {
-            <li nz-menu-item (click)="changeTheme(theme)">
-              {{ theme }}
-            </li>
-          }
-        </ul>
-      </nz-dropdown-menu>
+    <div class="actions">
+      <div class="button-group">
+        <button
+          nz-button
+          nz-tooltip
+          nzTooltipTitle="კოდის გაშვება"
+          aria-label="კოდის გაშვება"
+          nzTooltipPlacement="bottom"
+          (click)="runCode()"
+        >
+          <span nz-icon nzType="sw:play" nzTheme="outline"></span>
+        </button>
+        <button
+          nz-button
+          nz-tooltip
+          nzTooltipTitle="კოდის გასუფთავება"
+          aria-label="კოდის გასუფთავება"
+          nzTooltipPlacement="bottom"
+          (click)="resetCode(exercise)"
+        >
+          <span nz-icon nzType="sw:reset" nzTheme="outline"></span>
+        </button>
+        <button
+          nz-button
+          nz-dropdown
+          nzPlacement="bottomLeft"
+          [nzDropdownMenu]="theme"
+        >
+          <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
+        </button>
+        <nz-dropdown-menu #theme="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
+            @for (theme of editorThemeOptions; track theme) {
+              <li nz-menu-item (click)="changeTheme(theme)">
+                {{ theme }}
+              </li>
+            }
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+      @if (hasSolved()) {
+        <p>
+          <span>ამოხსნილია</span>
+          <span class="icon" nz-icon nzType="sw:check" nzTheme="outline"></span>
+        </p>
+      }
     </div>
     <div class="attributes">
       <nz-tag [nzColor]="$any(colors)[exercise.data.attributes.difficulty]">
@@ -190,70 +207,46 @@
 </ng-template>
 
 <ng-template #testsTabsTpl let-exercise="exercise">
-  <nz-tabs
-    [nzSelectedIndex]="selectedTabIndex()"
-    (nzSelectedIndexChange)="selectedTabIndex.set($event)"
-  >
+  <nz-tabs>
     @if (executionResult) {
-      <nz-tab nzTitle="ბოლო გაშვება">
-        @if ('criticalError' in executionResult) {
+      @for (result of executionResult; track $index) {
+        <nz-tab
+          nzTitle="ტესტი {{ $index + 1 }} {{ result.passed ? '✔️' : '❌' }}"
+        >
           <div class="test-case-item">
-            <aside class="test-case-item-expected-result">
-              <span class="test-case-item-label"> კრიტიკული შეცდომა </span>
-              <div class="test-case-item-box ant-alert-error">
-                {{ executionResult.criticalError }}
-              </div>
-            </aside>
-            <ng-container
-              *ngTemplateOutlet="
-                logsTpl;
-                context: { logs: executionResult.logs }
-              "
-            ></ng-container>
+            <p class="test-case-item-label">
+              გაშვების დრო: {{ result.runtime }} მილიწამი
+            </p>
           </div>
-        } @else {
-          @for (result of executionResult; track $index) {
-            <nz-divider
-              nzText="ტესტი {{ $index + 1 }}"
-              nzOrientation="left"
-            ></nz-divider>
-            <div class="test-case-item">
-              <p class="test-case-item-label">
-                ტესტი
-                {{ result.passed ? 'წარმატებულია ✔️' : 'წარუმატებელია ❌' }}
-              </p>
-              <p class="test-case-item-label">
-                გაშვების დრო: {{ result.runtime }} მილიწამი
-              </p>
-            </div>
-            <ng-container
-              *ngTemplateOutlet="
-                testCaseTemplate;
-                context: {
-                  displayOutput: true,
-                  output: result.output,
-                  passed: result.passed,
-                  logs: result.logs,
-                  testCase: {
-                    input: result.inputs,
-                    expected: result.expected,
-                  },
-                }
-              "
-            ></ng-container>
-          }
-        }
-      </nz-tab>
-    }
-    @for (testCase of exercise.data.testCases; track $index) {
-      <nz-tab nzTitle="ტესტი {{ $index + 1 }}">
-        <ng-container
-          *ngTemplateOutlet="
-            testCaseTemplate;
-            context: { testCase, displayOutput: false }
-          "
-        ></ng-container>
-      </nz-tab>
+          <ng-container
+            *ngTemplateOutlet="
+              testCaseTemplate;
+              context: {
+                displayOutput: true,
+                output: result.output,
+                passed: result.passed,
+                error: result.error,
+                logs: result.logs,
+                testCase: {
+                  input: result.inputs,
+                  expected: result.expected,
+                },
+              }
+            "
+          ></ng-container>
+        </nz-tab>
+      }
+    } @else {
+      @for (testCase of exercise.data.testCases; track $index) {
+        <nz-tab nzTitle="ტესტი {{ $index + 1 }}">
+          <ng-container
+            *ngTemplateOutlet="
+              testCaseTemplate;
+              context: { testCase, displayOutput: false }
+            "
+          ></ng-container>
+        </nz-tab>
+      }
     }
   </nz-tabs>
 </ng-template>

@@ -21,6 +21,29 @@ nz-layout.base {
     align-items: flex-start;
     gap: 20px;
 
+    .actions {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+
+      p {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+
+        span {
+          &.icon {
+            color: green;
+          }
+        }
+      }
+    }
+
     .attributes {
       display: flex;
       flex-wrap: wrap;

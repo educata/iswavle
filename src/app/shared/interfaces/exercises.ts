@@ -46,3 +46,8 @@ export interface ExercisesExecutionResultError {
   criticalError: string;
   logs: string[];
 }
+
+export interface ExerciseStorageContent {
+  code: string;
+  hasSolved: boolean;
+}
