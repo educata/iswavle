@@ -123,45 +123,12 @@
 >
   <aside class="task-description">
     <div class="actions">
-      <div class="button-group">
-        <button
-          nz-button
-          nz-tooltip
-          nzTooltipTitle="კოდის გაშვება"
-          aria-label="კოდის გაშვება"
-          nzTooltipPlacement="bottom"
-          (click)="runCode()"
-        >
-          <span nz-icon nzType="sw:play" nzTheme="outline"></span>
+      <div class="other-exercises button-group">
+        <button nz-button>
+          <nz-icon nzType="menu-unfold" nzTheme="outline" />
         </button>
-        <button
-          nz-button
-          nz-tooltip
-          nzTooltipTitle="კოდის გასუფთავება"
-          aria-label="კოდის გასუფთავება"
-          nzTooltipPlacement="bottom"
-          (click)="resetCode(exercise)"
-        >
-          <span nz-icon nzType="sw:reset" nzTheme="outline"></span>
-        </button>
-        <button
-          nz-button
-          nz-dropdown
-          nzPlacement="bottomLeft"
-          [nzDropdownMenu]="theme"
-        >
-          <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
-        </button>
-        <nz-dropdown-menu #theme="nzDropdownMenu">
-          <ul nz-menu>
-            <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
-            @for (theme of editorThemeOptions; track theme) {
-              <li nz-menu-item (click)="changeTheme(theme)">
-                {{ theme }}
-              </li>
-            }
-          </ul>
-        </nz-dropdown-menu>
+        <button nz-button>წინა</button>
+        <button nz-button>შემდეგი</button>
       </div>
       @if (hasSolved()) {
         <p>
@@ -208,6 +175,49 @@
 
 <ng-template #testsTabsTpl let-exercise="exercise">
   <nz-tabs>
+    <div
+      *nzTabBarExtraContent="'start'"
+      class="button-group tab-button-content"
+    >
+      <button
+        nz-button
+        nz-tooltip
+        nzTooltipTitle="კოდის გაშვება"
+        aria-label="კოდის გაშვება"
+        nzTooltipPlacement="bottom"
+        (click)="runCode()"
+      >
+        <span nz-icon nzType="sw:play" nzTheme="outline"></span>
+      </button>
+      <button
+        nz-button
+        nz-tooltip
+        nzTooltipTitle="კოდის გასუფთავება"
+        aria-label="კოდის გასუფთავება"
+        nzTooltipPlacement="bottom"
+        (click)="resetCode(exercise)"
+      >
+        <span nz-icon nzType="sw:reset" nzTheme="outline"></span>
+      </button>
+      <button
+        nz-button
+        nz-dropdown
+        nzPlacement="bottomLeft"
+        [nzDropdownMenu]="theme"
+      >
+        <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
+      </button>
+      <nz-dropdown-menu #theme="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
+          @for (theme of editorThemeOptions; track theme) {
+            <li nz-menu-item (click)="changeTheme(theme)">
+              {{ theme }}
+            </li>
+          }
+        </ul>
+      </nz-dropdown-menu>
+    </div>
     @if (executionResult) {
       @for (result of executionResult; track $index) {
         <nz-tab
