@@ -91,14 +91,13 @@ function generate() {
     lastmod: repoFallback,
   });
 
-  // Discover docs and exercises by scanning built assets
-  const assetsRoot = resolve('src', 'assets');
+  const contentRoot = resolve('src', 'content');
 
-  // Docs: guides and references .html files map to /doc/<relative>
   const docSections = ['guides', 'references'];
   for (const section of docSections) {
-    const secDir = resolve(assetsRoot, section);
-    const topFile = resolve(assetsRoot, `${section}.html`);
+    const secDir = resolve(contentRoot, section);
+    const topFile = resolve(contentRoot, `${section}.md`);
+
     if (existsSync(topFile)) {
       const lastmod = gitLastModForPath(topFile) || repoFallback;
       push(`/doc/${section}`, {
@@ -107,6 +106,7 @@ function generate() {
         lastmod,
       });
     }
+
     if (!existsSync(secDir)) continue;
 
     const stack: string[] = [secDir];
@@ -117,9 +117,9 @@ function generate() {
         const full = resolve(dir, ent.name);
         if (ent.isDirectory()) {
           stack.push(full);
-        } else if (ent.isFile() && ent.name.endsWith('.html')) {
-          const rel = relative(assetsRoot, full).replace(/\\/g, '/');
-          const route = '/doc/' + rel.replace(/\.html$/i, '');
+        } else if (ent.isFile() && ent.name.endsWith('.md')) {
+          const rel = relative(secDir, full).replace(/\\/g, '/');
+          const route = '/doc/' + section + '/' + rel.replace(/\.md$/i, '');
           const lastmod = gitLastModForPath(full) || repoFallback;
           push(route, {
             priority: priority.docs,
@@ -131,16 +131,22 @@ function generate() {
     }
   }
 
-  // Exercises: each folder with description.html -> /exercises/<slug>
-  const exRoot = resolve(assetsRoot, 'exercises');
+  const exRoot = resolve(contentRoot, 'exercises');
   if (existsSync(exRoot)) {
     const entries = readdirSync(exRoot, { withFileTypes: true });
     for (const ent of entries) {
       if (!ent.isDirectory()) continue;
       const slug = ent.name;
-      const desc = resolve(exRoot, slug, 'description.html');
-      if (existsSync(desc)) {
-        const lastmod = gitLastModForPath(desc) || repoFallback;
+
+      const candidates = [
+        resolve(exRoot, slug, 'description.md'),
+        resolve(exRoot, slug, 'index.md'),
+        resolve(exRoot, slug, 'README.md'),
+      ];
+
+      const descFile = candidates.find(existsSync);
+      if (descFile) {
+        const lastmod = gitLastModForPath(descFile) || repoFallback;
         push(`/exercises/${slug}`, {
           priority: priority.exercises,
           changefreq: 'monthly',
