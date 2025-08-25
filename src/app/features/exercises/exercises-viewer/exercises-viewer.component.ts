@@ -19,7 +19,6 @@ import { LocalStorageKeys } from '@app-shared/enums';
 import {
   ExercisesContent,
   ExercisesExecutionResult,
-  ExercisesExecutionResultError,
   ExerciseStorageContent,
 } from '@app-shared/interfaces';
 import { LoaderComponent } from '@app-shared/ui';

@@ -69,10 +69,17 @@ addEventListener('message', ({ data }) => {
       results,
     });
   } catch (error) {
-    postMessage({
-      criticalError: error instanceof Error ? error.message : String(error),
-      logs: [...logs],
-    });
+    postMessage(
+      testCases?.map((testCase) => ({
+        inputs: [],
+        output: undefined,
+        expected: testCase.expected,
+        runtime: 0,
+        passed: false,
+        logs: [],
+        error: (error as Error).message,
+      })) || null,
+    );
     logs.splice(0);
   }
 });

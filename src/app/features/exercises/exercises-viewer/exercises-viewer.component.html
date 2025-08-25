@@ -90,7 +90,6 @@
         <span class="test-case-item-value">{{ testCase.expected | json }}</span>
       </div>
     </aside>
-    <ng-container *ngTemplateOutlet="logsTpl; context: { logs }"></ng-container>
     @if (displayOutput) {
       <aside class="test-case-item-expected-result">
         <span class="test-case-item-label">მიღებული შედეგი</span>
@@ -113,6 +112,7 @@
         </div>
       </aside>
     }
+    <ng-container *ngTemplateOutlet="logsTpl; context: { logs }"></ng-container>
   </div>
 </ng-template>
 
