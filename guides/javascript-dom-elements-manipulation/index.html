@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Javascript DOM elements manipulation</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <p class="quote">
+      დღევანდელი შემთხვევითი ციტატა: ვების სწავლა
+      <a href="https://iswavle.com">iswavle.com</a>-ზე მარტივია
+    </p>
+    <p>დღეს <span id="weatherResult">...</span> ამინდია</p>
+    <button id="goodBtn">კარგი</button>
+    <button id="badBtn">ცუდი</button>
+    <p class="weather-text">
+      დღეს კარგი ამინდია<span style="display: none">
+        მაგრამ გაწვიმებას აპირებს</span
+      >
+    </p>
+    <p>მცდელობა პირველი: <span id="firstResult"></span></p>
+    <p>მცდელობა მეორე: <span id="secondResult"></span></p>
+    <p>მცდელობა მესამე: <span id="thirdResult"></span></p>
+    <button id="renderBtn">დავარენდეროთ კონტენტი</button>
+    <div class="box"></div>
+    <p>საინტერესო <span id="dynamicStyle">ტექსტი</span></p>
+    <div>
+      <label for="fontSize">ფონტის ზომა</label>
+      <input
+        type="number"
+        id="fontSize"
+        name="fontSize"
+        placeholder="ფონტის ზომა"
+      />
+    </div>
+    <div>
+      <label for="color">ფერის ცვლილება</label>
+      <select id="color" name="color">
+        <option value="steelblue">ლურჯი</option>
+        <option value="green">მწვანე</option>
+        <option value="black">შავი</option>
+        <option value="random">შემთხვევითი</option>
+      </select>
+    </div>
+    <button id="getAttrBtn" data-count="2">ატრიბუტის დალოგვა</button>
+    <button id="setAttrBtn">ატრიბუტის დამატება</button>
+    <button id="removeAttrBtn" data-count="2">ატრიბუტის წაშლა</button>
+    <button id="hasAttrBtn" data-count="2">ატრიბუტის წაშლა</button>
+    <div id="user" data-id="123456789"></div>
+    <div id="addClassContainer"></div>
+    <button id="addClass">დავამატოთ კლასი</button>
+    <div id="removeClassContainer" class="animate"></div>
+    <button id="removeClass">წავშალოთ კლასი</button>
+    <div id="toggleClassContainer" class="animate"></div>
+    <button id="toggleClass">toggle კლასი</button>
+    <div id="checkOnClass" class="animate"></div>
+    <article>
+      <p>საინტერესო სტატია</p>
+    </article>
+    <p id="removeParagraph">არასაჭირო პარაგრაფი</p>
+    <button id="removeParagraphBtn">წაშლა</button>
+    <p id="removeParagraph2">არასაჭირო პარაგრაფი</p>
+    <button id="removeParagraphBtn2">წაშლა</button>
+    <p id="removeParagraph3">არასაჭირო პარაგრაფი</p>
+    <button id="removeParagraphBtn3">წაშლა</button>
+    <div id="parent">
+      <div id="child"></div>
+    </div>
+    <button id="deleteFromParentNode">წაშალე შვილობილი ელემენტი</button>
+    <div id="parentNode">
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>4</div>
+      <div>5</div>
+    </div>
+    <button id="deleteAllNodeBtn">წაშალე შვილობილი ელემენტი</button>
+    <script src="./main.js"></script>
+  </body>
+</html>
