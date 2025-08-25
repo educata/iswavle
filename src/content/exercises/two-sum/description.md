@@ -2,8 +2,8 @@
 title: 'ორი რიცხვის ჯამი'
 description: 'მოცემული მასივიდან იპოვეთ ორი განსხვავებული ელემენტი, რომელთა ჯამიც უდრის მოცემულ რიცხვს'
 difficulty: 'medium'
-tags: ['loop', 'array', 'dataStructures']
-keywords: 'ციკლი, მასივი'
+tags: ['loop', 'array', 'dataStructures', 'hashtable']
+keywords: 'ციკლი, მასივი, hashtable'
 ---
 
 მოცემულია მთელი რიცხვების მასივი `nums` და მთელი რიცხვი `target`.
