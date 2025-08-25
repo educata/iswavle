@@ -216,9 +216,9 @@ export default class ExercisesViewerComponent {
     solved: boolean | null = null,
   ): void {
     const storageKey = `${LocalStorageKeys.ExercisePrefix}${this.exerciseName}`;
+    const storageItem = localStorage.getItem(storageKey) || '';
 
-    let hasSolved =
-      JSON.parse(localStorage.getItem(storageKey) || '')?.hasSolved || false;
+    let hasSolved = storageItem ? JSON.parse(storageItem).hasSolved : false;
 
     if (solved !== null) {
       hasSolved = solved;
@@ -227,6 +227,7 @@ export default class ExercisesViewerComponent {
     const result: ExerciseStorageContent = {
       hasSolved,
       code: code || '',
+      path: this.exerciseName,
     };
 
     localStorage.setItem(storageKey, JSON.stringify(result));

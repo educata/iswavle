@@ -6,9 +6,8 @@ export interface ExercisesNavigation extends ExercisesAttributes {
   routerLink: string;
 }
 
-export interface ExercisesTableData extends ExercisesAttributes {
-  fileName: string;
-  routerLink: string;
+export interface ExercisesTableData extends ExercisesNavigation {
+  hasSolved: boolean;
 }
 
 export interface ExercisesInput {
@@ -48,5 +47,6 @@ export interface ExercisesExecutionResult {
 
 export interface ExerciseStorageContent {
   code: string;
+  path: string;
   hasSolved: boolean;
 }

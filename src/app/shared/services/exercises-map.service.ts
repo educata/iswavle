@@ -27,11 +27,16 @@ export class ExercisesMapService
         firstValueFrom(
           this.httpClient.get<ExercisesMap>(path).pipe(
             map((data) => {
-              return this.exercisesNavigation.map((navigation) => ({
-                path: navigation.path,
-                routerLink: `/exercises/${navigation.path}`,
-                ...data[navigation.path],
-              }));
+              return this.exercisesNavigation.reduce((acc, navigation) => {
+                if (data[navigation.path]) {
+                  acc.push({
+                    path: navigation.path,
+                    routerLink: `/exercises/${navigation.path}`,
+                    ...data[navigation.path],
+                  });
+                }
+                return acc;
+              }, [] as ExercisesNavigation[]);
             }),
             catchError(() => {
               this.router.navigateByUrl('/404');

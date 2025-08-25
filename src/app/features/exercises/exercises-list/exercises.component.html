@@ -5,14 +5,12 @@
       <h1>შეამოწმე შენი ცოდნა</h1>
     </section>
     <section class="table-container">
-      <nz-table
-        #nzTable
-        nzTableLayout="fixed"
-        [nzData]="listOfDisplayData()"
-        ngSkipHydration
-      >
+      <nz-table #nzTable [nzData]="listOfDisplayData()" ngSkipHydration>
         <thead>
           <tr>
+            <th>
+              <span nz-icon nzType="sw:calendar" nzTheme="outline"></span>
+            </th>
             <th>სახელი</th>
             @if (!isMobile) {
               <th>აღწერა</th>
@@ -26,6 +24,16 @@
         <tbody>
           @for (data of nzTable.data; track data.path) {
             <tr>
+              <td>
+                @if (data.hasSolved) {
+                  <span
+                    nz-icon
+                    class="checked"
+                    nzType="sw:check"
+                    nzTheme="outline"
+                  ></span>
+                }
+              </td>
               <td>
                 <a [routerLink]="data.routerLink">{{ data.title }}</a>
               </td>
