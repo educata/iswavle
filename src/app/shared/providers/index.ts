@@ -7,3 +7,4 @@ export * from './doc-navigation';
 export * from './layout-sizes';
 export * from './exercises-map';
 export * from './exercises-loader';
+export * from './exercise-navigation';

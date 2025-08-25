@@ -5,16 +5,17 @@ import {
   computed,
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ExercisesMap, ExercisesTableData } from '@app-shared/interfaces';
+import { ExercisesNavigation } from '@app-shared/interfaces';
+import { ExerciseDifficultyPipe } from '@app-shared/pipes';
+import { EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
+import { ExercisesService, LayoutService } from '@app-shared/services';
 import { map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { presetColors } from 'ng-zorro-antd/core/color';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { ExerciseDifficultyPipe } from '@app-shared/pipes';
-import { EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
-import { LayoutService } from '@app-shared/services';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'sw-exercises',
@@ -24,6 +25,7 @@ import { LayoutService } from '@app-shared/services';
     NzLayoutModule,
     NzTableModule,
     NzTagModule,
+    NzIconModule,
   ],
   templateUrl: './exercises.component.html',
   styleUrl: './exercises.component.less',
@@ -32,12 +34,13 @@ import { LayoutService } from '@app-shared/services';
 export default class ExercisesComponent {
   private readonly layoutService = inject(LayoutService);
   private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly exerciseService = inject(ExercisesService);
   private readonly exercisesMap$ = this.activatedRoute.data.pipe(
-    map((response) => response['data'] as ExercisesMap),
+    map((response) => response['data'] as ExercisesNavigation[]),
   );
   private readonly exercisesMap = toSignal(this.exercisesMap$);
   readonly listOfDisplayData = computed(() =>
-    this.buildTableData(this.exercisesMap()),
+    this.exerciseService.getExerciseData(this.exercisesMap() || []),
   );
 
   readonly colors = {
@@ -48,16 +51,4 @@ export default class ExercisesComponent {
 
   readonly isWideScreen = this.layoutService.isWideScreen;
   readonly exerciseTagPathMap = EXERCISE_TAG_PATH_MAP;
-
-  private buildTableData(
-    exercisesMap: ExercisesMap | undefined,
-  ): ExercisesTableData[] {
-    if (!exercisesMap) return [];
-
-    return Object.entries(exercisesMap).map(([key, value]) => ({
-      ...value,
-      fileName: key,
-      routerLink: `/exercises/${key}`,
-    }));
-  }
 }
