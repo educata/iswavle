@@ -83,10 +83,13 @@ function generate() {
 
   const repoFallback = gitLastModRepo() || toISO(new Date());
 
-  // Core routes (fallback to repo last commit)
-  push('/', { priority: 1.0, changefreq: 'weekly', lastmod: repoFallback });
+  push('/', {
+    priority: priority.home,
+    changefreq: 'weekly',
+    lastmod: repoFallback,
+  });
   push('/exercises', {
-    priority: 0.8,
+    priority: priority.exercises,
     changefreq: 'weekly',
     lastmod: repoFallback,
   });
