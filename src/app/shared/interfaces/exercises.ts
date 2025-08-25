@@ -1,6 +1,10 @@
 import { ExercisesAttributes } from '@global-shared/interfaces';
 
 export type ExercisesMap = Record<string, ExercisesAttributes>;
+export interface ExercisesNavigation extends ExercisesAttributes {
+  path: string;
+  routerLink: string;
+}
 
 export interface ExercisesTableData extends ExercisesAttributes {
   fileName: string;

@@ -5,7 +5,7 @@ import {
   computed,
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ExercisesMap, ExercisesTableData } from '@app-shared/interfaces';
+import { ExercisesNavigation } from '@app-shared/interfaces';
 import { map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -33,12 +33,10 @@ export default class ExercisesComponent {
   private readonly layoutService = inject(LayoutService);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly exercisesMap$ = this.activatedRoute.data.pipe(
-    map((response) => response['data'] as ExercisesMap),
+    map((response) => response['data'] as ExercisesNavigation[]),
   );
   private readonly exercisesMap = toSignal(this.exercisesMap$);
-  readonly listOfDisplayData = computed(() =>
-    this.buildTableData(this.exercisesMap()),
-  );
+  readonly listOfDisplayData = computed(() => this.exercisesMap() || []);
 
   readonly colors = {
     easy: presetColors[5],
@@ -48,16 +46,4 @@ export default class ExercisesComponent {
 
   readonly isWideScreen = this.layoutService.isWideScreen;
   readonly exerciseTagPathMap = EXERCISE_TAG_PATH_MAP;
-
-  private buildTableData(
-    exercisesMap: ExercisesMap | undefined,
-  ): ExercisesTableData[] {
-    if (!exercisesMap) return [];
-
-    return Object.entries(exercisesMap).map(([key, value]) => ({
-      ...value,
-      fileName: key,
-      routerLink: `/exercises/${key}`,
-    }));
-  }
 }
