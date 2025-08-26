@@ -1,7 +1,7 @@
 @let isDesktop = isWideScreen();
 @let isMobile = !isDesktop;
 @let exercise = exercisesContent();
-@let exerciseList = exercisesList();
+@let searchResults = exerciseSearchResults();
 @let executionResult = lastExecutionResult();
 <nz-layout class="base exercises-viewer">
   @if (exercise; as exercise) {
@@ -311,9 +311,28 @@
     (nzOnClose)="isDrawerVisible.set(false)"
   >
     <ng-container *nzDrawerContent>
-      <section class="exercise-search"></section>
+      <section class="exercise-search">
+        <ng-template #suffixIconButtonTpl>
+          <button
+            nz-button
+            nzSearch
+            nzType="primary"
+            (click)="exerciseSearchControl.setValue('')"
+          >
+            <span nz-icon nzType="clear" nzTheme="outline"></span>
+          </button>
+        </ng-template>
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButtonTpl">
+          <input
+            nz-input
+            type="text"
+            placeholder="შეიყვანეთ საძიებო ტექსტი"
+            [formControl]="exerciseSearchControl"
+          />
+        </nz-input-group>
+      </section>
       <section class="exercise-list">
-        @for (item of exerciseList; track item.path) {
+        @for (item of searchResults; track item.path) {
           <a
             class="exercise-list-item"
             [routerLink]="['/exercises', item.path]"
@@ -338,6 +357,11 @@
               </nz-tag>
             </span>
           </a>
+        } @empty {
+          <p>
+            "<strong>{{ exerciseSearchControl.value }}</strong
+            >" -სთვის შედეგი ვერ მოიძებნა
+          </p>
         }
       </section>
     </ng-container>

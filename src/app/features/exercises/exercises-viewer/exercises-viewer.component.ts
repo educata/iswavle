@@ -19,7 +19,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ThemeService } from '@app-shared/services/theme.service';
 import { ExerciseDifficultyPipe } from '@app-shared/pipes';
-import { EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
+import { DIFFICULTY_TEXT, EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
 import { LocalStorageKeys } from '@app-shared/enums';
 import {
   ExercisesContent,
@@ -30,7 +30,13 @@ import {
 } from '@app-shared/interfaces';
 import { LoaderComponent } from '@app-shared/ui';
 import { ContentDirective } from '@app-shared/directives';
-import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  startWith,
+  tap,
+} from 'rxjs/operators';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import {
   NzCodeEditorComponent,
@@ -48,6 +54,7 @@ import { presetColors } from 'ng-zorro-antd/core/color';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 @Component({
   selector: 'sw-exercises-viewer',
@@ -63,6 +70,7 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
     NzIconModule,
     NzTabsModule,
     NzModalModule,
+    NzInputModule,
     NzResultModule,
     NzLayoutModule,
     NzDrawerModule,
@@ -106,6 +114,8 @@ export default class ExercisesViewerComponent {
     code: this.fb.control(''),
   });
 
+  readonly exerciseSearchControl = this.fb.control('');
+
   readonly isWideScreen = this.layoutService.isWideScreen;
 
   readonly hasSolved = signal(false);
@@ -117,6 +127,15 @@ export default class ExercisesViewerComponent {
   readonly exercisesContent = toSignal(this.exerciseContent$);
   readonly exercisesList = toSignal(this.exercisesList$);
   readonly editorTheme = toSignal(this.themeService.editorTheme$);
+
+  readonly exerciseSearchResults = toSignal(
+    this.exerciseSearchControl.valueChanges.pipe(
+      startWith(''),
+      debounceTime(300),
+      distinctUntilChanged(),
+      map((searchText) => this.filterExercises(searchText)),
+    ),
+  );
 
   readonly displayOtherExerciseNavigation = computed(() =>
     this.calculateNeighborExercises(
@@ -254,6 +273,23 @@ export default class ExercisesViewerComponent {
     if (path) {
       this.router.navigate(['/exercises', path]);
     }
+  }
+
+  private filterExercises(searchText: string | null): ExercisesTableData[] {
+    const list = this.exercisesList() || [];
+
+    if (!searchText) {
+      return list;
+    }
+
+    const lowerCaseSearchText = searchText.toLowerCase();
+    return list.filter(
+      (exercise) =>
+        exercise.title.toLowerCase().includes(lowerCaseSearchText) ||
+        DIFFICULTY_TEXT[exercise.difficulty]
+          .toLowerCase()
+          .includes(lowerCaseSearchText),
+    );
   }
 
   private updateStorageData(
