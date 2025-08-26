@@ -91,7 +91,7 @@ export default class ExercisesViewerComponent {
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
-  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
   private readonly metaService = inject(MetaService);
   private readonly themeService = inject(ThemeService);
   private readonly layoutService = inject(LayoutService);
@@ -117,6 +117,7 @@ export default class ExercisesViewerComponent {
   readonly exerciseSearchControl = this.fb.control('');
 
   readonly isWideScreen = this.layoutService.isWideScreen;
+  readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   readonly hasSolved = signal(false);
   readonly isDrawerVisible = signal(false);

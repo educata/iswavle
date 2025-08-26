@@ -38,6 +38,10 @@ export const EXECISES_NAVIGATION: BaseNavigationTreeNode[] = [
     path: 'object-array-sort-asc',
   },
   {
+    title: 'ობიექტების მასივის დალაგება კლებადობით',
+    path: 'object-array-sort-desc',
+  },
+  {
     title: 'პრიმიტიული დუბლიკატების ფილტრაცია',
     path: 'remove-primitive-duplicates-from-array',
   },

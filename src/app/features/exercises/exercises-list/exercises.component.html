@@ -1,22 +1,43 @@
-@let isMobile = !isWideScreen();
+@let isDesktop = isWideScreen();
+@let isMobile = !isDesktop;
 <main>
   <nz-layout class="base">
     <section class="hero">
       <h1>შეამოწმე შენი ცოდნა</h1>
     </section>
     <section class="table-container">
-      <nz-table #nzTable [nzData]="listOfDisplayData()" ngSkipHydration>
+      <nz-table #nzTable [nzData]="listOfDisplayData() || []" ngSkipHydration>
         <thead>
           <tr>
-            <th>
-              <span nz-icon nzType="sw:calendar" nzTheme="outline"></span>
+            @if (isDesktop) {
+              <th>
+                <span nz-icon nzType="sw:calendar" nzTheme="outline"></span>
+              </th>
+            }
+            <th [class.title]="isDesktop" nzCustomFilter>
+              სახელი
+              <nz-filter-trigger
+                [nzActive]="isSearchActive()"
+                [nzVisible]="isSearchFilterActive()"
+                [nzDropdownMenu]="menu"
+                (nzVisibleChange)="isSearchFilterActive.set(true)"
+              >
+                <span nz-icon nzType="sw:search" nzTheme="outline"></span>
+              </nz-filter-trigger>
             </th>
-            <th>სახელი</th>
-            @if (!isMobile) {
+            @if (isDesktop) {
               <th>აღწერა</th>
             }
-            <th [nzAlign]="isMobile ? 'right' : 'left'">სირთულე</th>
-            @if (!isMobile) {
+            <th
+              [nzAlign]="isMobile ? 'right' : 'left'"
+              [nzSortFn]="difficultyColumn.sortFn"
+              [nzFilters]="difficultyColumn.listOfFilter"
+              [nzFilterFn]="difficultyColumn.filterFn"
+              [(nzSortOrder)]="difficultyColumn.sortOrder"
+            >
+              {{ difficultyColumn.name }}
+            </th>
+            @if (isDesktop) {
               <th>თეგები</th>
             }
           </tr>
@@ -24,22 +45,26 @@
         <tbody>
           @for (data of nzTable.data; track data.path) {
             <tr>
-              <td>
-                @if (data.hasSolved) {
-                  <span
-                    nz-icon
-                    class="checked"
-                    nzType="sw:check"
-                    nzTheme="outline"
-                  ></span>
-                }
-              </td>
+              @if (isDesktop) {
+                <td>
+                  @if (data.hasSolved) {
+                    <span
+                      nz-icon
+                      class="checked"
+                      nzType="sw:check"
+                      nzTheme="outline"
+                    ></span>
+                  } @else {
+                    <div class="checked-spacer"></div>
+                  }
+                </td>
+              }
               <td>
                 <a [routerLink]="data.routerLink">
                   {{ data.index }}. {{ data.title }}
                 </a>
               </td>
-              @if (!isMobile) {
+              @if (isDesktop) {
                 <td>{{ data.description }}</td>
               }
               <td [nzAlign]="isMobile ? 'right' : 'left'">
@@ -47,7 +72,7 @@
                   {{ data.difficulty | exerciseDifficulty }}
                 </nz-tag>
               </td>
-              @if (!isMobile) {
+              @if (isDesktop) {
                 <td>
                   <div class="tags">
                     @for (tag of data.tags; track tag) {
@@ -77,3 +102,30 @@
     </section>
   </nz-layout>
 </main>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input
+        nz-input
+        id="search"
+        type="text"
+        placeholder="ძიება სახელით"
+        [formControl]="searchControl"
+        (keydown.enter)="search()"
+      />
+      <div class="buttons">
+        <button
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          class="search-button"
+          (click)="search()"
+        >
+          მოძებნა
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">გასუფთავება</button>
+      </div>
+    </div>
+  </div>
+</nz-dropdown-menu>

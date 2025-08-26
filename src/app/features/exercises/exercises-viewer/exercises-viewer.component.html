@@ -302,11 +302,11 @@
   }
 </ng-template>
 
-@if (isDesktop) {
+@if (isBrowser) {
   <nz-drawer
     nzTitle="სავარჯიშოები"
     nzPlacement="left"
-    nzSize="large"
+    [nzSize]="isDesktop ? 'large' : 'default'"
     [nzVisible]="isDrawerVisible()"
     (nzOnClose)="isDrawerVisible.set(false)"
   >
