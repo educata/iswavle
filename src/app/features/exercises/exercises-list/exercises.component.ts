@@ -120,9 +120,7 @@ export default class ExercisesComponent implements OnInit {
   readonly isSearchActive = computed(() => this.searchValue().length > 0);
 
   ngOnInit(): void {
-    if (this.isBrowser) {
-      this.checkAndApplyPageIndex();
-    }
+    this.checkAndApplyPageIndex();
   }
 
   search(): void {
