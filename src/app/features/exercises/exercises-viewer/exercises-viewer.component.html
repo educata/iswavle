@@ -1,6 +1,7 @@
 @let isDesktop = isWideScreen();
 @let isMobile = !isDesktop;
 @let exercise = exercisesContent();
+@let exerciseList = exercisesList();
 @let executionResult = lastExecutionResult();
 <nz-layout class="base exercises-viewer">
   @if (exercise; as exercise) {
@@ -124,7 +125,7 @@
   <aside class="task-description">
     <div class="actions">
       <div class="other-exercises button-group">
-        <button nz-button>
+        <button nz-button (click)="isDrawerVisible.set(true)">
           <nz-icon nzType="menu-unfold" nzTheme="outline" />
         </button>
         @if (displayOtherExerciseNavigation(); as neighborExercises) {
@@ -151,12 +152,17 @@
       @if (hasSolved()) {
         <p>
           <span>ამოხსნილია</span>
-          <span class="icon" nz-icon nzType="sw:check" nzTheme="outline"></span>
+          <span
+            class="checked"
+            nz-icon
+            nzType="sw:check"
+            nzTheme="outline"
+          ></span>
         </p>
       }
     </div>
     <div class="attributes">
-      <nz-tag [nzColor]="$any(colors)[exercise.data.attributes.difficulty]">
+      <nz-tag [nzColor]="colors[exercise.data.attributes.difficulty]">
         {{ exercise.data.attributes.difficulty | exerciseDifficulty }}
       </nz-tag>
       @for (tag of exercise.data.attributes.tags; track tag) {
@@ -193,49 +199,51 @@
 
 <ng-template #testsTabsTpl let-exercise="exercise">
   <nz-tabs>
-    <div
-      *nzTabBarExtraContent="'start'"
-      class="button-group tab-button-content"
-    >
-      <button
-        nz-button
-        nz-tooltip
-        nzTooltipTitle="კოდის გაშვება"
-        aria-label="კოდის გაშვება"
-        nzTooltipPlacement="bottom"
-        (click)="runCode()"
+    @if (isDesktop) {
+      <div
+        *nzTabBarExtraContent="'start'"
+        class="button-group tab-button-content"
       >
-        <span nz-icon nzType="sw:play" nzTheme="outline"></span>
-      </button>
-      <button
-        nz-button
-        nz-tooltip
-        nzTooltipTitle="კოდის გასუფთავება"
-        aria-label="კოდის გასუფთავება"
-        nzTooltipPlacement="bottom"
-        (click)="resetCode(exercise)"
-      >
-        <span nz-icon nzType="sw:reset" nzTheme="outline"></span>
-      </button>
-      <button
-        nz-button
-        nz-dropdown
-        nzPlacement="bottomLeft"
-        [nzDropdownMenu]="theme"
-      >
-        <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
-      </button>
-      <nz-dropdown-menu #theme="nzDropdownMenu">
-        <ul nz-menu>
-          <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
-          @for (theme of editorThemeOptions; track theme) {
-            <li nz-menu-item (click)="changeTheme(theme)">
-              {{ theme }}
-            </li>
-          }
-        </ul>
-      </nz-dropdown-menu>
-    </div>
+        <button
+          nz-button
+          nz-tooltip
+          nzTooltipTitle="კოდის გაშვება"
+          aria-label="კოდის გაშვება"
+          nzTooltipPlacement="bottom"
+          (click)="runCode()"
+        >
+          <span nz-icon nzType="sw:play" nzTheme="outline"></span>
+        </button>
+        <button
+          nz-button
+          nz-tooltip
+          nzTooltipTitle="კოდის გასუფთავება"
+          aria-label="კოდის გასუფთავება"
+          nzTooltipPlacement="bottom"
+          (click)="resetCode(exercise)"
+        >
+          <span nz-icon nzType="sw:reset" nzTheme="outline"></span>
+        </button>
+        <button
+          nz-button
+          nz-dropdown
+          nzPlacement="bottomLeft"
+          [nzDropdownMenu]="theme"
+        >
+          <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
+        </button>
+        <nz-dropdown-menu #theme="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
+            @for (theme of editorThemeOptions; track theme) {
+              <li nz-menu-item (click)="changeTheme(theme)">
+                {{ theme }}
+              </li>
+            }
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+    }
     @if (executionResult) {
       @for (result of executionResult; track $index) {
         <nz-tab
@@ -293,3 +301,45 @@
     </aside>
   }
 </ng-template>
+
+@if (isDesktop) {
+  <nz-drawer
+    nzTitle="სავარჯიშოები"
+    nzPlacement="left"
+    nzSize="large"
+    [nzVisible]="isDrawerVisible()"
+    (nzOnClose)="isDrawerVisible.set(false)"
+  >
+    <ng-container *nzDrawerContent>
+      <section class="exercise-search"></section>
+      <section class="exercise-list">
+        @for (item of exerciseList; track item.path) {
+          <a
+            class="exercise-list-item"
+            [routerLink]="['/exercises', item.path]"
+            (click)="isDrawerVisible.set(false)"
+          >
+            @if (item.hasSolved) {
+              <span
+                nz-icon
+                class="checked"
+                nzType="sw:check"
+                nzTheme="outline"
+              ></span>
+            } @else {
+              <span class="spacer"></span>
+            }
+            <span class="exercise-title">
+              {{ item.index }}. {{ item.title }}
+            </span>
+            <span class="difficulty">
+              <nz-tag [nzColor]="colors[item.difficulty]">
+                {{ item.difficulty | exerciseDifficulty }}
+              </nz-tag>
+            </span>
+          </a>
+        }
+      </section>
+    </ng-container>
+  </nz-drawer>
+}

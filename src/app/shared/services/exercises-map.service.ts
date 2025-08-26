@@ -27,9 +27,11 @@ export class ExercisesMapService
         firstValueFrom(
           this.httpClient.get<ExercisesMap>(path).pipe(
             map((data) => {
+              let index = 0;
               return this.exercisesNavigation.reduce((acc, navigation) => {
                 if (data[navigation.path]) {
                   acc.push({
+                    index: ++index,
                     path: navigation.path,
                     routerLink: `/exercises/${navigation.path}`,
                     ...data[navigation.path],

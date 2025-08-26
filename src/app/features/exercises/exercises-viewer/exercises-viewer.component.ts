@@ -9,8 +9,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { isPlatformBrowser, JsonPipe, NgTemplateOutlet } from '@angular/common';
-import { LayoutService, MetaService } from '@app-shared/services';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ExercisesService,
+  LayoutService,
+  MetaService,
+} from '@app-shared/services';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ThemeService } from '@app-shared/services/theme.service';
@@ -21,6 +25,7 @@ import {
   ExercisesContent,
   ExercisesExecutionResult,
   ExercisesNavigation,
+  ExercisesTableData,
   ExerciseStorageContent,
 } from '@app-shared/interfaces';
 import { LoaderComponent } from '@app-shared/ui';
@@ -42,11 +47,13 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { presetColors } from 'ng-zorro-antd/core/color';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 
 @Component({
   selector: 'sw-exercises-viewer',
   imports: [
     JsonPipe,
+    RouterLink,
     NgTemplateOutlet,
     ReactiveFormsModule,
     LoaderComponent,
@@ -58,6 +65,7 @@ import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
     NzModalModule,
     NzResultModule,
     NzLayoutModule,
+    NzDrawerModule,
     NzDividerModule,
     NzTooltipModule,
     NzDropDownModule,
@@ -80,25 +88,32 @@ export default class ExercisesViewerComponent {
   private readonly themeService = inject(ThemeService);
   private readonly layoutService = inject(LayoutService);
   private readonly nzModalService = inject(NzModalService);
+  private readonly exerciseService = inject(ExercisesService);
 
   private readonly exerciseContent$ = this.activatedRoute.data.pipe(
     map((response) => response['exercise'] as ExercisesContent),
   );
 
   private readonly exercisesList$ = this.activatedRoute.data.pipe(
-    map((response) => response['exercises'] as ExercisesNavigation[]),
+    map((response) =>
+      this.exerciseService.getExerciseData(
+        response['exercises'] as ExercisesNavigation[],
+      ),
+    ),
   );
 
   readonly codeGroup = this.fb.group({
     code: this.fb.control(''),
   });
 
+  readonly isWideScreen = this.layoutService.isWideScreen;
+
   readonly hasSolved = signal(false);
+  readonly isDrawerVisible = signal(false);
   readonly isButtonDisabled = signal(false);
   readonly lastExecutionResult = signal<ExercisesExecutionResult[] | null>(
     null,
   );
-  readonly isWideScreen = this.layoutService.isWideScreen;
   readonly exercisesContent = toSignal(this.exerciseContent$);
   readonly exercisesList = toSignal(this.exercisesList$);
   readonly editorTheme = toSignal(this.themeService.editorTheme$);
@@ -112,7 +127,7 @@ export default class ExercisesViewerComponent {
 
   readonly editorThemeOptions = this.themeService.editorThemeOptions;
   readonly exerciseTagPathMap = EXERCISE_TAG_PATH_MAP;
-  readonly colors = {
+  readonly colors: Record<string, string> = {
     easy: presetColors[5],
     medium: presetColors[3],
     hard: presetColors[1],
@@ -281,7 +296,7 @@ export default class ExercisesViewerComponent {
 
   private calculateNeighborExercises(
     exercisesContent: ExercisesContent | null,
-    exercises: ExercisesNavigation[],
+    exercises: ExercisesTableData[],
   ): {
     previous: ExercisesNavigation | null;
     next: ExercisesNavigation | null;

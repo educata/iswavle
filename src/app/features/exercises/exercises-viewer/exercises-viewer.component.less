@@ -39,12 +39,6 @@ nz-layout.base {
         align-items: center;
         justify-content: center;
         gap: 5px;
-
-        span {
-          &.icon {
-            color: green;
-          }
-        }
       }
     }
 
@@ -102,6 +96,28 @@ nz-layout.base {
       .test-case-item-label {
         font-size: 12px;
       }
+    }
+  }
+}
+
+.exercise-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 1rem;
+
+  .exercise-list-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .spacer {
+      width: 16px;
+      height: 16px;
+    }
+
+    .exercise-title {
+      flex: 1;
     }
   }
 }

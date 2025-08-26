@@ -35,7 +35,9 @@
                 }
               </td>
               <td>
-                <a [routerLink]="data.routerLink">{{ data.title }}</a>
+                <a [routerLink]="data.routerLink">
+                  {{ data.index }}. {{ data.title }}
+                </a>
               </td>
               @if (!isMobile) {
                 <td>{{ data.description }}</td>

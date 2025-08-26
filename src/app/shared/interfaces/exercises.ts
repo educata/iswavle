@@ -2,6 +2,7 @@ import { ExercisesAttributes } from '@global-shared/interfaces';
 
 export type ExercisesMap = Record<string, ExercisesAttributes>;
 export interface ExercisesNavigation extends ExercisesAttributes {
+  index: number;
   path: string;
   routerLink: string;
 }
