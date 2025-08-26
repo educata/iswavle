@@ -14,7 +14,7 @@
                 <span nz-icon nzType="sw:calendar" nzTheme="outline"></span>
               </th>
             }
-            <th [class.title]="isDesktop" nzCustomFilter>
+            <th [class.title-column]="isDesktop" nzCustomFilter>
               სახელი
               <nz-filter-trigger
                 [nzActive]="isSearchActive()"
@@ -38,7 +38,7 @@
               {{ difficultyColumn.name }}
             </th>
             @if (isDesktop) {
-              <th>თეგები</th>
+              <th class="tags-column">თეგები</th>
             }
           </tr>
         </thead>
