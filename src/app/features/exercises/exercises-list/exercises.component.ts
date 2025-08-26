@@ -5,8 +5,10 @@ import {
   inject,
   computed,
   signal,
+  OnInit,
+  PLATFORM_ID,
 } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   ExercisesNavigation,
   ExercisesTableData,
@@ -30,6 +32,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { isPlatformBrowser } from '@angular/common';
 
 interface ColumnItem {
   name: string;
@@ -57,11 +60,13 @@ interface ColumnItem {
   styleUrl: './exercises.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class ExercisesComponent {
+export default class ExercisesComponent implements OnInit {
+  private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
   private readonly layoutService = inject(LayoutService);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly exerciseService = inject(ExercisesService);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private readonly exercisesMap$ = this.activatedRoute.data.pipe(
     map((response) => response['data'] as ExercisesNavigation[]),
   );
@@ -95,6 +100,7 @@ export default class ExercisesComponent {
   readonly searchControl = this.formBuilder.control('');
   readonly searchValue = signal('');
   readonly isSearchFilterActive = signal(false);
+  readonly activePaginationIndex = signal(1);
 
   readonly listOfData = computed(() =>
     this.exerciseService.getExerciseData(this.exercisesMap() || []),
@@ -112,6 +118,12 @@ export default class ExercisesComponent {
   });
 
   readonly isSearchActive = computed(() => this.searchValue().length > 0);
+
+  ngOnInit(): void {
+    if (this.isBrowser) {
+      this.checkAndApplyPageIndex();
+    }
+  }
 
   search(): void {
     const value = this.searchControl.value || '';
@@ -140,5 +152,25 @@ export default class ExercisesComponent {
   resetSortAndFilters(): void {
     this.resetDifficultySort();
     this.resetDifficultyFilters();
+  }
+
+  updatePagination(page: number): void {
+    this.activePaginationIndex.set(page);
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        page,
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  private checkAndApplyPageIndex(): void {
+    if (this.isBrowser) {
+      const page = this.activatedRoute.snapshot.queryParams['page'];
+      if (page) {
+        this.activePaginationIndex.set(page);
+      }
+    }
   }
 }

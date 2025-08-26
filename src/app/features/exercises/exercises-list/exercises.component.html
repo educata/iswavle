@@ -6,7 +6,13 @@
       <h1>შეამოწმე შენი ცოდნა</h1>
     </section>
     <section class="table-container">
-      <nz-table #nzTable [nzData]="listOfDisplayData() || []" ngSkipHydration>
+      <nz-table
+        #nzTable
+        ngSkipHydration
+        [nzData]="listOfDisplayData() || []"
+        [nzPageIndex]="activePaginationIndex()"
+        (nzPageIndexChange)="updatePagination($event)"
+      >
         <thead>
           <tr>
             @if (isDesktop) {
