@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   inject,
   PLATFORM_ID,
@@ -9,7 +10,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser, JsonPipe, NgTemplateOutlet } from '@angular/common';
 import { LayoutService, MetaService } from '@app-shared/services';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ThemeService } from '@app-shared/services/theme.service';
@@ -19,6 +20,7 @@ import { LocalStorageKeys } from '@app-shared/enums';
 import {
   ExercisesContent,
   ExercisesExecutionResult,
+  ExercisesNavigation,
   ExerciseStorageContent,
 } from '@app-shared/interfaces';
 import { LoaderComponent } from '@app-shared/ui';
@@ -71,6 +73,7 @@ export default class ExercisesViewerComponent {
   @ViewChild(NzCodeEditorComponent) editor!: NzCodeEditorComponent;
 
   private readonly fb = inject(FormBuilder);
+  private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private readonly metaService = inject(MetaService);
@@ -78,8 +81,12 @@ export default class ExercisesViewerComponent {
   private readonly layoutService = inject(LayoutService);
   private readonly nzModalService = inject(NzModalService);
 
-  private readonly exercisesContent$ = this.activatedRoute.data.pipe(
-    map((response) => response['data'] as ExercisesContent),
+  private readonly exerciseContent$ = this.activatedRoute.data.pipe(
+    map((response) => response['exercise'] as ExercisesContent),
+  );
+
+  private readonly exercisesList$ = this.activatedRoute.data.pipe(
+    map((response) => response['exercises'] as ExercisesNavigation[]),
   );
 
   readonly codeGroup = this.fb.group({
@@ -92,8 +99,16 @@ export default class ExercisesViewerComponent {
     null,
   );
   readonly isWideScreen = this.layoutService.isWideScreen;
-  readonly exercisesContent = toSignal(this.exercisesContent$);
+  readonly exercisesContent = toSignal(this.exerciseContent$);
+  readonly exercisesList = toSignal(this.exercisesList$);
   readonly editorTheme = toSignal(this.themeService.editorTheme$);
+
+  readonly displayOtherExerciseNavigation = computed(() =>
+    this.calculateNeighborExercises(
+      this.exercisesContent() || null,
+      this.exercisesList() || [],
+    ),
+  );
 
   readonly editorThemeOptions = this.themeService.editorThemeOptions;
   readonly exerciseTagPathMap = EXERCISE_TAG_PATH_MAP;
@@ -120,6 +135,11 @@ export default class ExercisesViewerComponent {
             : null;
           const code = localStorageCode || exercisesContent.data.starter;
           this.codeGroup.controls.code.setValue(code);
+          if (localStorageCode !== exercisesContent.data.starter) {
+            this.runCode(true);
+          } else {
+            this.lastExecutionResult.set(null);
+          }
         }
         this.updateEditorLayout();
         this.metaService.updateContentMetaTags(
@@ -156,7 +176,7 @@ export default class ExercisesViewerComponent {
     this.updateEditorLayout();
   }
 
-  runCode(): void {
+  runCode(skipOpenCompletionModal = false): void {
     this.isButtonDisabled.set(true);
     this.lastExecutionResult.set(null);
     const exercisesContent = this.exercisesContent();
@@ -192,7 +212,11 @@ export default class ExercisesViewerComponent {
       const passedEveryTestCase = data.results.every(
         (result: ExercisesExecutionResult) => result.passed,
       );
-      if (passedEveryTestCase && data.results.length > 0) {
+      if (
+        passedEveryTestCase &&
+        data.results.length > 0 &&
+        !skipOpenCompletionModal
+      ) {
         this.openCompletionModal();
         this.updateStorageData(code, true);
       }
@@ -209,6 +233,12 @@ export default class ExercisesViewerComponent {
     this.codeGroup.controls.code.setValue(exercise.data.starter);
     this.updateStorageData(exercise.data.starter, false);
     this.lastExecutionResult.set(null);
+  }
+
+  navigateToExercise(path: string | undefined): void {
+    if (path) {
+      this.router.navigate(['/exercises', path]);
+    }
   }
 
   private updateStorageData(
@@ -247,5 +277,22 @@ export default class ExercisesViewerComponent {
       nzOkText: 'დახურვა',
       nzCancelText: null,
     });
+  }
+
+  private calculateNeighborExercises(
+    exercisesContent: ExercisesContent | null,
+    exercises: ExercisesNavigation[],
+  ): {
+    previous: ExercisesNavigation | null;
+    next: ExercisesNavigation | null;
+  } {
+    const currentIndex = exercises.findIndex(
+      (exercise) => exercise.path === this.exerciseName,
+    );
+
+    const previous = exercises[currentIndex - 1] || null;
+    const next = exercises[currentIndex + 1] || null;
+
+    return { previous, next };
   }
 }

@@ -1,9 +1,9 @@
 @let isDesktop = isWideScreen();
 @let isMobile = !isDesktop;
-@let exercises = exercisesContent();
+@let exercise = exercisesContent();
 @let executionResult = lastExecutionResult();
 <nz-layout class="base exercises-viewer">
-  @if (exercises; as exercise) {
+  @if (exercise; as exercise) {
     @if (isMobile) {
       <nz-tabs>
         <nz-tab nzTitle="აღწერა">
@@ -127,8 +127,26 @@
         <button nz-button>
           <nz-icon nzType="menu-unfold" nzTheme="outline" />
         </button>
-        <button nz-button>წინა</button>
-        <button nz-button>შემდეგი</button>
+        @if (displayOtherExerciseNavigation(); as neighborExercises) {
+          <button
+            nz-button
+            nz-tooltip
+            [disabled]="!neighborExercises?.previous"
+            [nzTooltipTitle]="neighborExercises?.previous?.title"
+            (click)="navigateToExercise(neighborExercises?.previous?.path)"
+          >
+            წინა
+          </button>
+          <button
+            nz-button
+            nz-tooltip
+            [disabled]="!neighborExercises?.next"
+            [nzTooltipTitle]="neighborExercises?.next?.title"
+            (click)="navigateToExercise(neighborExercises?.next?.path)"
+          >
+            შემდეგი
+          </button>
+        }
       </div>
       @if (hasSolved()) {
         <p>
