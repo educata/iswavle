@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   effect,
+  HostListener,
   inject,
   PLATFORM_ID,
   signal,
@@ -132,7 +133,6 @@ export default class ExercisesViewerComponent {
   readonly exerciseSearchResults = toSignal(
     this.exerciseSearchControl.valueChanges.pipe(
       startWith(''),
-      debounceTime(300),
       distinctUntilChanged(),
       map((searchText) => this.filterExercises(searchText)),
     ),
@@ -157,6 +157,20 @@ export default class ExercisesViewerComponent {
     return this.activatedRoute.snapshot.params['exercises_name'];
   }
 
+  @HostListener('window:keydown', ['$event']) keyDown(event: KeyboardEvent) {
+    if (event.key === 's' && event.ctrlKey) {
+      event.preventDefault();
+      this.runCode();
+    }
+    if (event.key === 'r' && event.ctrlKey) {
+      event.preventDefault();
+      const content = this.exercisesContent();
+      if (content) {
+        this.resetCode(content);
+      }
+    }
+  }
+
   constructor() {
     effect(() => {
       const exercisesContent = this.exercisesContent();
@@ -170,7 +184,10 @@ export default class ExercisesViewerComponent {
             : null;
           const code = localStorageCode || exercisesContent.data.starter;
           this.codeGroup.controls.code.setValue(code);
-          if (localStorageCode !== exercisesContent.data.starter) {
+          if (
+            storageData !== null &&
+            localStorageCode !== exercisesContent.data.starter
+          ) {
             this.runCode(true);
           } else {
             this.lastExecutionResult.set(null);
@@ -212,6 +229,7 @@ export default class ExercisesViewerComponent {
   }
 
   runCode(skipOpenCompletionModal = false): void {
+    this.formatCode();
     this.isButtonDisabled.set(true);
     this.lastExecutionResult.set(null);
     const exercisesContent = this.exercisesContent();
@@ -265,9 +283,17 @@ export default class ExercisesViewerComponent {
   }
 
   resetCode(exercise: ExercisesContent): void {
-    this.codeGroup.controls.code.setValue(exercise.data.starter);
-    this.updateStorageData(exercise.data.starter, false);
-    this.lastExecutionResult.set(null);
+    this.nzModalService.confirm({
+      nzTitle: 'გსურთ კოდის გასუფთავება?',
+      nzContent: 'კოდის გასუფთავების შემდეგ, ყველა ცვლილება დაკარგება.',
+      nzCancelText: 'დახურვა',
+      nzOkText: 'გასუფთავება',
+      nzOnOk: () => {
+        this.codeGroup.controls.code.setValue(exercise.data.starter);
+        this.updateStorageData(exercise.data.starter, false);
+        this.lastExecutionResult.set(null);
+      },
+    });
   }
 
   navigateToExercise(path: string | undefined): void {
@@ -314,6 +340,7 @@ export default class ExercisesViewerComponent {
 
     localStorage.setItem(storageKey, JSON.stringify(result));
     this.hasSolved.set(hasSolved);
+    this.updateResultStatusForExercise(hasSolved);
   }
 
   private updateEditorLayout(): void {
@@ -346,5 +373,14 @@ export default class ExercisesViewerComponent {
     const next = exercises[currentIndex + 1] || null;
 
     return { previous, next };
+  }
+
+  private updateResultStatusForExercise(hasSolved: boolean): void {
+    const list = this.exercisesList() || [];
+    const item = list.find((item) => item.path === this.exerciseName);
+
+    if (item) {
+      item.hasSolved = hasSolved;
+    }
   }
 }
