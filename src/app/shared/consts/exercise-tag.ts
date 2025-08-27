@@ -23,6 +23,10 @@ export const EXERCISE_TAG_PATH_MAP: Record<
     title: 'ფუნქციები',
     path: 'javascript/function',
   },
+  recursion: {
+    title: 'რეკურსია',
+    path: 'javascript/function#რეკურსია',
+  },
   object: {
     title: 'ობიექტი',
     path: 'javascript/object-basics',

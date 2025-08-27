@@ -4,6 +4,7 @@ import {
   ExercisesExecutionData,
   ExercisesExecutionResult,
 } from '@app-shared/interfaces';
+import { UTILS, buildTree } from '@app-shared/utils';
 
 addEventListener('message', ({ data }) => {
   const { code, testCases, starter } = data as ExercisesExecutionData;
@@ -27,7 +28,13 @@ addEventListener('message', ({ data }) => {
     const functionName = match?.[1] || '';
     new Function(code)();
 
-    const userFunction = new Function(`${code}; return ${functionName};`)();
+    const globals = Object.keys(UTILS).join(',');
+    const values = Object.values(UTILS);
+
+    const userFunction = new Function(
+      globals,
+      `${code}; return ${functionName};`,
+    )(...values);
 
     if (typeof userFunction !== 'function') {
       postMessage({
@@ -44,7 +51,13 @@ addEventListener('message', ({ data }) => {
       let error: string | null = null;
 
       try {
-        const args = testCase.input.map((i) => i.value);
+        const args = testCase.input.map((i) => {
+          if (i.name === 'root' && code.includes('TreeNode')) {
+            return buildTree(i.value as number[]);
+          }
+          return i.value;
+        });
+
         output = userFunction(...args);
       } catch (error) {
         postMessage({
