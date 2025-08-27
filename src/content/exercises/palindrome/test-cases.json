@@ -43,5 +43,23 @@
       }
     ],
     "expected": false
+  },
+  {
+    "input": [
+      {
+        "name": "text",
+        "value": "Aibohphobia"
+      }
+    ],
+    "expected": false
+  },
+  {
+    "input": [
+      {
+        "name": "text",
+        "value": "deferred"
+      }
+    ],
+    "expected": false
   }
 ]
