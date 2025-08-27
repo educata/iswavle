@@ -16,7 +16,7 @@
   <a href="https://app.netlify.com/projects/iswavle/deploys">
     <img src="https://api.netlify.com/api/v1/badges/c6aef475-239e-46d6-bbf1-09e81a1ecdd5/deploy-status" alt="Netlify iswavle status" />
   </a>
-  <a href="https://app.netlify.com/projects/iswavle/deploys">
+  <a href="https://app.netlify.com/projects/iswavle-examples/deploys">
     <img src="https://api.netlify.com/api/v1/badges/954c8929-e96a-436f-9890-613c0a3fa465/deploy-status" alt="Netlify iswavle examples status" />
   </a>
 </p>
