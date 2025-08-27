@@ -31,6 +31,10 @@ export const EXERCISE_TAG_PATH_MAP: Record<
     title: 'მასივი',
     path: 'javascript/array',
   },
+  matrix: {
+    title: 'მატრიცა',
+    path: 'javascript/array#ორგანზომილებიანი_მასივი',
+  },
   loop: {
     title: 'ციკლი',
     path: 'javascript/loops',
