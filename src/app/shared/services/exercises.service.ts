@@ -22,9 +22,13 @@ export class ExercisesService {
 
     for (const key in localStorage) {
       if (key.startsWith(LocalStorageKeys.ExercisePrefix)) {
-        const data = localStorage.getItem(key);
-        if (data) {
-          result.push(JSON.parse(data));
+        try {
+          const data = localStorage.getItem(key);
+          if (data) {
+            result.push(JSON.parse(data));
+          }
+        } catch (error) {
+          localStorage.removeItem(key);
         }
       }
     }
