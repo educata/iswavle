@@ -1,10 +1,14 @@
 import { ExercisesAttributes } from '@global-shared/interfaces';
 
 export type ExercisesMap = Record<string, ExercisesAttributes>;
-
-export interface ExercisesTableData extends ExercisesAttributes {
-  fileName: string;
+export interface ExercisesNavigation extends ExercisesAttributes {
+  index: number;
+  path: string;
   routerLink: string;
+}
+
+export interface ExercisesTableData extends ExercisesNavigation {
+  hasSolved: boolean;
 }
 
 export interface ExercisesInput {
@@ -42,7 +46,8 @@ export interface ExercisesExecutionResult {
   logs: string[];
 }
 
-export interface ExercisesExecutionResultError {
-  criticalError: string;
-  logs: string[];
+export interface ExerciseStorageContent {
+  code: string;
+  path: string;
+  hasSolved: boolean;
 }

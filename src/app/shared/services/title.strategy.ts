@@ -43,7 +43,7 @@ export class SwTitleStrategy extends TitleStrategy {
 
   buildPageTitle(route: ActivatedRouteSnapshot) {
     const isMatcher = typeof route.routeConfig?.matcher === 'function';
-    const routeData = route.data['data'];
+    const routeData = route.data['data'] || route.data['exercise'];
     if (!isMatcher) {
       if (!route.params['exercises_name']) {
         return route.title;

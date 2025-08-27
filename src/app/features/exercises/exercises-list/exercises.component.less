@@ -2,7 +2,6 @@ main {
   width: 100%;
 
   nz-layout.base {
-    min-height: calc(100vh - 66px);
     padding: 0 20px;
 
     display: flex;
@@ -16,6 +15,7 @@ main {
     }
 
     .table-container {
+      width: 100%;
       max-width: 1200px;
 
       nz-table {
@@ -23,6 +23,16 @@ main {
 
         nz-tag {
           margin: 0;
+        }
+
+        .title-column,
+        .tags-column {
+          width: 25%;
+        }
+
+        .checked-spacer {
+          width: 14px;
+          height: 14px;
         }
 
         .tags {
@@ -33,5 +43,23 @@ main {
         }
       }
     }
+  }
+}
+
+.search-box {
+  padding: 8px;
+
+  input {
+    width: 100%;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 }

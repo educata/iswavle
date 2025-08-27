@@ -45,7 +45,10 @@ export const routes: Routes = [
       },
       {
         path: ':exercises_name',
-        resolve: { data: exercisesResolver },
+        resolve: {
+          exercise: exercisesResolver,
+          exercises: exercisesMapResolver,
+        },
         loadComponent: () =>
           import(
             './features/exercises/exercises-viewer/exercises-viewer.component'
