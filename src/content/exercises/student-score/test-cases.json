@@ -1,0 +1,83 @@
+[
+  {
+    "input": [
+      {
+        "name": "score",
+        "value": 95
+      }
+    ],
+    "expected": "A"
+  },
+  {
+    "input": [
+      {
+        "name": "score",
+        "value": 85
+      }
+    ],
+    "expected": "B"
+  },
+  {
+    "input": [
+      {
+        "name": "score",
+        "value": 72
+      }
+    ],
+    "expected": "C"
+  },
+  {
+    "input": [
+      {
+        "name": "score",
+        "value": 65
+      }
+    ],
+    "expected": "D"
+  },
+  {
+    "input": [
+      {
+        "name": "score",
+        "value": 59
+      }
+    ],
+    "expected": "E"
+  },
+  {
+    "input": [
+      {
+        "name": "score",
+        "value": 50
+      }
+    ],
+    "expected": "Fx"
+  },
+  {
+    "input": [
+      {
+        "name": "score",
+        "value": 40
+      }
+    ],
+    "expected": "F"
+  },
+  {
+    "input": [
+      {
+        "name": "score",
+        "value": 101
+      }
+    ],
+    "expected": null
+  },
+  {
+    "input": [
+      {
+        "name": "score",
+        "value": -10
+      }
+    ],
+    "expected": null
+  }
+]

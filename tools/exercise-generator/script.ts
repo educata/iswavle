@@ -77,6 +77,7 @@ async function main(
 
   console.log('Params example: nums:number[], target:number');
   const paramsRaw = await ask('Params (comma separated, name:type): ');
+  const returnType = await ask('Return type: ');
   const params: Param[] = paramsRaw
     .split(',')
     .map((p) => {
@@ -87,9 +88,9 @@ async function main(
   const jsdocParams = params
     .map((p) => ` * @param {${p.type}} ${p.name}`)
     .join('\n');
-  const starterContent = `/**
+  const starterContent = `${addUtilFunctions(params)}/**
 ${jsdocParams}
- * @return UPDATE_ME
+ * @return {${returnType}}
  */
 function ${functionName}(${params.map((p) => p.name).join(', ')}) {
 
@@ -115,4 +116,40 @@ keywords: ''
   fs.writeFileSync(path.join(folderPath, 'starter.js'), starterContent);
   fs.writeFileSync(path.join(folderPath, 'test-cases.json'), testCasesContent);
   console.log(`✅ Exercise created at: ${folderPath}`);
+}
+
+function addUtilFunctions(params: Param[]): string {
+  if (params.length === 0) {
+    return '';
+  }
+
+  const utilSeenMap = new Map<string, boolean>();
+  let comment = '';
+
+  for (const item in params) {
+    const type = params[item].type;
+
+    if (utilSeenMap.has(type)) {
+      continue;
+    }
+
+    utilSeenMap.set(type, true);
+
+    switch (params[item].type) {
+      case 'TreeNode': {
+        comment += `/**
+ * აღწერა ბინარული ხის ელემენტის.
+ * class TreeNode {
+ *     constructor(val = 0, left = null, right = null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */\n`;
+      }
+    }
+  }
+
+  return comment;
 }

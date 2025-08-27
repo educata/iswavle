@@ -2,8 +2,8 @@
 title: 'Roman to Integer'
 description: 'რომაული ფორმატიდან მთელ რიცხვში ჩაწერა'
 difficulty: 'medium'
-tags: ['number', 'string', 'loop', 'array']
-keywords: 'math, number, string, loop, array'
+tags: ['number', 'string', 'loop', 'array', 'hashtable', 'mathObject']
+keywords: 'math, number, string, loop, array, hashtable'
 ---
 
 მოცემულია რომაული რიცხვი `text`.

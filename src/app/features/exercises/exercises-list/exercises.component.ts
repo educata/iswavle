@@ -13,7 +13,7 @@ import {
   ExercisesNavigation,
   ExercisesTableData,
 } from '@app-shared/interfaces';
-import { ExerciseDifficultyPipe } from '@app-shared/pipes';
+import { ExerciseDifficultyPipe, EncodeURIPipe } from '@app-shared/pipes';
 import { EXERCISE_TAG_PATH_MAP, DIFFICULTY_TEXT } from '@app-shared/consts';
 import { ExercisesService, LayoutService } from '@app-shared/services';
 import { map } from 'rxjs/operators';
@@ -47,6 +47,7 @@ interface ColumnItem {
   imports: [
     RouterLink,
     ReactiveFormsModule,
+    EncodeURIPipe,
     ExerciseDifficultyPipe,
     NzLayoutModule,
     NzTableModule,

@@ -2,8 +2,8 @@
 title: 'ფიბონაჩის სერია'
 description: 'ფიბონაჩის მიმდევრობის შექმნა'
 difficulty: 'easy'
-tags: ['loop', 'array', 'function']
-keywords: 'fibonacci, loop, array, function, recursion, math'
+tags: ['loop', 'array', 'recursion', 'mathObject']
+keywords: 'fibonacci, loop, array, recursion, math'
 ---
 
 მოცემულია რიცხვი `n`.

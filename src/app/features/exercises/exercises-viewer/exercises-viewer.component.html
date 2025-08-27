@@ -166,14 +166,20 @@
         {{ exercise.data.attributes.difficulty | exerciseDifficulty }}
       </nz-tag>
       @for (tag of exercise.data.attributes.tags; track tag) {
-        <nz-tag nzColor="blue">
-          <a
-            href="/doc/guides/{{ exerciseTagPathMap[tag].path }}"
-            target="_blank"
-          >
-            {{ exerciseTagPathMap[tag].title }}
-          </a>
-        </nz-tag>
+        @if (exerciseTagPathMap[tag]) {
+          <nz-tag nzColor="blue">
+            <a
+              target="_blank"
+              href="/doc/guides/{{ exerciseTagPathMap[tag].path | encodeURI }}"
+            >
+              {{ exerciseTagPathMap[tag].title }}
+            </a>
+          </nz-tag>
+        } @else {
+          <nz-tag nzColor="geekblue">
+            {{ tag }}
+          </nz-tag>
+        }
       }
     </div>
     <article [swContent]="exercise" [class.is-mobile]="isMobile"></article>

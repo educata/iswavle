@@ -20,8 +20,12 @@ export const EXERCISE_TAG_PATH_MAP: Record<
     path: 'javascript/logical-expression',
   },
   function: {
-    title: 'ფუნქციები',
+    title: 'ფუნქცია',
     path: 'javascript/function',
+  },
+  recursion: {
+    title: 'რეკურსია',
+    path: 'javascript/function#რეკურსია',
   },
   object: {
     title: 'ობიექტი',
@@ -30,6 +34,10 @@ export const EXERCISE_TAG_PATH_MAP: Record<
   array: {
     title: 'მასივი',
     path: 'javascript/array',
+  },
+  matrix: {
+    title: 'მატრიცა',
+    path: 'javascript/array#ორგანზომილებიანი_მასივი',
   },
   loop: {
     title: 'ციკლი',

@@ -19,7 +19,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ThemeService } from '@app-shared/services/theme.service';
-import { ExerciseDifficultyPipe } from '@app-shared/pipes';
+import { ExerciseDifficultyPipe, EncodeURIPipe } from '@app-shared/pipes';
 import { DIFFICULTY_TEXT, EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
 import { LocalStorageKeys } from '@app-shared/enums';
 import {
@@ -66,6 +66,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     ReactiveFormsModule,
     LoaderComponent,
     ContentDirective,
+    EncodeURIPipe,
     ExerciseDifficultyPipe,
     NzTagModule,
     NzIconModule,

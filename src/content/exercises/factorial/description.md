@@ -2,8 +2,8 @@
 title: 'ფაქტორიალი'
 description: 'n რიგის ფაქტორიალის გამოთვლა'
 difficulty: 'easy'
-tags: ['loop', 'number', 'function']
-keywords: 'factorial, math, loop, function, recursion'
+tags: ['loop', 'number', 'recursion', 'mathObject']
+keywords: 'factorial, math, loop, recursion'
 ---
 
 მოცემულია მთელი რიცხვი `n`.

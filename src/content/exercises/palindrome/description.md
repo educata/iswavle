@@ -2,8 +2,8 @@
 title: 'პალინდრომი'
 description: 'შევამოწმოთ ტექსტი არის თუ არა პალინდრომი'
 difficulty: 'easy'
-tags: ['string', 'loop', 'array', 'function']
-keywords: 'string, loop, array, function, logic, palinodrome'
+tags: ['string', 'loop', 'array', 'recursion']
+keywords: 'string, loop, array, recursion, logic, palinodrome'
 ---
 
 მოცემულია `text` ტექსტური ტიპის ცვლადი.

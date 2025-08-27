@@ -46,6 +46,10 @@ export const EXECISES_NAVIGATION: BaseNavigationTreeNode[] = [
     path: 'remove-primitive-duplicates-from-array',
   },
   {
+    title: 'ბინარული ხის წინა რიგის გავლით გადაადგილება (Preorder Traversal)',
+    path: 'binary-tree-preorder-traversal',
+  },
+  {
     title: 'კომპლექსური დუბლიკატების ფილტრაცია',
     path: 'remove-complex-duplicates-from-array',
   },
@@ -64,6 +68,18 @@ export const EXECISES_NAVIGATION: BaseNavigationTreeNode[] = [
   {
     title: 'ტელეფონის კლავიშების კომბინაციები',
     path: 'letter-combinations-phone-number',
+  },
+  {
+    title: 'ბინარული ხის რიცხვების ჯამი',
+    path: 'binary-tree-leaf-sum',
+  },
+  {
+    title: 'სამკუთხედის ჯამი',
+    path: 'triangle-sum',
+  },
+  {
+    title: 'ვალიდური Sudoku',
+    path: 'valid-sudoku',
   },
   {
     title: 'ორი დალაგებული მასივის მედიანა',
