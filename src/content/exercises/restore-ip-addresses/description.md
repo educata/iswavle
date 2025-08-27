@@ -2,8 +2,8 @@
 title: 'IP მისამართების აღდგენა'
 description: 'ტექსტიდან ყველა ვალიდური IP მისამართის გენერირება'
 difficulty: 'hard'
-tags: ['string', 'array', 'function', 'backtracking']
-keywords: 'string, array, function, backtracking algorithm'
+tags: ['string', 'array', 'recrusion', 'backtracking']
+keywords: 'string, array, recrusion, backtracking algorithm'
 ---
 
 მოცემულია ტექსტი `ip`, რომელიც შეიცავს მხოლოდ ციფრებს.

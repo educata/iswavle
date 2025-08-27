@@ -2,8 +2,8 @@
 title: 'ორი დალაგებული მასივის მედიანა'
 description: 'ვიპოვოთ ორი ზრდადობით დალაგებული მასივის მედიანა'
 difficulty: 'hard'
-tags: ['number', 'loop', 'array', 'dataStructures']
-keywords: 'number, loop, array, data structures, oop, search algorithm, merge algorithm, algorithm'
+tags: ['number', 'loop', 'array', 'dataStructures', 'mathObject']
+keywords: 'number, loop, array, data structures, oop, search algorithm, merge algorithm, algorithm, math'
 ---
 
 მოცემულია ორი **ზრდადობით დალაგებული** მთელი რიცხვების მასივი: `nums1` და `nums2`.

@@ -2,8 +2,8 @@
 title: 'ტელეფონის კლავიშების კომბინაციები'
 description: 'მოცემული ციფრების მიხედვით, ტელეფონის კლავიშების ყველა შესაძლო კომბინაციის მიღება'
 difficulty: 'medium'
-tags: ['string', 'loop', 'array', 'function']
-keywords: 'string, array, function, recursion, combinations'
+tags: ['string', 'loop', 'array', 'recursion']
+keywords: 'string, array, recursion, combinations'
 ---
 
 მოცემულია ტექსტური ტიპის ცვლადი `digits`, რომელიც შეიცავს ციფრებს `2–9`.

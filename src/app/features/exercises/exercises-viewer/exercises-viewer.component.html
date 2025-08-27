@@ -169,8 +169,8 @@
         @if (exerciseTagPathMap[tag]) {
           <nz-tag nzColor="blue">
             <a
-              href="/doc/guides/{{ exerciseTagPathMap[tag].path }}"
               target="_blank"
+              href="/doc/guides/{{ exerciseTagPathMap[tag].path | encodeURI }}"
             >
               {{ exerciseTagPathMap[tag].title }}
             </a>

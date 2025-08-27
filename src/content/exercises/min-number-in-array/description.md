@@ -2,8 +2,8 @@
 title: 'მინიმალური რიცხვი მასივში'
 description: 'იპოვეთ მინიმალური რიცხვი მასივში'
 difficulty: 'easy'
-tags: ['loop', 'array', 'number']
-keywords: 'loop, array, min, number'
+tags: ['loop', 'array', 'number', 'mathObject']
+keywords: 'loop, array, min, number, math'
 ---
 
 მოცემულია მთელი რიცხვების მასივი `nums`.

@@ -20,7 +20,7 @@ export const EXERCISE_TAG_PATH_MAP: Record<
     path: 'javascript/logical-expression',
   },
   function: {
-    title: 'ფუნქციები',
+    title: 'ფუნქცია',
     path: 'javascript/function',
   },
   recursion: {
