@@ -2,7 +2,7 @@
 title: 'ფაქტორიალი'
 description: 'n რიგის ფაქტორიალის გამოთვლა'
 difficulty: 'easy'
-tags: ['loop', 'number', 'function', 'math']
+tags: ['loop', 'number', 'function', 'mathObject']
 keywords: 'factorial, math, loop, function, recursion'
 ---
 

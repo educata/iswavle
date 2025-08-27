@@ -14,6 +14,8 @@ keywords: 'string, array, function, recursion, combinations'
 
 ციფრების შესაბამისი ასოები ([როგორც ტელეფონის კლავიშებზე](https://en.wikipedia.org/wiki/Telephone_keypad)) მოცემულია ქვემოთ. ციფრი 1 არ უკავშირდება არცერთ ასოს.
 
+<img src="/assets/images/telephone-keypad.png" alt="ტელეფონის კლავიშები" style="max-width: 300px">
+
 | ციფრი   | ასოები          |
 | -------- | --------------- |
 | `2`      | `abc`           |

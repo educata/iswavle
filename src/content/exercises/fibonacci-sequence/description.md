@@ -2,7 +2,7 @@
 title: 'ფიბონაჩის სერია'
 description: 'ფიბონაჩის მიმდევრობის შექმნა'
 difficulty: 'easy'
-tags: ['loop', 'array', 'function', 'math']
+tags: ['loop', 'array', 'function', 'mathObject']
 keywords: 'fibonacci, loop, array, function, recursion, math'
 ---
 

@@ -2,7 +2,7 @@
 title: 'Roman to Integer'
 description: 'რომაული ფორმატიდან მთელ რიცხვში ჩაწერა'
 difficulty: 'medium'
-tags: ['number', 'string', 'loop', 'array', 'hashtable', 'math']
+tags: ['number', 'string', 'loop', 'array', 'hashtable', 'mathObject']
 keywords: 'math, number, string, loop, array, hashtable'
 ---
 

@@ -2,7 +2,7 @@
 title: 'Integer to Roman'
 description: 'მთელი რიცხვის რომაულ ფორმატში გადაყვანა'
 difficulty: 'medium'
-tags: ['number', 'string', 'loop', 'array', 'hashtable', 'math']
+tags: ['number', 'string', 'loop', 'array', 'hashtable', 'mathObject']
 keywords: 'math, number, string, loop, array, math'
 ---
 
