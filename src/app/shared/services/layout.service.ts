@@ -1,4 +1,3 @@
-
 import { Injectable, computed, inject, signal, DOCUMENT } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LAYOUT_SIZES } from '@app-shared/providers';
@@ -9,11 +8,15 @@ export class LayoutService {
   private readonly document = inject(DOCUMENT);
   readonly sizes = inject(LAYOUT_SIZES);
 
-  #windowWidth = signal<number>(this.document.body.clientWidth);
+  readonly #windowWidth = signal<number>(this.document.body.clientWidth);
 
   get windowWidth() {
     return this.#windowWidth.asReadonly();
   }
+
+  readonly isWideScreen = computed(
+    () => this.windowWidth() > this.sizes.header,
+  );
 
   constructor() {
     fromEvent(this.document.defaultView as Window, 'resize')

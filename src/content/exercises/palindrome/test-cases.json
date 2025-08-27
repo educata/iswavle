@@ -1,0 +1,65 @@
+[
+  {
+    "input": [
+      {
+        "name": "text",
+        "value": "aba"
+      }
+    ],
+    "expected": true
+  },
+  {
+    "input": [
+      {
+        "name": "text",
+        "value": "radar"
+      }
+    ],
+    "expected": true
+  },
+  {
+    "input": [
+      {
+        "name": "text",
+        "value": "hello"
+      }
+    ],
+    "expected": false
+  },
+  {
+    "input": [
+      {
+        "name": "text",
+        "value": "level"
+      }
+    ],
+    "expected": true
+  },
+  {
+    "input": [
+      {
+        "name": "text",
+        "value": "world"
+      }
+    ],
+    "expected": false
+  },
+  {
+    "input": [
+      {
+        "name": "text",
+        "value": "Aibohphobia"
+      }
+    ],
+    "expected": false
+  },
+  {
+    "input": [
+      {
+        "name": "text",
+        "value": "deferred"
+      }
+    ],
+    "expected": false
+  }
+]

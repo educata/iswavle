@@ -1,130 +1,134 @@
-<nz-layout class="base">
-  <nz-sider
-    nzBreakpoint="md"
-    [nzTheme]="theme() || 'light'"
-    [nzCollapsedWidth]="0"
-    [nzWidth]="siderWidth"
-  >
-    <aside class="sidenav-sticky">
-      @if (article(); as article) {
-        @if (!isXLarge() && isEnoughToc()) {
-          <sw-doc-toc
-            [isFixed]="false"
-            [docAttrs]="article.attributes.toc"
-          ></sw-doc-toc>
-        }
-      }
-      <sw-sidenav
-        (onClick)="scrollUp()"
-        [navItems]="navigation() || []"
-      ></sw-sidenav>
-    </aside>
-  </nz-sider>
-  <nz-layout class="inner-layout">
-    <aside class="navigation">
-      @if (hideToc()) {
-        <div>
-          <button
-            nz-button
-            nzType="default"
-            aria-label="კონტენტის სათაურების ჩვენება"
-            [attr.aria-expanded]="isDrawerVisible"
-            (click)="isDrawerVisible = true"
-          >
-            <span nz-icon nzType="menu-unfold" nzTheme="outline"></span>
-          </button>
-        </div>
-      }
-      <sw-auto-breadcrumbs></sw-auto-breadcrumbs>
-    </aside>
-    @if (isBrowser) {
-      <nz-drawer
-        nzPlacement="left"
-        [nzTitle]="activeContentTitle()"
-        [nzVisible]="isDrawerVisible"
-        (nzOnClose)="isDrawerVisible = false"
-      >
-        <ng-container *nzDrawerContent>
-          <div class="drawer">
-            @if (article(); as article) {
-              @if (isEnoughToc()) {
-                <sw-doc-toc
-                  [isFixed]="false"
-                  [docAttrs]="article.attributes.toc"
-                  (onClick)="sidenavTocClick()"
-                ></sw-doc-toc>
-              }
-            }
-            <sw-sidenav
-              [navItems]="navigation()"
-              (onClick)="isDrawerVisible = false"
-            ></sw-sidenav>
-          </div>
-        </ng-container>
-      </nz-drawer>
-    }
-    <nz-content [class.no-padding]="!isXLarge()">
-      <section [class.with-toc]="!hideToc()">
+<main>
+  <nz-layout class="base">
+    <nz-sider
+      nzBreakpoint="md"
+      [nzTheme]="theme() || 'light'"
+      [nzCollapsedWidth]="0"
+      [nzWidth]="siderWidth"
+    >
+      <aside class="sidenav-sticky">
         @if (article(); as article) {
-          <div class="wrapper">
-            <sw-doc-viewer
-              [class.full-size]="!isXLarge()"
-              [docContent]="article"
-              [searchKey]="searchKey()"
-            ></sw-doc-viewer>
-            @if (isBrowser) {
-              @if (articleSiblings(); as siblings) {
-                <div class="actions" [class.single-prev]="!siblings.prev">
-                  @if (siblings.prev) {
-                    <a
-                      nz-tooltip
-                      [nzTooltipTitle]="siblings.prev.title"
-                      [routerLink]="siblings.prev.routerLink"
-                      (click)="scrollUp()"
-                    >
-                      <button nz-button nzType="default">წინა სტატია</button>
-                    </a>
-                  }
-                  @if (siblings.next) {
-                    <a
-                      nz-tooltip
-                      [nzTooltipTitle]="siblings.next.title"
-                      [routerLink]="siblings.next.routerLink"
-                      (click)="scrollUp()"
-                    >
-                      <button nz-button nzType="default">შემდეგი სტატია</button>
-                    </a>
+          @if (!isXLarge() && isEnoughToc()) {
+            <sw-doc-toc
+              [isFixed]="false"
+              [docAttrs]="article.attributes.toc"
+            ></sw-doc-toc>
+          }
+        }
+        <sw-sidenav
+          (onClick)="scrollUp()"
+          [navItems]="navigation() || []"
+        ></sw-sidenav>
+      </aside>
+    </nz-sider>
+    <nz-layout class="inner-layout">
+      <aside class="navigation">
+        @if (hideToc()) {
+          <div>
+            <button
+              nz-button
+              nzType="default"
+              aria-label="კონტენტის სათაურების ჩვენება"
+              [attr.aria-expanded]="isDrawerVisible"
+              (click)="isDrawerVisible = true"
+            >
+              <span nz-icon nzType="menu-unfold" nzTheme="outline"></span>
+            </button>
+          </div>
+        }
+        <sw-auto-breadcrumbs></sw-auto-breadcrumbs>
+      </aside>
+      @if (isBrowser) {
+        <nz-drawer
+          nzPlacement="left"
+          [nzTitle]="activeContentTitle()"
+          [nzVisible]="isDrawerVisible"
+          (nzOnClose)="isDrawerVisible = false"
+        >
+          <ng-container *nzDrawerContent>
+            <div class="drawer">
+              @if (article(); as article) {
+                @if (isEnoughToc()) {
+                  <sw-doc-toc
+                    [isFixed]="false"
+                    [docAttrs]="article.attributes.toc"
+                    (onClick)="sidenavTocClick()"
+                  ></sw-doc-toc>
+                }
+              }
+              <sw-sidenav
+                [navItems]="navigation()"
+                (onClick)="isDrawerVisible = false"
+              ></sw-sidenav>
+            </div>
+          </ng-container>
+        </nz-drawer>
+      }
+      <nz-content [class.no-padding]="!isXLarge()">
+        <section [class.with-toc]="!hideToc()">
+          @if (article(); as article) {
+            <div class="wrapper">
+              <sw-doc-viewer
+                [class.full-size]="!isXLarge()"
+                [docContent]="article"
+                [searchKey]="searchKey()"
+              ></sw-doc-viewer>
+              @if (isBrowser) {
+                @if (articleSiblings(); as siblings) {
+                  <div class="actions" [class.single-prev]="!siblings.prev">
+                    @if (siblings.prev) {
+                      <a
+                        nz-tooltip
+                        [nzTooltipTitle]="siblings.prev.title"
+                        [routerLink]="siblings.prev.routerLink"
+                        (click)="scrollUp()"
+                      >
+                        <button nz-button nzType="default">წინა სტატია</button>
+                      </a>
+                    }
+                    @if (siblings.next) {
+                      <a
+                        nz-tooltip
+                        [nzTooltipTitle]="siblings.next.title"
+                        [routerLink]="siblings.next.routerLink"
+                        (click)="scrollUp()"
+                      >
+                        <button nz-button nzType="default">
+                          შემდეგი სტატია
+                        </button>
+                      </a>
+                    }
+                  </div>
+                }
+                <div class="contributors">
+                  @for (contributor of contributors(); track contributor) {
+                    <sw-doc-contributors
+                      [contributor]="contributor"
+                    ></sw-doc-contributors>
                   }
                 </div>
+                <section id="comments">
+                  <sw-comments></sw-comments>
+                </section>
               }
-              <div class="contributors">
-                @for (contributor of contributors(); track contributor) {
-                  <sw-doc-contributors
-                    [contributor]="contributor"
-                  ></sw-doc-contributors>
+            </div>
+            @if (isEnoughToc()) {
+              <aside>
+                @if (!hideToc() && isXLarge()) {
+                  <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
                 }
-              </div>
-              <section id="comments">
-                <sw-comments></sw-comments>
-              </section>
+              </aside>
             }
-          </div>
-          @if (isEnoughToc()) {
-            <aside>
-              @if (!hideToc() && isXLarge()) {
-                <sw-doc-toc [docAttrs]="article.attributes.toc"></sw-doc-toc>
-              }
-            </aside>
+          } @else {
+            <p>კონტენტი არ არის</p>
           }
-        } @else {
-          <p>კონტენტი არ არის</p>
-        }
-      </section>
-      <nz-back-top [nzTemplate]="backToTop">
-        <ng-template #backToTop>
-          <span nz-icon nzType="up" nzTheme="outline"></span>
-        </ng-template>
-      </nz-back-top>
-    </nz-content>
+        </section>
+        <nz-back-top [nzTemplate]="backToTop">
+          <ng-template #backToTop>
+            <span nz-icon nzType="up" nzTheme="outline"></span>
+          </ng-template>
+        </nz-back-top>
+      </nz-content>
+    </nz-layout>
   </nz-layout>
-</nz-layout>
+</main>

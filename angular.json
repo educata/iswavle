@@ -33,6 +33,7 @@
               "src/favicon.ico",
               "src/assets",
               "src/manifest.json",
+              "src/sitemap.xml",
               {
                 "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
@@ -53,7 +54,8 @@
             "prerender": true,
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "webWorkerTsConfig": "tsconfig.worker.json"
           },
           "configurations": {
             "production": {
@@ -114,7 +116,8 @@
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [],
+            "webWorkerTsConfig": "tsconfig.worker.json"
           }
         }
       }

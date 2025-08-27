@@ -1,0 +1,65 @@
+main {
+  width: 100%;
+
+  nz-layout.base {
+    padding: 0 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+
+    .hero {
+      text-align: center;
+    }
+
+    .table-container {
+      width: 100%;
+      max-width: 1200px;
+
+      nz-table {
+        width: 100%;
+
+        nz-tag {
+          margin: 0;
+        }
+
+        .title-column,
+        .tags-column {
+          width: 25%;
+        }
+
+        .checked-spacer {
+          width: 14px;
+          height: 14px;
+        }
+
+        .tags {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 5px;
+        }
+      }
+    }
+  }
+}
+
+.search-box {
+  padding: 8px;
+
+  input {
+    width: 100%;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}

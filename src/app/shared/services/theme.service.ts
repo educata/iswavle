@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Injectable, PLATFORM_ID, inject, DOCUMENT } from '@angular/core';
 import { LocalStorageKeys, Theme, ThemeOptions } from '@app-shared/enums';
+import { EDITOR_THEMES } from '@app-shared/consts';
 import {
   BehaviorSubject,
   Observable,
@@ -11,6 +12,7 @@ import {
   startWith,
   switchMap,
   tap,
+  combineLatest,
 } from 'rxjs';
 
 @Injectable({
@@ -20,6 +22,10 @@ export class ThemeService {
   private readonly platform = inject(PLATFORM_ID);
   private readonly isBrowser = isPlatformBrowser(this.platform);
   private readonly document = inject(DOCUMENT);
+
+  private readonly currentEditorTheme$ = new BehaviorSubject<string>(
+    EDITOR_THEMES[0],
+  );
 
   readonly #selectedMode$ = new BehaviorSubject<ThemeOptions>(ThemeOptions.OS);
   readonly selectedMode$ = this.#selectedMode$.asObservable();
@@ -53,6 +59,28 @@ export class ThemeService {
     }),
   );
 
+  readonly editorTheme$ = combineLatest([
+    this.currentEditorTheme$,
+    this.theme$,
+  ]).pipe(
+    map(
+      ([editorTheme, globalTheme]) =>
+        editorTheme || (globalTheme === Theme.Light ? 'vs' : 'vs-dark'),
+    ),
+  );
+
+  get editorThemeOptions(): string[] {
+    return EDITOR_THEMES;
+  }
+
+  get hasEditorThemeSelection(): boolean {
+    try {
+      return Boolean(localStorage.getItem(LocalStorageKeys.CodeEditorTheme));
+    } catch {
+      return false;
+    }
+  }
+
   setTheme(theme: ThemeOptions) {
     this.#selectedMode$.next(theme);
   }
@@ -65,12 +93,23 @@ export class ThemeService {
       if (prevTheme) {
         this.#selectedMode$.next(prevTheme);
       }
+      const editorTheme =
+        localStorage.getItem(LocalStorageKeys.CodeEditorTheme) || '';
+      this.currentEditorTheme$.next(editorTheme);
     }
     return this.theme$.pipe(
       tap((theme) => {
         this.applyThemeToDoc(theme);
       }),
     );
+  }
+
+  changeEditorTheme(theme: string) {
+    if (!this.isBrowser) {
+      return;
+    }
+    this.currentEditorTheme$.next(theme);
+    localStorage.setItem(LocalStorageKeys.CodeEditorTheme, theme);
   }
 
   private applyThemeToDoc(theme: Theme) {

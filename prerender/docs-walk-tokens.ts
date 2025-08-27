@@ -50,7 +50,7 @@ async function handlePreview(token: Tokens.Code) {
 }
 
 async function handleMermaid(token: Tokens.Code) {
-  const uniqueId = Date.now();
+  const uniqueId = generateUUID();
   const tempMermaidPath = `${temepDir}/mermaid-temp-${uniqueId}`;
 
   const inputPath = `${tempMermaidPath}.mmd`;
@@ -141,4 +141,12 @@ async function handleMermaid(token: Tokens.Code) {
     </div>
     `;
   }
+}
+
+function generateUUID(): string {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
 }

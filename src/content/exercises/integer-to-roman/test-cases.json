@@ -1,0 +1,47 @@
+[
+  {
+    "input": [
+      {
+        "name": "num",
+        "value": 2
+      }
+    ],
+    "expected": "II"
+  },
+  {
+    "input": [
+      {
+        "name": "num",
+        "value": 22
+      }
+    ],
+    "expected": "XXII"
+  },
+  {
+    "input": [
+      {
+        "name": "num",
+        "value": 58
+      }
+    ],
+    "expected": "LVIII"
+  },
+  {
+    "input": [
+      {
+        "name": "num",
+        "value": 1994
+      }
+    ],
+    "expected": "MCMXCIV"
+  },
+  {
+    "input": [
+      {
+        "name": "num",
+        "value": 2025
+      }
+    ],
+    "expected": "MMXXV"
+  }
+]

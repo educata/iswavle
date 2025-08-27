@@ -8,13 +8,13 @@ import {
   SimpleChanges,
   ViewContainerRef,
   inject,
-  DOCUMENT
+  DOCUMENT,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_ICONS } from '@app-shared/consts';
 import { SupportedPreviewLanguages } from '@app-shared/enums';
-import { DocContent } from '@app-shared/interfaces';
+import { DocContent, ExercisesContent } from '@app-shared/interfaces';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
 import {
   SanitizerService,
@@ -29,7 +29,7 @@ import { combineLatest, delay, map, Subject, tap } from 'rxjs';
 })
 export class ContentDirective implements OnChanges {
   // Might consider passing templateRef to allow custom rendering
-  @Input('swContent') content!: DocContent;
+  @Input('swContent') content!: DocContent | ExercisesContent;
   @Input('swContentSearch') searchKey: string | null = null;
   @Input() highlightBgColor = '#1890ff';
   @Input() highlightColor = '#fff';
@@ -83,24 +83,28 @@ export class ContentDirective implements OnChanges {
     }
   }
 
-  renderPage(content: DocContent, searchKey: string | null) {
+  renderPage(content: DocContent | ExercisesContent, searchKey: string | null) {
+    const isDocContent = 'attributes' in content;
     const contentContainer = this.vcr.element.nativeElement;
     contentContainer.innerHTML = '';
 
     const title = this.renderer.createElement('h1');
     const body = this.renderer.createElement('div') as HTMLDivElement;
-    title.textContent = content.attributes.title;
     body.innerHTML = content.content;
+    title.textContent = isDocContent
+      ? content.attributes.title
+      : content.data.attributes.title;
 
-    const headings = body.querySelectorAll('h1, h2, h3, h4, h5');
-
-    headings.forEach((heading) => {
-      if (heading.getAttribute('data-linkifier-ignore')) {
-        return;
-      }
-      heading.id = this.sanitizer.sanitizeTocID(heading.id);
-      heading.innerHTML = `<a class="anchor-fragment" href="doc/${this.activatedRoute.snapshot.url.map((url) => url.path).join('/')}#${this.sanitizer.sanitizeTocID(heading.id)}">${heading.innerHTML}</a>`;
-    });
+    if (isDocContent) {
+      const headings = body.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      headings.forEach((heading) => {
+        if (heading.getAttribute('data-linkifier-ignore')) {
+          return;
+        }
+        heading.id = this.sanitizer.sanitizeTocID(heading.id);
+        heading.innerHTML = `<a class="anchor-fragment" href="doc/${this.activatedRoute.snapshot.url.map((url) => url.path).join('/')}#${this.sanitizer.sanitizeTocID(heading.id)}">${heading.innerHTML}</a>`;
+      });
+    }
 
     this.renderIframes(body);
     this.appendCrossOrigin(body);

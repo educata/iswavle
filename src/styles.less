@@ -21,12 +21,22 @@ html {
     }
   }
 
+  .checked {
+    color: green !important;
+  }
+
   .home-header {
     background-color: #e6f7ff;
   }
 
   .ant-layout {
     background-color: @body-background;
+  }
+
+  .ant-divider,
+  .ant-divider-inner-text {
+    color: var(--text-color);
+    border-top-color: rgba(0, 0, 0, 0.04) !important;
   }
 
   .ant-menu {
@@ -53,6 +63,7 @@ html {
     align-items: center;
   }
 
+  table:not([nz-table-content]),
   table:not(.preview-wrapper table) {
     border: 1px solid var(--border-color);
     border-collapse: collapse;
@@ -319,6 +330,21 @@ html {
     }
   }
 
+  .exercises-viewer {
+    .monaco-editor {
+      // Little hack to make editor full width always for exercises page
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    article {
+      img {
+        width: 100%;
+        margin: 0 0 1rem;
+      }
+    }
+  }
+
   nz-anchor {
     nz-affix {
       max-width: 200px;
@@ -374,6 +400,16 @@ html {
 
     .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
       background-color: @primary-2;
+    }
+
+    .ant-divider {
+      border-top-color: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .ant-tag {
+      a {
+        color: var(--text-color) !important;
+      }
     }
   }
 }
