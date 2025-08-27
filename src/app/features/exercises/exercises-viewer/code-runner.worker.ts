@@ -47,8 +47,8 @@ addEventListener('message', ({ data }) => {
 
     for (const testCase of testCases) {
       const start = Date.now();
-      let output: unknown = null;
-      let error: string | null = null;
+      let output: unknown = undefined;
+      let errorMessage: string | null = null;
 
       try {
         const args = testCase.input.map((i) => {
@@ -60,21 +60,17 @@ addEventListener('message', ({ data }) => {
 
         output = userFunction(...args);
       } catch (error) {
-        postMessage({
-          logs: [...logs],
-          criticalError: error instanceof Error ? error.message : String(error),
-        });
-        return;
+        errorMessage = error instanceof Error ? error.message : String(error);
       }
 
       const end = Date.now();
       const runtime = end - start;
 
       results.push({
-        error,
         output,
         runtime,
         logs: [...logs],
+        error: errorMessage,
         inputs: testCase.input,
         expected: testCase.expected,
         passed: passed(output, testCase.expected),
@@ -86,10 +82,17 @@ addEventListener('message', ({ data }) => {
       results,
     });
   } catch (error) {
-    postMessage({
-      criticalError: error instanceof Error ? error.message : String(error),
-      logs: [...logs],
-    });
+    postMessage(
+      testCases?.map((testCase) => ({
+        inputs: [],
+        output: undefined,
+        expected: testCase.expected,
+        runtime: 0,
+        passed: false,
+        logs: [],
+        error: (error as Error).message,
+      })) || null,
+    );
     logs.splice(0);
   }
 });

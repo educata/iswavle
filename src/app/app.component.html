@@ -46,32 +46,28 @@
             >
           </li>
         }
-        <li nz-menu-item class="without-border">
-          <div class="grouped">
-            <a href="https://github.com/educata/iswavle" target="_blank">
-              <span nz-icon nzType="github" nzTheme="outline"></span>
-            </a>
-            <button
-              nz-button
-              nz-dropdown
-              nzType="text"
-              nzPlacement="bottomRight"
-              aria-label="დიზაინის ფერის შეცვლა"
-              [nzDropdownMenu]="themeMenu"
-            >
-              <span nz-icon nzType="bg-colors" nzTheme="outline"></span>
-            </button>
-            <nz-dropdown-menu #themeMenu="nzDropdownMenu">
-              <ul nz-menu>
-                @for (theme of themeOptions; track theme.value) {
-                  <li nz-menu-item (click)="changeTheme(theme.value)">
-                    {{ theme.title }}
-                  </li>
-                }
-              </ul>
-            </nz-dropdown-menu>
-          </div>
-        </li>
+        <div class="actions">
+          <a href="https://github.com/educata/iswavle" target="_blank">
+            <span nz-icon nzType="github" nzTheme="outline"></span>
+          </a>
+          <a
+            role="button"
+            nz-dropdown
+            nzPlacement="bottomRight"
+            [nzDropdownMenu]="themeMenu"
+          >
+            <span nz-icon nzType="bg-colors" nzTheme="outline"></span>
+          </a>
+          <nz-dropdown-menu #themeMenu="nzDropdownMenu">
+            <ul nz-menu>
+              @for (theme of themeOptions; track theme.value) {
+                <li nz-menu-item (click)="changeTheme(theme.value)">
+                  {{ theme.title }}
+                </li>
+              }
+            </ul>
+          </nz-dropdown-menu>
+        </div>
       </ul>
       <button
         nz-button

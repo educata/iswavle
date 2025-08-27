@@ -1,9 +1,10 @@
 @let isDesktop = isWideScreen();
 @let isMobile = !isDesktop;
-@let exercises = exercisesContent();
+@let exercise = exercisesContent();
+@let searchResults = exerciseSearchResults();
 @let executionResult = lastExecutionResult();
 <nz-layout class="base exercises-viewer">
-  @if (exercises; as exercise) {
+  @if (exercise; as exercise) {
     @if (isMobile) {
       <nz-tabs>
         <nz-tab nzTitle="აღწერა">
@@ -31,7 +32,7 @@
       <nz-splitter [nzLayout]="'horizontal'" (nzResizeEnd)="onResize()">
         <nz-splitter-panel
           nzDefaultSize="30%"
-          nzMin="10%"
+          [nzMin]="345"
           [nzMax]="1000"
           nzResizable
         >
@@ -68,6 +69,7 @@
   let-logs="logs"
   let-output="output"
   let-passed="passed"
+  let-error="error"
   let-testCase="testCase"
   let-displayOutput="displayOutput"
 >
@@ -89,7 +91,6 @@
         <span class="test-case-item-value">{{ testCase.expected | json }}</span>
       </div>
     </aside>
-    <ng-container *ngTemplateOutlet="logsTpl; context: { logs }"></ng-container>
     @if (displayOutput) {
       <aside class="test-case-item-expected-result">
         <span class="test-case-item-label">მიღებული შედეგი</span>
@@ -104,6 +105,15 @@
         </div>
       </aside>
     }
+    @if (error) {
+      <aside class="test-case-item-expected-result">
+        <span class="test-case-item-label">კრიტიკული შეცდომა</span>
+        <div class="test-case-item-box ant-alert-error">
+          <span class="test-case-item-value">{{ error }}</span>
+        </div>
+      </aside>
+    }
+    <ng-container *ngTemplateOutlet="logsTpl; context: { logs }"></ng-container>
   </div>
 </ng-template>
 
@@ -113,48 +123,46 @@
   let-isMobile="isMobile"
 >
   <aside class="task-description">
-    <div class="button-group">
-      <button
-        nz-button
-        nz-tooltip
-        nzTooltipTitle="კოდის გაშვება"
-        aria-label="კოდის გაშვება"
-        nzTooltipPlacement="bottom"
-        (click)="runCode()"
-      >
-        <span nz-icon nzType="sw:play" nzTheme="outline"></span>
-      </button>
-      <button
-        nz-button
-        nz-tooltip
-        nzTooltipTitle="კოდის გასუფთავება"
-        aria-label="კოდის გასუფთავება"
-        nzTooltipPlacement="bottom"
-        (click)="resetCode(exercise)"
-      >
-        <span nz-icon nzType="sw:reset" nzTheme="outline"></span>
-      </button>
-      <button
-        nz-button
-        nz-dropdown
-        nzPlacement="bottomLeft"
-        [nzDropdownMenu]="theme"
-      >
-        <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
-      </button>
-      <nz-dropdown-menu #theme="nzDropdownMenu">
-        <ul nz-menu>
-          <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
-          @for (theme of editorThemeOptions; track theme) {
-            <li nz-menu-item (click)="changeTheme(theme)">
-              {{ theme }}
-            </li>
-          }
-        </ul>
-      </nz-dropdown-menu>
+    <div class="actions">
+      <div class="other-exercises button-group">
+        <button nz-button (click)="isDrawerVisible.set(true)">
+          <nz-icon nzType="menu-unfold" nzTheme="outline" />
+        </button>
+        @if (displayOtherExerciseNavigation(); as neighborExercises) {
+          <button
+            nz-button
+            nz-tooltip
+            [disabled]="!neighborExercises?.previous"
+            [nzTooltipTitle]="neighborExercises?.previous?.title"
+            (click)="navigateToExercise(neighborExercises?.previous?.path)"
+          >
+            წინა
+          </button>
+          <button
+            nz-button
+            nz-tooltip
+            [disabled]="!neighborExercises?.next"
+            [nzTooltipTitle]="neighborExercises?.next?.title"
+            (click)="navigateToExercise(neighborExercises?.next?.path)"
+          >
+            შემდეგი
+          </button>
+        }
+      </div>
+      @if (hasSolved()) {
+        <p>
+          <span>ამოხსნილია</span>
+          <span
+            class="checked"
+            nz-icon
+            nzType="sw:check"
+            nzTheme="outline"
+          ></span>
+        </p>
+      }
     </div>
     <div class="attributes">
-      <nz-tag [nzColor]="$any(colors)[exercise.data.attributes.difficulty]">
+      <nz-tag [nzColor]="colors[exercise.data.attributes.difficulty]">
         {{ exercise.data.attributes.difficulty | exerciseDifficulty }}
       </nz-tag>
       @for (tag of exercise.data.attributes.tags; track tag) {
@@ -196,70 +204,91 @@
 </ng-template>
 
 <ng-template #testsTabsTpl let-exercise="exercise">
-  <nz-tabs
-    [nzSelectedIndex]="selectedTabIndex()"
-    (nzSelectedIndexChange)="selectedTabIndex.set($event)"
-  >
-    @if (executionResult) {
-      <nz-tab nzTitle="ბოლო გაშვება">
-        @if ('criticalError' in executionResult) {
-          <div class="test-case-item">
-            <aside class="test-case-item-expected-result">
-              <span class="test-case-item-label"> კრიტიკული შეცდომა </span>
-              <div class="test-case-item-box ant-alert-error">
-                {{ executionResult.criticalError }}
-              </div>
-            </aside>
-            <ng-container
-              *ngTemplateOutlet="
-                logsTpl;
-                context: { logs: executionResult.logs }
-              "
-            ></ng-container>
-          </div>
-        } @else {
-          @for (result of executionResult; track $index) {
-            <nz-divider
-              nzText="ტესტი {{ $index + 1 }}"
-              nzOrientation="left"
-            ></nz-divider>
-            <div class="test-case-item">
-              <p class="test-case-item-label">
-                ტესტი
-                {{ result.passed ? 'წარმატებულია ✔️' : 'წარუმატებელია ❌' }}
-              </p>
-              <p class="test-case-item-label">
-                გაშვების დრო: {{ result.runtime }} მილიწამი
-              </p>
-            </div>
-            <ng-container
-              *ngTemplateOutlet="
-                testCaseTemplate;
-                context: {
-                  displayOutput: true,
-                  output: result.output,
-                  passed: result.passed,
-                  logs: result.logs,
-                  testCase: {
-                    input: result.inputs,
-                    expected: result.expected,
-                  },
-                }
-              "
-            ></ng-container>
-          }
-        }
-      </nz-tab>
+  <nz-tabs>
+    @if (isDesktop) {
+      <div
+        *nzTabBarExtraContent="'start'"
+        class="button-group tab-button-content"
+      >
+        <button
+          nz-button
+          nz-tooltip
+          nzTooltipTitle="კოდის გაშვება"
+          aria-label="კოდის გაშვება"
+          nzTooltipPlacement="bottom"
+          (click)="runCode()"
+        >
+          <span nz-icon nzType="sw:play" nzTheme="outline"></span>
+        </button>
+        <button
+          nz-button
+          nz-tooltip
+          nzTooltipTitle="კოდის გასუფთავება"
+          aria-label="კოდის გასუფთავება"
+          nzTooltipPlacement="bottom"
+          (click)="resetCode(exercise)"
+        >
+          <span nz-icon nzType="sw:reset" nzTheme="outline"></span>
+        </button>
+        <button
+          nz-button
+          nz-dropdown
+          nzPlacement="bottomLeft"
+          [nzDropdownMenu]="theme"
+        >
+          <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
+        </button>
+        <nz-dropdown-menu #theme="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
+            @for (theme of editorThemeOptions; track theme) {
+              <li nz-menu-item (click)="changeTheme(theme)">
+                {{ theme }}
+              </li>
+            }
+          </ul>
+        </nz-dropdown-menu>
+      </div>
     }
-    @for (testCase of exercise.data.testCases; track $index) {
-      <nz-tab nzTitle="ტესტი {{ $index + 1 }}">
-        <ng-container
-          *ngTemplateOutlet="
-            testCaseTemplate;
-            context: { testCase, displayOutput: false }
-          "
-        ></ng-container>
-      </nz-tab>
+    @if (executionResult) {
+      @for (result of executionResult; track $index) {
+        <nz-tab
+          nzTitle="ტესტი {{ $index + 1 }} {{ result.passed ? '✔️' : '❌' }}"
+        >
+          <div class="test-case-item">
+            <p class="test-case-item-label">
+              გაშვების დრო: {{ result.runtime }} მილიწამი
+            </p>
+          </div>
+          <ng-container
+            *ngTemplateOutlet="
+              testCaseTemplate;
+              context: {
+                displayOutput: true,
+                output: result.output,
+                passed: result.passed,
+                error: result.error,
+                logs: result.logs,
+                testCase: {
+                  input: result.inputs,
+                  expected: result.expected,
+                },
+              }
+            "
+          ></ng-container>
+        </nz-tab>
+      }
+    } @else {
+      @for (testCase of exercise.data.testCases; track $index) {
+        <nz-tab nzTitle="ტესტი {{ $index + 1 }}">
+          <ng-container
+            *ngTemplateOutlet="
+              testCaseTemplate;
+              context: { testCase, displayOutput: false }
+            "
+          ></ng-container>
+        </nz-tab>
+      }
     }
   </nz-tabs>
 </ng-template>
@@ -278,3 +307,70 @@
     </aside>
   }
 </ng-template>
+
+@if (isBrowser) {
+  <nz-drawer
+    nzTitle="სავარჯიშოები"
+    nzPlacement="left"
+    [nzSize]="isDesktop ? 'large' : 'default'"
+    [nzVisible]="isDrawerVisible()"
+    (nzOnClose)="isDrawerVisible.set(false)"
+  >
+    <ng-container *nzDrawerContent>
+      <section class="exercise-search">
+        <ng-template #suffixIconButtonTpl>
+          <button
+            nz-button
+            nzSearch
+            nzType="primary"
+            (click)="exerciseSearchControl.setValue('')"
+          >
+            <span nz-icon nzType="clear" nzTheme="outline"></span>
+          </button>
+        </ng-template>
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButtonTpl">
+          <input
+            nz-input
+            type="text"
+            id="exercise-list-search"
+            placeholder="შეიყვანეთ საძიებო ტექსტი"
+            [formControl]="exerciseSearchControl"
+          />
+        </nz-input-group>
+      </section>
+      <section class="exercise-list">
+        @for (item of searchResults; track item.path) {
+          <a
+            class="exercise-list-item"
+            [routerLink]="['/exercises', item.path]"
+            (click)="isDrawerVisible.set(false)"
+          >
+            @if (item.hasSolved) {
+              <span
+                nz-icon
+                class="checked"
+                nzType="sw:check"
+                nzTheme="outline"
+              ></span>
+            } @else {
+              <span class="spacer"></span>
+            }
+            <span class="exercise-title">
+              {{ item.index }}. {{ item.title }}
+            </span>
+            <span class="difficulty">
+              <nz-tag [nzColor]="colors[item.difficulty]">
+                {{ item.difficulty | exerciseDifficulty }}
+              </nz-tag>
+            </span>
+          </a>
+        } @empty {
+          <p>
+            "<strong>{{ exerciseSearchControl.value }}</strong
+            >" -სთვის შედეგი ვერ მოიძებნა
+          </p>
+        }
+      </section>
+    </ng-container>
+  </nz-drawer>
+}
