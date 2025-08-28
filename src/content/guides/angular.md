@@ -29,8 +29,8 @@ title: 'ანგულარის ქართული გზამკვლ�
 
 ამ საიტის მასალა ეყრდნობა ანგულარის ოფიციალურ დოკუმენტაციებს:
 
-- [angular.io](https://angular.io)
 - [angular.dev](https://angular.dev)
+- [blog.angular.dev](https://blog.angular.dev/)
 
 ## ატრიბუცია
 
