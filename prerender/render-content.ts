@@ -106,22 +106,31 @@ function extractHeaders(htmlString: string): ArticleToc[] {
     .split('\n')
     .filter((text) => text.trim().startsWith('<h'))
     .forEach((heading) => {
-      if (heading.search('id="') === -1) {
-        return;
-      }
-      if (heading.includes('1') || heading.includes('2')) {
-        result.push({
-          id: heading.split('id="')[1].split('"')[0],
-          title: heading.split('>')[1].split('<')[0],
-        });
-      } else {
-        if (!result[result.length - 1].sub) {
-          result[result.length - 1].sub = [];
+      try {
+        if (heading.search('id="') === -1) {
+          return;
         }
-        result[result.length - 1].sub?.push({
-          id: heading.split('id="')[1].split('"')[0],
-          title: heading.split('>')[1].split('<')[0],
-        });
+        if (heading.includes('1') || heading.includes('2')) {
+          result.push({
+            id: heading.split('id="')[1].split('"')[0],
+            title: heading.split('>')[1].split('<')[0],
+          });
+        } else {
+          if (!result[result.length - 1].sub) {
+            result[result.length - 1].sub = [];
+          }
+          result[result.length - 1].sub?.push({
+            id: heading.split('id="')[1].split('"')[0],
+            title: heading.split('>')[1].split('<')[0],
+          });
+        }
+      } catch (error) {
+        const wrongHeaderStructure = {
+          id: 'error-' + Math.random().toString(36),
+          title: `არასწორი სათაურების სტრუქტურა`,
+        };
+        result.push(wrongHeaderStructure, wrongHeaderStructure);
+        console.error(`არასწორი სათაურის სტრუქტურა`, heading);
       }
     });
 
@@ -180,7 +189,7 @@ function appendFileToHyperLinkList(data: string) {
 
   if (hrefs.length >= 1) {
     hrefs.forEach((href) => {
-      const section = href.split('/')[1] as srcSectionDirType;
+      const section = href?.split('/')[1] as srcSectionDirType;
       if (hyperLinks[section] && !hyperLinks[section].includes(href)) {
         hyperLinks[section].push(href.slice(3 + section.length));
       }
