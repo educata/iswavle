@@ -2,8 +2,6 @@
 title: "CanActivate (Route Guards)"
 ---
 
-# CanActivate (RouteGuards)
-
 ზოგჭერ საჭიროა, რომ მომხმარებელს რაღაც მისამართებზე წვდომა არ მივცეთ. ამისთვის
 გვჭირდება `CanActivate` ტიპის ფუნქციები.
 

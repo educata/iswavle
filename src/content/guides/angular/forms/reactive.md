@@ -2,8 +2,6 @@
 title: 'Reactive Forms'
 ---
 
-# Reactive Forms
-
 რეაქტიული ფორმების გამოსაყენებლად საჭიროა `ReactiveFormsModule`-ის
 დაიმპორტება `@angular/forms`-დან და მისი იმპორტების სიაში დამატება სათანადო
 კომპონენტში ან მოდულში.

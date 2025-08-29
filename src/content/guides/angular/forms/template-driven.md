@@ -2,8 +2,6 @@
 title: "Template Driven Forms"
 ---
 
-# Template Driven Forms
-
 ### მნიშვნელოვანი დირექტივები
 
 template-driven ფორმები ეყრდნობიან `FormsModule`-ში არსებულ შემდეგ დირექტივებს:
