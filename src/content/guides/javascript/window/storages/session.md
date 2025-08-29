@@ -16,7 +16,7 @@ keywords: 'sessionStorage'
 
 თითქმის ყველა ბრაუზერს გააჩნია ინტერფეისი, რომ ვიხილოთ სესიური საცავის ინფორმაცია.
 
-გახსენით inspect, შემდგომ application და მარცხენა მხარეს ჩამოშალეთ **sessionStorage**.
+გახსენით inspect, შემდეგ application და მარცხენა მხარეს ჩამოშალეთ **sessionStorage**.
 
 ![sessionStorage-ს მაგალითი](./assets/images/sessionStorage.png)
 

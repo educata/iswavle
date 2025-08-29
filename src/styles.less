@@ -63,7 +63,7 @@ html {
     align-items: center;
   }
 
-  table:not([nz-table-content]) {
+  table:not([nz-table-content]):not(.preview-wrapper table) {
     border: 1px solid var(--border-color);
     border-collapse: collapse;
     width: 100%;
@@ -136,13 +136,15 @@ html {
     overflow-x: auto;
   }
 
-  .code-wrapper {
+  .code-wrapper,
+  .preview-wrapper {
     display: grid;
     grid-template-columns: 1fr;
     border: 1px solid var(--border-color);
     margin-bottom: 1rem;
 
-    .language-header {
+    .language-header,
+    .preview-wrapper-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -171,11 +173,63 @@ html {
       }
     }
 
+    .preview-wrapper-header {
+      .preview-wrapper-header-title::after {
+        content: 'მაგალითი';
+      }
+    }
+
+    .preview-wrapper-body {
+      padding: 16px;
+      overflow-x: auto;
+      position: relative;
+
+      a {
+        color: var(--text-color);
+
+        &:hover {
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            color: @primary-color;
+          }
+          color: @primary-color;
+        }
+      }
+
+      @import './styles/preview-content.less';
+    }
+
     pre {
       margin-bottom: 0;
       code {
         padding: 0;
       }
+    }
+  }
+
+  .code-wrapper {
+    &:has(+ .preview-wrapper) {
+      margin-bottom: 0;
+      border-bottom: none;
+
+      & + .preview-wrapper {
+        .preview-wrapper-header {
+          .preview-wrapper-header-title::after {
+            content: 'მიღებული შედეგი';
+          }
+        }
+      }
+    }
+
+    &:nth-of-type(n):has(+ .preview-wrapper),
+    &:nth-of-type(n):has(+ .frame-wrapper-sticky),
+    &:has(+ .code-wrapper) {
+      margin-bottom: 0;
+      border-bottom: none;
     }
   }
 
@@ -228,12 +282,13 @@ html {
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.6rem;
       }
 
       a {
         background-color: transparent;
         border: none;
+        text-decoration: none;
         display: flex;
         justify-content: center;
         align-items: center;

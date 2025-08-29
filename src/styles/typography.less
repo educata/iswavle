@@ -4,6 +4,14 @@ body {
   article {
     line-height: 1.8;
 
+    a:not(.anchor-fragment) {
+      text-decoration: underline;
+
+      &:visited {
+        color: var(--link-visited-color);
+      }
+    }
+
     h1 {
       font-size: var(--h1-font-size);
     }
@@ -60,7 +68,7 @@ body {
     }
 
     pre code {
-      font-size: 0.85em;
+      font-size: 0.85em !important;
     }
 
     ul,
@@ -75,5 +83,6 @@ body {
     background-color: #f0efef;
     padding: 0.105rem 0.25rem;
     font-size: 0.9em;
+    border-radius: 0.25rem;
   }
 }

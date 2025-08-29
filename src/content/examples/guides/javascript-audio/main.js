@@ -35,7 +35,7 @@ animals.forEach((animal) => {
   animalElement.innerHTML = `
     <h3>${animal.name}</h3>
     <img src="${animal.imagePrefix}/${getRandomStatusCode()}.jpg" alt="${animal.name}-ს შემთხვევითი ფოტო">
-    <a href="${animal.imagePrefix}" target="_blank">ვებ-გვერდის გახსნა</a>
+    <a href="${animal.imagePrefix}" target="_blank">ვებგვერდის გახსნა</a>
     <button title="ხმის ჩართვა" onclick="playSound('${animal.soundUrl}')">ხმის ჩართვა</button>
   `;
   animalsDisplay.appendChild(animalElement);

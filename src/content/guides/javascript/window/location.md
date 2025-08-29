@@ -4,7 +4,7 @@ description: 'Location ობიექტი JavaScript-ში'
 keywords: 'window, location, location-ის თვისებები'
 ---
 
-[`location`](https://developer.mozilla.org/en-US/docs/Web/API/Location) ობიექტი გამოიყენება ვებ-გვერდის მისამართის (URL) მანიპულაციისთვის. ობიექტის გამოყენება შესაძლებელია, როგორც `window`-დან, ასევე `document`-დანაც.
+[`location`](https://developer.mozilla.org/en-US/docs/Web/API/Location) ობიექტი გამოიყენება ვებგვერდის მისამართის (URL) მანიპულაციისთვის. ობიექტის გამოყენება შესაძლებელია, როგორც `window`-დან, ასევე `document`-დანაც.
 
 ## Location-ის ანატომია
 
@@ -20,7 +20,7 @@ keywords: 'window, location, location-ის თვისებები'
 
 ### href
 
-[`href`](https://developer.mozilla.org/en-US/docs/Web/API/Location/href) თვისება განსაზღვრავს, სრულ URL-ს და გვაძლევს შესაძლებლობას, რომ განვაახლოთ ვებ-გვერდის მისამართი.
+[`href`](https://developer.mozilla.org/en-US/docs/Web/API/Location/href) თვისება განსაზღვრავს, სრულ URL-ს და გვაძლევს შესაძლებლობას, რომ განვაახლოთ ვებგვერდის მისამართი.
 
 ```js
 const currentHref = location.href; // window.location.href-ც სწორია
@@ -77,7 +77,7 @@ console.log(location.pathname); // '/doc/guides/javascript/window/location'
 [`search`](https://developer.mozilla.org/en-US/docs/Web/API/Location/search) თვისება განსაზრავს URL-ში ცვლადების ნაწილს. თუ `'?'` არ არის გამოყენებული, მაშინ მნიშვნელობა `undefined` იქნება.
 
 ```js
-location.href += '?search=ანატომია'; // ვებ-გვერდზე დავუმატოთ ცვლადი
+location.href += '?search=ანატომია'; // ვებგვერდზე დავუმატოთ ცვლადი
 console.log(location.search); // '?search=ანატომია'
 ```
 
@@ -86,7 +86,7 @@ console.log(location.search); // '?search=ანატომია'
 [`hash`](https://developer.mozilla.org/en-US/docs/Web/API/Location/hash) თვისება განსაზღვრავს URL-ში არსებული ფრაგმენტის მნიშვნელობას. თუ `'#'` არ არის გამოყენებული, მაშინ მნიშვნელობა `undefined` იქნება.
 
 ```js
-location.href += '#Location_ანატომიაა'; // ვებ-გვერდზე დავუმატოთ ფრაგმენტის მნიშვნელობა
+location.href += '#Location_ანატომიაა'; // ვებგვერდზე დავუმატოთ ფრაგმენტის მნიშვნელობა
 console.log(location.hash); // '#Location_ანატომია'
 ```
 

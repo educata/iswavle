@@ -16,7 +16,7 @@ keywords: 'localStorage'
 
 თითქმის ყველა ბრაუზერს გააჩნია ინტერფეისი, რომ ვმართოთ ლოკალური საცავის ინფორმაცია.
 
-გახსენით inspect, შემდგომ application და მარცხენა მხარეს ჩამოშალეთ **localStorage**.
+გახსენით inspect, შემდეგ application და მარცხენა მხარეს ჩამოშალეთ **localStorage**.
 
 ![localStorage-ის მაგალითი](./assets/images/localStorage.png)
 

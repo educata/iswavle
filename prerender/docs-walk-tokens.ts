@@ -13,13 +13,40 @@ import path from 'path';
 const temepDir = '.temp';
 const notFoundSvgPath = path.join(__dirname, 'assets', 'not-found.svg');
 
+enum WalkTokenCodeLanguage {
+  Mermaid = 'mermaid',
+  Preview = 'preview',
+}
+
 export async function docsWalkTokens(walkToken: Tokens.Generic): Promise<void> {
-  if (
-    walkToken.type === 'code' &&
-    (walkToken as Tokens.Code).lang === 'mermaid'
-  ) {
-    await handleMermaid(walkToken as Tokens.Code);
+  const walkTokenCode = walkToken as Tokens.Code;
+  if (walkTokenCode.type !== 'code') {
+    return;
   }
+  switch (walkTokenCode.lang) {
+    case WalkTokenCodeLanguage.Mermaid: {
+      await handleMermaid(walkTokenCode);
+      break;
+    }
+    case WalkTokenCodeLanguage.Preview: {
+      await handlePreview(walkTokenCode);
+      break;
+    }
+  }
+}
+
+async function handlePreview(token: Tokens.Code) {
+  const text = token.text;
+  token.text = `
+    <div data-search-ignore class="preview-wrapper">
+      <div class="preview-wrapper-header">
+        <span class="preview-wrapper-header-title"></span>
+      </div>
+      <div class="preview-wrapper-body">
+        ${text}
+      </div>
+    </div>
+  `;
 }
 
 async function handleMermaid(token: Tokens.Code) {
