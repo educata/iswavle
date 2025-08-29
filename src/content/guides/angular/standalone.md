@@ -13,9 +13,9 @@ title: "Standalone Components"
 
 ამ თავში ვისწავლით:
 
-- [დამოუკიდებელი კომპონენტების შექმნასა და გამოყენებას](./creation-and-usage.html);
-- [დამოუკიდებელი კომპონენტებით რაუთინგს](./routing-and-lazy-loading.html)
+- [დამოუკიდებელი კომპონენტების შექმნასა და გამოყენებას](./doc/guides/angular/standalone/creation-and-usage);
+- [დამოუკიდებელი კომპონენტებით რაუთინგს](./doc/guides/angular/standalone/routing-and-lazy-loading)
 
 უფრო მეტი დეტალებისთვის გაეცანით
-[ოფიციალურ დოკუმენტაციას](./https://angular.io/guide/standalone-components#the-standalone-flag-and-component-imports),
+[ოფიციალურ დოკუმენტაციას](https://angular.io/guide/standalone-components#the-standalone-flag-and-component-imports),
 რომელზეც ეს თავია დაფუძნებული.

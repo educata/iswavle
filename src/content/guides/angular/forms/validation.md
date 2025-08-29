@@ -15,6 +15,6 @@ title: "ვალიდაცია და ვალიდატორები"
 
 ამ თავში ვისწავლით:
 
-- [ჩაშენებული ვალიდატორების](./built-in-validators.html) შესახებ;
-- [ვალიდატორის შექმნას](./creating-validator.html), რათა ვალიდატორი ჩვენს კონკრეტულ საჭიროებებს მოვარგოთ;
-- [ვალიდაციის მესიჯების გამოსახვას](./validation-messages.html), რათა მომხმარებელს ვანიშნოთ როგორ უნდა შეავსოს ფორმა.
+- [ჩაშენებული ვალიდატორების](./doc/guides/angular/forms/validation/built-in-validators) შესახებ;
+- [ვალიდატორის შექმნას](./doc/guides/angular/forms/validation/creating-validator), რათა ვალიდატორი ჩვენს კონკრეტულ საჭიროებებს მოვარგოთ;
+- [ვალიდაციის მესიჯების გამოსახვას](./doc/guides/angular/forms/validation/validation-messages), რათა მომხმარებელს ვანიშნოთ როგორ უნდა შეავსოს ფორმა.

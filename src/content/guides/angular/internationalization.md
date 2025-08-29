@@ -11,6 +11,6 @@ title: "ინტერნაციონალიზაცია"
 ცალკეული აპლიკაციის ვერსია, შესაბამისად მომხარებელი ისარგებლებს ჩვენი აპლიკაციით სხვადასხვა ენის შესაბამის მისამართზე, მაგალითად: `educata.ge` (ქართულისთვის) და `educata.dev` (ინგლისურისთვის), მაგრამ ასევე შესაძლებელია მომხარებელს დასჭირდეს რეალურ დროში ენის ცვლილება და არა მთლიანად სხვა აპლიკაციის გახსნა.
 ორივე მიდგომას თავისი პლიუსები და მინუსები აქვს. ამ თავში, განვიხილავთ:
 
-- [ანგულარის მიერ ჩაშენებულ მიდგომას](./angular-i18n.html)
-- [third-party ბიბლიოთეკას](./ngx-translate.html) [ngx-translate](https://github.com/ngx-translate/core)
-- [თავის ბოლოს ვისაუბრებთ თუ რა პლიუსები და მინუსები აქვთ ორივე მიდგომას](./summary.html)
+- [ანგულარის მიერ ჩაშენებულ მიდგომას](./doc/guides/angular/internationalization/angular-i18n)
+- [third-party ბიბლიოთეკას](./doc/guides/angular/internationalization/ngx-translate) [ngx-translate](https://github.com/ngx-translate/core)
+- [თავის ბოლოს ვისაუბრებთ თუ რა პლიუსები და მინუსები აქვთ ორივე მიდგომას](./doc/guides/angular/internationalization/summary)

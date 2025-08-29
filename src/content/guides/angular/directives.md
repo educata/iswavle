@@ -9,6 +9,6 @@ title: "Directives"
 ფაქტობრივად დეველოპერის ყველა საჭიროებას აკმაყოფილებს, თუმცა ჩვენ გვაქვს შესაძლებლობა
 შევქმნათ ჩვენი დირექტივებიც. ამ თავში ვისწავლით:
 
-- [ატრიბუტის დირექტივის შექმნას](./creating-directive.html)
-- [ანგულარში ჩაშენებულ ატრიბუტის დირექივებს](./attribute-directives.html)
-- [ანგულარში ჩაშენებულ სტრუქტურულ დირექტივებს](./structural-directives.html)
+- [ატრიბუტის დირექტივის შექმნას](./doc/guides/angular/directives/creating-directive)
+- [ანგულარში ჩაშენებულ ატრიბუტის დირექივებს](./doc/guides/angular/directives/attribute-directives)
+- [ანგულარში ჩაშენებულ სტრუქტურულ დირექტივებს](./doc/guides/angular/directives/structural-directives)

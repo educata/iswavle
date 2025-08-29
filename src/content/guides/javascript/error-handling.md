@@ -60,7 +60,7 @@ console.log(sum(2, 2)); // 4
 console.log(sum(2, '2')); // Error: Both arguments must be numbers.
 ```
 
-ამ შეთხვევაში უკვე კოდი არასწორი ტიპის მნიშვნელობას აღარ დააჯამებს და დააბრუნებს შეცდომას. [`throw`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) ქივორდის გამოყენების შემთხვევაში ვუშვებთ შეცდომას. [`new`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new) ქივორდის გამოყენებით გამოვყოფბთ ახალ ინსტანციას `Error`-ს ობიექტიდან (`new` ქივორდი, განხილულია [`OOP სტატიაში`](./doc/guides/javascript/oop/class)), რომელსაც პარამეტრად გავაყოლეთ მესიჯი და მიზეზი (`cause` შეიძლება ნებისმიერი ტიპის მნიშვნელობა იყოს: რიცხვი, სტრინგი, ობიექტი და ა.შ).
+ამ შეთხვევაში უკვე კოდი არასწორი ტიპის მნიშვნელობას აღარ დააჯამებს და დააბრუნებს შეცდომას. [`throw`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) ქივორდის გამოყენების შემთხვევაში ვუშვებთ შეცდომას. [`new`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new) ქივორდის გამოყენებით გამოვყოფბთ ახალ ინსტანციას `Error`-ს ობიექტიდან (`new` ქივორდი, განხილულია [`OOP სტატიაში`](./doc/guides/javascript/oop)), რომელსაც პარამეტრად გავაყოლეთ მესიჯი და მიზეზი (`cause` შეიძლება ნებისმიერი ტიპის მნიშვნელობა იყოს: რიცხვი, სტრინგი, ობიექტი და ა.შ).
 
 განვიხილოთ შეცდომის გაკონტროლება:
 

@@ -10,5 +10,5 @@ title: "Dynamic Routes"
 
 დინამიკური რაუთების ორი ძირითადი სახეობა გვაქვს:
 
-- [Route Params](./route-params.html);
-- [Query Params](./query-params.html).
+- [Route Params](./doc/guides/angular/routing/dynamic-routes/route-params);
+- [Query Params](./doc/guides/angular/routing/dynamic-routes/query-params).

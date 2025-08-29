@@ -10,5 +10,5 @@ title: "Authentication"
 
 ამ თავში ვისწავლით:
 
-- [JSON Web Token-ით ავტორიზაციას](./jwt-authentication.html);
-- [CanActivate ტიპის ფუნქციებს (და კლასებს)](./can-activate.html) გარკვეულ რაუთებზე წვდომის კონტროლისთვის.
+- [JSON Web Token-ით ავტორიზაციას](./doc/guides/angular/authentication/jwt-authentication);
+- [CanActivate ტიპის ფუნქციებს (და კლასებს)](./doc/guides/angular/authentication/can-activate) გარკვეულ რაუთებზე წვდომის კონტროლისთვის.

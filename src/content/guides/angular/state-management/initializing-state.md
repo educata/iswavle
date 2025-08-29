@@ -143,4 +143,4 @@ export class AppComponent implements OnInit {
 დარენდერებას მაშინ აიძულებს, როცა მასში გატარებული სტრიმი ახალ მნიშვნელობას გასცემს.
 
 თუ ბრაუზერს შევხედავთ, ნივთების სია უნდა გამოისახოს.
-ახლა [ახალი ნივთების დამატებას მივხედოთ](./adding-data-to-state.html).
+ახლა [ახალი ნივთების დამატებას მივხედოთ](./doc/guides/angular/state-management/adding-data-to-state).
