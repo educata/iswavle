@@ -526,8 +526,11 @@ function initColorCta(element) {
 */
 (function initThemeFromParentContext() {
   window.addEventListener('message', (event) => {
+    if (event.data.type !== "THEME_CHANGED") {
+      return;
+    }
     const currentTheme = document.body.classList[0] || 'light';
     document.body.classList.remove(currentTheme);
-    document.body.classList.add(event.data);
+    document.body.classList.add(event.data.theme);
   });
 })();
