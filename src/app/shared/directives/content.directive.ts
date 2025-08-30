@@ -70,16 +70,16 @@ export class ContentDirective implements OnChanges {
           tap((data) => {
             data.iframes.forEach((iframe: HTMLIFrameElement) => {
               try {
-                const src = iframe.getAttribute('src');
-                if (!src) return;
-                const origin = new URL(src).origin;
-                iframe.contentWindow?.postMessage(
-                  {
-                    type: 'THEME_CHANGED',
-                    theme: data.theme,
-                  },
-                  origin,
-                );
+                const recipientOrigin = iframe.contentWindow?.location.origin;
+                if (recipientOrigin) {
+                  iframe.contentWindow?.postMessage(
+                    {
+                      type: 'THEME_CHANGED',
+                      theme: data.theme,
+                    },
+                    recipientOrigin,
+                  );
+                }
               } catch (error) {
                 console.error('Error posting message to iframe:', error);
               }
