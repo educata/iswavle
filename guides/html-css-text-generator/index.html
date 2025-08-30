@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML & CSS Text Generator</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main
+      class="container-fluid vh-100 d-flex align-items-center justify-content-center"
+    >
+      <div class="row border shadow-sm p-4 rounded-3" style="width: 90%">
+        <form class="col-md-6">
+          <div class="mb-3">
+            <label for="style" class="form-label">Style</label>
+            <input
+              type="text"
+              class="form-control"
+              id="style"
+              name="style"
+              placeholder="For example: color"
+              value="color"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="data" class="form-label">Data</label>
+            <input
+              type="text"
+              class="form-control"
+              id="data"
+              name="data"
+              placeholder="For example: red blue rgb(0, 0, 255) #000000"
+              value="purple #1890ff rgb(83, 170, 56) hsl(240, 100%, 50%) hwb(45 0% 0%)"
+            />
+          </div>
+          <div class="form-check mb-3">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="true"
+              id="rtlControl"
+              name="rtlControl"
+            />
+            <label class="form-check-label" for="rtlControl">
+              Show RTL control
+            </label>
+          </div>
+          <div class="mb-3">
+            <label for="text" class="form-label">Text</label>
+            <textarea
+              style="min-height: 130px; max-height: 200px"
+              class="form-control"
+              id="text"
+              name="text"
+              rows="3"
+              placeholder="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis commodi, quam laborum omnis incidunt maxime ratione velit quis labore quisquam totam doloremque modi atque libero deserunt, assumenda possimus, quas quaerat."
+              value="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis commodi, quam laborum omnis incidunt maxime ratione velit quis labore quisquam totam doloremque modi atque libero deserunt, assumenda possimus, quas quaerat."
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            Copy frame source for articles
+          </button>
+          <button type="reset" class="btn btn-warning">Reset</button>
+        </form>
+        <iframe class="col-md-6" src="" frameborder="0"></iframe>
+      </div>
+    </main>
+    <script src="./main.js"></script>
+  </body>
+</html>
