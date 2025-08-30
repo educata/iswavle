@@ -13,7 +13,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_ICONS } from '@app-shared/consts';
-import { SupportedPreviewLanguages } from '@app-shared/enums';
+import { EmbedMessageType, SupportedPreviewLanguages } from '@app-shared/enums';
 import { DocContent, ExercisesContent } from '@app-shared/interfaces';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
 import {
@@ -75,7 +75,7 @@ export class ContentDirective implements OnChanges {
                 const origin = new URL(src).origin;
                 iframe.contentWindow?.postMessage(
                   {
-                    type: 'THEME_CHANGED',
+                    type: EmbedMessageType.THEME_CHANGED,
                     theme: data.theme,
                   },
                   origin,
