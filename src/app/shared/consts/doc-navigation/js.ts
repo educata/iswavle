@@ -117,6 +117,36 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
       ],
     },
     {
+      title: 'REST API',
+      path: 'rest-api',
+      children: [
+        {
+          title: 'JSON & XML',
+          path: 'json-xml',
+        },
+        {
+          title: 'XMLHttpRequest',
+          path: 'xhr',
+        },
+        {
+          title: 'fetch',
+          path: 'fetch',
+        },
+        {
+          title: 'API დოკუმენტაციები',
+          path: 'api-documentations',
+        },
+        {
+          title: 'პრაქტიკა',
+          path: 'practice',
+        },
+        {
+          title: 'შეჯამება',
+          path: 'summary',
+        },
+      ],
+    },
+    {
       title: 'Window',
       path: 'window',
       children: [
