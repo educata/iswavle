@@ -1,8 +1,6 @@
 ---
-title: "Reactive Forms"
+title: 'Reactive Forms'
 ---
-
-# Reactive Forms
 
 რეაქტიული ფორმების გამოსაყენებლად საჭიროა `ReactiveFormsModule`-ის
 დაიმპორტება `@angular/forms`-დან და მისი იმპორტების სიაში დამატება სათანადო
@@ -15,19 +13,19 @@ title: "Reactive Forms"
 აქ ჩვენ კოპმონენტში ვქმნით ახალ კონტროლს, სადაც მომხმარებლის სახელს შევინახავთ.
 
 ```ts
-import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule, FormControl } from "@angular/forms";
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
-  selector: "app-signup-form",
+  selector: 'app-signup-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: "./signup-form.component.html",
-  styleUrl: "./signup-form.component.css",
+  templateUrl: './signup-form.component.html',
+  styleUrl: './signup-form.component.css',
 })
 export class SignupFormComponent {
-  name = new FormControl("");
+  name = new FormControl('');
 }
 ```
 
@@ -51,7 +49,7 @@ export class SignupFormComponent {
 უკეთეს შეყვანილი მნიშვნელობების მიხედვით. შეყვანილ მნიშვნელობის სნეპშოტს ვწვდებით
 კონტროლზე `value` თვისებით, რომელსაც გამოვსახავთ თემფლეითში.
 
-### კონტროლთა ჯგუფი
+## კონტროლთა ჯგუფი
 
 ხშირად ჩვენ ფორმაში ერთზე მეტი კონტროლი გვექნება. შესაძლებელია ცალკეული
 კონტროლების ინსტანციების შექმნა და მათი დაკავშირება ფორმის ველებთან, თუმცა
@@ -59,24 +57,24 @@ export class SignupFormComponent {
 ანგულარს აქვს `FormBuilder` სერვიცი, რომელიც შეგვიძლია კლასში დავაინჯექთოთ.
 
 ```ts
-import { Component, inject } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule, FormControl } from "@angular/forms";
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormControl, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: "app-signup-form",
+  selector: 'app-signup-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: "./signup-form.component.html",
-  styleUrl: "./signup-form.component.css",
+  templateUrl: './signup-form.component.html',
+  styleUrl: './signup-form.component.css',
 })
 export class SignupFormComponent {
   private fb = inject(FormBuilder);
 
   signupForm = this.fb.group({
-    name: [""],
-    email: [""],
-    password: [""],
+    name: [''],
+    email: [''],
+    password: [''],
   });
 
   onSubmit() {
@@ -118,7 +116,7 @@ export class SignupFormComponent {
 </div>
 ```
 
-შემდგომ თითოეულ ველს formControlName-ზე მივაწვდით სათანადო კონტროლის
+შემდეგ თითოეულ ველს formControlName-ზე მივაწვდით სათანადო კონტროლის
 სახელს, რომელიც ჩვენ `FormGroup`-ზე შევქმენით. ასე კონტროლების ჯგუფი
 დაკავშირებულია თემფლეითთან. `form`-ზე `onSubmit` ივენთზე მოსმენით
 შეგვიძლია ვირეაგიროთ ფორმის დასაბმითების ივენთზე, რომელიც ავტომატურად
@@ -132,7 +130,7 @@ export class SignupFormComponent {
 ამ ფორმაზე. ჩვენ შეგვიძლია კონტროლებში მნიშვნელობების მოდიფიკაცია ან
 განსაკუთრებული გზით ვალიდაცია. ჯერ მოდიფიკაციას მივხედოთ.
 
-### მნიშვნელობების მანიპულაცია
+## მნიშვნელობების მანიპულაცია
 
 ვთქვათ გვინდა, რომ სახელის ველს ერთი ღილაკის დაჭერით შევუცვალოთ მნიშვნელობა.
 მაშინ ჩვენ შევქმნით ღილაკს:
@@ -203,7 +201,7 @@ export class SignupFormComponent {
 
 ეს მეთოდი დააბრუნებს ფორმას პირვანდელ მნიშვნელობებზე.
 
-### კონტროლების მასივი
+## კონტროლების მასივი
 
 ზოგჯერ გვაქვს ფორმის ისეთი ნაწილები, რომლებიც დინამიკურად
 უნდა შეიქმნას და მათთვის კონტროლის სახელი არ გვჭირდება. ვთქვათ
@@ -217,14 +215,14 @@ export class SignupFormComponent {
   private fb = inject(FormBuilder);
 
   signupForm = this.fb.group({
-    name: [""],
-    email: [""],
-    password: [""],
-    positions: this.fb.array([this.fb.control("")]),
+    name: [''],
+    email: [''],
+    password: [''],
+    positions: this.fb.array([this.fb.control('')]),
   });
 
   get positions() {
-    return this.signupForm.controls["positions"];
+    return this.signupForm.controls['positions'];
   }
 
   onSubmit() {
@@ -241,7 +239,7 @@ export class SignupFormComponent {
   }
 
   addPosition() {
-    this.positions.push(this.fb.control(""));
+    this.positions.push(this.fb.control(''));
   }
 }
 ```
@@ -263,11 +261,7 @@ export class SignupFormComponent {
     <h3>Positions</h3>
     <button type="button" (click)="addPosition()">+</button>
   </div>
-  <input
-    type="text"
-    *ngFor="let position of positions.controls; let i = index"
-    [formControlName]="i"
-  />
+  <input type="text" *ngFor="let position of positions.controls; let i = index" [formControlName]="i" />
 </div>
 ```
 

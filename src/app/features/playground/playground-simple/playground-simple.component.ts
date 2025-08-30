@@ -44,7 +44,6 @@ declare const monaco: any;
 
 @Component({
   selector: 'sw-playground-simple',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -146,7 +145,7 @@ export default class PlaygroundSimpleComponent
       tap(() => {
         // It's hack to format document this way becouse ng-zorro decided to make editor instance private
         // @ts-ignore
-        this.editor.editorInstance._actions
+        this.editor?.editorInstance?._actions
           .get('editor.action.formatDocument')
           .run();
       }),
@@ -185,7 +184,7 @@ export default class PlaygroundSimpleComponent
 
   private parseHTML(html: string) {
     html = html.replace(
-      /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+      /<script\b[^>]*\bsrc\s*=\s*["'][^"']*["'][^>]*>(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
       '',
     );
 

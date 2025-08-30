@@ -1,0 +1,45 @@
+[
+  {
+    "input": [
+      {
+        "name": "triangle",
+        "value": [[2], [3, 4], [6, 5, 7], [4, 1, 8, 3]]
+      }
+    ],
+    "expected": 11
+  },
+  {
+    "input": [
+      {
+        "name": "triangle",
+        "value": [[-10]]
+      }
+    ],
+    "expected": -10
+  },
+  {
+    "input": [
+      {
+        "name": "triangle",
+        "value": [[1], [2, 3]]
+      }
+    ],
+    "expected": 3
+  },
+  {
+    "input": [
+      {
+        "name": "triangle",
+        "value": [
+          [5],
+          [9, 6],
+          [4, 6, 8],
+          [0, 7, 1, 5],
+          [4, 2, 3, 6, 9],
+          [7, 1, 8, 3, 2, 4]
+        ]
+      }
+    ],
+    "expected": 21
+  }
+]

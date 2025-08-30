@@ -1,5 +1,5 @@
-import fs, { existsSync } from 'fs';
+import { existsSync, rmSync } from 'fs';
 
 if (existsSync('.temp')) {
-  fs.rmSync('.temp', { recursive: true });
+  rmSync('.temp', { recursive: true });
 }

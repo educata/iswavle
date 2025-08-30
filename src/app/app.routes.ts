@@ -1,6 +1,10 @@
 import { Route, Routes, UrlSegment } from '@angular/router';
-import { contentResolver } from './shared/resolvers';
-import { codeResolver } from './shared/resolvers/code.resolver';
+import {
+  codeResolver,
+  contentResolver,
+  exercisesMapResolver,
+  exercisesResolver,
+} from './shared/resolvers';
 
 const indeterminateSegments = (url: UrlSegment[]) => {
   if (url.length) {
@@ -30,9 +34,27 @@ export const routes: Routes = [
     title: 'მთავარი',
   },
   {
-    path: 'exercieses',
-    loadComponent: () => import('./features/exercieses/exercieses.component'),
+    path: 'exercises',
     title: 'სავარჯიშოები',
+    loadChildren: () => [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./features/exercises/exercises-list/exercises.component'),
+        resolve: { data: exercisesMapResolver },
+      },
+      {
+        path: ':exercises_name',
+        resolve: {
+          exercise: exercisesResolver,
+          exercises: exercisesMapResolver,
+        },
+        loadComponent: () =>
+          import(
+            './features/exercises/exercises-viewer/exercises-viewer.component'
+          ),
+      },
+    ],
   },
   {
     path: 'doc',

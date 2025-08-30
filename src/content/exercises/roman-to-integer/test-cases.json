@@ -1,0 +1,47 @@
+[
+  {
+    "input": [
+      {
+        "name": "text",
+        "value": "III"
+      }
+    ],
+    "expected": 3
+  },
+  {
+    "input": [
+      {
+        "name": "text",
+        "value": "LVIII"
+      }
+    ],
+    "expected": 58
+  },
+  {
+    "input": [
+      {
+        "name": "text",
+        "value": "MCMXCIV"
+      }
+    ],
+    "expected": 1994
+  },
+  {
+    "input": [
+      {
+        "name": "text",
+        "value": "MMXXV"
+      }
+    ],
+    "expected": 2025
+  },
+  {
+    "input": [
+      {
+        "name": "text",
+        "value": "MMMDCCXLIX"
+      }
+    ],
+    "expected": 3749
+  }
+]

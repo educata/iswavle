@@ -5,11 +5,10 @@ export const HEADER_NAVIGATION: Navigation[] = [
     title: 'მთავარი',
     routerLink: '/',
   },
-  // TODO: include after exercieses is finished
-  // {
-  //   title: 'სავარჯიშოები',
-  //   routerLink: '/exercieses',
-  // },
+  {
+    title: 'სავარჯიშოები',
+    routerLink: '/exercises',
+  },
   {
     title: 'ედიტორი',
     routerLink: '/playground',

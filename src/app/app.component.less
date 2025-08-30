@@ -44,22 +44,30 @@ header {
       border-bottom: none;
     }
 
+    .actions {
+      display: inline-flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 8px;
+      margin: 0 10px;
+
+      a {
+        font-size: 20px;
+        padding: 10px;
+        transition: 0.5s ease;
+        color: var(--text-color);
+        line-height: 1;
+
+        &:hover {
+          color: var(--primary-color);
+        }
+      }
+    }
+
     ul {
       width: 100%;
 
       li {
-        &.without-border:hover::after,
-        &.without-border::after {
-          border-bottom: none;
-        }
-
-        .grouped {
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-          gap: 10px;
-        }
-
         span {
           font-size: 20px;
         }

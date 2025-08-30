@@ -5,7 +5,7 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
   path: 'javascript',
   children: [
     { title: 'შესავალი', path: 'introduction' },
-    { title: 'რა არის JavaScript', path: 'what-is-javascript' },
+    { title: 'JavaScript-ის შემოტანა', path: 'adding-javascript' },
     { title: 'ცვლადი', path: 'variable' },
     { title: 'მონაცემთა ტიპები', path: 'data-types' },
     { title: 'ოპერაციები და ოპერატორები', path: 'operations-operators' },
@@ -20,6 +20,12 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
     { title: 'რიცხვი', path: 'number' },
     { title: 'კონსოლის ობიექტი', path: 'console' },
     { title: 'შეცდომების კონტროლი', path: 'error-handling' },
+    { title: 'OOP', path: 'oop' },
+    {
+      title: 'ჩაშენებული მონაცემთა სტრუქტურები',
+      path: 'data-structures',
+    },
+    { title: 'Date', path: 'date' },
     {
       title: 'შესავალი DOM-ში',
       path: 'dom',
@@ -133,6 +139,50 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
         {
           title: 'შეჯამება',
           path: 'summary',
+        },
+      ],
+    },
+    {
+      title: 'Window',
+      path: 'window',
+      children: [
+        {
+          title: 'დიალოგური ფანჯრები',
+          path: 'dialogs',
+        },
+        {
+          title: 'საცავები',
+          path: 'storages',
+          children: [
+            {
+              title: 'ლოკალური საცავი',
+              path: 'local',
+            },
+            {
+              title: 'სესიური საცავი',
+              path: 'session',
+            },
+            {
+              title: 'Cookie',
+              path: 'cookie',
+            },
+            {
+              title: 'შეჯამება',
+              path: 'summary',
+            },
+          ],
+        },
+        {
+          title: 'Audio',
+          path: 'audio',
+        },
+        {
+          title: 'Location',
+          path: 'location',
+        },
+        {
+          title: 'Navigator',
+          path: 'navigator',
         },
       ],
     },

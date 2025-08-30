@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { CUSTOM_ICONS, EDITOR_THEMES, ICON_PREFIX } from '@app-shared/consts';
 import { LocalStorageKeys, Theme } from '@app-shared/enums';
 import { DownloadService, ThemeService } from '@app-shared/services';
 import { NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
@@ -45,34 +44,20 @@ export class PlaygroundBaseComponent {
   editorRef!: NzCodeEditorComponent;
 
   readonly isBrowser = isPlatformBrowser(this.platform);
-  readonly editorThemes = EDITOR_THEMES;
+  readonly editorThemeOptions = this.themeService.editorThemeOptions;
 
   readonly isEditorInitialized$ = new BehaviorSubject<boolean>(false);
   readonly isSiderCollapsed$ = new BehaviorSubject<boolean>(false);
-  readonly currentEditorTheme$ = new BehaviorSubject<string>(
-    (this.isBrowser &&
-      localStorage?.getItem(LocalStorageKeys.CodeEditorTheme)) ||
-      EDITOR_THEMES[0],
-  );
   readonly isDownloadModalVisible$ = new BehaviorSubject<boolean>(false);
 
   readonly files$ = this.route.data.pipe(
     map((res) => [res['data']] as NzTreeNodeOptions[]),
   );
 
-  readonly editorTheme$ = combineLatest([
-    this.currentEditorTheme$,
-    this.themeService.theme$,
-  ]).pipe(
-    map(
-      ([editorTheme, globalTheme]) =>
-        editorTheme || this.convertGlobalTheme(globalTheme),
-    ),
+  readonly editorTheme$ = this.themeService.editorTheme$.pipe(
     tap(() => {
-      if (this.isBrowser) {
-        if (!localStorage.getItem(LocalStorageKeys.CodeEditorTheme)) {
-          this.reRenderEditor();
-        }
+      if (this.isBrowser && !this.themeService.hasEditorThemeSelection) {
+        this.reRenderEditor();
       }
     }),
   );
@@ -90,19 +75,9 @@ export class PlaygroundBaseComponent {
     event.preventDefault();
   }
 
-  constructor() {
-    this.registerIcons();
-  }
-
   protected registerEffects(effects: PlaygroundEffects) {
     for (let effect in effects) {
       effects[effect].pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
-    }
-  }
-
-  protected registerIcons() {
-    for (const key in CUSTOM_ICONS) {
-      this.iconService.addIconLiteral(ICON_PREFIX + key, CUSTOM_ICONS[key]);
     }
   }
 
@@ -118,7 +93,6 @@ export class PlaygroundBaseComponent {
   }
 
   changeTheme(theme: string) {
-    this.currentEditorTheme$.next(theme);
-    localStorage.setItem(LocalStorageKeys.CodeEditorTheme, theme);
+    this.themeService.changeEditorTheme(theme);
   }
 }

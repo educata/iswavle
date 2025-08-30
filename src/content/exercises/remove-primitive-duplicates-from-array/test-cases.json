@@ -1,0 +1,29 @@
+[
+  {
+    "input": [
+      {
+        "name": "elements",
+        "value": [1, 3, 2, 2, 1]
+      }
+    ],
+    "expected": [1, 3, 2]
+  },
+  {
+    "input": [
+      {
+        "name": "elements",
+        "value": ["ricxvi", 22, 7, true, 22, 7, true, false, "ricxvi"]
+      }
+    ],
+    "expected": ["ricxvi", 22, 7, true, false]
+  },
+  {
+    "input": [
+      {
+        "name": "elements",
+        "value": [1, 2, 3]
+      }
+    ],
+    "expected": [1, 2, 3]
+  }
+]

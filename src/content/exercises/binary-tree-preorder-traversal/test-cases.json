@@ -1,0 +1,38 @@
+[
+  {
+    "input": [
+      {
+        "name": "root",
+        "value": [1, null, 2, 3]
+      }
+    ],
+    "expected": [1, 2, 3]
+  },
+  {
+    "input": [
+      {
+        "name": "root",
+        "value": [1, 2, 3, 4, 5, null, 8, null, null, 6, 7, 9]
+      }
+    ],
+    "expected": [1, 2, 4, 5, 6, 7, 3, 8, 9]
+  },
+  {
+    "input": [
+      {
+        "name": "root",
+        "value": []
+      }
+    ],
+    "expected": []
+  },
+  {
+    "input": [
+      {
+        "name": "root",
+        "value": [1]
+      }
+    ],
+    "expected": [1]
+  }
+]

@@ -1,0 +1,59 @@
+[
+  {
+    "input": [
+      {
+        "name": "persons",
+        "value": [
+          { "id": 1, "name": "rostevani" },
+          { "id": 2, "name": "tinati" },
+          { "id": 3, "name": "tarieli" },
+          { "id": 4, "name": "nuradin-pridon" },
+          { "id": 2, "name": "tinati" }
+        ]
+      }
+    ],
+    "expected": [
+      { "id": 1, "name": "rostevani" },
+      { "id": 2, "name": "tinati" },
+      { "id": 3, "name": "tarieli" },
+      { "id": 4, "name": "nuradin-pridon" }
+    ]
+  },
+  {
+    "input": [
+      {
+        "name": "persons",
+        "value": [
+          { "id": 1, "name": "rostevani" },
+          { "id": 2, "name": "tinati" },
+          { "id": 2, "name": "tarieli" },
+          { "id": 4, "name": "nuradin-pridon" }
+        ]
+      }
+    ],
+    "expected": [
+      { "id": 1, "name": "rostevani" },
+      { "id": 2, "name": "tinati" },
+      { "id": 4, "name": "nuradin-pridon" }
+    ]
+  },
+  {
+    "input": [
+      {
+        "name": "persons",
+        "value": [
+          { "id": 1, "name": "rostevani" },
+          { "id": 2, "name": "tinati" },
+          { "id": 3, "name": "tarieli" },
+          { "id": 4, "name": "nuradin-pridon" }
+        ]
+      }
+    ],
+    "expected": [
+      { "id": 1, "name": "rostevani" },
+      { "id": 2, "name": "tinati" },
+      { "id": 3, "name": "tarieli" },
+      { "id": 4, "name": "nuradin-pridon" }
+    ]
+  }
+]

@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #1890ff;
+  --primary-text-color: rgba(0, 0, 0, 0.85);
+  --secondary-color: #fafafa;
+  --border-color: #cdcdcd;
+  --bg-color: #fff;
+  --code-property-color: #00f;
+  --code-value-color: #a31515;
+  --thumb-color: rgb(168, 168, 182);
+  --thumb-color-hover: #e1e9ec;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui;
+  color: var(--primary-text-color);
+  background-color: var(--bg-color);
+  direction: ltr;
+}
+
+body.dark {
+  --primary-text-color: rgba(255, 255, 255, 0.85);
+  --bg-color: #1f1f1f;
+  --secondary-color: #2a2a2a;
+  --code-property-color: #9cdcfe;
+  --code-value-color: #d69d85;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--thumb-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--thumb-hover-color);
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--border-color);
+  place-items: center;
+  overflow-y: auto;
+  align-items: stretch;
+}
+
+.container .list {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  padding: 25px;
+  box-sizing: border-box;
+  border-right: 1px solid var(--border-color);
+}
+
+.container .list .list-item {
+  width: 100%;
+  padding: 15px 10px;
+  cursor: pointer;
+  transition: 1s ease;
+  border: 1px solid var(--border-color);
+  background-color: var(--secondary-color);
+}
+
+.container .list .list-item.active,
+.container .list .list-item:hover {
+  border: 1px solid var(--primary-color);
+}
+
+.container .result {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 56px;
+}
+
+.container .result .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.container .result p {
+  margin: auto 0;
+  text-align: center;
+  overflow-y: auto;
+  text-align: center;
+  padding: 25px;
+  font-family: system-ui;
+  font-size: 22px;
+}
+
+.container .controls .direction {
+  width: 100%;
+  border: 0;
+  font-size: 16px;
+  text-align: center;
+  padding: 15px;
+  cursor: pointer;
+  line-height: 1.5715;
+  background-color: transparent;
+  box-sizing: border-box;
+  transition: 0.5s ease;
+}
+
+.container .controls .direction:hover {
+  color: #1890ff;
+}
+
+@media screen and (max-width: 450px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+  .container .list {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
