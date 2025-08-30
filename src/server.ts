@@ -1,5 +1,7 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr/node';
+import { render } from '@netlify/angular-runtime/common-engine.mjs';
+
 import bootstrap from './main.server';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
@@ -27,7 +29,6 @@ export async function netlifyCommonEngineHandler(
       headers: { 'Content-Type': 'text/html' },
     });
   } catch (err) {
-    console.error(err);
-    return new Response('Internal Server Error', { status: 500 });
+    return await render(commonEngine);
   }
 }
