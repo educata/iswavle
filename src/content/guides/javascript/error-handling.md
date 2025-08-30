@@ -20,11 +20,11 @@ try {
 }
 ```
 
-მაგალითში აშკარად ჩანს შეცდომა, თავდაპირველად `something` ვანიჭებთ `null`, შემდგომ კი ვცდილობთ `null`-ში `value` თვისებას შევუცვალოთ მნიშვნელობა, რაც ვერ მოხერხდება. `try...catch` ბლოკმა დაიჭირა არსებული შეცდომა, შეწყვიტა კოდის გაგრძელება იმ ბლოკში და გადაინაცვლა `catch`-ს მხარეს, სადაც ვლოგავთ შეცდომის მესიჯს.
+მაგალითში აშკარად ჩანს შეცდომა, თავდაპირველად `something` ვანიჭებთ `null`, შემდეგ კი ვცდილობთ `null`-ში `value` თვისებას შევუცვალოთ მნიშვნელობა, რაც ვერ მოხერხდება. `try...catch` ბლოკმა დაიჭირა არსებული შეცდომა, შეწყვიტა კოდის გაგრძელება იმ ბლოკში და გადაინაცვლა `catch`-ს მხარეს, სადაც ვლოგავთ შეცდომის მესიჯს.
 
 ## Error
 
-[`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) ობიექტი გამოიყენება შეცდომების დეტალურად აღწერისთვის. `Error` ობიექტის გამოძახება ხდება ავტომატურად, როცა კოდში შეცდომა დაფიქსირდება. ობიექტს გააჩნია შემდგომი თვისებები:
+[`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) ობიექტი გამოიყენება შეცდომების დეტალურად აღწერისთვის. `Error` ობიექტის გამოძახება ხდება ავტომატურად, როცა კოდში შეცდომა დაფიქსირდება. ობიექტს გააჩნია შემდეგი თვისებები:
 
 - [`message`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/message) - შეცდომის მესიჯი.
 - [`name`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/name) - შეცდომის დასახელება. `Error` ეს არის ზოგადი შეცდომა თუმცა ასევე გვაქვს: [`TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError), [`SyntaxError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError).
@@ -83,7 +83,7 @@ try {
 }
 ```
 
-`try...catch` ბლოკში მოთავსებით შეცდომა აღარ გააჩერებს აპლიკაციის კოდის გაშვებას, ამავდროულად გვაქვს შესაძლებლობა ეს შეცდომა ვაჩვენოთ მომხარებელს. ხშირ შემთხვევაში `cause`-ში იწერება შეცდომის კოდი, რაც შემდგომ [ინტერნაციონალიზაციის](https://iswavle.com/doc/guides/angular/internationalization) დროს გამოჩნდება სწორ ენაზე.
+`try...catch` ბლოკში მოთავსებით შეცდომა აღარ გააჩერებს აპლიკაციის კოდის გაშვებას, ამავდროულად გვაქვს შესაძლებლობა ეს შეცდომა ვაჩვენოთ მომხარებელს. ხშირ შემთხვევაში `cause`-ში იწერება შეცდომის კოდი, რაც შემდეგ [ინტერნაციონალიზაციის](https://iswavle.com/doc/guides/angular/internationalization) დროს გამოჩნდება სწორ ენაზე.
 
 მცირედი მოდიფიცირებით შეგვიძლია ფუნქცია მივაღებინოთ არა 2 მნიშვნელობა არამედ, რამდენიც გვსურს.
 

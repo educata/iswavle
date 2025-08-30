@@ -184,7 +184,7 @@ export default class PlaygroundSimpleComponent
 
   private parseHTML(html: string) {
     html = html.replace(
-      /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+      /<script\b[^>]*\bsrc\s*=\s*["'][^"']*["'][^>]*>(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
       '',
     );
 

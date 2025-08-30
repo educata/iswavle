@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML & CSS example</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <form action="https://api.everrest.educata.dev/echo/html" method="post">
+      <h2>რეგისტრაციის ფორმა</h2>
+      <div class="form-group">
+        <label for="fullName">სახელი გვარი</label>
+        <input
+          type="text"
+          id="fullName"
+          placeholder="სახელი გვარი"
+          name="fullName"
+          minlength="4"
+          maxlength="50"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">ელ.ფოსტა</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="some@example.com"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="age">ასაკი</label>
+        <input
+          type="number"
+          id="age"
+          name="age"
+          placeholder="ასაკი"
+          min="16"
+          max="120"
+          required
+        />
+      </div>
+      <div class="form-group-radio">
+        <p>სქესი</p>
+        <div>
+          <input type="radio" id="gender-male" name="gender" value="male" />
+          <label for="gender-male">მამრობითი</label>
+        </div>
+        <div>
+          <input type="radio" id="gender-female" name="gender" value="female" />
+          <label for="gender-female">მდედრობითი</label>
+        </div>
+        <div>
+          <input type="radio" id="gender-other" name="gender" value="other" />
+          <label for="gender-other">სხვა</label>
+        </div>
+      </div>
+      <div class="form-group-checkbox">
+        <input type="checkbox" id="terms" name="terms" required />
+        <label for="terms">ეთანხმებით თუ არა გამოყენების პირობებს?</label>
+      </div>
+      <button>რეგისტრაცია</button>
+    </form>
+  </body>
+</html>

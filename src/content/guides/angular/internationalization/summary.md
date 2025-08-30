@@ -2,8 +2,6 @@
 title: "i18n და ngx-translate შეჯამება"
 ---
 
-# შეჯამება
-
 წინა თავებში განვიხილეთ ორი მიდოგმა, ანგულარის მიერ [შემოთავაზებული მიდგომა](./doc/guides/angular/internationalization/angular-i18n) და `third-party` პაკეტი [ngx-translate](./doc/guides/angular/internationalization/ngx-translate).
 მსგავსი დანიშნულებისთვის არსებობს კიდევ სხვა `third-party` პაკეტეტები, რომელთა განხილვაც შეიძლება თუმცა ყველაზე პოპულარული არის `ngx-translate`.
 ორივე მიდგომას გააჩნია თავისი უარყოფითი და დადებითი მხარეები, მოდით განვიხილოთ ისინი:

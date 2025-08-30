@@ -94,7 +94,7 @@ function randomNumber(max = 100) {
 }
 ```
 
-`randomNumber` ფუნქცია აბრუნებს პრომისის მნიშვნელობას, რომელიც შესრულდება 2 წამის შემდგომ. მისი გამოყენება კი შეგვიძლია მარტივად:
+`randomNumber` ფუნქცია აბრუნებს პრომისის მნიშვნელობას, რომელიც შესრულდება 2 წამის შემდეგ. მისი გამოყენება კი შეგვიძლია მარტივად:
 
 ```js
 randomNumber().then((result) => {
@@ -149,7 +149,7 @@ areYouLucky()
 მაგრამ ქეშიდან მონაცემების ამოღება სინქრონულად ხდება და თუ ჩვენ ამ ყველაფრის ერთ ფუნქციაში გაერთიანება გვსურს,
 ზოგჯერ პრომისი პირდაპირ უნდა დავარეზოლვოთ.
 
-მაგალითისთვის განვიხილოთ შემდგომი მაგალითი:
+მაგალითისთვის განვიხილოთ შემდეგი მაგალითი:
 
 ```js
 const cache = {
@@ -243,7 +243,7 @@ calculate();
 
 ### Promise.allSettled
 
-[`Promise.allSettled`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) მუშაობს, როგორც `Promise.all`, ოღონდ მცირედი განსხვავებით: `Promise.allSettled` უცდის ყოველი პრომისის მნიშვნელობის დასრულებას, მნიშვნელობა არ აქვს ეს წარმატებული იყო თუ წარუმატებელი, მხოლოდ მის შემდგომ დაბრუნდება პრომისების მასივი.
+[`Promise.allSettled`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) მუშაობს, როგორც `Promise.all`, ოღონდ მცირედი განსხვავებით: `Promise.allSettled` უცდის ყოველი პრომისის მნიშვნელობის დასრულებას, მნიშვნელობა არ აქვს ეს წარმატებული იყო თუ წარუმატებელი, მხოლოდ მის შემდეგ დაბრუნდება პრომისების მასივი.
 
 ```js
 const firstPromise = new Promise((resolve, reject) => setTimeout(resolve, 1000, 'პირველი დაპირება'));
