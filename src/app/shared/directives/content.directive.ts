@@ -13,7 +13,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_ICONS } from '@app-shared/consts';
-import { SupportedPreviewLanguages } from '@app-shared/enums';
+import { EmbedMessageType, SupportedPreviewLanguages } from '@app-shared/enums';
 import { DocContent, ExercisesContent } from '@app-shared/interfaces';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
 import {
@@ -69,12 +69,20 @@ export class ContentDirective implements OnChanges {
           takeUntilDestroyed(),
           tap((data) => {
             data.iframes.forEach((iframe: HTMLIFrameElement) => {
-              iframe.contentWindow?.postMessage(
-                data.theme,
-                this.environment.production
-                  ? 'https://static.iswavle.com'
-                  : '*',
-              );
+              try {
+                const src = iframe.getAttribute('src');
+                if (!src) return;
+                const origin = new URL(src).origin;
+                iframe.contentWindow?.postMessage(
+                  {
+                    type: EmbedMessageType.THEME_CHANGED,
+                    theme: data.theme,
+                  },
+                  origin,
+                );
+              } catch (error) {
+                console.error('Error posting message to iframe:', error);
+              }
             });
           }),
         )

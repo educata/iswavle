@@ -167,7 +167,7 @@ html {
 
         &:hover {
           svg {
-            fill: @primary-color;
+            fill: var(--primary-color);
           }
         }
       }
@@ -194,9 +194,9 @@ html {
           h4,
           h5,
           h6 {
-            color: @primary-color;
+            color: var(--primary-color);
           }
-          color: @primary-color;
+          color: var(--primary-color);
         }
       }
 
@@ -313,11 +313,15 @@ html {
           transition: 0.5s;
         }
 
+        &:visited {
+          color: var(--text-color);
+        }
+
         &:hover {
-          color: @primary-color;
+          color: var(--primary-color);
 
           svg {
-            fill: @primary-color;
+            fill: var(--primary-color);
           }
         }
       }
