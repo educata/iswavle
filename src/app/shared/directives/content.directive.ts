@@ -69,7 +69,10 @@ export class ContentDirective implements OnChanges {
           takeUntilDestroyed(),
           tap((data) => {
             data.iframes.forEach((iframe: HTMLIFrameElement) => {
-              iframe.contentWindow?.postMessage(data.theme);
+              iframe.contentWindow?.postMessage(
+                data.theme,
+                'https://static.iswavle.com',
+              );
             });
           }),
         )
