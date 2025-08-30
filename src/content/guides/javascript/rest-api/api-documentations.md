@@ -36,7 +36,7 @@ Everrest ეს არის [ედუკატას](https://educata.dev/)-�
 
 Everrest-საც გააჩნია [თავისი Swagger](https://api.everrest.educata.dev/swagger):
 
-<iframe src="https://api.everrest.educata.dev/swagger" data-is-external-source="true"></iframe>
+<iframe src="https://api.everrest.educata.dev/swagger" data-is-external-source></iframe>
 
 ვებგვერდზე ჩანს სხვადასხვა endpoint-ები, ყოველივე ეს დაგენერირებულია სერვერის მხარეს.
 
