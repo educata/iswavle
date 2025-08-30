@@ -114,7 +114,7 @@ constructor(private titleService: Title) {
 }
 ```
 
-[`$localize`](https://angular.io/api/localize/init/$localize) თეგის დამატებით ვნიშნავთ სტრინგებს ლოკალიზაციისთვის.
+[`$localize`](https://angular.dev/api/localize/init/$localize) თეგის დამატებით ვნიშნავთ სტრინგებს ლოკალიზაციისთვის.
 მაშასადამე, ნებისმიერი ცვლადი, რომელიც გვინდა რომ ტაიპსკრიპტის ფაილში გადაითარგმნოს, მოინიშნება ამ თეგით:
 
 ```ts

@@ -53,7 +53,7 @@ title: "Structural Directives"
 ```
 
 ჩვენ შესაძლებლობა გვაქვს ოპტიმიზაცია გავუკეთოთ მასივის დარენდერებას,
-დირექტივში `trackby`-ს განსაზღვრით. ამისათვის კლასში გვჭირდება [`TrackByFunction`](https://angular.io/api/core/TrackByFunction)
+დირექტივში `trackby`-ს განსაზღვრით. ამისათვის კლასში გვჭირდება [`TrackByFunction`](https://angular.dev/api/core/TrackByFunction)
 ტიპის (`@angular/core`-დან) ფუნქციის შექმნა:
 
 ```ts
