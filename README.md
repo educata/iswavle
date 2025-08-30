@@ -3,6 +3,7 @@
 <p align="center">
   <img src="./src/assets/icons/android-chrome-192x192.png" alt="iswavle-logo" />
   <br>
+  <br>
   <em>ისწავლე ვებ დეველოპმენტი დამოუკიდებლად!</em>
   <br>
 </p>
@@ -12,14 +13,14 @@
   <br>
 </p>
 
-<p align="center">
+<div align="center">
 
 | Project | Status |
 |:-------:|:------:|
 | **Main Site** | <a href="https://app.netlify.com/projects/iswavle/deploys"><img src="https://api.netlify.com/api/v1/badges/c6aef475-239e-46d6-bbf1-09e81a1ecdd5/deploy-status" alt="Netlify iswavle status" /></a> |
 | **Examples** | <a href="https://app.netlify.com/projects/iswavle-examples/deploys"><img src="https://api.netlify.com/api/v1/badges/954c8929-e96a-436f-9890-613c0a3fa465/deploy-status" alt="Netlify iswavle examples status" /></a> |
 
-</p>
+</div>
 
 <p align="center" xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
 პროექტის კოდი ლიცენზირებულია <a href="./LICENSE">MIT</a> ლიცენზიით, ხოლო
