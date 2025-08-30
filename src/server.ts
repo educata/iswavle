@@ -1,23 +1,33 @@
+import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr/node';
 import bootstrap from './main.server';
-import { APP_BASE_HREF } from '@angular/common';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const browserDistFolder = resolve(__dirname, '../browser');
-const indexHtml = join(__dirname, 'index.server.html');
-
 const commonEngine = new CommonEngine();
+const serverDistFolder = dirname(fileURLToPath(import.meta.url));
+const browserDistFolder = resolve(serverDistFolder, '../browser');
+const indexHtml = join(serverDistFolder, 'index.server.html');
 
-export async function netlifyCommonEngineHandler(request: Request) {
-  const url = request.url;
+export async function netlifyCommonEngineHandler(
+  request: Request,
+): Promise<Response> {
+  const url = new URL(request.url);
 
-  return await commonEngine.render({
-    bootstrap,
-    documentFilePath: indexHtml,
-    url,
-    publicPath: browserDistFolder,
-    providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
-  });
+  try {
+    const html = await commonEngine.render({
+      bootstrap,
+      documentFilePath: indexHtml,
+      url: url.href,
+      publicPath: browserDistFolder,
+      providers: [{ provide: APP_BASE_HREF, useValue: url.pathname }],
+    });
+
+    return new Response(html, {
+      headers: { 'Content-Type': 'text/html' },
+    });
+  } catch (err) {
+    console.error(err);
+    return new Response('Internal Server Error', { status: 500 });
+  }
 }
