@@ -109,12 +109,13 @@ export class AppComponent implements AfterViewInit {
       }
     });
 
-    // Menu open effect
     effect(() => {
-      const isOpen = this.isMenuOpen();
-      this.document.body.style.overflow = isOpen ? 'hidden' : 'visible';
-      if (isOpen) {
-        this.viewport.scrollToPosition([0, 0]);
+      if (this.isBrowser) {
+        const isOpen = this.isMenuOpen();
+        this.document.body.style.overflow = isOpen ? 'hidden' : 'visible';
+        if (isOpen) {
+          this.viewport.scrollToPosition([0, 0]);
+        }
       }
     });
   }

@@ -99,7 +99,9 @@ export class ThemeService {
     }
     return this.theme$.pipe(
       tap((theme) => {
-        this.applyThemeToDoc(theme);
+        if (this.isBrowser) {
+          this.applyThemeToDoc(theme);
+        }
       }),
     );
   }

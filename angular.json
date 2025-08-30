@@ -34,6 +34,7 @@
               "src/assets",
               "src/manifest.json",
               "src/sitemap.xml",
+              "src/robots.txt",
               {
                 "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
@@ -51,7 +52,9 @@
             ],
             "scripts": [],
             "server": "src/main.server.ts",
-            "prerender": true,
+            "prerender": {
+              "routesFile": "src/routes.txt"
+            },
             "ssr": {
               "entry": "src/server.ts"
             },
