@@ -6,7 +6,6 @@ import { BypassSanitizePipe } from '@app-shared/pipes';
 
 @Component({
   selector: 'sw-home',
-  standalone: true,
   imports: [NzButtonModule, RouterLink, BypassSanitizePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.less',
@@ -18,21 +17,21 @@ export default class HomeComponent {
       title: 'HTML & CSS',
       description: 'ვებგვერდის სტრუქტურა და სტილიზაცია',
       image: '/assets/images/html-css.png',
-      routerLink: '/doc/guides/html-css/introduction',
+      routerLink: '/doc/guides/html-css',
       code: CODE_BLOCKS.htmlCss,
     },
     {
       title: 'JavaScript',
       description: 'ინტერაქციული ვებ-აპლიკაციებისთვის',
       image: '/assets/images/js.png',
-      routerLink: '/doc/guides/javascript/introduction',
+      routerLink: '/doc/guides/javascript',
       code: CODE_BLOCKS.js,
     },
     {
       title: 'TypeScript',
       description: 'მკაცრადტიპიზირებული ჯავასკრიპტი',
       image: '/assets/images/ts.png',
-      routerLink: '/doc/guides/typescript/introduction',
+      routerLink: '/doc/guides/typescript',
       code: CODE_BLOCKS.ts,
     },
     {

@@ -1,0 +1,127 @@
+@import '../../../../../node_modules/ng-zorro-antd/ng-zorro-antd.less';
+@import '../../../../../node_modules/ng-zorro-antd/code-editor/style/entry.less';
+
+@header-height: 66px;
+
+nz-layout.base {
+  background-color: transparent;
+  position: relative;
+
+  nz-splitter {
+    width: 100%;
+    background-color: transparent;
+    min-height: calc(100vh - @header-height);
+  }
+
+  .tab-button-content {
+    margin: 0 24px;
+  }
+
+  .task-description {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+
+    .actions {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+
+      p {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+      }
+    }
+
+    .attributes {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+    }
+
+    article {
+      flex: 1;
+      max-height: calc(100vh - @header-height - 155px);
+      margin: auto;
+      max-width: 800px;
+      overflow: hidden;
+      overflow-y: auto;
+
+      &:has(:not(.is-mobile)) {
+        padding-right: 16px;
+      }
+
+      &.is-mobile {
+        max-height: 100%;
+      }
+
+      --h1-font-size: 2rem;
+      --h2-font-size: 1.7rem;
+      --h3-font-size: 1.5rem;
+      --h4-font-size: 1.3rem;
+      --h5-font-size: 1.1rem;
+    }
+  }
+
+  form {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .test-case-item {
+    padding: 8px;
+
+    p {
+      margin: 0;
+    }
+
+    .test-case-item-box {
+      padding: 8px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 8px 0;
+
+      .test-case-item-label {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.exercise-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 1rem;
+
+  .exercise-list-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .spacer {
+      width: 16px;
+      height: 16px;
+    }
+
+    .exercise-title {
+      flex: 1;
+    }
+  }
+}
+
+.exercise-search {
+  margin-bottom: 16px;
+}

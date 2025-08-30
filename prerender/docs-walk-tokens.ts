@@ -13,17 +13,44 @@ import path from 'path';
 const temepDir = '.temp';
 const notFoundSvgPath = path.join(__dirname, 'assets', 'not-found.svg');
 
+enum WalkTokenCodeLanguage {
+  Mermaid = 'mermaid',
+  Preview = 'preview',
+}
+
 export async function docsWalkTokens(walkToken: Tokens.Generic): Promise<void> {
-  if (
-    walkToken.type === 'code' &&
-    (walkToken as Tokens.Code).lang === 'mermaid'
-  ) {
-    await handleMermaid(walkToken as Tokens.Code);
+  const walkTokenCode = walkToken as Tokens.Code;
+  if (walkTokenCode.type !== 'code') {
+    return;
+  }
+  switch (walkTokenCode.lang) {
+    case WalkTokenCodeLanguage.Mermaid: {
+      await handleMermaid(walkTokenCode);
+      break;
+    }
+    case WalkTokenCodeLanguage.Preview: {
+      await handlePreview(walkTokenCode);
+      break;
+    }
   }
 }
 
+async function handlePreview(token: Tokens.Code) {
+  const text = token.text;
+  token.text = `
+    <div data-search-ignore class="preview-wrapper">
+      <div class="preview-wrapper-header">
+        <span class="preview-wrapper-header-title"></span>
+      </div>
+      <div class="preview-wrapper-body">
+        ${text}
+      </div>
+    </div>
+  `;
+}
+
 async function handleMermaid(token: Tokens.Code) {
-  const uniqueId = Date.now();
+  const uniqueId = generateUUID();
   const tempMermaidPath = `${temepDir}/mermaid-temp-${uniqueId}`;
 
   const inputPath = `${tempMermaidPath}.mmd`;
@@ -114,4 +141,12 @@ async function handleMermaid(token: Tokens.Code) {
     </div>
     `;
   }
+}
+
+function generateUUID(): string {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
 }

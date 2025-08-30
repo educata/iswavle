@@ -1,5 +1,9 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { TitleStrategy, provideRouter } from '@angular/router';
+import {
+  TitleStrategy,
+  provideRouter,
+  withInMemoryScrolling,
+} from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -10,15 +14,36 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import ka from '@angular/common/locales/ka';
 import { SwTitleStrategy } from '@app-shared/services';
+import { provideNzIcons } from 'ng-zorro-antd/icon';
+import { IconDefinition } from '@ant-design/icons-angular';
+import {
+  GithubOutline,
+  BgColorsOutline,
+  MenuOutline,
+  CommentOutline,
+} from '@ant-design/icons-angular/icons';
 
 registerLocaleData(ka);
+const icons: IconDefinition[] = [
+  GithubOutline,
+  BgColorsOutline,
+  MenuOutline,
+  CommentOutline,
+];
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    provideRouter(
+      routes,
+      withInMemoryScrolling({
+        anchorScrolling: 'enabled',
+        scrollPositionRestoration: 'enabled',
+      }),
+    ),
     provideClientHydration(),
     provideHttpClient(withFetch()),
     provideNzI18n(ka_GE),
+    provideNzIcons(icons),
     importProvidersFrom(FormsModule),
     provideAnimations(),
     {

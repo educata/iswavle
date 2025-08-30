@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  padding: 0 20px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+main div.sticky {
+  width: 100%;
+  padding: 10px;
+  position: sticky;
+  top: 10px;
+  background-color: steelblue;
+  box-sizing: border-box;
+  border: 1px solid black;
+  color: white;
+}

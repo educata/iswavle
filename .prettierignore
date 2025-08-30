@@ -1,0 +1,11 @@
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+**/dist
+*.md
+*.lock
+
+src/content/**/*.md
+src/content/**/*.js
+src/assets

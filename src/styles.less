@@ -1,7 +1,7 @@
-@import '../node_modules/ng-zorro-antd/ng-zorro-antd.less';
 @import './styles/highlight-light.less';
 @import './styles/variables.less';
 @import './styles/mermaid.less';
+@import './styles/typography.less';
 
 html {
   scroll-behavior: smooth;
@@ -10,9 +10,19 @@ html {
     border: 0;
   }
 
-  code {
-    background-color: #f0efef;
-    padding: 0.105rem 0.25rem;
+  div.button-group {
+    display: inline-flex;
+
+    button.ant-btn {
+      &:not(:first-child):not(:last-child) {
+        border-right: 0;
+        border-left: 0;
+      }
+    }
+  }
+
+  .checked {
+    color: green !important;
   }
 
   .home-header {
@@ -21,6 +31,12 @@ html {
 
   .ant-layout {
     background-color: @body-background;
+  }
+
+  .ant-divider,
+  .ant-divider-inner-text {
+    color: var(--text-color);
+    border-top-color: rgba(0, 0, 0, 0.04) !important;
   }
 
   .ant-menu {
@@ -47,7 +63,7 @@ html {
     align-items: center;
   }
 
-  table {
+  table:not([nz-table-content]):not(.preview-wrapper table) {
     border: 1px solid var(--border-color);
     border-collapse: collapse;
     width: 100%;
@@ -79,6 +95,10 @@ html {
   .note,
   .mermaid {
     margin-bottom: 1rem;
+  }
+
+  .mermaid {
+    line-height: initial;
   }
 
   .note {
@@ -116,13 +136,15 @@ html {
     overflow-x: auto;
   }
 
-  .code-wrapper {
+  .code-wrapper,
+  .preview-wrapper {
     display: grid;
     grid-template-columns: 1fr;
     border: 1px solid var(--border-color);
     margin-bottom: 1rem;
 
-    .language-header {
+    .language-header,
+    .preview-wrapper-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -145,10 +167,40 @@ html {
 
         &:hover {
           svg {
-            fill: @primary-color;
+            fill: var(--primary-color);
           }
         }
       }
+    }
+
+    .preview-wrapper-header {
+      .preview-wrapper-header-title::after {
+        content: 'მაგალითი';
+      }
+    }
+
+    .preview-wrapper-body {
+      padding: 16px;
+      overflow-x: auto;
+      position: relative;
+
+      a {
+        color: var(--text-color);
+
+        &:hover {
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            color: var(--primary-color);
+          }
+          color: var(--primary-color);
+        }
+      }
+
+      @import './styles/preview-content.less';
     }
 
     pre {
@@ -156,6 +208,28 @@ html {
       code {
         padding: 0;
       }
+    }
+  }
+
+  .code-wrapper {
+    &:has(+ .preview-wrapper) {
+      margin-bottom: 0;
+      border-bottom: none;
+
+      & + .preview-wrapper {
+        .preview-wrapper-header {
+          .preview-wrapper-header-title::after {
+            content: 'მიღებული შედეგი';
+          }
+        }
+      }
+    }
+
+    &:nth-of-type(n):has(+ .preview-wrapper),
+    &:nth-of-type(n):has(+ .frame-wrapper-sticky),
+    &:has(+ .code-wrapper) {
+      margin-bottom: 0;
+      border-bottom: none;
     }
   }
 
@@ -208,12 +282,13 @@ html {
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.6rem;
       }
 
       a {
         background-color: transparent;
         border: none;
+        text-decoration: none;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -238,11 +313,15 @@ html {
           transition: 0.5s;
         }
 
+        &:visited {
+          color: var(--text-color);
+        }
+
         &:hover {
-          color: @primary-color;
+          color: var(--primary-color);
 
           svg {
-            fill: @primary-color;
+            fill: var(--primary-color);
           }
         }
       }
@@ -259,12 +338,34 @@ html {
     }
   }
 
+  .exercises-viewer {
+    .monaco-editor {
+      // Little hack to make editor full width always for exercises page
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    article {
+      img {
+        width: 100%;
+        margin: 0 0 1rem;
+      }
+    }
+  }
+
   nz-anchor {
     nz-affix {
       max-width: 200px;
     }
     .ant-anchor-link-title {
       white-space: wrap;
+
+      &:has(> .anticon) {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: underline;
+      }
     }
   }
 
@@ -308,26 +409,14 @@ html {
     .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
       background-color: @primary-2;
     }
-  }
 
-  a.anchor-fragment {
-    color: var(--text-color);
-    position: relative;
-
-    &::after {
-      content: '#';
-      position: absolute;
-      top: -1px;
-      right: -20px;
-      transition: color 0.3s;
-      opacity: 0;
+    .ant-divider {
+      border-top-color: rgba(255, 255, 255, 0.08) !important;
     }
 
-    &:hover {
-      color: @primary-color;
-
-      &::after {
-        opacity: 1;
+    .ant-tag {
+      a {
+        color: var(--text-color) !important;
       }
     }
   }

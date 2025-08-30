@@ -1,0 +1,117 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #1890ff;
+  --primary-text-color: rgba(0, 0, 0, 0.85);
+  --secondary-color: #fafafa;
+  --border-color: #cdcdcd;
+  --bg-color: #fff;
+  --code-property-color: #00f;
+  --code-value-color: #a31515;
+  --thumb-color: rgb(168, 168, 182);
+  --thumb-color-hover: #e1e9ec;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui;
+  color: var(--primary-text-color);
+  background-color: var(--bg-color);
+  direction: ltr;
+}
+
+body.dark {
+  --primary-text-color: rgba(255, 255, 255, 0.85);
+  --bg-color: #1f1f1f;
+  --secondary-color: #2a2a2a;
+  --code-property-color: #9cdcfe;
+  --code-value-color: #d69d85;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--thumb-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--thumb-hover-color);
+}
+
+main {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--border-color);
+}
+
+main form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 15px;
+  border-right: 1px solid var(--border-color);
+  padding: 15px;
+}
+
+main form div h3 {
+  margin: 0 0 15px;
+}
+
+main form div textarea {
+  width: 100%;
+  height: 250px;
+  border: 1px solid var(--border-color);
+  resize: none;
+  font-family: monospace;
+  transition: 0.5s ease;
+  background-color: transparent;
+  color: var(--primary-text-color);
+}
+
+main form button {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.5s ease;
+  color: var(--primary-text-color);
+}
+
+main form div textarea:focus,
+main form div textarea:focus-visible,
+main form div textarea:active,
+main form button:focus,
+main form button:active,
+main form button:hover {
+  border: 1px solid var(--primary-color);
+  outline: none;
+}
+
+main iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 450px;
+}
+
+@media screen and (max-width: 450px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+  main form {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+}

@@ -8,10 +8,9 @@ describe('DocViewerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DocViewerComponent]
-    })
-    .compileComponents();
-    
+      imports: [DocViewerComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(DocViewerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

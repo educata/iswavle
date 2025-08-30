@@ -3,7 +3,7 @@
     <section nz-row class="playground">
       <aside class="editor" nz-col nzXs="24" nzMd="12" nzLg="12">
         <section class="actions">
-          <nz-button-group>
+          <div class="button-group">
             <button
               nz-button
               [disabled]="!vm.isEditorInitialized"
@@ -31,7 +31,7 @@
               <nz-dropdown-menu #theme="nzDropdownMenu">
                 <ul nz-menu>
                   <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
-                  @for (theme of editorThemes; track theme) {
+                  @for (theme of editorThemeOptions; track theme) {
                     <li nz-menu-item (click)="changeTheme(theme)">
                       {{ theme }}
                     </li>
@@ -46,7 +46,7 @@
             >
               <span nz-icon nzType="download" nzTheme="outline"></span>
             </button>
-          </nz-button-group>
+          </div>
         </section>
         <nz-layout>
           <nz-sider
@@ -82,8 +82,8 @@
                       language: vm.openFileName | languageExtension,
                       theme: vm.editorTheme,
                       minimap: {
-                        enabled: false
-                      }
+                        enabled: false,
+                      },
                     }"
                   ></nz-code-editor>
                 </form>

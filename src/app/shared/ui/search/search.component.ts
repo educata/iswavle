@@ -19,7 +19,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'sw-search',
-  standalone: true,
   imports: [
     NzModalModule,
     NzInputModule,

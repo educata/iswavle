@@ -13,11 +13,7 @@ import {
   effect,
   inject,
 } from '@angular/core';
-import {
-  CommonModule,
-  ViewportScroller,
-  isPlatformBrowser,
-} from '@angular/common';
+import { ViewportScroller, isPlatformBrowser } from '@angular/common';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -48,9 +44,7 @@ import {
 
 @Component({
   selector: 'sw-docs',
-  standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     DocViewerComponent,
     DocTocComponent,
@@ -120,9 +114,7 @@ export default class DocsComponent {
     ),
   );
 
-  private readonly windowWidth = toSignal(
-    this.layoutServie.windowWidthDebounced(100),
-  );
+  private readonly windowWidth = this.layoutServie.windowWidth;
 
   readonly isXLarge = computed(
     () => this.windowWidth()! >= this.layoutServie.sizes.xLargeForDoc,
@@ -141,7 +133,13 @@ export default class DocsComponent {
       const content = this.article();
       if (!content) return;
       this.metaService.updateContentMetaTags(
-        content,
+        {
+          title: content.attributes?.title,
+          keywords: content.attributes?.keywords,
+          description: content.attributes?.description,
+          toc: content.attributes?.toc,
+          image: content.attributes?.image,
+        },
         this.activatedRoute.snapshot.params[1],
       );
     });

@@ -4,8 +4,6 @@ title: 'ანგულარის ქართული გზამკვლ�
 
 <img style="width: 200px; margin: 1rem auto; display: block" src="/assets/icons/angular.svg" alt="angular logo">
 
-## ანგულარი
-
 ეს სექცია არის Angular ფრეიმვორქის სახელმძღვანელო, სადაც
 შესაძლებელია გაეცნოთ ფრეიმვორქის ძირითად კონცეფციებს, ტექნიკებსა და პრაქტიკის
 საუკეთესო პატერნებს.
@@ -19,9 +17,9 @@ title: 'ანგულარის ქართული გზამკვლ�
 ეს სახელმძღვანელო გათვლილია დამწყებ ვებ დეველოპერებზე, რომლებმაც უკვე იციან:
 
 - როგორ მუშაობს web-ი
-- HTML&CSS-ის საფუძვლები
-- JavaScript-ის საფუძვლები
-- TypeScript-ის საფუძვლები
+- [HTML & CSS-ის საფუძვლები](/doc/guides/html-css)
+- [JavaScript-ის საფუძვლები](/doc/guides/javascript)
+- [TypeScript-ის საფუძვლები](/doc/guides/typescript)
 
 გაითვალისწინეთ, რომ მხოლოდ ამ სახელმძღვანელოდან მიღებული ცოდნა არ არის საკმარისი იმისთვის,
 რომ ანგულარს სრულფასოვნად დაეუფლოთ -- ამას სჭირდება დამატებითი რესურსების მოძიება,
@@ -31,8 +29,8 @@ title: 'ანგულარის ქართული გზამკვლ�
 
 ამ საიტის მასალა ეყრდნობა ანგულარის ოფიციალურ დოკუმენტაციებს:
 
-- [angular.io](https://angular.io)
 - [angular.dev](https://angular.dev)
+- [blog.angular.dev](https://blog.angular.dev/)
 
 ## ატრიბუცია
 
@@ -40,5 +38,5 @@ title: 'ანგულარის ქართული გზამკვლ�
 - **თანაავტორი**: [კონსტანტინე დათუნიშვილი](https://konstantinedatunishvili.com)
 
 <div style="text-align: center; margin-top: 100px;">
-  This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+  This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 </div>

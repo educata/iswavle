@@ -9,7 +9,7 @@
     // Include code blocks
     "code_blocks": false,
     // Include tables
-    "tables": false
+    "tables": false,
   },
 
   // MD034/bare-URL-used - Do not lint bare url
@@ -37,5 +37,5 @@
   "MD052": false,
 
   // MD037/no-space-in-emphasis - Inline lists (such as in tables) incorrectly trigger this warning.
-  "MD037": false
+  "MD037": false,
 }

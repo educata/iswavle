@@ -1,0 +1,20 @@
+[
+  {
+    "input": [
+      {
+        "name": "root",
+        "value": [1, 2, 3]
+      }
+    ],
+    "expected": 25
+  },
+  {
+    "input": [
+      {
+        "name": "root",
+        "value": [4, 9, 0, 5, 1]
+      }
+    ],
+    "expected": 1026
+  }
+]

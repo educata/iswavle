@@ -1,0 +1,88 @@
+body {
+  font-size: 16px !important;
+
+  article {
+    line-height: 1.8;
+
+    a:not(.anchor-fragment) {
+      text-decoration: underline;
+
+      &:visited {
+        color: var(--link-visited-color);
+      }
+    }
+
+    h1 {
+      font-size: var(--h1-font-size);
+    }
+
+    h2 {
+      font-size: var(--h2-font-size);
+    }
+
+    h3 {
+      font-size: var(--h3-font-size);
+    }
+
+    h4 {
+      font-size: var(--h4-font-size);
+    }
+
+    h5 {
+      font-size: var(--h5-font-size);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      line-height: 1.5;
+
+      a.anchor-fragment {
+        color: var(--text-color);
+        position: relative;
+
+        &::after {
+          content: '#';
+          position: absolute;
+          right: -1em;
+          top: -1px;
+          transition: color 0.3s;
+          opacity: 0;
+        }
+
+        &:hover {
+          color: @primary-color;
+
+          &::after {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    p {
+      font-size: var(--base-font-size-rem);
+    }
+
+    pre code {
+      font-size: 0.85em !important;
+    }
+
+    ul,
+    ol {
+      li {
+        margin: 0.5rem 0;
+      }
+    }
+  }
+
+  code {
+    background-color: #f0efef;
+    padding: 0.105rem 0.25rem;
+    font-size: 0.9em;
+    border-radius: 0.25rem;
+  }
+}
