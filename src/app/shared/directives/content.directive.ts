@@ -71,7 +71,9 @@ export class ContentDirective implements OnChanges {
             data.iframes.forEach((iframe: HTMLIFrameElement) => {
               iframe.contentWindow?.postMessage(
                 data.theme,
-                'https://static.iswavle.com',
+                this.environment.production
+                  ? 'https://static.iswavle.com'
+                  : '*',
               );
             });
           }),
