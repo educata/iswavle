@@ -6,7 +6,6 @@ title: 'Pipes'
 ფაიფები უბრალო ფუნქციები არიან, რომლებიც იღებენ მონაცემებს, და მათ
 შეცვლილი ფორმით აბრუნებენ. ამ თავში ვისწავლით:
 
-- [ანგულარში ჩაშენებულ ფაიფებს](./built-in-pipes.html)
-- [ფაიფების შექმნას](./creating-pipe.html)
+- [ანგულარში ჩაშენებულ ფაიფებს](./doc/guides/angular/pipes/built-in-pipes)
+- [ფაიფების შექმნას](./doc/guides/angular/pipes/creating-pipe)
 
-<a routerLink="./built-in-pipes">ანგულარში ჩაშენებულ ფაიფებს</a>

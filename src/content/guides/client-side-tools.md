@@ -11,8 +11,8 @@ title: 'ხელსაწყოები კლიენტის მხარ�
 ეს სახელმძღვანელო გათვლილია დამწყებ ვებ დეველოპერებზე, რომლებმაც უკვე იციან:
 
 - როგორ მუშაობს web-ი
-- [HTML & CSS-ის საფუძვლები](/doc/guides/html-css)
-- [JavaScript-ის საფუძვლები](/doc/guides/javascript)
+- [HTML & CSS-ის საფუძვლები](./doc/guides/html-css)
+- [JavaScript-ის საფუძვლები](./doc/guides/javascript)
 
 ამ საიტის მასალა ეყრდნობა [MDN-ის ოფიციალურ დოკუმენტაციებს](https://developer.mozilla.org/en-US/).
 

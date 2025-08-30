@@ -11,7 +11,7 @@ keywords: 'კლასი, კლასის გამოყენება, c
 ## როგორ შევქმნათ კლასი?
 
 კლასის შექმნა ტაიპსკრიპტში იგივეა, რაც ჯავასკრიპტში. ვიყენებთ ქივორდ `class` და კლასის სახელს
-[PascalCase](./doc/guides/javascript/varaible#ცვლადის_სახელის_სტილი)-ში.
+[PascalCase](./doc/guides/javascript/variable#ცვლადის_სახელის_სტილი)-ში.
 
 ```ts
 class Warrior {

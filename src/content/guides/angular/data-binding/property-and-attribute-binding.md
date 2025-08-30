@@ -36,7 +36,7 @@ import { CommonModule } from "@angular/common";
 })
 export class AppComponent {
   imgData = {
-    src: "https://angular.io/assets/images/logos/angular/angular.svg",
+    src: "https://angular.dev/assets/images/press-kit/angular_wordmark_gradient.png",
     alt: "Angular Logo",
   };
   btnDisabled = true;

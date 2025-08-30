@@ -14,6 +14,6 @@ Single page application-ში ჩვენ მომხმარებლის
 
 ამ თავში ვისწავლით:
 
-- [მარტივ routing-ს](./basic-routing.html)
-- [Child routing-ს](./child-routing.html) - ანუ რაუთინგს რაუთინგის შიგნით!
-- და [დინამიკურ route-ებთან მუშაობას](./dynamic-routes/).
+- [მარტივ routing-ს](./doc/guides/angular/routing/basic-routing)
+- [Child routing-ს](./doc/guides/angular/routing/child-routing) - ანუ რაუთინგს რაუთინგის შიგნით!
+- და [დინამიკურ route-ებთან მუშაობას](./doc/guides/angular/routing/dynamic-routes).

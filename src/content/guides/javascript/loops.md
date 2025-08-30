@@ -43,7 +43,7 @@ do {
 
 ## for
 
-[`for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) არის იტერაციული ციკლი, რომელშიც მთვლელის მნიშვნელობა, პირობის მნიშვნელობა და ბიჯის მნიშვნელობა გაერთიანებული არის ერთ ადგილას. `while` და `do...while` ციკლში, ვაცხადებთ ცვალდებს, რომელიც ციკლშიც და ციკლის გარეთაც ხელმისწავდომი იყო, ხოლო `for` ციკლში შექმნილი ცვლადი მხოლოდ ხელმისაწვდომია ციკლისთვის. ეს ყველაფერი სრულდება `scope`-ს გამო, რომელიც განხილული იქნება [`scope-ს თავში`](./doc/guides/javascript/scope).
+[`for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) არის იტერაციული ციკლი, რომელშიც მთვლელის მნიშვნელობა, პირობის მნიშვნელობა და ბიჯის მნიშვნელობა გაერთიანებული არის ერთ ადგილას. `while` და `do...while` ციკლში, ვაცხადებთ ცვალდებს, რომელიც ციკლშიც და ციკლის გარეთაც ხელმისწავდომი იყო, ხოლო `for` ციკლში შექმნილი ცვლადი მხოლოდ ხელმისაწვდომია ციკლისთვის. ეს ყველაფერი სრულდება [`scope`](https://developer.mozilla.org/en-US/docs/Glossary/Scope)-ს გამო.
 
 ```js
 for (let i = 0; i < 100; i++) {
@@ -114,7 +114,7 @@ for (const item in projects) {
 
 ## for...of
 
-[`for...of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) არის ციკლი, რომელიც გამოიყენება იტერირებად ობიექტებთან, როგორებიცა: [`Array`](./doc/guides/javascript/array), [`Map`](./doc/guides/javascript/map), [`Set`](./doc/guides/javascript/set). პირობითად თუ გვსურს მასივის ყოველ ელემენტზე ციკლის გადატარება შეგვიძლია შედეგს მივაღწიოთ ბევრი გზით თუმცა `for` შემთხვევაში იქნება 3 გზა:
+[`for...of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) არის ციკლი, რომელიც გამოიყენება იტერირებად ობიექტებთან, როგორებიცა: [`Array`](./doc/guides/javascript/array), [`Map`](./doc/guides/javascript/data-structures#map), [`Set`](./doc/guides/javascript/data-structures#set). პირობითად თუ გვსურს მასივის ყოველ ელემენტზე ციკლის გადატარება შეგვიძლია შედეგს მივაღწიოთ ბევრი გზით თუმცა `for` შემთხვევაში იქნება 3 გზა:
 
 ```js
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];

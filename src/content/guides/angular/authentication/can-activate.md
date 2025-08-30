@@ -9,7 +9,7 @@ title: "CanActivate (Route Guards)"
 ფუნქციები, თუმცა ძველ ვერსიებში ამის მაგივრად იყენებდნენ "Guard" კლასებს. ჩვენ უახლეს
 მეთოდს ვისწავლით, თუმცა მოგვიანებით ძველ მეთოდსაც შევხედავთ.
 
-ამ თავში ვიყენებთ [წინა თავში](./jwt-authentication.html) არსებულ კოდს.
+ამ თავში ვიყენებთ [წინა თავში](./doc/guides/angular/authentication/jwt-authentication) არსებულ კოდს.
 
 ## CanActivateFn
 

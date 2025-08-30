@@ -254,7 +254,7 @@ export class AppComponent implements OnInit {
       title: "New Product",
       description: "This is a new test product!",
       price: 399,
-      thumbnail: "https://angular.io/assets/images/logos/angular/angular.svg",
+      thumbnail: "https://angular.dev/assets/images/press-kit/angular_wordmark_gradient.png",
     };
 
     this.productsService.addProduct(newProduct).subscribe((newProduct) => {

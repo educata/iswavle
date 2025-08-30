@@ -213,7 +213,7 @@ observable-ში ახალ მნიშვნელობას გასც
 ასე აპლიკაცია ხელმძღვანელობს როუთის პარამეტრებით. აქვე რადგან კლასში
 საბსქრიფშენს ვიყენებთ, ჯობია თუკი მას გავაუქმებთ, როცა კომპონენტი განადგურდება.
 ამისთვის შეგვიძლია გამოვიყენოთ
-[`takeUntilDestroyed`](https://angular.io/api/core/rxjs-interop/takeUntilDestroyed)
+[`takeUntilDestroyed`](https://angular.dev/api/core/rxjs-interop/takeUntilDestroyed)
 ოპერატორი, რომელსაც
 `@angular/core/rxjs-interop` გვთავაზობს.
 

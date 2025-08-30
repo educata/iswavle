@@ -170,5 +170,5 @@ export class AppComponent {
 და ჩვენ მხოლოდ ზედაპირულად გავეცანით მის პრაქტიკას. მის შესახებ მეტის გასაგებად შეგიძლიათ
 გაეცნოთ შემდეგ რესურსებს:
 
-- [angular.io/guide/testing](https://angular.io/guide/testing)
+- [angular.dev/guide/testing](https://angular.dev/guide/testing)
 - [testing-angular.com](https://testing-angular.com/)

@@ -13,6 +13,6 @@ title: "Operators"
 
 არსებობს ოპერატორების ორი ზოგადი კატეგორია:
 
-- [შექმნის ოპერატორები (creation operators)](./creation-operators.html) - სტრიმების
+- [შექმნის ოპერატორები (creation operators)](./doc/guides/angular/rxjs/operators/creation-operators) - სტრიმების
   შესაქმნელად;
-- [ფაიფის ოპერატორები (pipeable operators)](./pipeable-operators.html) - არსებულ სტრიმზე ოპერაციების ჩასატარებლად.
+- [ფაიფის ოპერატორები (pipeable operators)](./doc/guides/angular/rxjs/operators/pipeable-operators) - არსებულ სტრიმზე ოპერაციების ჩასატარებლად.
