@@ -289,6 +289,26 @@ console.log(flattenedArray); // [2, 4, 6, 8, 10, 12]
 
 კონკრეტულ შემთხვევაში ყოველი ჩალაგებული მასივის მოდიფიცირება მოვახდინეთ და შემდეგ ერთ დონეზე დავიყვანეთ ყოველი ელემენტი. ამ მაგალითისთვის `flatMap` გარეშე მოგვიწევდა: 2 ჯერ `map` გამოყენება და ცალკე `flat` მეთოდების.
 
+### some
+
+[`some`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some) მეთოდი ამოწმებს, რომ სულ მცირე ერთი ელემენტი მაინც აკმაყოფილებს [callbackFn](#callbackFn_როგორც_მასივის_პარამეტრი) მიწოდებულ პირობას. მეთოდი აბრუნებს ბულეანის მნიშვნელობას.
+
+```js
+const randomNumbers = [1, 2, 3, 4, 5];
+const isAtLeastOneElementEven = randomNumbers.some((number) => number % 2 === 0);
+console.log(isAtLeastOneElementEven); // true
+```
+
+### every
+
+[`every`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every) მეთოდი ამოწმებს, რომ თითოეული ელემენტი მაინც აკმაყოფილებს [callbackFn](#callbackFn_როგორც_მასივის_პარამეტრი) მიწოდებულ პირობას. მეთოდი აბრუნებს ბულეანის მნიშვნელობას.
+
+```js
+const randomNumbers = [1, 2, 3, 4, 5];
+const isEveryElementEven = randomNumbers.every((number) => number % 2 === 0);
+console.log(isEveryElementEven); // false
+```
+
 ### slice
 
 [`slice`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) მეთოდი ამოჭრის მასივის ელემენტებს და დააბრუნებს ახალ მასივს. მეთოდი ორ პარამეტრს ღებულობს:
