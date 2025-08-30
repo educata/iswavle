@@ -133,6 +133,10 @@ export const JAVASCRIPT_GUIDE_NAV: BaseNavigationTreeNode = {
           path: 'fetch',
         },
         {
+          title: 'API დოკუმენტაციები',
+          path: 'api-documentations',
+        },
+        {
           title: 'პრაქტიკა',
           path: 'practice',
         },
