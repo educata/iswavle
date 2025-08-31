@@ -25,7 +25,9 @@
   >
     <div class="brand">
       <a routerLink="/">ისწავლე</a>
-      <sw-search (searchCompleted)="closeMenu()"></sw-search>
+      @if (isDev) {
+        <sw-search (searchCompleted)="closeMenu()"></sw-search>
+      }
     </div>
     <nav>
       <ul
