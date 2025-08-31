@@ -2,7 +2,7 @@
 title: 'ანგულარის ქართული გზამკვლევი'
 ---
 
-<img style="width: 200px; margin: 1rem auto; display: block" src="/assets/icons/angular.svg" alt="angular logo">
+<img style="width: 100%; height: 300px; object-fit: cover; margin: 1rem auto; display: block" src="/assets/images/banner_iswavle_angular.jpg" alt="ისწავლეს ლოგო ანგულარის ლოგოს გვერდით">
 
 ეს სექცია არის Angular ფრეიმვორქის სახელმძღვანელო, სადაც
 შესაძლებელია გაეცნოთ ფრეიმვორქის ძირითად კონცეფციებს, ტექნიკებსა და პრაქტიკის

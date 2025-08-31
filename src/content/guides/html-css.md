@@ -2,7 +2,7 @@
 title: 'HTML & CSS ქართული გზამკვლევი'
 ---
 
-<img style="width: 200px; margin: 1rem auto; display: block" src="/assets/images/html-css.png" alt="html & css logo">
+<img style="width: 100%; height: 300px; object-fit: cover; margin: 1rem auto; display: block" src="/assets/images/banner_iswavle_html_css.jpg" alt="ისწავლეს ლოგო HTML-ისა და CSS-ის ლოგოს გვერდით">
 
 HTML, ანუ ჰიპერტექსტური მარკაპის ენა არის ტექნოლოგია, რომლითაც იგება ვებგვერდი, როგორც დოკუმენტი.
 იგი განსაზღვრავს დოკუმენტის შინაარსობრივ და (გარკვეულწილად) ვიზიუალურ ნაწილებს,

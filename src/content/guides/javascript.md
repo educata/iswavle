@@ -2,7 +2,7 @@
 title: 'JavaScript-ის ქართული გზამკვლევი'
 ---
 
-<img style="width: 200px; margin: 1rem auto; display: block" src="/assets/images/js.png" alt="Javascript logo">
+<img style="width: 100%; height: 300px; object-fit: cover; margin: 1rem auto; display: block" src="/assets/images/banner_iswavle_js.jpg" alt="ისწავლეს ლოგო ჯავასკრიპტის ლოგოს გვერდით">
 
 JavaScript არის მსოფლიოში ყველაზე პოპულარული პროგრამირების ენა, რომელიც მუშაობს ბრაუზერსა და ოპერატიულ სისტემებში.
 ეს სექცია განიხილავს ჯავასკრიპტს, როგორც ფრონტენდ ვებდეველოპმენტის პროგრამირების ენას, რომელიც ბრაუზერში ვებსაიტს ანიჭებს დინამიკურ ფუნქციონალს.
