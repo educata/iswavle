@@ -16,7 +16,13 @@ export class ArticleService {
   );
 
   get navigationSection() {
-    return this.router.url.slice(1).split('/')[1];
+    let currentUrl = this.router.url;
+
+    if (currentUrl.includes('#')) {
+      currentUrl = currentUrl.split('#')[0];
+    }
+
+    return currentUrl.slice(1).split('/')[1];
   }
 
   get navigation$() {
