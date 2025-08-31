@@ -65,28 +65,28 @@ export class SwTitleStrategy extends TitleStrategy {
       params.push(route.params[param]);
     }
     if (content.attributes.title) {
-      params.shift();
-      params.pop();
-      params.push(content.attributes.title);
+      params?.shift();
+      params?.pop();
+      params?.push(content.attributes.title);
     }
     const title =
-      params.reverse().join(` ${TITLE_SEPARATOR} `) ||
+      params?.reverse()?.join(` ${TITLE_SEPARATOR} `) ||
       content.attributes.toc[0].title;
 
     return title
-      .split(' ')
-      .map((word) => this.capitalise(word))
-      .join(' ');
+      ?.split(' ')
+      ?.map((word) => this.capitalise(word))
+      ?.join(' ');
   }
 
   private capitalise(text: string) {
     return text
-      .split(' ')
-      .map((word, index) =>
+      ?.split(' ')
+      ?.map((word, index) =>
         index === 0 && !/^[ა-ჰ]/.test(word)
           ? `${word[0].toUpperCase()}${word.slice(1)}`
           : word,
       )
-      .join(' ');
+      ?.join(' ');
   }
 }

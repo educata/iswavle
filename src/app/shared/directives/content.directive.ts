@@ -176,16 +176,20 @@ export class ContentDirective implements OnChanges {
 
   handleAnchorClick(event: Event) {
     const a = event.target as HTMLAnchorElement;
-    const currentDomain = a.href.split('/').slice(0, 3).join('/');
-    if (a.href.replace(currentDomain, '').replace('/', '').startsWith('#')) {
-      a.href = `${this.router.url.split('#')[0]}#${a.href.split('#')[1]}`;
+    const currentHrefUrl = a.href.split('/').slice(0, 3).join('/');
+    const currentDomain = this.router.url.split('#')[0];
+    if (a.href.replace(currentHrefUrl, '').replace('/', '').startsWith('#')) {
+      a.href = `${currentDomain}#${a.href.split('#')[1]}`;
       return;
     }
-    if (a?.target || /^https:\/\/.*/.test(a.href)) {
+    if (
+      a?.target ||
+      (/^https:\/\/.*/.test(a.href) && !a.href.includes(currentDomain))
+    ) {
       return;
     }
     event.preventDefault();
-    const navigateToUrl = a.href.replace(currentDomain, '');
+    const navigateToUrl = a.href.replace(currentHrefUrl, '');
     this.router.navigateByUrl(navigateToUrl);
     this.viewport.scrollToPosition([0, 0]);
   }

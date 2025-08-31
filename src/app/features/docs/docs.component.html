@@ -101,7 +101,7 @@
                   </div>
                 }
                 <div class="contributors">
-                  @for (contributor of contributors(); track contributor) {
+                  @for (contributor of contributors(); track contributor.name) {
                     <sw-doc-contributors
                       [contributor]="contributor"
                     ></sw-doc-contributors>

@@ -18,11 +18,11 @@ export class ArticleService {
   get navigationSection() {
     let currentUrl = this.router.url;
 
-    if (currentUrl.includes('#')) {
-      currentUrl = currentUrl.split('#')[0];
+    if (currentUrl?.includes('#')) {
+      currentUrl = currentUrl?.split('#')[0];
     }
 
-    return currentUrl.slice(1).split('/')[1];
+    return currentUrl?.slice(1)?.split('/')[1];
   }
 
   get navigation$() {
