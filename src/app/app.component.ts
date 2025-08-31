@@ -14,6 +14,7 @@ import {
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import {
   CommonModule,
+  UpperCasePipe,
   ViewportScroller,
   isPlatformBrowser,
 } from '@angular/common';
@@ -43,6 +44,7 @@ import { CUSTOM_ICONS, ICON_PREFIX } from '@app-shared/consts';
     NzAlertModule,
     SearchComponent,
     CommonModule,
+    UpperCasePipe,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],

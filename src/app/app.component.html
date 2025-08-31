@@ -24,7 +24,13 @@
     }"
   >
     <div class="brand">
-      <a routerLink="/">ისწავლე</a>
+      <a routerLink="/">
+        <img
+          src="/assets/icons/android-chrome-192x192.png"
+          alt="ისწავლეს ლოგო"
+        />
+        <span>{{ 'ისწავლე' | uppercase }}</span>
+      </a>
       @if (isDev) {
         <sw-search (searchCompleted)="closeMenu()"></sw-search>
       }

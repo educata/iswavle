@@ -2,7 +2,7 @@
 title: 'Typescript ქართული გზამკვლევი'
 ---
 
-<img style="width: 200px; margin: 1rem auto; display: block" src="/assets/images/ts.png" alt="Typescript logo">
+<img style="width: 100%; height: 300px; object-fit: cover; margin: 1rem auto; display: block" src="/assets/images/banner_iswavle_ts.jpg" alt="ისწავლეს ლოგო ტაიპსკრიპტის ლოგოს გვერდით">
 
 ეს სექცია არის TypeScript სახელმძღვანელო, სადაც
 შესაძლებელია გაეცნოთ Typescript-ის ძირითად კონცეფციებს, ტექნიკებსა და პრაქტიკის

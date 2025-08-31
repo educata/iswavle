@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { CODE_BLOCKS } from './code-blocks';
 import { BypassSanitizePipe } from '@app-shared/pipes';
+import { UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'sw-home',
-  imports: [NzButtonModule, RouterLink, BypassSanitizePipe],
+  imports: [NzButtonModule, RouterLink, BypassSanitizePipe, UpperCasePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
