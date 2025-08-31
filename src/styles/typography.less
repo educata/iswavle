@@ -1,14 +1,23 @@
 body {
   font-size: 16px !important;
 
-  article {
+  .ant-alert {
+    font-size: 16px !important;
+  }
+
+  article,
+  footer {
     line-height: 1.8;
 
     a:not(.anchor-fragment) {
-      text-decoration: underline;
+      text-decoration: underline !important;
 
       &:visited {
         color: var(--link-visited-color);
+      }
+
+      &:hover {
+        color: var(--primary-color) !important;
       }
     }
 
