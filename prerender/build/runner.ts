@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import * as fs from 'fs/promises';
 import * as path from 'path';
 import {
   BuildHook,
@@ -36,7 +36,7 @@ export async function runBuild(
 
   async function handleFile(filePath: string) {
     const relativePath = path.relative(baseDir, filePath);
-    const content = fs.readFileSync(filePath, 'utf-8');
+    const content = await fs.readFile(filePath, 'utf-8');
     const category = path.dirname(relativePath).split(/[\\/]/)[0] as Category;
     const meta: FileMeta = {
       name: path.basename(filePath),
@@ -48,13 +48,14 @@ export async function runBuild(
   }
 
   async function walk(directory: string) {
-    const dir = fs.readdirSync(directory);
+    const dir = await fs.readdir(directory);
     const promises = dir.map(async (file) => {
       const filePath = path.join(directory, file);
-      if (fs.statSync(filePath).isDirectory()) {
+      const stats = await fs.stat(filePath);
+      if (stats.isDirectory()) {
         await walk(filePath);
       } else {
-        handleFile(filePath);
+        await handleFile(filePath);
       }
     });
     await Promise.all(promises);

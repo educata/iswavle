@@ -1,10 +1,13 @@
-import { resolve, relative } from 'path';
-import { writeFileSync, existsSync } from 'fs';
-import { execSync } from 'child_process';
+import { resolve } from 'path';
+import { writeFileSync } from 'fs';
+import { exec } from 'child_process';
+import { promisify } from 'util';
 
 import { BuildHook, FileMeta } from '@global-shared/interfaces';
 import { ensureDir } from '../helpers';
 import { environment } from '../../src/environments/environment';
+
+const execAsync = promisify(exec);
 
 function toISO(date: Date): string {
   return date.toISOString().split('T')[0];
@@ -20,13 +23,14 @@ function buildUrl(base: string, path: string): string {
   return `${b}${p}`;
 }
 
-function gitLastModForPath(filePath: string): string | undefined {
+async function gitLastModForPath(
+  filePath: string,
+): Promise<string | undefined> {
   try {
-    const out = execSync(`git log -1 --format=%cI -- "${filePath}"`, {
-      stdio: ['ignore', 'pipe', 'ignore'],
-    })
-      .toString()
-      .trim();
+    const { stdout } = await execAsync(
+      `git log -1 --format=%cI -- "${filePath}"`,
+    );
+    const out = stdout.toString().trim();
     return out ? dateOnlyFromIso(out) : undefined;
   } catch {
     return undefined;
@@ -54,13 +58,10 @@ function updateUrlEntry(
   urls.push({ loc, ...opts });
 }
 
-function gitLastModRepo(): string | undefined {
+async function gitLastModRepo(): Promise<string | undefined> {
   try {
-    const out = execSync('git log -1 --format=%cI', {
-      stdio: ['ignore', 'pipe', 'ignore'],
-    })
-      .toString()
-      .trim();
+    const { stdout } = await execAsync('git log -1 --format=%cI');
+    const out = stdout.toString().trim();
     return out ? dateOnlyFromIso(out) : undefined;
   } catch {
     return undefined;
@@ -78,26 +79,25 @@ const OUT_PATH = resolve('src', 'sitemap.xml');
 export const SITEMAP_HOOK = (): BuildHook => {
   const seen = new Set<string>();
   const urls: UrlEntry[] = [];
-
-  const repoFallBack = gitLastModRepo() || toISO(new Date());
-
-  // Add static routes
-  updateUrlEntry('/', seen, urls, {
-    priority: PRIORITY.home,
-    lastmod: repoFallBack,
-    changefreq: 'weekly',
-  });
-
-  updateUrlEntry('/exercises', seen, urls, {
-    priority: PRIORITY.exercises,
-    lastmod: repoFallBack,
-    changefreq: 'weekly',
-  });
+  let repoFallBack: string;
 
   return {
     name: 'sitemap',
     onStart: async () => {
       console.log('📰 Sitemap generation started');
+      repoFallBack = (await gitLastModRepo()) || toISO(new Date());
+
+      updateUrlEntry('/', seen, urls, {
+        priority: PRIORITY.home,
+        lastmod: repoFallBack,
+        changefreq: 'weekly',
+      });
+
+      updateUrlEntry('/exercises', seen, urls, {
+        priority: PRIORITY.exercises,
+        lastmod: repoFallBack,
+        changefreq: 'weekly',
+      });
     },
     onFile: async (meta: FileMeta) => {
       const normalizedPath = meta.path.replace(/\\/g, '/');
@@ -107,7 +107,7 @@ export const SITEMAP_HOOK = (): BuildHook => {
       ) {
         const section = meta.name.replace('.md', '');
         const lastmod =
-          gitLastModForPath(resolve('src', 'content', meta.path)) ||
+          (await gitLastModForPath(resolve('src', 'content', meta.path))) ||
           repoFallBack;
         updateUrlEntry(`/doc/${section}`, seen, urls, {
           priority: PRIORITY.docs,
@@ -120,7 +120,7 @@ export const SITEMAP_HOOK = (): BuildHook => {
           .replace(/\.md$/i, '');
         const route = '/doc/guides/' + routePart;
         const lastmod =
-          gitLastModForPath(resolve('src', 'content', meta.path)) ||
+          (await gitLastModForPath(resolve('src', 'content', meta.path))) ||
           repoFallBack;
         updateUrlEntry(route, seen, urls, {
           priority: PRIORITY.docs,
@@ -133,7 +133,7 @@ export const SITEMAP_HOOK = (): BuildHook => {
           .replace(/\.md$/i, '');
         const route = '/doc/references/' + routePart;
         const lastmod =
-          gitLastModForPath(resolve('src', 'content', meta.path)) ||
+          (await gitLastModForPath(resolve('src', 'content', meta.path))) ||
           repoFallBack;
         updateUrlEntry(route, seen, urls, {
           priority: PRIORITY.docs,
@@ -149,7 +149,7 @@ export const SITEMAP_HOOK = (): BuildHook => {
           const fileName = pathParts[pathParts.length - 1];
           if (['description.md', 'index.md', 'README.md'].includes(fileName)) {
             const lastmod =
-              gitLastModForPath(resolve('src', 'content', meta.path)) ||
+              (await gitLastModForPath(resolve('src', 'content', meta.path))) ||
               repoFallBack;
             updateUrlEntry(`/exercises/${exerciseSlug}`, seen, urls, {
               priority: PRIORITY.exercises,
