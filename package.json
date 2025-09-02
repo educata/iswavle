@@ -33,6 +33,7 @@
     "prerender:examples": "bun ./prerender/render-examples.ts",
     "prerender:watch": "bun ./prerender/watch.ts",
     "prerender:routes": "bun ./prerender/generate-prerender-routes.ts",
+    "prerender:build": "bun ./prerender/build/main.ts",
     "prerender": "bun prerender:content && bun prerender:examples && bun prerender/clean-up.ts",
     "dev-example-assets": "bun ./prerender/local-examples.ts",
     "exercise:generate": "bun ./tools/exercise-generator/script.ts",
