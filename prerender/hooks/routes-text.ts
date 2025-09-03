@@ -25,27 +25,16 @@ export const ROUTES_TEXT_HOOK = (): BuildHook => {
       console.log('📰 Routes text generation started');
     },
     onFile: async (meta: FileMeta, content: string) => {
-      const normalizedPath = meta.path.replace(/\\/g, '/');
-      if (
-        (meta.name === 'guides.md' || meta.name === 'references.md') &&
-        meta.category === '.'
-      ) {
-        const section = meta.name.replace('.md', '');
-        pushRoute(`/doc/${section}`, seen, routes);
+      if (meta.extension === 'md' && meta.category === '.') {
+        pushRoute(`/doc/${meta.name}`, seen, routes);
       } else if (meta.category === 'guides' && meta.extension === 'md') {
-        const routePart = normalizedPath
-          .replace('guides/', '')
-          .replace(/\.md$/i, '');
-        const route = '/doc/guides/' + routePart;
+        const route = '/doc/guides/' + meta.subPath;
         pushRoute(route, seen, routes);
       } else if (meta.category === 'references' && meta.extension === 'md') {
-        const routePart = normalizedPath
-          .replace('references/', '')
-          .replace(/\.md$/i, '');
-        const route = '/doc/references/' + routePart;
+        const route = '/doc/references/' + meta.subPath;
         pushRoute(route, seen, routes);
       } else if (meta.category === 'exercises' && meta.extension === 'md') {
-        const pathParts = normalizedPath.split('/');
+        const pathParts = meta.path.split('/');
 
         if (pathParts.length > 1) {
           const exerciseSlug = pathParts[1];

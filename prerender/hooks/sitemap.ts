@@ -100,25 +100,17 @@ export const SITEMAP_HOOK = (): BuildHook => {
       });
     },
     onFile: async (meta: FileMeta) => {
-      const normalizedPath = meta.path.replace(/\\/g, '/');
-      if (
-        (meta.name === 'guides.md' || meta.name === 'references.md') &&
-        meta.category === '.'
-      ) {
-        const section = meta.name.replace('.md', '');
+      if (meta.extension === 'md' && meta.category === '.') {
         const lastmod =
           (await gitLastModForPath(resolve('src', 'content', meta.path))) ||
           repoFallBack;
-        updateUrlEntry(`/doc/${section}`, seen, urls, {
+        updateUrlEntry(`/doc/${meta.name}`, seen, urls, {
           priority: PRIORITY.docs,
           changefreq: 'monthly',
           lastmod,
         });
       } else if (meta.category === 'guides' && meta.extension === 'md') {
-        const routePart = normalizedPath
-          .replace('guides/', '')
-          .replace(/\.md$/i, '');
-        const route = '/doc/guides/' + routePart;
+        const route = '/doc/guides/' + meta.subPath;
         const lastmod =
           (await gitLastModForPath(resolve('src', 'content', meta.path))) ||
           repoFallBack;
@@ -128,10 +120,7 @@ export const SITEMAP_HOOK = (): BuildHook => {
           lastmod,
         });
       } else if (meta.category === 'references' && meta.extension === 'md') {
-        const routePart = normalizedPath
-          .replace('references/', '')
-          .replace(/\.md$/i, '');
-        const route = '/doc/references/' + routePart;
+        const route = '/doc/references/' + meta.subPath;
         const lastmod =
           (await gitLastModForPath(resolve('src', 'content', meta.path))) ||
           repoFallBack;
@@ -141,7 +130,7 @@ export const SITEMAP_HOOK = (): BuildHook => {
           lastmod,
         });
       } else if (meta.category === 'exercises' && meta.extension === 'md') {
-        const pathParts = normalizedPath.split('/');
+        const pathParts = meta.path.split('/');
 
         if (pathParts.length > 1) {
           const exerciseSlug = pathParts[1];

@@ -4,6 +4,7 @@ import { Extension } from './extensions';
 export interface FileMeta {
   name: string;
   path: string;
+  subPath: string;
   category: Category;
   extension: Extension;
 }
