@@ -21,8 +21,8 @@ export const ROUTES_TEXT_HOOK = (): BuildHook => {
 
   return {
     name: 'routes-text',
-    onStart: async () => {
-      console.log('📰 Routes text generation started');
+    onStart: () => {
+      console.log('🔗 Routes text generation started');
     },
     onFile: async (meta: FileMeta, content: string) => {
       if (meta.extension === 'md' && meta.category === '.') {
@@ -46,14 +46,14 @@ export const ROUTES_TEXT_HOOK = (): BuildHook => {
         }
       }
     },
-    onEnd: async () => {
+    onEnd: () => {
       ensureDir(OUT_PATH);
       writeFileSync(OUT_PATH, routes.join('\n') + '\n', 'utf-8');
       console.log(
         `✅ Routes text generated with ${routes.length} routes at ${OUT_PATH}`,
       );
     },
-    onError: async (error) => {
+    onError: (error) => {
       console.error('❌ Error occurred during routes text generation:', error);
     },
   };

@@ -25,7 +25,7 @@
     "ci": "bun install --pure-lockfile",
     "start": "bun prerender && ng serve",
     "start:dev": "bun dev-example-assets && bun start",
-    "build": "bun prerender:build && bun prerender && ng build",
+    "build": "bun prerender:build && bun prerender/clean-up.ts && ng build",
     "watch": "bun prerender:build && bun prerender && ng build --watch --configuration development",
     "test": "ng test",
     "prepare": "husky install",

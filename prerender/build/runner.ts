@@ -42,10 +42,10 @@ export async function runBuild(
     const extension = path.extname(filePath).slice(1) as Extension;
 
     const meta: FileMeta = {
+      category,
       extension,
       name: path.basename(filePath).replace(`.${extension}`, ''),
       path: normalizedPath,
-      category: category,
       subPath: normalizedPath
         .replace(`${category}/`, '')
         .replace(new RegExp(`\\.${extension}$`, 'i'), ''),

@@ -84,7 +84,7 @@ export const SITEMAP_HOOK = (): BuildHook => {
   return {
     name: 'sitemap',
     onStart: async () => {
-      console.log('📰 Sitemap generation started');
+      console.log('🌐 Sitemap generation started');
       repoFallBack = (await gitLastModRepo()) || toISO(new Date());
 
       updateUrlEntry('/', seen, urls, {
