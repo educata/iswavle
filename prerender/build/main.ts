@@ -16,8 +16,8 @@ async function main(baseDir: string): Promise<void> {
   await runBuild(baseDir, [
     ROUTES_TEXT_HOOK(),
     SITEMAP_HOOK(),
-    CONTENT_HOOK(),
     EXERCISE_HOOK(),
+    CONTENT_HOOK(),
   ]);
   console.log(`✅ Build process completed successfully`);
   console.log(`🕒 Build process took ${(Date.now() - startTime) / 1000}s`);

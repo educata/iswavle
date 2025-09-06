@@ -11,6 +11,7 @@ import {
 import { docsWalkTokens } from './doc-walk-tokens';
 import { configureRenderer } from './renderer/renderer';
 import {
+  createOutputDirectoryStructure,
   normalizePath,
   removePreAndHtmlTags,
   renderMarkdownFile,
@@ -55,19 +56,6 @@ function extractHeaders(htmlString: string): ArticleToc[] {
     });
 
   return result;
-}
-
-function createOutputDirectoryStructure(filePath: string) {
-  const relativePath = path.relative(SRC_CONTENT_PATH, filePath);
-  const outputPath = path.join(SRC_ASSET_PATH, relativePath);
-
-  const outputDir = path.dirname(outputPath);
-
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
-  }
-
-  return outputPath;
 }
 
 function appendFileToHyperLinkList(
@@ -125,7 +113,7 @@ export const CONTENT_HOOK = (): BuildHook => {
       }
 
       const outputPath = createOutputDirectoryStructure(
-        path.join('src/assets', meta.path),
+        path.join(SRC_ASSET_PATH, meta.path),
       );
       const data = await renderMarkdownFile<ArticleAttributes>(content);
       data.frontMatter.toc = extractHeaders(data.content);
@@ -150,10 +138,12 @@ export const CONTENT_HOOK = (): BuildHook => {
     },
     onEnd: () => {
       hyperLinks.guides = hyperLinks.guides.filter(
-        (href) => !fs.existsSync(`src/content/guides/${href}.md`),
+        (href) =>
+          !fs.existsSync(path.join(SRC_CONTENT_PATH, `guides/${href}.md`)),
       );
       hyperLinks.references = hyperLinks.references.filter(
-        (href) => !fs.existsSync(`src/content/references/${href}.md`),
+        (href) =>
+          !fs.existsSync(path.join(SRC_CONTENT_PATH, `references/${href}.md`)),
       );
       hyperLinks.references = [...new Set(hyperLinks.references)];
       hyperLinks.guides = [...new Set(hyperLinks.guides)];
@@ -161,9 +151,13 @@ export const CONTENT_HOOK = (): BuildHook => {
         guides: hyperLinks.guides,
         references: hyperLinks.references,
       });
-      fs.writeFileSync('src/assets/empty-hyperlinks.json', data, 'utf-8');
       fs.writeFileSync(
-        'src/assets/index-map.json',
+        path.join(SRC_ASSET_PATH, 'empty-hyperlinks.json'),
+        data,
+        'utf-8',
+      );
+      fs.writeFileSync(
+        path.join(SRC_ASSET_PATH, 'index-map.json'),
         JSON.stringify(dataMap),
         'utf-8',
       );

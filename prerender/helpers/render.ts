@@ -2,7 +2,10 @@ import frontMatter from 'front-matter';
 
 import { marked } from 'marked';
 
-export async function renderMarkdownFile<T>(markdown: string) {
+export async function renderMarkdownFile<T>(markdown: string): Promise<{
+  content: string;
+  frontMatter: T;
+}> {
   const parsedMarkdown = await marked.parse(
     markdown.replace(/^---$.*^---$/ms, ''),
   );
