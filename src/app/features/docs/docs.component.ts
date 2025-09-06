@@ -125,7 +125,7 @@ export default class DocsComponent {
   );
 
   readonly isEnoughToc = computed(
-    () => (this.article()?.attributes.toc.length || 0) > 1,
+    () => (this.article()?.attributes?.toc?.length || 0) > 1,
   );
 
   constructor() {
