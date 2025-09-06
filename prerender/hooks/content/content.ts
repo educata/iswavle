@@ -10,11 +10,14 @@ import {
 } from '@global-shared/interfaces';
 import { docsWalkTokens } from './doc-walk-tokens';
 import { configureRenderer } from './renderer/renderer';
-import frontMatter from 'front-matter';
+import {
+  normalizePath,
+  removePreAndHtmlTags,
+  renderMarkdownFile,
+} from '../../helpers';
+import { SRC_ASSET_PATH, SRC_CONTENT_PATH } from '../../consts';
 
 const CONTENT_CATEGORIES: Category[] = ['guides', 'references'];
-const SRC_ASSET_PATH = path.join(__dirname, '../../src/assets');
-const SRC_CONTENT_PATH = path.join(__dirname, '../../src/content');
 
 function extractHeaders(htmlString: string): ArticleToc[] {
   const result: ArticleToc[] = [];
@@ -54,20 +57,6 @@ function extractHeaders(htmlString: string): ArticleToc[] {
   return result;
 }
 
-async function renderMarkdownFile(filePath: string, markdown: string) {
-  const parsedMarkdown = await marked.parse(
-    markdown.replace(/^---$.*^---$/ms, ''),
-  );
-  const data = frontMatter<ArticleAttributes>(markdown);
-  if (data?.attributes) {
-    data.attributes.toc = extractHeaders(parsedMarkdown);
-  }
-  return {
-    content: parsedMarkdown,
-    frontMatter: data.attributes,
-  };
-}
-
 function createOutputDirectoryStructure(filePath: string) {
   const relativePath = path.relative(SRC_CONTENT_PATH, filePath);
   const outputPath = path.join(SRC_ASSET_PATH, relativePath);
@@ -105,22 +94,6 @@ function appendFileToHyperLinkList(
   }
 }
 
-function removePreAndHtmlTags(content: string) {
-  return content
-    .replace(/<pre>.*?<\/pre>/gs, '')
-    .replace(/<(\w+)([^>]*data-search-ignore[^>]*)>([\s\S]*?)<\/\1>/gi, '')
-    .replace(/<\/?[^>]*>/g, '')
-    .replace(/<[^>]*data-search-ignore[^>]*\s*\/?>/gi, '')
-    .replaceAll('\n', ' ');
-}
-
-function normalizePath(path: string): string {
-  return path
-    .replaceAll('\\', '/')
-    .replaceAll('src/assets', 'doc')
-    .replaceAll('.md', '');
-}
-
 export const CONTENT_HOOK = (): BuildHook => {
   const hyperLinks: {
     guides: string[];
@@ -141,7 +114,7 @@ export const CONTENT_HOOK = (): BuildHook => {
   return {
     name: 'content',
     onStart: () => {
-      console.log('📰 Content generation started');
+      console.log('📰 Content prerender started');
     },
     onFile: async (meta: FileMeta, content: string) => {
       if (
@@ -151,11 +124,11 @@ export const CONTENT_HOOK = (): BuildHook => {
         return;
       }
 
-      const inputPath = path.join('src/content', meta.path);
       const outputPath = createOutputDirectoryStructure(
         path.join('src/assets', meta.path),
       );
-      const data = await renderMarkdownFile(inputPath, content);
+      const data = await renderMarkdownFile<ArticleAttributes>(content);
+      data.frontMatter.toc = extractHeaders(data.content);
       appendFileToHyperLinkList(data.content, hyperLinks);
 
       fs.writeFileSync(
@@ -203,13 +176,13 @@ export const CONTENT_HOOK = (): BuildHook => {
 
       const emoji = missingCount === 0 ? '✅' : '📌';
 
-      console.log(`✅ Generated ${dataMap.size} articles successfully.`);
+      console.log(`✅ Prerendered ${dataMap.size} articles successfully.`);
       console.log(
         `${emoji} Created empty hyperlinks file, missing ${missingCount} hyperlinks.`,
       );
     },
     onError: (error) => {
-      console.error('❌ Error occurred during content generation:', error);
+      console.error('❌ Error occurred during content prerendering:', error);
     },
   };
 };
