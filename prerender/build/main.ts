@@ -6,6 +6,7 @@ import {
   ROUTES_TEXT_HOOK,
   CONTENT_HOOK,
   EXERCISE_HOOK,
+  EXAMPLES_HOOK,
 } from '../hooks';
 
 const BASE_DIR_PATH = path.join(__dirname, '../../src/content');
@@ -17,6 +18,7 @@ async function main(baseDir: string): Promise<void> {
     ROUTES_TEXT_HOOK(),
     SITEMAP_HOOK(),
     EXERCISE_HOOK(),
+    EXAMPLES_HOOK(),
     CONTENT_HOOK(),
   ]);
   console.log(`✅ Build process completed successfully`);

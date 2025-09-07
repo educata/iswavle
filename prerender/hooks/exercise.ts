@@ -74,7 +74,7 @@ export const EXERCISE_HOOK = (): BuildHook => {
         'utf-8',
       );
       console.log(
-        `✅ Prerendered ${exerciseDataMap.size} articles successfully.`,
+        `✅ Prerendered ${exerciseDataMap.size} exercises successfully`,
       );
     },
     onError: (error) => {

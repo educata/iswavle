@@ -170,9 +170,9 @@ export const CONTENT_HOOK = (): BuildHook => {
 
       const emoji = missingCount === 0 ? '✅' : '📌';
 
-      console.log(`✅ Prerendered ${dataMap.size} articles successfully.`);
+      console.log(`✅ Prerendered ${dataMap.size} articles successfully`);
       console.log(
-        `${emoji} Created empty hyperlinks file, missing ${missingCount} hyperlinks.`,
+        `${emoji} Created empty hyperlinks file, missing ${missingCount} hyperlinks`,
       );
     },
     onError: (error) => {
