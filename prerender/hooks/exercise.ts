@@ -69,8 +69,8 @@ export const EXERCISE_HOOK = (): BuildHook => {
     },
     onEnd: () => {
       fs.writeFileSync(
-        'src/assets/exercises-map.json',
-        JSON.stringify(exerciseDataMap),
+        path.join(SRC_ASSET_PATH, 'exercises-map.json'),
+        JSON.stringify(Object.fromEntries(exerciseDataMap)),
         'utf-8',
       );
       console.log(

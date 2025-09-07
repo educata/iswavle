@@ -125,7 +125,7 @@ export const CONTENT_HOOK = (): BuildHook => {
         'utf-8',
       );
 
-      dataMap.set(normalizePath(outputPath), {
+      dataMap.set(normalizePath(path.join('src/assets', meta.path)), {
         title: data.frontMatter.title,
         content: removePreAndHtmlTags(data.content),
       });
@@ -158,7 +158,7 @@ export const CONTENT_HOOK = (): BuildHook => {
       );
       fs.writeFileSync(
         path.join(SRC_ASSET_PATH, 'index-map.json'),
-        JSON.stringify(dataMap),
+        JSON.stringify(Object.fromEntries(dataMap)),
         'utf-8',
       );
 

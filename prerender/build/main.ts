@@ -13,7 +13,7 @@ const BASE_DIR_PATH = path.join(__dirname, '../../src/content');
 
 async function main(baseDir: string): Promise<void> {
   const startTime = Date.now();
-  console.log('🚀 Starting build process...');
+  console.log('🚀 Starting prerender process...');
   await runBuild(baseDir, [
     ROUTES_TEXT_HOOK(),
     SITEMAP_HOOK(),
@@ -21,8 +21,8 @@ async function main(baseDir: string): Promise<void> {
     EXAMPLES_HOOK(),
     CONTENT_HOOK(),
   ]);
-  console.log(`✅ Build process completed successfully`);
-  console.log(`🕒 Build process took ${(Date.now() - startTime) / 1000}s`);
+  console.log(`✅ Prerender process completed successfully`);
+  console.log(`🕒 Prerender process took ${(Date.now() - startTime) / 1000}s`);
   if (existsSync('.temp')) {
     rmSync('.temp', { recursive: true });
     console.log(`🗑️  Temporary files cleaned up`);
