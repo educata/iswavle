@@ -18,7 +18,7 @@ import {
 } from '../../helpers';
 import { SRC_ASSET_PATH, SRC_CONTENT_PATH } from '../../consts';
 
-const CONTENT_CATEGORIES: Category[] = ['guides', 'references'];
+const CONTENT_CATEGORIES: Category[] = ['.', 'guides', 'references'];
 
 function extractHeaders(htmlString: string): ArticleToc[] {
   const result: ArticleToc[] = [];
