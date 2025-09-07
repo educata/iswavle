@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Javascript hanoi tower</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="container-fluid m-auto">
+      <form class="row align-items-center g-3">
+        <div class="col-md-4">
+          <label for="rods" class="form-label">რგოლების რაოდენობა</label>
+          <input
+            required
+            type="number"
+            name="rods"
+            id="rods"
+            class="form-control"
+            placeholder="რგოლების რაოდენობა"
+            min="3"
+            max="15"
+          />
+          <button class="btn btn-primary mt-3">გამოთვლა</button>
+        </div>
+        <div class="col-md-8">
+          <p>მოქმედებების რაოდენობა: <span id="movesCount">...</span></p>
+          <ul class="list-group" id="displayMoves"></ul>
+        </div>
+      </form>
+    </main>
+    <script src="./main.js"></script>
+  </body>
+</html>

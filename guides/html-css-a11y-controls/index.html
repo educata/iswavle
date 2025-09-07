@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ka">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML & CSS - ხელმისაწვდომი ფორმები</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>კლავიატურით ნავიგაციის დემონსტრაცია</h1>
+      <p>
+        გამოიყენეთ <kbd>Tab</kbd> ღილაკი ნავიგაციისთვის, <kbd>Shift</kbd> +
+        <kbd>Tab</kbd> უკან დასაბრუნებლად.
+      </p>
+    </header>
+
+    <main>
+      <!-- ნავიგაციის ლინკები -->
+      <nav aria-label="მთავარი ნავიგაცია">
+        <h2>ნავიგაციის ლინკები</h2>
+        <ul>
+          <li><a href="#form-section" tabindex="0">ფორმის განყოფილება</a></li>
+          <li>
+            <a href="#buttons-section" tabindex="0">ღილაკების განყოფილება</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- ღილაკების განყოფილება -->
+      <section id="buttons-section">
+        <h2>ღილაკების მაგალითები</h2>
+        <div class="button-group">
+          <button type="button" tabindex="0">პირველი ღილაკი</button>
+          <button type="button" tabindex="0">მეორე ღილაკი</button>
+          <button type="button" tabindex="0" disabled>გაუქმებული ღილაკი</button>
+          <button type="button" tabindex="0">მესამე ღილაკი</button>
+        </div>
+      </section>
+
+      <!-- ფორმის განყოფილება -->
+      <section id="form-section">
+        <h2>კონტაქტის ფორმა</h2>
+        <form>
+          <fieldset>
+            <legend>პირადი ინფორმაცია</legend>
+
+            <div class="form-group">
+              <label for="firstName">სახელი:</label>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                required
+                aria-describedby="firstName-help"
+                placeholder="შეიყვანეთ თქვენი სახელი"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="lastName">გვარი:</label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                required
+                placeholder="შეიყვანეთ თქვენი გვარი"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">ელ-ფოსტა:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                aria-describedby="email-help"
+                placeholder="example@email.com"
+              />
+            </div>
+
+            <div class="form-group">
+              <fieldset>
+                <legend id="gender-legend">სქესი:</legend>
+                <div
+                  class="radio-group"
+                  role="radiogroup"
+                  aria-labelledby="gender-legend"
+                >
+                  <div class="radio-item">
+                    <input
+                      type="radio"
+                      id="male"
+                      name="gender"
+                      value="male"
+                      tabindex="0"
+                      aria-describedby="male-desc"
+                    />
+                    <label for="male">მამრობითი</label>
+                  </div>
+
+                  <div class="radio-item">
+                    <input
+                      type="radio"
+                      id="female"
+                      name="gender"
+                      value="female"
+                      tabindex="0"
+                      aria-describedby="female-desc"
+                    />
+                    <label for="female">მდედრობითი</label>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </fieldset>
+
+          <div class="form-actions">
+            <button type="submit" tabindex="0">გაგზავნა</button>
+            <button type="reset" tabindex="0">გასუფთავება</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        ეს არის ხელმისაწვდომი HTML-ის დემონსტრაცია კლავიატურით ნავიგაციისთვის.
+      </p>
+    </footer>
+  </body>
+</html>

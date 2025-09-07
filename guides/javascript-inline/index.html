@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Javascript Inline</title>
+  </head>
+  <body>
+    <h3 id="#cool-heading"></h3>
+    <script>
+      // კოდი, რომელიც სათაურში ტექსტს ჩასვამს
+      const h = document.getElementById('#cool-heading');
+      const letters = 'გამარჯობა'.split('');
+      let index = 0;
+      setInterval(() => {
+        if (index < letters.length) {
+          h.textContent += letters[index];
+          index++;
+        } else {
+          index = 0;
+          h.textContent = '';
+        }
+      }, 500);
+    </script>
+  </body>
+</html>

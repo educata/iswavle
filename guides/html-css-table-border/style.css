@@ -1,0 +1,8 @@
+td {
+  padding: 8px; /* ცოტა თავისუფალი სივრცე ელემენტის კონტენტსა და ჩარჩოებს შორის*/
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+}
