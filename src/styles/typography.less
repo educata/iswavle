@@ -19,6 +19,25 @@ body {
       &:hover {
         color: var(--primary-color) !important;
       }
+
+      &[disabled] {
+        pointer-events: none;
+        text-decoration: none !important;
+      }
+
+      &.external-link {
+        &::after {
+          width: 1em;
+          height: 1em;
+          display: inline-block;
+          content: '\200b'/' (external)';
+          mask-image: url('/assets/icons/external-link.svg');
+          mask-size: cover;
+          vertical-align: sub;
+          background-color: currentColor;
+          margin-inline-start: 0.25em;
+        }
+      }
     }
 
     h1 {
