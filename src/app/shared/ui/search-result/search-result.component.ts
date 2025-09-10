@@ -110,6 +110,7 @@ export class SearchResultComponent implements OnChanges {
   onClick(content: IndexMapResult) {
     this.router.navigate([content.routerLink], {
       queryParams: { search: this.searchValue },
+      queryParamsHandling: 'merge',
     });
     this.onResultClick.emit(content);
   }

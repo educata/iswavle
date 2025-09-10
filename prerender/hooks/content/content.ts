@@ -17,6 +17,7 @@ import {
   renderMarkdownFile,
 } from '../../helpers';
 import { SRC_ASSET_PATH, SRC_CONTENT_PATH } from '../../consts';
+import { execSync } from 'child_process';
 
 const CONTENT_CATEGORIES: Category[] = ['.', 'guides', 'references'];
 
@@ -161,6 +162,30 @@ export const CONTENT_HOOK = (): BuildHook => {
         JSON.stringify(Object.fromEntries(dataMap)),
         'utf-8',
       );
+
+      try {
+        let version = '';
+        try {
+          version = execSync('git rev-parse --short HEAD', {
+            stdio: ['ignore', 'pipe', 'ignore'],
+          })
+            .toString()
+            .trim();
+        } catch {
+          version = Date.now().toString(36);
+        }
+        const meta = {
+          version,
+          generatedAt: new Date().toISOString(),
+        } as const;
+        fs.writeFileSync(
+          path.join(SRC_ASSET_PATH, 'index-map.meta.json'),
+          JSON.stringify(meta),
+          'utf-8',
+        );
+      } catch (error) {
+        console.warn('⚠️ Failed to write index-map.meta.json:', error);
+      }
 
       let missingCount = 0;
 
