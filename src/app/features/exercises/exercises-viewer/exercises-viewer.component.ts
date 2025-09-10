@@ -311,13 +311,34 @@ export default class ExercisesViewerComponent {
     }
 
     const lowerCaseSearchText = searchText.toLowerCase();
-    return list.filter(
-      (exercise) =>
-        exercise.title.toLowerCase().includes(lowerCaseSearchText) ||
-        DIFFICULTY_TEXT[exercise.difficulty]
-          .toLowerCase()
-          .includes(lowerCaseSearchText),
-    );
+    return list
+      .reduce(
+        (acc, exercise) => {
+          let score = 0;
+          const titleMatch = exercise.title
+            .toLowerCase()
+            .includes(lowerCaseSearchText);
+          const difficultyMatch = DIFFICULTY_TEXT[exercise.difficulty]
+            .toLowerCase()
+            .includes(lowerCaseSearchText);
+          const tagMatch = exercise.tags.some((tag) =>
+            tag.toLowerCase().includes(lowerCaseSearchText),
+          );
+          tagMatch && score++;
+          titleMatch && score++;
+          difficultyMatch && score++;
+          if (score > 0) {
+            acc.push({ score, exercise });
+          }
+          return acc;
+        },
+        [] as Array<{
+          score: number;
+          exercise: ExercisesTableData;
+        }>,
+      )
+      .sort((a, b) => b.score - a.score)
+      .map(({ exercise }) => exercise);
   }
 
   private updateStorageData(
