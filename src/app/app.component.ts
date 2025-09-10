@@ -91,10 +91,6 @@ export class AppComponent implements AfterViewInit {
 
   readonly isHomePage = computed(() => this.currentPath() === '/');
 
-  get isDev(): boolean {
-    return this.environment.production === false;
-  }
-
   constructor() {
     if (this.isBrowser && this.environment.production) {
       this.initDefaultLog();
