@@ -31,9 +31,7 @@
         />
         <span>{{ 'ისწავლე' | uppercase }}</span>
       </a>
-      @if (isDev) {
-        <sw-search (searchCompleted)="closeMenu()"></sw-search>
-      }
+      <sw-search (searchCompleted)="closeMenu()"></sw-search>
     </div>
     <nav>
       <ul

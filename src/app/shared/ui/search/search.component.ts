@@ -2,7 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  OnInit,
   Output,
+  PLATFORM_ID,
   inject,
 } from '@angular/core';
 import { BehaviorSubject, combineLatest, debounceTime, map, tap } from 'rxjs';
@@ -10,7 +12,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { SearchService } from '@app-shared/services';
 import { SearchResultComponent } from '..';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, isPlatformBrowser } from '@angular/common';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { IndexMapResult } from '@app-shared/interfaces';
@@ -32,9 +34,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './search.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
   @Output() searchCompleted = new EventEmitter<void>();
 
+  private readonly platform = inject(PLATFORM_ID);
+  private readonly isBrowser = isPlatformBrowser(this.platform);
   readonly searchService = inject(SearchService);
   readonly isSearchModalVisible$ = new BehaviorSubject<boolean>(false);
 
@@ -64,6 +68,12 @@ export class SearchComponent {
         }),
       )
       .subscribe();
+  }
+
+  ngOnInit(): void {
+    if (this.isBrowser) {
+      this.searchService.init();
+    }
   }
 
   clearSearch() {

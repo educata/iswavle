@@ -15,10 +15,6 @@ export class SearchService {
   readonly #search$ = new BehaviorSubject<string>('');
   readonly search$ = this.#search$.asObservable();
 
-  constructor() {
-    this.init();
-  }
-
   init() {
     this.http
       .get<IndexMap>(`/assets/index-map.json`)
