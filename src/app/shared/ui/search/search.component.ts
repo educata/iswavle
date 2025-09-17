@@ -34,17 +34,16 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './search.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
   @Output() searchCompleted = new EventEmitter<void>();
 
   private readonly platform = inject(PLATFORM_ID);
-  private readonly isBrowser = isPlatformBrowser(this.platform);
   readonly searchService = inject(SearchService);
   readonly isSearchModalVisible$ = new BehaviorSubject<boolean>(false);
 
   readonly cache = new Map<string, IndexMapResult[]>();
 
-  searchControl = new FormControl('');
+  readonly searchControl = new FormControl('');
 
   readonly vm$ = combineLatest([
     this.searchService.indexMap$,
@@ -70,17 +69,18 @@ export class SearchComponent implements OnInit {
       .subscribe();
   }
 
-  ngOnInit(): void {
-    if (this.isBrowser) {
-      this.searchService.init();
-    }
-  }
-
   clearSearch() {
     this.searchControl.setValue(null);
   }
 
   onCacheChange(event: { key: string; data: IndexMapResult[] }) {
     this.cache.set(event.key, event.data);
+  }
+
+  handleSearchCtaClick() {
+    this.isSearchModalVisible$.next(true);
+    if (!this.searchService.hasInitialized()) {
+      this.searchService.init();
+    }
   }
 }
