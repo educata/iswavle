@@ -1,15 +1,13 @@
 @if (vm$ | async; as vm) {
   <div class="search">
-    @if (vm.indexMap) {
-      <button
-        nz-button
-        nzType="text"
-        nzShape="circle"
-        (click)="isSearchModalVisible$.next(true)"
-      >
-        <span nz-icon nzType="search"></span>
-      </button>
-    }
+    <button
+      nz-button
+      nzType="text"
+      nzShape="circle"
+      (click)="handleSearchCtaClick()"
+    >
+      <span nz-icon nzType="search"></span>
+    </button>
   </div>
   <nz-modal
     nzTitle="ძებნა"
