@@ -178,6 +178,8 @@ export class ContentDirective implements OnChanges {
     const a = event.target as HTMLAnchorElement;
     const currentHrefUrl = a.href.split('/').slice(0, 3).join('/');
     const currentDomain = this.router.url.split('#')[0];
+    console.log('currentDomain', currentDomain);
+    console.log('currentHrefUrl', currentHrefUrl);
     if (a.href.replace(currentHrefUrl, '').replace('/', '').startsWith('#')) {
       a.href = `${currentDomain}#${a.href.split('#')[1]}`;
       return;
@@ -190,6 +192,7 @@ export class ContentDirective implements OnChanges {
     }
     event.preventDefault();
     const navigateToUrl = a.href.replace(currentHrefUrl, '');
+    console.log('navigateToUrl', navigateToUrl);
     this.router.navigateByUrl(navigateToUrl);
     this.viewport.scrollToPosition([0, 0]);
   }
