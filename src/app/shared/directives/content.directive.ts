@@ -182,12 +182,14 @@ export class ContentDirective implements OnChanges {
     console.log('currentHrefUrl', currentHrefUrl);
     if (a.href.replace(currentHrefUrl, '').replace('/', '').startsWith('#')) {
       a.href = `${currentDomain}#${a.href.split('#')[1]}`;
+      console.log('a.href', a.href);
       return;
     }
     if (
       a?.target ||
       (/^https:\/\/.*/.test(a.href) && !a.href.includes(currentDomain))
     ) {
+      console.log('a.href (target)', a.href);
       return;
     }
     event.preventDefault();
