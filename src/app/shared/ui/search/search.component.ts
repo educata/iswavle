@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  HostListener,
   Output,
   inject,
 } from '@angular/core';
@@ -51,6 +52,14 @@ export class SearchComponent {
       search,
     })),
   );
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
+      event.preventDefault();
+      this.handleSearchCtaClick();
+    }
+  }
 
   constructor() {
     this.searchControl.valueChanges

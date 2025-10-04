@@ -232,12 +232,22 @@
         </button>
         <button
           nz-button
+          nz-tooltip
+          nzTooltipTitle="ინფორმაცია"
+          aria-label="ინფორმაცია"
+          (click)="showInfoPopUp()"
+        >
+          <span nz-icon nzType="sw:info" nzTheme="outline"></span>
+        </button>
+        <button
+          nz-button
           nz-dropdown
           nzPlacement="bottomLeft"
           [nzDropdownMenu]="theme"
         >
           <span nz-icon nzType="sw:theme" nzTheme="outline"></span>
         </button>
+
         <nz-dropdown-menu #theme="nzDropdownMenu">
           <ul nz-menu>
             <li nz-menu-item (click)="changeTheme('')">ნაგულისხმევი</li>
@@ -374,3 +384,18 @@
     </ng-container>
   </nz-drawer>
 }
+
+<ng-template #infoTemplate>
+  <p>ჩაშენებული მალსახმობები:</p>
+  <ul>
+    <li>
+      <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>F</kbd> - კოდის ფორმატირება
+    </li>
+    @for (shortcut of shortcuts | keyvalue; track shortcut.key) {
+      <li>
+        <kbd>{{ shortcut.value.ctrl ? 'Ctrl' : '' }}</kbd> +
+        <kbd>{{ shortcut.key }}</kbd> - {{ shortcut.value.description }}
+      </li>
+    }
+  </ul>
+</ng-template>

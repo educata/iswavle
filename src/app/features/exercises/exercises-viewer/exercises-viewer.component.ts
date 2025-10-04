@@ -7,9 +7,15 @@ import {
   inject,
   PLATFORM_ID,
   signal,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { isPlatformBrowser, JsonPipe, NgTemplateOutlet } from '@angular/common';
+import {
+  isPlatformBrowser,
+  JsonPipe,
+  KeyValuePipe,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   ExercisesService,
   LayoutService,
@@ -20,7 +26,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ThemeService } from '@app-shared/services/theme.service';
 import { ExerciseDifficultyPipe, EncodeURIPipe } from '@app-shared/pipes';
-import { DIFFICULTY_TEXT, EXERCISE_TAG_PATH_MAP } from '@app-shared/consts';
+import {
+  DIFFICULTY_TEXT,
+  EXERCISE_TAG_PATH_MAP,
+  SHORTCUTS,
+} from '@app-shared/consts';
 import { LocalStorageKeys } from '@app-shared/enums';
 import {
   ExercisesContent,
@@ -61,6 +71,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
   selector: 'sw-exercises-viewer',
   imports: [
     JsonPipe,
+    KeyValuePipe,
     RouterLink,
     NgTemplateOutlet,
     ReactiveFormsModule,
@@ -89,6 +100,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 })
 export default class ExercisesViewerComponent {
   @ViewChild(NzCodeEditorComponent) editor!: NzCodeEditorComponent;
+  @ViewChild('infoTemplate', { static: true })
+  infoTemplate!: TemplateRef<any>;
 
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
@@ -146,8 +159,9 @@ export default class ExercisesViewerComponent {
     ),
   );
 
-  readonly editorThemeOptions = this.themeService.editorThemeOptions;
+  readonly shortcuts = SHORTCUTS;
   readonly exerciseTagPathMap = EXERCISE_TAG_PATH_MAP;
+  readonly editorThemeOptions = this.themeService.editorThemeOptions;
   readonly colors: Record<string, string> = {
     easy: presetColors[5],
     medium: presetColors[3],
@@ -159,15 +173,25 @@ export default class ExercisesViewerComponent {
   }
 
   @HostListener('window:keydown', ['$event']) keyDown(event: KeyboardEvent) {
-    if (event.key === 's' && event.ctrlKey) {
-      event.preventDefault();
-      this.runCode();
+    if (!event.ctrlKey) {
+      return;
     }
-    if (event.key === 'r' && event.ctrlKey) {
-      event.preventDefault();
-      const content = this.exercisesContent();
-      if (content) {
-        this.resetCode(content);
+    event.preventDefault();
+    switch (event.key) {
+      case 's': {
+        this.runCode();
+        break;
+      }
+      case 'r': {
+        const content = this.exercisesContent();
+        if (content) {
+          this.resetCode(content);
+        }
+        break;
+      }
+      case 'm': {
+        this.isDrawerVisible.set(true);
+        break;
       }
     }
   }
@@ -301,6 +325,15 @@ export default class ExercisesViewerComponent {
     if (path) {
       this.router.navigate(['/exercises', path]);
     }
+  }
+
+  showInfoPopUp(): void {
+    this.nzModalService.create({
+      nzTitle: 'დამატებითი ინფორმაცია',
+      nzOkText: 'დახურვა',
+      nzCancelText: null,
+      nzContent: this.infoTemplate,
+    });
   }
 
   private filterExercises(searchText: string | null): ExercisesTableData[] {
