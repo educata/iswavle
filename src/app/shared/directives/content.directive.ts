@@ -186,10 +186,12 @@ export class ContentDirective implements OnChanges {
       return;
     }
     if (/^https:\/\/.*/.test(a.href) && !a.href.includes(currentDomain)) {
-      console.log('a.href (target)', a.href);
+      console.log('currentDomain (if2)', currentDomain);
+      console.log('a.href (if2)', a.href);
       return;
     }
     event.preventDefault();
+    console.log('a.href (event.preventDefault)', a.href);
     const navigateToUrl = a.href.replace(currentHrefUrl, '');
     console.log('navigateToUrl', navigateToUrl);
     this.router.navigateByUrl(navigateToUrl);
