@@ -185,10 +185,7 @@ export class ContentDirective implements OnChanges {
       console.log('a.href', a.href);
       return;
     }
-    if (
-      a?.target ||
-      (/^https:\/\/.*/.test(a.href) && !a.href.includes(currentDomain))
-    ) {
+    if (/^https:\/\/.*/.test(a.href) && !a.href.includes(currentDomain)) {
       console.log('a.href (target)', a.href);
       return;
     }
