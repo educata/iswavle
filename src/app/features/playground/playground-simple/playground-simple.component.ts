@@ -237,7 +237,7 @@ export default class PlaygroundSimpleComponent
     this.isDownloadModalVisible$.next(false);
 
     const title =
-      this.title
+      this.metaService
         .getTitle()
         .split(TITLE_SUFFIX_SEPARATOR)
         .shift()
@@ -272,7 +272,7 @@ export default class PlaygroundSimpleComponent
           <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>${this.title.getTitle()}</title>
+            <title>${this.metaService.getTitle()}</title>
             <link rel="icon" type="image/x-icon" href="https://iswavle.com/favicon.ico" />
             ${files
               .filter((item) => item.name.includes('css'))
