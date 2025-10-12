@@ -177,7 +177,7 @@ export class ContentDirective implements OnChanges {
   handleAnchorClick(event: Event) {
     const a = event.target as HTMLAnchorElement;
     const currentHrefUrl = a.href.split('/').slice(0, 3).join('/');
-    const currentDomain = this.router.url.split('#')[0];
+    const currentDomain = this.document.location.origin;
     console.log('currentDomain', currentDomain);
     console.log('currentHrefUrl', currentHrefUrl);
     if (a.href.replace(currentHrefUrl, '').replace('/', '').startsWith('#')) {
