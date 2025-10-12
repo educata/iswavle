@@ -11,3 +11,4 @@ export * from './authors';
 export * from './exercise-tag';
 export * from './difficulty-text';
 export * from './index-db';
+export * from './shortcuts';
