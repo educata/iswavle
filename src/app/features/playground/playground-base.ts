@@ -9,15 +9,18 @@ import {
   ViewContainerRef,
   inject,
 } from '@angular/core';
-import { DomSanitizer, Title } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { LocalStorageKeys, Theme } from '@app-shared/enums';
-import { DownloadService, ThemeService } from '@app-shared/services';
+import { MetaTags, Theme } from '@app-shared/enums';
+import {
+  DownloadService,
+  MetaService,
+  ThemeService,
+} from '@app-shared/services';
 import { NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
-import { BehaviorSubject, combineLatest, map, tap } from 'rxjs';
-
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PlaygroundEffects } from '@app-shared/interfaces';
 
@@ -31,9 +34,9 @@ export class PlaygroundBaseComponent {
   protected readonly destroyRef = inject(DestroyRef);
   protected readonly iconService = inject(NzIconService);
   protected readonly route = inject(ActivatedRoute);
-  protected readonly title = inject(Title);
   protected readonly domSanitizer = inject(DomSanitizer);
   protected readonly themeService = inject(ThemeService);
+  protected readonly metaService = inject(MetaService);
   protected readonly downloadService = inject(DownloadService);
 
   @ViewChild('editorOutlet', { read: ViewContainerRef })
@@ -75,6 +78,17 @@ export class PlaygroundBaseComponent {
     event.preventDefault();
   }
 
+  constructor() {
+    if (this.isBrowser) {
+      const metaRenderer$ = this.files$.pipe(
+        takeUntilDestroyed(),
+        tap((nodes) => this.setPlaygroundMetaTags(nodes[0])),
+      );
+
+      metaRenderer$.subscribe();
+    }
+  }
+
   protected registerEffects(effects: PlaygroundEffects) {
     for (let effect in effects) {
       effects[effect].pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
@@ -94,5 +108,33 @@ export class PlaygroundBaseComponent {
 
   changeTheme(theme: string) {
     this.themeService.changeEditorTheme(theme);
+  }
+
+  private setPlaygroundMetaTags(node: NzTreeNodeOptions): void {
+    const usedExtensions: string[] = [];
+
+    const traverseNodes = (n: NzTreeNodeOptions) => {
+      const keys = n.key?.toString().split('.');
+      const isSingleItem = keys.length === 1;
+      const ext = keys.pop();
+      if (ext && !usedExtensions.includes(ext) && !isSingleItem) {
+        usedExtensions.push(ext);
+      }
+      if (n.children) {
+        n.children.forEach((child) => traverseNodes(child));
+      }
+    };
+
+    traverseNodes(node);
+
+    this.metaService.updateMediaMetaTags(
+      MetaTags.Keywords,
+      usedExtensions.join(', '),
+    );
+
+    this.metaService.updateMediaMetaTags(
+      MetaTags.Title,
+      this.metaService.getTitle(),
+    );
   }
 }

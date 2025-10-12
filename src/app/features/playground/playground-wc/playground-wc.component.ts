@@ -209,7 +209,7 @@ export default class PlaygroundWcComponent
           this.appendChildrenFiles(files, allFiles);
 
           const title =
-            this.title
+            this.metaService
               .getTitle()
               .split(TITLE_SUFFIX_SEPARATOR)
               .shift()
