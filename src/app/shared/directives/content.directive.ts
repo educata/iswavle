@@ -178,22 +178,15 @@ export class ContentDirective implements OnChanges {
     const a = event.target as HTMLAnchorElement;
     const currentHrefUrl = a.href.split('/').slice(0, 3).join('/');
     const currentDomain = this.document.location.origin;
-    console.log('currentDomain', currentDomain);
-    console.log('currentHrefUrl', currentHrefUrl);
     if (a.href.replace(currentHrefUrl, '').replace('/', '').startsWith('#')) {
       a.href = `${currentDomain}#${a.href.split('#')[1]}`;
-      console.log('a.href', a.href);
       return;
     }
     if (/^https:\/\/.*/.test(a.href) && !a.href.includes(currentDomain)) {
-      console.log('currentDomain (if2)', currentDomain);
-      console.log('a.href (if2)', a.href);
       return;
     }
     event.preventDefault();
-    console.log('a.href (event.preventDefault)', a.href);
     const navigateToUrl = a.href.replace(currentHrefUrl, '');
-    console.log('navigateToUrl', navigateToUrl);
     this.router.navigateByUrl(navigateToUrl);
     this.viewport.scrollToPosition([0, 0]);
   }
