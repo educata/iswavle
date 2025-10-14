@@ -6,11 +6,16 @@
   NODE_VERSION = "20"
 
 [[redirects]]
-  from = "/*"
+  from = "https://iswavle.ge/*"
   to = "https://iswavle.com/:splat"
   status = 301
   force = true
-  conditions = { Host = "iswavle.ge" }
+
+[[redirects]]
+  from = "https://www.iswavle.ge/*"
+  to = "https://iswavle.com/:splat"
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/*"
