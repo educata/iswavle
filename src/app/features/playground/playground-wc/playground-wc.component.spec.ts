@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlaygroundWcComponent } from './playground-wc.component';
+import PlaygroundWcComponent from './playground-wc.component';
 
 describe('PlaygroundWcComponent', () => {
   let component: PlaygroundWcComponent;

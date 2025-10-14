@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlaygroundSimpleComponent } from './playground-simple.component';
+import PlaygroundSimpleComponent from './playground-simple.component';
 
 describe('PlaygroundSimpleComponent', () => {
   let component: PlaygroundSimpleComponent;
