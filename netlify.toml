@@ -7,6 +7,13 @@
 
 [[redirects]]
   from = "/*"
+  to = "https://iswavle.com/:splat"
+  status = 301
+  force = true
+  conditions = { Host = "iswavle.ge" }
+
+[[redirects]]
+  from = "/*"
   to = "/index.html"
 
 [headers.values]
