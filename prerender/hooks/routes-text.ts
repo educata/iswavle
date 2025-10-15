@@ -3,6 +3,7 @@ import { writeFileSync } from 'fs';
 
 import { BuildHook, FileMeta } from '@global-shared/interfaces';
 import { ensureDir } from '../helpers';
+import { SRC_PATH } from '../consts';
 
 function pushRoute(path: string, seen: Set<string>, routes: string[]): void {
   if (seen.has(path)) return;
@@ -10,7 +11,7 @@ function pushRoute(path: string, seen: Set<string>, routes: string[]): void {
   routes.push(path);
 }
 
-const OUT_PATH = resolve('src', 'routes.txt');
+const OUT_PATH = resolve(SRC_PATH, 'routes.txt');
 
 export const ROUTES_TEXT_HOOK = (): BuildHook => {
   const seen = new Set<string>();

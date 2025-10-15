@@ -1,10 +1,8 @@
 import * as fs from 'fs';
+import { EXAMPLES_OUTPUT_DIR_PATH, EXAMPLES_SRC_PATH } from './consts/path';
 
-const examplesSrc = './src/content/examples';
-const outputDir = './src/assets/dev';
-
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir);
+if (!fs.existsSync(EXAMPLES_OUTPUT_DIR_PATH)) {
+  fs.mkdirSync(EXAMPLES_OUTPUT_DIR_PATH);
 }
 
-fs.cpSync(examplesSrc, outputDir, { recursive: true });
+fs.cpSync(EXAMPLES_SRC_PATH, EXAMPLES_OUTPUT_DIR_PATH, { recursive: true });

@@ -5,7 +5,8 @@ import { promisify } from 'util';
 
 import { BuildHook, FileMeta } from '@global-shared/interfaces';
 import { ensureDir } from '../helpers';
-import { environment } from '../../src/environments/environment';
+import { environment } from '../../apps/iswavle/src/environments/environment';
+import { SRC_PATH } from '../consts';
 
 const execAsync = promisify(exec);
 
@@ -74,7 +75,7 @@ const PRIORITY = {
   exercises: 0.8,
 };
 
-const OUT_PATH = resolve('src', 'sitemap.xml');
+const OUT_PATH = resolve(SRC_PATH, 'sitemap.xml');
 
 export const SITEMAP_HOOK = (): BuildHook => {
   const seen = new Set<string>();

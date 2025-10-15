@@ -1,0 +1,118 @@
+{
+  "name": "iswavle",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "less",
+      "changeDetection": "OnPush"
+    }
+  },
+  "sourceRoot": "apps/iswavle/src",
+  "prefix": "sw",
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "options": {
+        "outputPath": "dist/apps/iswavle",
+        "index": "apps/iswavle/src/index.html",
+        "browser": "apps/iswavle/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/iswavle/tsconfig.app.json",
+        "inlineStyleLanguage": "less",
+        "sourceMap": false,
+        "assets": [
+          "apps/iswavle/src/favicon.ico",
+          "apps/iswavle/src/assets",
+          "apps/iswavle/src/manifest.json",
+          "apps/iswavle/src/sitemap.xml",
+          "apps/iswavle/src/robots.txt",
+          {
+            "glob": "**/*",
+            "input": "node_modules/@ant-design/icons-angular/src/inline-svg/",
+            "output": "/assets/"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/monaco-editor/min/vs",
+            "output": "/assets/vs/"
+          }
+        ],
+        "styles": [
+          "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+          "apps/iswavle/src/styles.less"
+        ],
+        "scripts": [],
+        "server": "apps/iswavle/src/main.server.ts",
+        "prerender": {
+          "routesFile": "apps/iswavle/src/routes.txt"
+        },
+        "ssr": false,
+        "webWorkerTsConfig": "tsconfig.worker.json"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "2.5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "1mb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/iswavle/src/environments/environment.ts",
+              "with": "apps/iswavle/src/environments/environment.development.ts"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "production",
+      "outputs": ["{options.outputPath}"]
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "iswavle:build:production"
+        },
+        "development": {
+          "buildTarget": "iswavle:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "iswavle:build"
+      }
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "polyfills": ["zone.js", "zone.js/testing"],
+        "tsConfig": "apps/iswavle/tsconfig.spec.json",
+        "inlineStyleLanguage": "less",
+        "assets": ["apps/iswavle/src/favicon.ico", "apps/iswavle/src/assets"],
+        "styles": [
+          "apps/iswavle/node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+          "apps/iswavle/src/styles.less"
+        ],
+        "scripts": [],
+        "webWorkerTsConfig": "tsconfig.worker.json"
+      }
+    }
+  }
+}

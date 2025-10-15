@@ -6,6 +6,6 @@
 *.md
 *.lock
 
-src/content/**/*.md
-src/content/**/*.js
-src/assets
+apps/iswavle/src/content/**/*.md
+apps/iswavle/src/content/**/*.js
+apps/iswavle/src/assets
