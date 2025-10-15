@@ -8,8 +8,7 @@ import {
   EXERCISE_HOOK,
   EXAMPLES_HOOK,
 } from '../hooks';
-
-const BASE_DIR_PATH = path.join(__dirname, '../../src/content');
+import { SRC_CONTENT_PATH } from '../consts';
 
 async function main(baseDir: string): Promise<void> {
   const startTime = Date.now();
@@ -29,4 +28,4 @@ async function main(baseDir: string): Promise<void> {
   }
 }
 
-main(BASE_DIR_PATH).catch(console.error);
+main(SRC_CONTENT_PATH).catch(console.error);

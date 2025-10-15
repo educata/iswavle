@@ -29,17 +29,17 @@
           "apps/iswavle/src/robots.txt",
           {
             "glob": "**/*",
-            "input": "apps/iswavle/node_modules/@ant-design/icons-angular/src/inline-svg/",
+            "input": "node_modules/@ant-design/icons-angular/src/inline-svg/",
             "output": "/assets/"
           },
           {
             "glob": "**/*",
-            "input": "apps/iswavle/node_modules/monaco-editor/min/vs",
+            "input": "node_modules/monaco-editor/min/vs",
             "output": "/assets/vs/"
           }
         ],
         "styles": [
-          "apps/iswavle/node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+          "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
           "apps/iswavle/src/styles.less"
         ],
         "scripts": [],

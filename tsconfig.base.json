@@ -19,7 +19,7 @@
     "useDefineForClassFields": false,
     "lib": ["ES2022", "dom"],
     "paths": {
-      "@app-shared/*": ["./src/app/shared/*"],
+      "@app-shared/*": ["./apps/iswavle/src/app/shared/*"],
       "@global-shared/*": ["./shared/*"]
     },
     "typeRoots": ["./node_modules/@types", "./src/types"],
