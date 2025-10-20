@@ -20,7 +20,10 @@
     "lib": ["ES2022", "dom"],
     "paths": {
       "@app-shared/*": ["./apps/iswavle/src/app/shared/*"],
-      "@global-shared/*": ["./shared/*"]
+      "@global-shared/*": ["./shared/*"],
+      "@iswavle/shared/data-access": ["libs/shared/data-access/src/index.ts"],
+      "@iswavle/shared/ui": ["libs/shared/ui/src/index.ts"],
+      "@iswavle/shared/utils": ["libs/shared/utils/src/index.ts"]
     },
     "typeRoots": ["./node_modules/@types", "./src/types"],
     "baseUrl": ".",

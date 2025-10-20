@@ -9,3 +9,5 @@
 apps/iswavle/src/content/**/*.md
 apps/iswavle/src/content/**/*.js
 apps/iswavle/src/assets
+
+.angular
