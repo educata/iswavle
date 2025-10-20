@@ -28,7 +28,8 @@
       "@iswavle/features/playground": ["libs/features/playground/src/index.ts"],
       "@iswavle/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@iswavle/shared/ui": ["libs/shared/ui/src/index.ts"],
-      "@iswavle/shared/utils": ["libs/shared/utils/src/index.ts"]
+      "@iswavle/shared/utils": ["libs/shared/utils/src/index.ts"],
+      "@iswavle/shell": ["libs/shell/src/index.ts"]
     },
     "typeRoots": ["./node_modules/@types", "./src/types"],
     "baseUrl": ".",
