@@ -1,5 +1,5 @@
-import { ThemeOptions } from '@app-shared/enums';
-import { ThemeDisplay } from '@app-shared/interfaces';
+import { ThemeOptions } from '../enums';
+import { ThemeDisplay } from '../interfaces';
 
 export const DISPLAY_THEMES: ThemeDisplay[] = [
   {

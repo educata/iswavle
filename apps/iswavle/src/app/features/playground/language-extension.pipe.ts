@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { LANGUAGE_MAP } from '@app-shared/consts';
+import { LANGUAGE_MAP } from '@iswavle/shared/utils';
 
 @Pipe({
   name: 'languageExtension',

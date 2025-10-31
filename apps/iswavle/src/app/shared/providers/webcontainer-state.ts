@@ -1,5 +1,5 @@
 import { InjectionToken, Provider } from '@angular/core';
-import { WebContainerState } from '@app-shared/interfaces';
+import { WebContainerState } from '@iswavle/shared/utils';
 import { WebContainerService } from '@app-shared/services';
 
 export const WEBCONTAINER_STATE = new InjectionToken<WebContainerState>(

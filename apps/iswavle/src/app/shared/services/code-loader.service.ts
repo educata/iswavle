@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { firstValueFrom, catchError, EMPTY, map } from 'rxjs';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { ExampleFile } from '@global-shared/interfaces';
-import { Params, ContentLoader } from '@app-shared/interfaces';
-import { ICON_PREFIX } from '@app-shared/consts';
+import { Params, ContentLoader } from '@iswavle/shared/utils';
+import { ICON_PREFIX } from '@iswavle/shared/utils';
 
 @Injectable()
 export class CodeLoaderService implements ContentLoader<NzTreeNodeOptions> {

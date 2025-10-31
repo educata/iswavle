@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { IndexMap } from '@app-shared/interfaces';
+import { IndexMap } from '@iswavle/shared/utils';
 import {
   BehaviorSubject,
   EMPTY,
@@ -11,7 +11,7 @@ import {
   tap,
   timeout,
 } from 'rxjs';
-import { TTL_MS } from '@app-shared/consts';
+import { TTL_MS } from '@iswavle/shared/utils';
 
 @Injectable({
   providedIn: 'root',

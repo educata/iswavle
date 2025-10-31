@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
-import { EXECISES_NAVIGATION as NAVIGATION } from '@app-shared/consts/exercise-navigation';
-import { BaseNavigationTreeNode } from '@app-shared/interfaces';
+import { EXECISES_NAVIGATION as NAVIGATION } from '@iswavle/shared/utils';
+import { BaseNavigationTreeNode } from '@iswavle/shared/utils';
 
 export const EXERCISES_NAVIGATION = new InjectionToken<
   BaseNavigationTreeNode[]

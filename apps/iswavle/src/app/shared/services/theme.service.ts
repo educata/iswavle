@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Injectable, PLATFORM_ID, inject, DOCUMENT } from '@angular/core';
-import { LocalStorageKeys, Theme, ThemeOptions } from '@app-shared/enums';
-import { EDITOR_THEMES } from '@app-shared/consts';
+import { LocalStorageKeys, Theme, ThemeOptions } from '@iswavle/shared/utils';
+import { EDITOR_THEMES } from '@iswavle/shared/utils';
 import {
   BehaviorSubject,
   Observable,

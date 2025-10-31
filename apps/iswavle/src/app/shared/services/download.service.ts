@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PlaygroundFile } from '@app-shared/interfaces';
+import { PlaygroundFile } from '@iswavle/shared/utils';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 

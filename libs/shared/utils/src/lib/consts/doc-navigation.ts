@@ -1,8 +1,5 @@
-import { BaseNavigationTreeNode } from '@app-shared/interfaces';
-import {
-  HTML_CSS_GUIDE_NAV,
-  HTML_CSS_REFERENCE_NAV,
-} from './doc-navigation/html-css';
+import { BaseNavigationTreeNode } from '../interfaces';
+import { HTML_CSS_GUIDE_NAV } from './doc-navigation/html-css';
 import { ANGULAR_GUIDE_NAV } from './doc-navigation/angular';
 import { JAVASCRIPT_GUIDE_NAV } from './doc-navigation/js';
 import { TYPESCRIPT_GUIDE_NAV } from './doc-navigation/ts';

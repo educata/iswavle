@@ -9,12 +9,9 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import {
-  ExercisesNavigation,
-  ExercisesTableData,
-} from '@app-shared/interfaces';
+import { ExercisesNavigation, ExercisesTableData } from '@iswavle/shared/utils';
 import { ExerciseDifficultyPipe, EncodeURIPipe } from '@app-shared/pipes';
-import { EXERCISE_TAG_PATH_MAP, DIFFICULTY_TEXT } from '@app-shared/consts';
+import { EXERCISE_TAG_PATH_MAP, DIFFICULTY_TEXT } from '@iswavle/shared/utils';
 import { ExercisesService, LayoutService } from '@app-shared/services';
 import { map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';

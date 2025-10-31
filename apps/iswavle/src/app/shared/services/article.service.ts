@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { NavigationTreeNode } from '@app-shared/interfaces';
+import { NavigationTreeNode } from '@iswavle/shared/utils';
 import { DOC_NAVIGATION } from '@app-shared/providers';
 import { filter, map } from 'rxjs';
 

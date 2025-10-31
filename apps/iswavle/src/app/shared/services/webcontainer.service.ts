@@ -13,7 +13,7 @@ import {
   WebContainerFile,
   WebContainerInitOpts,
   WebContainerState,
-} from '@app-shared/interfaces';
+} from '@iswavle/shared/utils';
 
 @Injectable()
 export class WebContainerService implements WebContainerState, OnDestroy {

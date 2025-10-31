@@ -1,6 +1,6 @@
 import { InjectionToken, inject } from '@angular/core';
-import { Navigation } from '@app-shared/interfaces';
-import { HEADER_NAVIGATION } from '@app-shared/consts';
+import { Navigation } from '@iswavle/shared/utils';
+import { HEADER_NAVIGATION } from '@iswavle/shared/utils';
 import { DOC_NAVIGATION } from './doc-navigation';
 
 export const NAVIGATION = new InjectionToken<Navigation[]>('NAVIGATION', {

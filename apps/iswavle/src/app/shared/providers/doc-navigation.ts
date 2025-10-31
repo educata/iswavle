@@ -2,8 +2,8 @@ import { InjectionToken } from '@angular/core';
 import {
   BaseNavigationTreeNode,
   NavigationTreeNode,
-} from '@app-shared/interfaces';
-import { DEFAULT_DOC_NAVIGATION } from '@app-shared/consts';
+} from '@iswavle/shared/utils';
+import { DEFAULT_DOC_NAVIGATION } from '@iswavle/shared/utils';
 
 export const DOC_NAVIGATION = new InjectionToken<NavigationTreeNode[]>(
   'DOC_NAVIGATION',

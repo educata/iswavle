@@ -1,11 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { LocalStorageKeys } from '@app-shared/enums';
+import { LocalStorageKeys } from '@iswavle/shared/utils';
 import {
   ExercisesNavigation,
   ExercisesTableData,
   ExerciseStorageContent,
-} from '@app-shared/interfaces';
+} from '@iswavle/shared/utils';
 
 @Injectable({
   providedIn: 'root',

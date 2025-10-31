@@ -15,3 +15,4 @@ export * from './environment';
 export * from './theme';
 export * from './exercises';
 export * from './shortcut';
+export * from './layout-sizes';

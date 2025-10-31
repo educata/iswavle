@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DIFFICULTY_TEXT } from '@app-shared/consts';
+import { DIFFICULTY_TEXT } from '@iswavle/shared/utils';
 
 @Pipe({
   name: 'exerciseDifficulty',

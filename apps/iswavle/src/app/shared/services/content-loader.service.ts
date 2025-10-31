@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map, combineLatest, firstValueFrom, catchError, EMPTY } from 'rxjs';
 import { ArticleAttributes } from '@global-shared/interfaces';
-import { ContentLoader, DocContent, Params } from '@app-shared/interfaces';
+import { ContentLoader, DocContent, Params } from '@iswavle/shared/utils';
 
 @Injectable()
 export class ContentLoaderService implements ContentLoader<DocContent> {

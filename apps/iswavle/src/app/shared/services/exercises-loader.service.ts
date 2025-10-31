@@ -2,8 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { combineLatest, firstValueFrom, catchError, EMPTY, map } from 'rxjs';
-import { ContentLoader, Params } from '@app-shared/interfaces';
-import { ExercisesContent } from '@app-shared/interfaces';
+import { ContentLoader, Params } from '@iswavle/shared/utils';
+import { ExercisesContent } from '@iswavle/shared/utils';
 
 @Injectable()
 export class ExercisesLoaderService implements ContentLoader<ExercisesContent> {

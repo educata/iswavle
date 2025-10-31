@@ -7,7 +7,7 @@ import {
   ContentLoader,
   Params,
   ExercisesNavigation,
-} from '@app-shared/interfaces';
+} from '@iswavle/shared/utils';
 import { EXERCISES_NAVIGATION } from '@app-shared/providers';
 
 @Injectable()

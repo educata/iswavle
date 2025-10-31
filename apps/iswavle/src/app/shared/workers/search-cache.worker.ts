@@ -2,7 +2,7 @@ import {
   TTL_MS,
   DB_NAME,
   INDEX_MAP_STORE_NAME,
-} from '@app-shared/consts/index-db';
+} from '@iswavle/shared/utils/index-db';
 
 type IndexMap = Record<string, { title: string; content: string }>;
 

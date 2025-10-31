@@ -3,8 +3,8 @@
 import {
   ExercisesExecutionData,
   ExercisesExecutionResult,
-} from '@app-shared/interfaces';
-import { UTILS, buildTree } from '@app-shared/utils';
+} from '@iswavle/shared/utils';
+import { UTILS, buildTree } from '@iswavle/shared/utils';
 
 addEventListener('message', ({ data }) => {
   const { code, testCases, starter } = data as ExercisesExecutionData;

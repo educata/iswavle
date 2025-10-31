@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { ContentLoader, ExercisesNavigation } from '@app-shared/interfaces';
+import { ContentLoader, ExercisesNavigation } from '@iswavle/shared/utils';
 import { ExercisesMapService } from '@app-shared/services';
 
 export const EXERCISES_MAP = new InjectionToken<

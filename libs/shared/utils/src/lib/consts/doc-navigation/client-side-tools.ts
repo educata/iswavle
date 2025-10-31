@@ -1,4 +1,4 @@
-import { BaseNavigationTreeNode } from '@app-shared/interfaces';
+import { BaseNavigationTreeNode } from '../../interfaces';
 
 export const CLIENT_SIDE_TOOLS_NAV: BaseNavigationTreeNode = {
   title: 'ხელსაწყოები კლიენტის მხარეს',

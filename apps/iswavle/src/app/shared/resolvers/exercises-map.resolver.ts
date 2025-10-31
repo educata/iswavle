@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
-import { Params, ExercisesNavigation } from '@app-shared/interfaces';
+import { Params, ExercisesNavigation } from '@iswavle/shared/utils';
 import { EXERCISES_MAP } from '@app-shared/providers';
 
 export const exercisesMapResolver: ResolveFn<ExercisesNavigation[] | null> = (

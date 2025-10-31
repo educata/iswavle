@@ -12,9 +12,12 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CUSTOM_ICONS } from '@app-shared/consts';
-import { EmbedMessageType, SupportedPreviewLanguages } from '@app-shared/enums';
-import { DocContent, ExercisesContent } from '@app-shared/interfaces';
+import { CUSTOM_ICONS } from '@iswavle/shared/utils';
+import {
+  EmbedMessageType,
+  SupportedPreviewLanguages,
+} from '@iswavle/shared/utils';
+import { DocContent, ExercisesContent } from '@iswavle/shared/utils';
 import { ENVIRONMENT } from '@app-shared/providers/environment';
 import {
   SanitizerService,

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
-import { DIFFICULTY_TEXT } from '@app-shared/consts';
+import { DIFFICULTY_TEXT } from '@iswavle/shared/utils';
 
 type Param = {
   name: string;

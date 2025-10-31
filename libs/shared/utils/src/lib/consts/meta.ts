@@ -1,4 +1,4 @@
-import { MetaConfig } from '@app-shared/interfaces';
+import { MetaConfig } from '../interfaces';
 
 export const TITLE_SUFFIX = 'Iswavle';
 export const TITLE_SEPARATOR = '•';

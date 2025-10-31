@@ -1,4 +1,4 @@
-import { Environment } from '@app-shared/interfaces';
+import { Environment } from '@iswavle/shared/utils';
 
 export const environment: Environment = {
   production: false,

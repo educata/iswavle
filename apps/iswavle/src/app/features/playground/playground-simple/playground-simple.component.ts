@@ -36,9 +36,9 @@ import {
   startWith,
   delay,
 } from 'rxjs';
-import { PlaygroundEffects, PlaygroundFile } from '@app-shared/interfaces';
+import { PlaygroundEffects, PlaygroundFile } from '@iswavle/shared/utils';
 import { BypassSanitizePipe } from '@app-shared/pipes';
-import { LANGUAGE_MAP, TITLE_SUFFIX_SEPARATOR } from '@app-shared/consts';
+import { LANGUAGE_MAP, TITLE_SUFFIX_SEPARATOR } from '@iswavle/shared/utils';
 
 declare const monaco: any;
 

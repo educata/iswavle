@@ -14,7 +14,7 @@ import { SearchResultComponent } from '..';
 import { AsyncPipe } from '@angular/common';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { IndexMapResult } from '@app-shared/interfaces';
+import { IndexMapResult } from '@iswavle/shared/utils';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

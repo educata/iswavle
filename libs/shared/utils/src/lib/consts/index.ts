@@ -12,3 +12,6 @@ export * from './exercise-tag';
 export * from './difficulty-text';
 export * from './index-db';
 export * from './shortcuts';
+export * from './default-layout-sizes';
+export * from './exercise-navigation';
+export * from './theme';

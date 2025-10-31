@@ -9,9 +9,9 @@ import {
   TITLE_SUFFIX,
   TITLE_SEPARATOR,
   TITLE_SUFFIX_SEPARATOR,
-} from '@app-shared/consts';
-import { DocContent } from '@app-shared/interfaces';
-import { MetaTags } from '@app-shared/enums';
+} from '@iswavle/shared/utils';
+import { DocContent } from '@iswavle/shared/utils';
+import { MetaTags } from '@iswavle/shared/utils';
 import { MetaService } from './meta.service';
 
 @Injectable()

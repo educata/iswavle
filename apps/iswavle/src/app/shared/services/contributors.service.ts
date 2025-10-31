@@ -4,8 +4,8 @@ import {
   AUTHORS,
   GITHUB_API_COMMITS,
   GITHUB_API_COMMITS_PREFIX,
-} from '@app-shared/consts';
-import { Contributor, GithubResponse } from '@app-shared/interfaces';
+} from '@iswavle/shared/utils';
+import { Contributor, GithubResponse } from '@iswavle/shared/utils';
 import { Observable, catchError, map, of } from 'rxjs';
 
 @Injectable({

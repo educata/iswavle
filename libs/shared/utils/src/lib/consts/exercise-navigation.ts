@@ -1,4 +1,4 @@
-import { BaseNavigationTreeNode } from '@app-shared/interfaces';
+import { BaseNavigationTreeNode } from '../interfaces';
 
 export const EXECISES_NAVIGATION: BaseNavigationTreeNode[] = [
   {

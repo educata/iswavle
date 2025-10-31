@@ -1,4 +1,4 @@
-import { Contributor } from '@app-shared/interfaces';
+import { Contributor } from '../interfaces';
 
 export const AUTHORS: Contributor[] = [
   {

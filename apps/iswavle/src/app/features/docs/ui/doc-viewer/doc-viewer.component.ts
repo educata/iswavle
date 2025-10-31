@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { DocContent } from '@app-shared/interfaces';
+import { DocContent } from '@iswavle/shared/utils';
 import { ContentDirective } from '@app-shared/directives';
 
 @Component({

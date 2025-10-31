@@ -30,15 +30,15 @@ import {
   DIFFICULTY_TEXT,
   EXERCISE_TAG_PATH_MAP,
   SHORTCUTS,
-} from '@app-shared/consts';
-import { LocalStorageKeys } from '@app-shared/enums';
+} from '@iswavle/shared/utils';
+import { LocalStorageKeys } from '@iswavle/shared/utils';
 import {
   ExercisesContent,
   ExercisesExecutionResult,
   ExercisesNavigation,
   ExercisesTableData,
   ExerciseStorageContent,
-} from '@app-shared/interfaces';
+} from '@iswavle/shared/utils';
 import { LoaderComponent } from '@app-shared/ui';
 import { ContentDirective } from '@app-shared/directives';
 import {

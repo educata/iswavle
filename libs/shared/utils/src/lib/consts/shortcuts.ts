@@ -1,4 +1,4 @@
-import { Shortcut, ShortcutKey } from '@app-shared/interfaces';
+import { Shortcut, ShortcutKey } from '../interfaces';
 
 export const SHORTCUTS: Record<ShortcutKey, Shortcut> = {
   S: { ctrl: true, description: 'კოდის გაშვება' },

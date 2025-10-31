@@ -1,4 +1,4 @@
-import { ThemeOptions } from '@app-shared/enums';
+import { ThemeOptions } from '../enums';
 
 export interface ThemeDisplay {
   title: string;
