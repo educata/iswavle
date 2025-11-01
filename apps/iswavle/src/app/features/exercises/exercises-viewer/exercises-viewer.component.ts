@@ -40,7 +40,7 @@ import {
   ExerciseStorageContent,
 } from '@iswavle/shared/utils';
 import { LoaderComponent } from '@app-shared/ui';
-import { ContentDirective } from '@app-shared/directives';
+import { ContentDirective } from '@iswavle/shared/ui';
 import {
   debounceTime,
   distinctUntilChanged,

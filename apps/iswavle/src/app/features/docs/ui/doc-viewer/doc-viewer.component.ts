@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DocContent } from '@iswavle/shared/utils';
-import { ContentDirective } from '@app-shared/directives';
+import { ContentDirective } from '@iswavle/shared/ui';
 
 @Component({
   selector: 'sw-doc-viewer',
