@@ -25,7 +25,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ThemeService } from '@app-shared/services/theme.service';
-import { ExerciseDifficultyPipe, EncodeURIPipe } from '@app-shared/pipes';
+import { ExerciseDifficultyPipe, EncodeURIPipe } from '@iswavle/shared/ui';
 import {
   DIFFICULTY_TEXT,
   EXERCISE_TAG_PATH_MAP,

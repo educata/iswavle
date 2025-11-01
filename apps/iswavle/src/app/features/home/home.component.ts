@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { CODE_BLOCKS } from './code-blocks';
-import { BypassSanitizePipe } from '@app-shared/pipes';
+import { BypassSanitizePipe } from '@iswavle/shared/ui';
 import { UpperCasePipe } from '@angular/common';
 
 @Component({

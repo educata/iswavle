@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ExercisesNavigation, ExercisesTableData } from '@iswavle/shared/utils';
-import { ExerciseDifficultyPipe, EncodeURIPipe } from '@app-shared/pipes';
+import { ExerciseDifficultyPipe, EncodeURIPipe } from '@iswavle/shared/ui';
 import { EXERCISE_TAG_PATH_MAP, DIFFICULTY_TEXT } from '@iswavle/shared/utils';
 import { ExercisesService, LayoutService } from '@app-shared/services';
 import { map } from 'rxjs/operators';
