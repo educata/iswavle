@@ -20,11 +20,11 @@ import {
   ExercisesService,
   LayoutService,
   MetaService,
-} from '@app-shared/services';
+  ThemeService,
+} from '@iswavle/shared/data-access';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { ThemeService } from '@app-shared/services/theme.service';
 import { ExerciseDifficultyPipe, EncodeURIPipe } from '@iswavle/shared/ui';
 import {
   DIFFICULTY_TEXT,

@@ -1,7 +1,7 @@
 import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
 import { inject } from '@angular/core';
 import { DocContent, Params } from '@iswavle/shared/utils';
-import { DOCS_CONTENT_LOADER } from '@app-shared/providers';
+import { DOCS_CONTENT_LOADER } from '../providers';
 
 export const contentResolver: ResolveFn<DocContent | null> = (
   route: ActivatedRouteSnapshot,

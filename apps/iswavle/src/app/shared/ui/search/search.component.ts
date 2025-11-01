@@ -9,7 +9,7 @@ import {
 import { BehaviorSubject, combineLatest, debounceTime, map, tap } from 'rxjs';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { SearchService } from '@app-shared/services';
+import { SearchService } from '../../search.service';
 import { SearchResultComponent } from '..';
 import { AsyncPipe } from '@angular/common';
 import { NzIconModule } from 'ng-zorro-antd/icon';

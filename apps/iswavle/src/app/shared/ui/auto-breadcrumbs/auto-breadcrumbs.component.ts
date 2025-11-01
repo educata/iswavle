@@ -3,7 +3,7 @@ import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
-import { DOC_NAVIGATION } from '@app-shared/providers';
+import { DOC_NAVIGATION } from '@iswavle/shared/data-access';
 import { NavigationTreeNode } from '@iswavle/shared/utils';
 
 @Component({

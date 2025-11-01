@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { DEFAULT_KEYWORDS, DEFAULT_META_CONFIG } from '@iswavle/shared/utils';
 import { MetaTags } from '@iswavle/shared/utils';
-import { DocContent } from '@iswavle/shared/utils';
 import { ArticleToc } from '@global-shared/interfaces';
 
 @Injectable({

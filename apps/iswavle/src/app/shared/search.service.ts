@@ -35,7 +35,7 @@ export class SearchService {
       this.hasInitialized.set(true);
       try {
         this.worker = new Worker(
-          new URL('../../shared/workers/search-cache.worker', import.meta.url),
+          new URL('./workers/search-cache.worker.ts', import.meta.url),
           { type: 'module' },
         );
         this.http

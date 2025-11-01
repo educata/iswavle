@@ -8,3 +8,4 @@ export * from './layout-sizes';
 export * from './exercises-map';
 export * from './exercises-loader';
 export * from './exercise-navigation';
+export * from './environment';

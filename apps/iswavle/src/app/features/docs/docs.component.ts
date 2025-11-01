@@ -4,7 +4,7 @@ import {
   ThemeService,
   ContributorsService,
   LayoutService,
-} from '@app-shared/services';
+} from '@iswavle/shared/data-access';
 import {
   ChangeDetectionStrategy,
   Component,

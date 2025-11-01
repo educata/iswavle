@@ -18,12 +18,12 @@ import {
   SupportedPreviewLanguages,
 } from '@iswavle/shared/utils';
 import { DocContent, ExercisesContent } from '@iswavle/shared/utils';
-import { ENVIRONMENT } from '@app-shared/providers/environment';
 import {
   SanitizerService,
   CodeUtilService,
   ThemeService,
-} from '@app-shared/services';
+  ENVIRONMENT,
+} from '@iswavle/shared/data-access';
 import { combineLatest, delay, map, Subject, tap } from 'rxjs';
 
 @Directive({

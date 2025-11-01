@@ -8,8 +8,7 @@ import {
   inject,
 } from '@angular/core';
 import { Theme } from '@iswavle/shared/utils';
-import { ENVIRONMENT } from '@app-shared/providers/environment';
-import { ThemeService } from '@app-shared/services';
+import { ENVIRONMENT, ThemeService } from '@iswavle/shared/data-access';
 import { tap } from 'rxjs';
 
 @Component({

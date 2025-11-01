@@ -10,7 +10,7 @@ import { PlaygroundEffects, WebContainerFile } from '@iswavle/shared/utils';
 import {
   WEBCONTAINER_STATE,
   provideWebcontainerState,
-} from '@app-shared/providers';
+} from '@iswavle/shared/data-access';
 import { Uri } from 'monaco-editor';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';

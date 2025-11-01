@@ -16,7 +16,7 @@ import {
   DownloadService,
   MetaService,
   ThemeService,
-} from '@app-shared/services';
+} from '@iswavle/shared/data-access';
 import { NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';

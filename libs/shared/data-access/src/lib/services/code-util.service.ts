@@ -8,7 +8,7 @@ export class CodeUtilService {
     if (!htmlElement) return '';
 
     // Remove all HTML tags and get raw text
-    let textContent = htmlElement.replace(/<\/?[^>]+(>|$)/g, '');
+    const textContent = htmlElement.replace(/<\/?[^>]+(>|$)/g, '');
 
     // Decode HTML entities like &lt;, &gt;, &quot;, etc.
     const textArea = document.createElement('textarea');

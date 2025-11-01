@@ -8,8 +8,8 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { isPlatformBrowser } from '@angular/common';
-import { LAYOUT_SIZES } from '@app-shared/providers';
-import { fromEvent, map, startWith } from 'rxjs';
+import { LAYOUT_SIZES } from '../providers';
+import { fromEvent, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class LayoutService {

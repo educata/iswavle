@@ -1,1 +1,3 @@
-export * from './lib/data-access/data-access';
+export * from './lib/services';
+export * from './lib/providers';
+export * from './lib/resolvers';

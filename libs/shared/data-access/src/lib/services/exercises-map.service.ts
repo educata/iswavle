@@ -8,7 +8,7 @@ import {
   Params,
   ExercisesNavigation,
 } from '@iswavle/shared/utils';
-import { EXERCISES_NAVIGATION } from '@app-shared/providers';
+import { EXERCISES_NAVIGATION } from '../providers';
 
 @Injectable()
 export class ExercisesMapService

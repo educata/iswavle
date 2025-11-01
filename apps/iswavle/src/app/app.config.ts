@@ -13,7 +13,7 @@ import { IMAGE_CONFIG, registerLocaleData } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import ka from '@angular/common/locales/ka';
-import { SwTitleStrategy } from '@app-shared/services';
+import { SwTitleStrategy } from '@iswavle/shared/data-access';
 import { provideNzIcons } from 'ng-zorro-antd/icon';
 import { IconDefinition } from '@ant-design/icons-angular';
 import {

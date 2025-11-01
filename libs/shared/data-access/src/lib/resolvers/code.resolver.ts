@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ResolveFn, ActivatedRouteSnapshot } from '@angular/router';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
-import { CODE_LOADER } from '@app-shared/providers/code-loader';
+import { CODE_LOADER } from '../providers';
 import { Params } from '@iswavle/shared/utils';
 
 export const codeResolver: ResolveFn<NzTreeNodeOptions | null> = (

@@ -1,5 +1,5 @@
 import { inject, Pipe, PipeTransform } from '@angular/core';
-import { SanitizerService } from '@app-shared/services';
+import { SanitizerService } from '@iswavle/shared/data-access';
 
 @Pipe({
   name: 'sanitizeId',

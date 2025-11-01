@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
 import { ContentLoader } from '@iswavle/shared/utils';
 import { ExercisesContent } from '@iswavle/shared/utils';
-import { ExercisesLoaderService } from '@app-shared/services';
+import { ExercisesLoaderService } from '../services';
 
 export const EXERCISES_LOADER = new InjectionToken<
   ContentLoader<ExercisesContent>

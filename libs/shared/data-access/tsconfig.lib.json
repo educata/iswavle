@@ -13,5 +13,8 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts"]
+  "include": [
+    "src/**/*.ts",
+    "../../../apps/iswavle/src/app/shared/search.service.ts"
+  ]
 }
