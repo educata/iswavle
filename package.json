@@ -25,6 +25,7 @@
     "ci": "bun install --pure-lockfile",
     "start": "bun prerender && nx serve iswavle",
     "start:dev": "bun dev-example-assets && bun start",
+    "build:staging": "bun prerender && nx build iswavle --configuration staging",
     "build": "bun prerender && nx build iswavle --configuration production",
     "watch": "bun prerender && nx build iswavle --watch --configuration development",
     "test": "nx test iswavle",
