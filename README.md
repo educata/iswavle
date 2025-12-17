@@ -1,7 +1,7 @@
 <h1 align="center">Iswavle</h1>
 
 <p align="center">
-  <img src="./src/assets/icons/android-chrome-192x192.png" alt="iswavle-logo" />
+  <img src="./apps/iswavle/src/assets/icons/android-chrome-192x192.png" alt="iswavle-logo" />
   <br>
   <br>
   <em>ისწავლე ვებ დეველოპმენტი დამოუკიდებლად!</em>
