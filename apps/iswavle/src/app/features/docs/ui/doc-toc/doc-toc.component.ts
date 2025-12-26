@@ -10,11 +10,11 @@ import {
 import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 import { SanitizeIdPipe } from './sanitize-id.pipe';
-import { TocItem } from '@app-shared/interfaces';
+import { TocItem } from '@iswavle/shared/utils';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NgTemplateOutlet } from '@angular/common';
-import { ENVIRONMENT } from '@app-shared/providers/environment';
+import { ENVIRONMENT } from '@iswavle/shared/data-access';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({

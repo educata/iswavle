@@ -15,7 +15,7 @@ import {
   IndexMap,
   IndexMapResult,
   IndexMapResultContent,
-} from '@app-shared/interfaces';
+} from '@iswavle/shared/utils';
 import { BehaviorSubject } from 'rxjs';
 import { SearchBreadcrumbPipe } from './search-breadcrumb.pipe';
 

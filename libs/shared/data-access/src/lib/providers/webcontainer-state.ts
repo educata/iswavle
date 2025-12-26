@@ -1,0 +1,14 @@
+import { InjectionToken, Provider } from '@angular/core';
+import { WebContainerState } from '@iswavle/shared/utils';
+import { WebContainerService } from '../services';
+
+export const WEBCONTAINER_STATE = new InjectionToken<WebContainerState>(
+  'WEBCONTAINER_STATE',
+);
+
+export function provideWebcontainerState(): Provider {
+  return {
+    provide: WEBCONTAINER_STATE,
+    useClass: WebContainerService,
+  };
+}

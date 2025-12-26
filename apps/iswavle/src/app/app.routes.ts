@@ -4,7 +4,7 @@ import {
   contentResolver,
   exercisesMapResolver,
   exercisesResolver,
-} from './shared/resolvers';
+} from '@iswavle/shared/data-access';
 
 const indeterminateSegments = (url: UrlSegment[]) => {
   if (url.length) {

@@ -24,14 +24,18 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
-import { ThemeOptions } from '@app-shared/enums';
-import { LayoutService, ThemeService } from '@app-shared/services';
-import { LOG_GREETER, NAVIGATION } from './shared/providers';
+import { ThemeOptions } from '@iswavle/shared/utils';
+import {
+  LOG_GREETER,
+  NAVIGATION,
+  LayoutService,
+  ThemeService,
+  ENVIRONMENT,
+} from '@iswavle/shared/data-access';
 import { SearchComponent } from '@app-shared/ui';
-import { ENVIRONMENT } from '@app-shared/providers/environment';
-import { DISPLAY_THEMES } from '@app-shared/consts/theme';
+import { DISPLAY_THEMES } from '@iswavle/shared/utils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CUSTOM_ICONS, ICON_PREFIX } from '@app-shared/consts';
+import { CUSTOM_ICONS, ICON_PREFIX } from '@iswavle/shared/utils';
 
 @Component({
   selector: 'sw-root',

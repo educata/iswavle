@@ -15,7 +15,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule, NzMenuItemComponent } from 'ng-zorro-antd/menu';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { NavigationTreeNode } from '@app-shared/interfaces';
+import { NavigationTreeNode } from '@iswavle/shared/utils';
 import { NavItemDirective } from './nav-item.directive';
 
 @Component({

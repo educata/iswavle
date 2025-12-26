@@ -2,15 +2,13 @@ import { isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
   PLATFORM_ID,
   Renderer2,
   ViewContainerRef,
   inject,
 } from '@angular/core';
-import { Theme } from '@app-shared/enums';
-import { ENVIRONMENT } from '@app-shared/providers/environment';
-import { ThemeService } from '@app-shared/services';
+import { Theme } from '@iswavle/shared/utils';
+import { ENVIRONMENT, ThemeService } from '@iswavle/shared/data-access';
 import { tap } from 'rxjs';
 
 @Component({

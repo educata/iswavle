@@ -20,27 +20,27 @@ import {
   ExercisesService,
   LayoutService,
   MetaService,
-} from '@app-shared/services';
+  ThemeService,
+} from '@iswavle/shared/data-access';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { ThemeService } from '@app-shared/services/theme.service';
-import { ExerciseDifficultyPipe, EncodeURIPipe } from '@app-shared/pipes';
+import { ExerciseDifficultyPipe, EncodeURIPipe } from '@iswavle/shared/ui';
 import {
   DIFFICULTY_TEXT,
   EXERCISE_TAG_PATH_MAP,
   SHORTCUTS,
-} from '@app-shared/consts';
-import { LocalStorageKeys } from '@app-shared/enums';
+} from '@iswavle/shared/utils';
+import { LocalStorageKeys } from '@iswavle/shared/utils';
 import {
   ExercisesContent,
   ExercisesExecutionResult,
   ExercisesNavigation,
   ExercisesTableData,
   ExerciseStorageContent,
-} from '@app-shared/interfaces';
+} from '@iswavle/shared/utils';
 import { LoaderComponent } from '@app-shared/ui';
-import { ContentDirective } from '@app-shared/directives';
+import { ContentDirective } from '@iswavle/shared/ui';
 import {
   debounceTime,
   distinctUntilChanged,

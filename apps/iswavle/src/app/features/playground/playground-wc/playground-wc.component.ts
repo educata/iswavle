@@ -6,11 +6,11 @@ import {
   inject,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PlaygroundEffects, WebContainerFile } from '@app-shared/interfaces';
+import { PlaygroundEffects, WebContainerFile } from '@iswavle/shared/utils';
 import {
   WEBCONTAINER_STATE,
   provideWebcontainerState,
-} from '@app-shared/providers';
+} from '@iswavle/shared/data-access';
 import { Uri } from 'monaco-editor';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
@@ -37,7 +37,7 @@ import {
 } from 'rxjs';
 import { LanguageExtensionPipe } from '../language-extension.pipe';
 import { PlaygroundBaseComponent } from '../playground-base';
-import { TITLE_SUFFIX_SEPARATOR } from '@app-shared/consts';
+import { TITLE_SUFFIX_SEPARATOR } from '@iswavle/shared/utils';
 
 declare const monaco: any;
 

@@ -4,7 +4,7 @@ import {
   ThemeService,
   ContributorsService,
   LayoutService,
-} from '@app-shared/services';
+} from '@iswavle/shared/data-access';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -29,7 +29,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzBackTopModule } from 'ng-zorro-antd/back-top';
-import { DocContent } from '@app-shared/interfaces';
+import { DocContent } from '@iswavle/shared/utils';
 import {
   SidenavComponent,
   AutoBreadcrumbsComponent,

@@ -66,16 +66,21 @@
           ],
           "outputHashing": "all"
         },
+        "staging": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "2.5mb"
+            }
+          ],
+          "outputHashing": "all",
+          "prerender": false
+        },
         "development": {
           "optimization": false,
           "extractLicenses": false,
-          "sourceMap": true,
-          "fileReplacements": [
-            {
-              "replace": "apps/iswavle/src/environments/environment.ts",
-              "with": "apps/iswavle/src/environments/environment.development.ts"
-            }
-          ]
+          "sourceMap": true
         }
       },
       "defaultConfiguration": "production",

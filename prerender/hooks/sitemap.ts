@@ -5,7 +5,7 @@ import { promisify } from 'util';
 
 import { BuildHook, FileMeta } from '@global-shared/interfaces';
 import { ensureDir } from '../helpers';
-import { environment } from '../../apps/iswavle/src/environments/environment';
+import { environment } from '../../libs/shared/data-access/src/lib/environments/environment';
 import { SRC_PATH } from '../consts';
 
 const execAsync = promisify(exec);

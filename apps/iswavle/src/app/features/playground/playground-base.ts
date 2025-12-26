@@ -11,18 +11,18 @@ import {
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { MetaTags, Theme } from '@app-shared/enums';
+import { MetaTags, Theme } from '@iswavle/shared/utils';
 import {
   DownloadService,
   MetaService,
   ThemeService,
-} from '@app-shared/services';
+} from '@iswavle/shared/data-access';
 import { NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { BehaviorSubject, map, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { PlaygroundEffects } from '@app-shared/interfaces';
+import { PlaygroundEffects } from '@iswavle/shared/utils';
 
 @Component({
   selector: 'sw-playground-base',

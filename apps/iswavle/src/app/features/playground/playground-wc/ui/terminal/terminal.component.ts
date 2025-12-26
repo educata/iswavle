@@ -23,7 +23,7 @@ import {
   tap,
 } from 'rxjs';
 import { Terminal } from 'xterm';
-import { WEBCONTAINER_STATE, LAYOUT_SIZES } from '@app-shared/providers';
+import { WEBCONTAINER_STATE, LAYOUT_SIZES } from '@iswavle/shared/data-access';
 import 'xterm/css/xterm.css'; // terminal styles
 
 @Component({

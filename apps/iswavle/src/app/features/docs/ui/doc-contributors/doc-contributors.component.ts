@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Contributor } from '@app-shared/interfaces';
+import { Contributor } from '@iswavle/shared/utils';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 

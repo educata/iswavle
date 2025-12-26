@@ -1,5 +1,5 @@
 import { Directive } from '@angular/core';
-import { NavigationTreeNode } from '@app-shared/interfaces';
+import { NavigationTreeNode } from '@iswavle/shared/utils';
 
 export type NavItemContext = {
   $implicit: NavigationTreeNode[];
